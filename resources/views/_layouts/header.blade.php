@@ -6,23 +6,23 @@
             <li class="pcoded-hasmenu active pcoded-trigger">
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="feather icon-home"></i></span>
-                    <span class="pcoded-mtext">Dashboard</span>
+                    <span class="pcoded-mtext">Cabang</span>
                 </a>
                 <ul class="pcoded-submenu">
                     <li class="">
-                        <a href="index.html">
-                            <span class="pcoded-mtext">Default</span>
+                        <a href="{{route('cabang.create')}}">
+                            <span class="pcoded-mtext">Tambah Cabang</span>
                         </a>
                     </li>
-                    <li class="active">
+                    <li class="">
                         <a href="dashboard-crm.html">
-                            <span class="pcoded-mtext">CRM</span>
+                            <span class="pcoded-mtext">Edit Info Cabang</span>
                         </a>
                     </li>
                     <li class="">
                         <a href="dashboard-analytics.html">
-                            <span class="pcoded-mtext">Analytics</span>
-                            <span class="pcoded-badge label label-info ">NEW</span>
+                            <span class="pcoded-mtext">Data Cabang</span>
+                            {{-- <span class="pcoded-badge label label-info ">NEW</span> --}}
                         </a>
                     </li>
                 </ul>
@@ -30,29 +30,11 @@
         </ul>
         {{-- <div class="pcoded-navigatio-lavel"></div> --}}
         <ul class="pcoded-item pcoded-left-item">
-            <li class="pcoded-hasmenu active pcoded-trigger">
+            <li class="active pcoded-trigger">
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="feather icon-home"></i></span>
-                    <span class="pcoded-mtext">Coba</span>
+                    <span class="pcoded-mtext">Laporan</span>
                 </a>
-                <ul class="pcoded-submenu">
-                    <li class="">
-                        <a href="index.html">
-                            <span class="pcoded-mtext">Default</span>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="dashboard-crm.html">
-                            <span class="pcoded-mtext">CRM</span>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="dashboard-analytics.html">
-                            <span class="pcoded-mtext">Analytics</span>
-                            <span class="pcoded-badge label label-info ">NEW</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
         </ul>
     </div>
@@ -62,7 +44,7 @@
 
         <div class="navbar-logo">
             <a class="mobile-menu" id="mobile-collapse" href="#!">
-                <i class="feather icon-menu"></i>
+                {{-- <i class="feather icon-menu"></i> --}}
             </a>
             <a href="index.html">
                 {{-- <img class="img-fluid" src="../files/assets/images/logo.png" alt="Theme-Logo" /> --}}
@@ -73,13 +55,13 @@
         </div>
 
         <div class="navbar-container container-fluid">
-            <ul class="nav-left">
+            {{-- <ul class="nav-left">
                 <li>
                     <a href="#!" onclick="javascript:toggleFullScreen()">
                         <i class="feather icon-maximize full-screen"></i>
                     </a>
                 </li>
-            </ul>
+            </ul> --}}
             <ul class="nav-right">
                         <li class="header-notification">
                             <div class="dropdown-primary dropdown">
@@ -131,10 +113,22 @@
                                             <i class="feather icon-user"></i> Profile
                                         </a>
                                     </li>
-                                    <li>
+                                    {{-- <li>
                                         <a href="auth-normal-sign-in.html">
                                             <i class="feather icon-log-out"></i> Logout
                                         </a>
+                                    </li> --}}
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                                     <i class="feather icon-log-out"></i>
+                                            Logout
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
                                     </li>
                                 </ul>
 

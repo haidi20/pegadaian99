@@ -4,6 +4,7 @@
 	<div id="pcoded" class="pcoded">
       <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
+          
           @include('_layouts.header')
           
           <div class="pcoded-main-container">
