@@ -29,7 +29,7 @@
     <script type="text/javascript" src="{{asset('adminty/files/bower_components/jquery-i18next/js/jquery-i18next.min.js')}}"></script>
 
     <!-- Custom js -->
-     <script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/custom-picker.js')}}"></script>
+    <script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/custom-picker.js')}}"></script>
     <script src="{{asset('adminty/files/assets/js/pcoded.min.js')}}"></script>
     <script src="{{asset('adminty/files/assets/js/vartical-layout.min.js')}}"></script>
     <script src="{{asset('adminty/files/assets/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
