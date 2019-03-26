@@ -15,7 +15,6 @@ class CreateUsersTable extends Migration
     {
         Schema::table('user', function($table){
             $table->rememberToken();
-            $table->timestamps();
         });
     }
 
@@ -27,8 +26,6 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::table('user', function($table){
-            $table->dropColumn('created_at');
-            $table->dropColumn('updated_at');
             $table->dropColumn('remember_token');
         });
     }
