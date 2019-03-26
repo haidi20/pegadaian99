@@ -13,9 +13,9 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Nomor Cabang</label>
                             <div class="col-sm-10">
-                                <select name="select" class="form-control" name="nomor_cabang">
+                                <select class="form-control" name="id_cabang">
                                     @foreach($cabang as $index => $item)
-                                        <option value="{{$item->id_cabang}}" {{$user_cabang == $item->id_cabang ? 'selected' : ''}}>{{$item->id_cabang}}</option>
+                                        <option value="{{$item->id_cabang}}" {{$user_cabang == $item->id_cabang ? 'selected' : ''}}>{{$item->no_cabang}}</option>
                                     @endforeach
                                 </select>
                             </div>

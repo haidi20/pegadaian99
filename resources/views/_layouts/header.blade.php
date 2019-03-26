@@ -15,7 +15,7 @@
                         </a>
                     </li>
                     <li class="">
-                        <a href="dashboard-crm.html">
+                        <a href="{{route('cabang.edit')}}">
                             <span class="pcoded-mtext">Edit Info Cabang</span>
                         </a>
                     </li>
@@ -97,12 +97,12 @@
                         </div>
                         <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                             <li>
-                                <a href="{{route('cabang.setting.index')}}">
+                                <a href="{{route('cabang.setting')}}">
                                     <i class="feather icon-settings"></i> Pilih Cabang
                                 </a>
                             </li>
                             <li>
-                                <a href="user-profile.html">
+                                <a href="#!">
                                     <i class="feather icon-user"></i> Profile
                                 </a>
                             </li>

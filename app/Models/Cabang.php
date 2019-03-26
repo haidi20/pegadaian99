@@ -9,10 +9,11 @@ use Ramsey\Uuid\Uuid;
 
 class Cabang extends Model
 {
-    protected $table = "cabang";
-    protected $primaryKey = 'id_cabang';
-    protected $guarded = [];
-    protected $fillable = [
+    protected $table        = "cabang";
+    public $timestamps      = false;
+    protected $primaryKey   = 'id_cabang';
+    // protected $guarded   = [];
+    protected $fillable     = [
         'id_cabang',
         'no_cabang',
         'investor',
@@ -35,12 +36,12 @@ class Cabang extends Model
 
     public function getIncrementing()
     {
-        return false;
+        // return false;
     }
 
     public function getKeyType()
     {
-        return 'string';
+        // return 'string';
     }
 
     public function scopeShortedNoCabang($query)

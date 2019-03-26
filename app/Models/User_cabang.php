@@ -9,6 +9,7 @@ use Auth;
 class User_cabang extends Model
 {
     protected $table 		= 'user_cabang';
+    public $timestamps      = false;
     protected $primaryKey	= 'id_user_cabang';
     protected $fillable 	= [
     	'id_user_cabang',
@@ -16,8 +17,13 @@ class User_cabang extends Model
     	'username',
     ];
 
+    public function cabang()
+    {
+        return $this->belongsTo('App\Models\Cabang');
+    }
+
     // how to fetch data base username of user
-    public function scopeFetchData($query)
+    public function scopeBaseUsername($query)
     {
     	$query->whereUsername(Auth::user()->username);
 

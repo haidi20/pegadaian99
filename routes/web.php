@@ -20,10 +20,12 @@ Route::middleware('auth')->group(function() {
 	Route::group(['prefix' => 'cabang'], function(){
 		Route::get('/', 'CabangController@index')->name('cabang.index');
 		Route::get('/create', 'CabangController@create')->name('cabang.create');
+		Route::get('/edit', 'CabangController@edit')->name('cabang.edit');
 		Route::post('/store', 'CabangController@store')->name('cabang.store');
+		Route::post('/update/{id}', 'CabangController@update')->name('cabang.update');
 
 		Route::group(['prefix' => '/setting'], function(){
-			Route::get('/', 'CabangController@index_setting')->name('cabang.setting.index');
+			Route::get('/', 'CabangController@index_setting')->name('cabang.setting');
 			Route::post('/store', 'CabangController@store_setting')->name('cabang.setting.store');
 		});
 	});

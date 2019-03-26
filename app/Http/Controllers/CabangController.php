@@ -32,14 +32,27 @@ class CabangController extends Controller
     	return $this->form();
     }
 
-    public function edit($id)
+    public function edit()
     {
+        $id    = $this->user_cabang->baseUsername()->value('id_cabang'); 
+
         return $this->form($id);
     }
 
     public function form($id = null)
     {
-    	return view('cabang.form');
+        $cariCabang = $this->cabang->find($id);
+
+        if($cariCabang){
+            session()->flashInput($cariCabang->toArray());
+            $action = route('cabang.update',$id);
+            $method = 'PUT';
+        }else{
+            $action = route('cabang.store');
+            $method = 'PUT';
+        }   
+
+    	return view('cabang.form', compact('action', 'method'));
     }
 
     public function store()
@@ -47,38 +60,48 @@ class CabangController extends Controller
         return $this->save();
     }
 
+    public function update($id)
+    {
+        return $this->save($id);
+    }
+
     public function save($id = null)
     {
         $input = $this->request->except('_token');
 
-        $cabang = $this->cabang;
-        $cabang->create([
-            'investor'       => request('investor'),
-            'no_cabang'      => request('no_cabang'),
-            'nama_cabang'    => request('nama_cabang'),
-            'telp_cabang'    => request('telp_cabang'),
-            'alamat_cabang'  => request('alamat_cabang'),
-        ]);
+        if($id){
+            $cabang = $this->cabang->find($id);
+        }else{
+            $cabang = $this->cabang;
+        }    
+
+        $cabang->investor       = request('investor');
+        $cabang->no_cabang      = request('no_cabang');
+        $cabang->nama_cabang    = request('nama_cabang');
+        $cabang->telp_cabang    = request('telp_cabang');
+        $cabang->alamat_cabang  = request('alamat_cabang');
+        $cabang->save();
 
         return redirect()->route('cabang.index');
     }
 
     public function index_setting()
     {
-        $cabang         = $this->cabang->all();
+        $cabang         = $this->cabang->shortedNoCabang()->get();
         $user_cabang    = $this->user_cabang;
+        // how to fetch data by username of user
+        $user_cabang    = $user_cabang->baseUsername()->value('id_cabang');
 
-        // how to fetch data base username of user
-        $user_cabang = $user_cabang->fetchData()->value('id_cabang');
-
-        return $cabang;
-
-        // return view('cabang.setting', compact('user_cabang', 'cabang'));
+        return view('cabang.setting', compact('user_cabang', 'cabang'));
 
     }
 
     public function store_setting()
     {
-        return request('nomor_cabang');
+        $user_cabang                = $this->user_cabang->baseUsername()->first();
+        $user_cabang->id_cabang     = request('id_cabang');
+        $user_cabang->save();
+
+        return redirect()->route('cabang.setting');
     }
 }
