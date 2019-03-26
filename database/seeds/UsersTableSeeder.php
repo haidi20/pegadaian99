@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
 
         $user = new User;
         $user->username = 'admin';
-        $user->password = bcrypt('samarinda');
+        $user->password = bcrypt('admin123');
         $user->level    = 'admin';
         $user->created_at= Carbon::now();
         $user->updated_at= Carbon::now();

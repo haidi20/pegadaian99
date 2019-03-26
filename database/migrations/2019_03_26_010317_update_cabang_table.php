@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class UpdateCabangTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('user', function($table){
-            $table->rememberToken();
+        Schema::table('cabang', function($table){
             $table->timestamps();
         });
     }
@@ -26,10 +25,9 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('user', function($table){
+        Schema::table('cabang', function($table){
             $table->dropColumn('created_at');
             $table->dropColumn('updated_at');
-            $table->dropColumn('remember_token');
         });
     }
 }

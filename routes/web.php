@@ -19,7 +19,13 @@ Route::get('/',function(){
 Route::middleware('auth')->group(function() {
 	Route::group(['prefix' => 'cabang'], function(){
 		Route::get('/', 'CabangController@index')->name('cabang.index');
-		Route::get('/tambah', 'CabangController@create')->name('cabang.create');
+		Route::get('/create', 'CabangController@create')->name('cabang.create');
+		Route::post('/store', 'CabangController@store')->name('cabang.store');
+
+		Route::group(['prefix' => '/setting'], function(){
+			Route::get('/', 'CabangController@index_setting')->name('cabang.setting.index');
+			Route::post('/store', 'CabangController@store_setting')->name('cabang.setting.store');
+		});
 	});
 });
 
