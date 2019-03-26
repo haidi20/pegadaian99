@@ -1,11 +1,18 @@
 <nav class="pcoded-navbar">
     <div class="pcoded-inner-navbar main-menu">
-        <br><br>
-        <div class="pcoded-navigatio-lavel">Navigation</div>
+        <br><br><br>
+        {{-- <div class="pcoded-navigatio-lavel">Navigation</div> --}}
         <ul class="pcoded-item pcoded-left-item">
-            <li class="pcoded-hasmenu active pcoded-trigger">
+            <li class=" ">
+                <a href="">
+                    <span class="pcoded-micon"><i class="feather icon-file-plus"></i></span>
+                    <span class="pcoded-mtext" >Akad Baru</span>
+                    {{-- <span class="pcoded-badge label label-danger">HOT</span> --}}
+                </a>
+            </li>
+            <li class="pcoded-hasmenu pcoded-trigger"> {{-- active --}}
                 <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                    <span class="pcoded-micon"><i class="feather icon-list"></i></span>
                     <span class="pcoded-mtext">Cabang</span>
                 </a>
                 <ul class="pcoded-submenu">
@@ -19,7 +26,7 @@
                             <span class="pcoded-mtext">Edit Info Cabang</span>
                         </a>
                     </li>
-                    <li class="">
+                    <li class="active">
                         <a href="{{route('cabang.index')}}">
                             <span class="pcoded-mtext">Data Cabang</span>
                             {{-- <span class="pcoded-badge label label-info ">NEW</span> --}}
@@ -30,12 +37,23 @@
         </ul>
         {{-- <div class="pcoded-navigatio-lavel"></div> --}}
         <ul class="pcoded-item pcoded-left-item">
-            <li class="active pcoded-trigger">
+            <li class="pcoded-hasmenu">
                 <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="feather icon-clipboard"></i></span>
-                    <span class="pcoded-mtext">Laporan</span>
-                    
+                    <span class="pcoded-micon"><i class="icofont icofont-database"></i></span>
+                    <span class="pcoded-mtext">Database</span>
                 </a>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a href="{{route('cabang.create')}}">
+                            <span class="pcoded-mtext">Database Nasabah</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{{route('cabang.edit')}}">
+                            <span class="pcoded-mtext">Data Akad Nasabah</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
