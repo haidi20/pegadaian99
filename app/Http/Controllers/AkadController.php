@@ -28,9 +28,10 @@ class AkadController extends Controller
 
     public function index()
     {
-    	$akad = $this->akad->nasabah()->orderBy('id_akad', 'desc')->paginate(10);    	
+    	$akad 		= $this->akad->nasabah()->orderBy('id_akad', 'desc')->paginate(10); 
+    	$selectBy   = config('library.list_nasabah_akad');	
 
-    	return view('akad.index', compact('akad'));
+    	return view('akad.index', compact('akad', 'selectBy'));
     }
 
     public function create()

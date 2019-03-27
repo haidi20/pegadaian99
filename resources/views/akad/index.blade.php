@@ -88,6 +88,13 @@
                                                     </select> &nbsp; Entries
                                                 </div>
                                                 <div class="form-group float-right">
+                                                    By &nbsp;
+                                                    <select name="perpage" id="perpage" class="form-control">
+                                                        @foreach($selectBy as $index => $item)
+                                                            <option value="{{$item}}">{{$item}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    &nbsp;
                                                     Search &nbsp; : &nbsp;
                                                     <input type="text" name="q" id="q" class="form-control" value="{{ request('q') }}" placeholder="">
                                                     <button class="btn btn-default" id="btn-search">Oke</button>
