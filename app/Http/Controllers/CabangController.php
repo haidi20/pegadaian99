@@ -24,7 +24,9 @@ class CabangController extends Controller
 
     public function index()
     {
-    	return view('cabang.index');
+        $cabang = $this->cabang->all();
+
+    	return view('cabang.index', compact('cabang'));
     }
 
     public function create()

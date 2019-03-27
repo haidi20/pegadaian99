@@ -9,17 +9,22 @@
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/icon/icofont/css/icofont.css')}}">
 <!-- feather Awesome -->
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/icon/feather/css/feather.css')}}">
-<!-- Style.css -->
-<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/css/style.css')}}">
 
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/css/linearicons.css')}}">
 
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/css/jquery.mCustomScrollbar.css')}}">
 
+<!-- Range slider css -->
+<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/seiyria-bootstrap-slider/css/bootstrap-slider.css')}}">
+
 <!-- Date-time picker css -->
-<link rel="stylesheet" type="text/css" href="{{('adminty/files/assets/pages/advance-elements/css/bootstrap-datetimepicker.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/pages/advance-elements/css/bootstrap-datetimepicker.css')}}">
+
 <!-- Date-range picker css  -->
-<link rel="stylesheet" type="text/css" href="{{('adminty/files/bower_components/bootstrap-daterangepicker/css/daterangepicker.css')}}">
+{{-- <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/bootstrap-daterangepicker/css/daterangepicker.css')}}"> --}}
+
+<!-- Style.css -->
+<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/css/style.css')}}">
 
 <style>
 	.float-right{

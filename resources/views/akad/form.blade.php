@@ -35,25 +35,25 @@
                         <div class="form-radio">
                             <div class="radio radio-inline">
                                 <label>
-                                    <input type="radio" name="radio" checked="checked">
+                                    <input type="radio" name="jangka_waktu_akad" value="1" checked="{{checked('1', 'jangka_waktu_akad')}}">
                                     <i class="helper"></i>1 Hari
                                 </label>
                             </div>
                             <div class="radio radio-inline">
                                 <label>
-                                    <input type="radio" name="radio" checked="checked">
+                                    <input type="radio" name="jangka_waktu_akad" value="7" checked="{{checked('7', 'jangka_waktu_akad')}}">
                                     <i class="helper"></i>7 Hari
                                 </label>
                             </div>
                             <div class="radio radio-inline">
                                 <label>
-                                    <input type="radio" name="radio" checked="checked">
+                                    <input type="radio" name="jangka_waktu_akad" value="30" checked="{{checked('30', 'jangka_waktu_akad')}}">
                                     <i class="helper"></i>30 Hari
                                 </label>
                             </div>
                             <div class="radio radio-inline">
                                 <label>
-                                    <input type="radio" name="radio">
+                                    <input type="radio" name="jangka_waktu_akad" value="60" checked="{{checked('60', 'jangka_waktu_akad')}}">
                                     <i class="helper"></i>60 hari
                                 </label>
                             </div>
@@ -121,17 +121,75 @@
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="radio" checked="">
+                                        <input type="radio" name="jenis_barang" checked="{{checked('elektronik', 'jenis_barang')}}">
                                         <i class="helper"></i>Elektronik
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="radio" checked="checked">
+                                        <input type="radio" name="jenis_barang" checked="{{checked('kendaran', 'jenis_barang')}}">
                                         <i class="helper"></i>Kendaraan
                                     </label>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" >Kelengkapan barang</label>
+                        <div class="col-sm-10">
+                            <textarea rows="5" cols="5" class="form-control" id="kelengkapan" name="kelengkapan" >{{old('kelengkapan')}}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" >Kekurangan / Kerusakan Barang</label>
+                        <div class="col-sm-10">
+                            <textarea rows="5" cols="5" class="form-control" id="kekurangan" name="kekurangan" >{{old('kekurangan')}}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="row">
+        <div class="col-sm-12">
+             <div class="card">
+                <div class="card-block">
+                    {{-- <h3 class="sub-title">Keterangan Marhun Barang Jaminan</h3> --}}
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="taksiran_marhun">Taksiran Marhun</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="taksiran_marhun" id="taksiran_marhun" value="{{old('taksiran_marhun')}}" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="marhun_bih">Marhun Bih</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="marhun_bih" id="marhun_bih" value="{{old('marhun_bih')}}" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="persenan">Persenan</label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" name="persenan" id="persenan" value="{{old('persenan')}}" required>
+                        </div>
+                        %
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="bt_7_hari">Biaya Titip Per 7 Hari</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="bt_7_hari" id="bt_7_hari" value="{{old('bt_7_hari')}}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="biaya_admin">Biaya Administrasi</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="biaya_admin" id="biaya_admin" value="{{old('biaya_admin')}}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="terbilang">Terbilang</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="terbilang" id="terbilang" value="{{old('terbilang')}}" disabled>
                         </div>
                     </div>
                 </div>

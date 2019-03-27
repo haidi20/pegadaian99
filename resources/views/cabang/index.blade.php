@@ -58,16 +58,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($cabang as $index => $item)
                                 <tr>
-                                    <td>01</td>
-                                    <td>SUHARTATIK</td>
+                                    <td>{{$item->no_cabang}}</td>
+                                    <td>{{$item->nama_cabang}}</td>
                                     <td class="text-right">Rp.540.000.00,-</td>
                                 </tr>
-                                <tr>
-                                    <td>02</td>
-                                    <td>MAMA OKA</td>
-                                    <td class="text-right">Rp.760.000.00,-</td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
