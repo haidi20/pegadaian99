@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Akad;
 use App\Models\Nasabah;
+use App\Models\user_cabang;
 
 use Carbon\Carbon;
 
@@ -14,17 +15,20 @@ class AkadController extends Controller
     public function __construct(
     							Akad $akad,
     							Nasabah $nasabah,
-                                Request $request
+    							Request $request,
+    							User_cabang $user_cabang
                             )
     {
-    	$this->akad 	= $akad;
-    	$this->nasabah 	= $nasabah;
-        $this->request  = $request;
+    	$this->akad 		= $akad;
+    	$this->nasabah 		= $nasabah;
+    	$this->request  	= $request;
+    	$this->user_cabang 	= $user_cabang;
+        
     }
 
     public function index()
     {
-    	$akad = $this->akad->nasabah()->orderBy('id_akad')->paginate(10);
+    	$akad = $this->akad->nasabah()->orderBy('id_akad', 'desc')->paginate(10);
 
     	return view('akad.index', compact('akad'));
     }
@@ -64,7 +68,9 @@ class AkadController extends Controller
 
     public function save($id = null)
     {
-    	$input = $this->request->except('_token');
+
+    	$input 		= $this->request->except('_token');
+    	$id_cabang	= $this->user_cabang->baseUsername()->value('id_cabang');
 
     	$nasabah = $this->nasabah;
     	$nasabah->key_nasabah 	= uniqid();
@@ -77,9 +83,27 @@ class AkadController extends Controller
     	$nasabah->tanggal_lahir	= request('tanggal_lahir');
     	$nasabah->alamat		= request('alamat');
     	$nasabah->tanggal_daftar= Carbon::now()->format('Y-m-d');
-    	$nasabah->save();
+    	// $nasabah->save();
 
-    	return redirect()->route('akad.index');
+    	$akad = $this->akad;
+    	$akad->id_cabang 			= $id_cabang;
+    	$akad->no_id 				= request('no_id');
+    	$akad->key_nasabah 			= $nasabah->key_nasabah;
+    	$akad->nama_barang			= request('nama_barang'); 
+    	$akad->jenis_barang			= request('jenis_barang'); 
+    	$akad->kelengkapan			= request('kelengkapan'); 
+    	$akad->kekurangan			= request('kekurangan'); 
+    	$akad->jangka_waktu_akad	= request('jangka_waktu_akad'); 
+    	$akad->tanggal_akad			= request('tanggal_akad'); 
+    	$akad->tanggal_jatuh_tempo	= request('tanggal_jatuh_tempo'); 
+    	$akad->nilai_tafsir			= request('taksiran_marhun'); 
+    	$akad->nilai_pencairan		= request('marhun_bih'); 
+    	$akad->bt_7_hari			= request('bt_7_hari'); 
+    	$akad->biaya_admin			= request('biaya_admin'); 
+    	$akad->terbilang			= request('terbilang'); 
+    	$akad->status				= 'lunas'; 
+
+    	// return redirect()->route('akad.index');
     }
 
     public function destroy($id)

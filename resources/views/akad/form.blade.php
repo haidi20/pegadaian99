@@ -1,5 +1,15 @@
 @extends('_layouts.default')
 
+@section('script-bottom')
+    <script>
+        $(document).ready(function(event) {
+            $('#marhun_bih').on('keyup' ,function(){
+                $('#terbilang').val(terbilang(this.value));
+            });
+        });
+    </script>
+@endsection
+
 @section('content')
 <div class="page-header">
     <div class="row align-items-end">

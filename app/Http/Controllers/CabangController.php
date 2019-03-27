@@ -77,6 +77,7 @@ class CabangController extends Controller
             $cabang = $this->cabang;
         }    
 
+        $cabang->id_cabang      = uniqid();
         $cabang->investor       = request('investor');
         $cabang->no_cabang      = request('no_cabang');
         $cabang->nama_cabang    = request('nama_cabang');

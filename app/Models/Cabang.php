@@ -24,14 +24,14 @@ class Cabang extends Model
 
     protected static function boot()
     {
-        parent::boot();
-        static::creating(function ($model) {
-            try {
-                $model->id_cabang = Uuid::uuid4()->toString();
-            } catch (UnsatisfiedDependencyException $e) {
-                abort(500, $e->getMessage());
-            }
-        });
+        // parent::boot();
+        // static::creating(function ($model) {
+        //     try {
+        //         $model->id_cabang = Uuid::uuid4()->toString();
+        //     } catch (UnsatisfiedDependencyException $e) {
+        //         abort(500, $e->getMessage());
+        //     }
+        // });
     }
 
     public function nasabah()
