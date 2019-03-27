@@ -19,6 +19,7 @@ Route::get('/',function(){
 Route::middleware('auth')->group(function() {
 	Route::group(['prefix' => 'akad'], function(){
 		Route::get('/', 'AkadController@index')->name('akad.index');
+		Route::get('/create', 'AkadController@create')->name('akad.create');
 	});
 	Route::group(['prefix' => 'cabang'], function(){
 		Route::get('/', 'CabangController@index')->name('cabang.index');

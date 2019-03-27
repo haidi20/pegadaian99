@@ -17,4 +17,14 @@ class AkadController extends Controller
     {
     	return view('akad.index');
     }
+
+    public function create()
+    {
+    	return $this->form();
+    }
+
+    public function form($id = null)
+    {
+    	return view('akad.form');
+    }
 }

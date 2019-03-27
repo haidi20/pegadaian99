@@ -4,13 +4,13 @@
         {{-- <div class="pcoded-navigatio-lavel">Navigation</div> --}}
         <ul class="pcoded-item pcoded-left-item">
             <li class=" ">
-                <a href="">
+                <a href="{{route('akad.create')}}">
                     <span class="pcoded-micon"><i class="feather icon-file-plus"></i></span>
                     <span class="pcoded-mtext" >Akad Baru</span>
                     {{-- <span class="pcoded-badge label label-danger">HOT</span> --}}
                 </a>
             </li>
-            <li class="pcoded-hasmenu pcoded-trigger"> {{-- active --}}
+            <li class="pcoded-hasmenu"> {{-- active pcoded-trigger --}}
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="feather icon-list"></i></span>
                     <span class="pcoded-mtext">Cabang</span>
@@ -26,7 +26,7 @@
                             <span class="pcoded-mtext">Edit Info Cabang</span>
                         </a>
                     </li>
-                    <li class="active">
+                    <li class="">
                         <a href="{{route('cabang.index')}}">
                             <span class="pcoded-mtext">Data Cabang</span>
                             {{-- <span class="pcoded-badge label label-info ">NEW</span> --}}
