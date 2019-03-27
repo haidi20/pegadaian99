@@ -79,7 +79,7 @@
                     <div class="form-group row">
                         {{-- <label class="col-sm-2 col-form-label" for="investor">Investor</label> --}}
                         <div class="col-sm-10">
-                            <input type="date" class="form-control" name="tanggal_akad" id="tanggal_akad" value="{{old('tanggal_akad')}}">
+                            <input type="input" class="form-control" name="tanggal_akad" id="tanggal_akad" value="{{$tanggal_akad}}" disabled>
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                     <div class="form-group row">
                         {{-- <label class="col-sm-2 col-form-label" for="investor">Investor</label> --}}
                         <div class="col-sm-10">
-                            <input type="date" class="form-control" name="tanggal_jatuh_tempo" id="tanggal_jatuh_tempo">
+                            <input type="input" class="form-control" name="tanggal_jatuh_tempo" id="tanggal_jatuh_tempo" value="{{$tanggal_jatuh}}" disabled>
                         </div>
                     </div>
                 </div>

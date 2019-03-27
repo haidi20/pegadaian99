@@ -84,7 +84,7 @@
                                                 <th>Tanggal Akad</th>
                                                 <th>Jatuh Tempo</th>
                                                 <th>Prosedur</th>
-                                                <th>action</th>
+                                                {{-- <th>action</th> --}}
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -100,7 +100,7 @@
                                                         <td>{{$item->tanggal_akad}}</td>
                                                         <td>{{$item->tanggal_jatuh_tempo}}</td>
                                                         <td></td>
-                                                        <td>
+                                                        {{-- <td>
                                                             <a href="{{route('akad.edit', $item->id)}}" class="btn btn-sm btn-info">
                                                                 <i class="icon-pencil3"></i> Edit
                                                             </a>
@@ -110,7 +110,7 @@
                                                                 <i class="icon-trash3"></i>
                                                                 Delete
                                                             </a>
-                                                        </td>
+                                                        </td> --}}
                                                     </tr>
                                                 @empty
                                                 <tr>

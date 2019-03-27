@@ -28,7 +28,7 @@ class AkadController extends Controller
 
     public function index()
     {
-    	$akad = $this->akad->nasabah()->orderBy('id_akad', 'desc')->paginate(10);
+    	$akad = $this->akad->nasabah()->orderBy('id_akad', 'desc')->paginate(10);    	
 
     	return view('akad.index', compact('akad'));
     }
@@ -53,7 +53,10 @@ class AkadController extends Controller
             $method = 'POST';
     	}
 
-    	return view('akad.form', compact('action', 'method'));
+    	$tanggal_akad	= Carbon::now()->format('Y-m-d');
+    	$tanggal_jatuh 	= Carbon::now()->addYear()->subDay()->format('Y-m-d');
+
+    	return view('akad.form', compact('action', 'method', 'tanggal_akad', 'tanggal_jatuh'));
     }
 
     public function store()
@@ -72,7 +75,7 @@ class AkadController extends Controller
     	$input 		= $this->request->except('_token');
     	$id_cabang	= $this->user_cabang->baseUsername()->value('id_cabang');
 
-    	$nasabah = $this->nasabah;
+    	$nasabah 				= $this->nasabah;
     	$nasabah->key_nasabah 	= uniqid();
     	$nasabah->nama_lengkap	= request('nama_lengkap');
     	$nasabah->jenis_kelamin	= request('jenis_kelamin');
@@ -83,9 +86,9 @@ class AkadController extends Controller
     	$nasabah->tanggal_lahir	= request('tanggal_lahir');
     	$nasabah->alamat		= request('alamat');
     	$nasabah->tanggal_daftar= Carbon::now()->format('Y-m-d');
-    	// $nasabah->save();
+    	$nasabah->save();
 
-    	$akad = $this->akad;
+    	$akad 						= $this->akad;
     	$akad->id_cabang 			= $id_cabang;
     	$akad->no_id 				= request('no_id');
     	$akad->key_nasabah 			= $nasabah->key_nasabah;
@@ -101,9 +104,10 @@ class AkadController extends Controller
     	$akad->bt_7_hari			= request('bt_7_hari'); 
     	$akad->biaya_admin			= request('biaya_admin'); 
     	$akad->terbilang			= request('terbilang'); 
-    	$akad->status				= 'lunas'; 
+    	$akad->status				= 'lunas';
+    	$akad->save(); 
 
-    	// return redirect()->route('akad.index');
+    	return redirect()->route('akad.index');
     }
 
     public function destroy($id)
