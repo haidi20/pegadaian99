@@ -20,3 +20,10 @@
 <link rel="stylesheet" type="text/css" href="{{('adminty/files/assets/pages/advance-elements/css/bootstrap-datetimepicker.css')}}">
 <!-- Date-range picker css  -->
 <link rel="stylesheet" type="text/css" href="{{('adminty/files/bower_components/bootstrap-daterangepicker/css/daterangepicker.css')}}">
+
+<style>
+	.float-right{
+		position: absolute;
+		right:0px;
+	}
+</style>

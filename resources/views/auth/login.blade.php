@@ -43,7 +43,7 @@
                                     </div>
                                     <hr/>
                                     <div class="form-group form-primary">
-                                        <input type="text" name="username" class="form-control" required="" placeholder="Your Email Address">
+                                        <input type="text" name="username" class="form-control" required="" placeholder="Your Username">
                                         <span class="form-bar"></span>
                                     </div>
                                     <div class="form-group form-primary">

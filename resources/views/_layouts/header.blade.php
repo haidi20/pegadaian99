@@ -44,12 +44,12 @@
                 </a>
                 <ul class="pcoded-submenu">
                     <li class="">
-                        <a href="{{route('cabang.create')}}">
+                        <a href="javascript:void(0)">
                             <span class="pcoded-mtext">Database Nasabah</span>
                         </a>
                     </li>
                     <li class="">
-                        <a href="{{route('cabang.edit')}}">
+                        <a href="{{route('akad.index')}}">
                             <span class="pcoded-mtext">Data Akad Nasabah</span>
                         </a>
                     </li>
