@@ -34,6 +34,11 @@ class Cabang extends Model
         });
     }
 
+    public function nasabah()
+    {
+        return $this->belongsTo('App\Models\Nasabah', 'key_nasabah');
+    }
+
     public function getIncrementing()
     {
         // return false;

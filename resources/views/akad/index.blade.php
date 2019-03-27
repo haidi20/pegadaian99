@@ -91,9 +91,9 @@
                                                 @forelse($akad as $index => $item)
                                                     <tr>
                                                         <td>{{$index + 1}}</td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
+                                                        <td>{{$item->nama_lengkap}}</td>
+                                                        <td>{{$item->no_telp}}</td>
+                                                        <td>{{$item->no_id}}</td>
                                                         <td>{{$item->nama_barang}}</td>
                                                         <td>{{$item->nilai_tafsir}}</td>
                                                         <td></td>

@@ -28,4 +28,16 @@ class Akad extends Model
         'terbilang',
         'status',
     ];
+
+    public function scopeNasabah($query)
+    {
+        return $query->leftJoin('nasabah', 'akad.key_nasabah', '=', 'nasabah.key_nasabah');
+    }
+
+    public function getNamaNasabahAttribute()
+    {
+    	if($this->nasabah){
+    		return $this->nasabah->nama_lengkap;
+    	}
+    }
 }

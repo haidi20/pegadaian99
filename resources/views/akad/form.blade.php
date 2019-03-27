@@ -23,15 +23,15 @@
         </div>
     </div>
 </div>
+ <form action="{{$action}}" method="post">
+<input type="hidden" name="_method" value="post">
+{{csrf_field()}}
 <div class="page-body">
     <div class="row">
         <div class="col-sm-4">
              <div class="card">
                 <div class="card-block">
                     <h3 class="sub-title">Jangka Waktu Akad</h3>
-                    <form action="#" method="post">
-                        <input type="hidden" name="_method" value="post">
-                        {{csrf_field()}}
                         <div class="form-radio">
                             <div class="radio radio-inline">
                                 <label>
@@ -98,6 +98,7 @@
                         <label class="col-sm-2 col-form-label" for="no_id">No. ID</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="no_id" id="no_id" value="C99-01-030417-001" disabled>
+                            <input type="hidden" class="form-control" name="no_id" id="no_id" value="C99-01-030417-001">
                         </div>
                     </div>
                 </div>
@@ -112,7 +113,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="nama_barang">Nama Barang</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nama_barang" id="nama_barang" value="{{old('nama_barang')}}" required>
+                            <input type="text" class="form-control" name="nama_barang" id="nama_barang" value="{{old('nama_barang')}}" >
                         </div>
                     </div>
                     <div class="form-group row">
@@ -121,13 +122,13 @@
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_barang" checked="{{checked('elektronik', 'jenis_barang')}}">
+                                        <input type="radio" name="jenis_barang" value="elektronik" checked="{{checked('elektronik', 'jenis_barang')}}">
                                         <i class="helper"></i>Elektronik
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_barang" checked="{{checked('kendaran', 'jenis_barang')}}">
+                                        <input type="radio" name="jenis_barang" value="kendaraan" checked="{{checked('kendaran', 'jenis_barang')}}">
                                         <i class="helper"></i>Kendaraan
                                     </label>
                                 </div>
@@ -158,19 +159,19 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="taksiran_marhun">Taksiran Marhun</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="taksiran_marhun" id="taksiran_marhun" value="{{old('taksiran_marhun')}}" required>
+                            <input type="text" class="form-control" name="taksiran_marhun" id="taksiran_marhun" value="{{old('taksiran_marhun')}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="marhun_bih">Marhun Bih</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="marhun_bih" id="marhun_bih" value="{{old('marhun_bih')}}" required>
+                            <input type="text" class="form-control" name="marhun_bih" id="marhun_bih" value="{{old('marhun_bih')}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="persenan">Persenan</label>
                         <div class="col-sm-1">
-                            <input type="text" class="form-control" name="persenan" id="persenan" value="{{old('persenan')}}" required>
+                            <input type="text" class="form-control" name="persenan" id="persenan" value="{{old('persenan')}}">
                         </div>
                         %
                     </div>
@@ -178,18 +179,21 @@
                         <label class="col-sm-2 col-form-label" for="bt_7_hari">Biaya Titip Per 7 Hari</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="bt_7_hari" id="bt_7_hari" value="{{old('bt_7_hari')}}" disabled>
+                            <input type="hidden" class="form-control" name="bt_7_hari" id="bt_7_hari" value="{{old('bt_7_hari')}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="biaya_admin">Biaya Administrasi</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="biaya_admin" id="biaya_admin" value="{{old('biaya_admin')}}" disabled>
+                            <input type="hidden" class="form-control" name="biaya_admin" id="biaya_admin" value="{{old('biaya_admin')}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="terbilang">Terbilang</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="terbilang" id="terbilang" value="{{old('terbilang')}}" disabled>
+                            <input type="hidden" class="form-control" name="terbilang" id="terbilang" value="{{old('terbilang')}}">
                         </div>
                     </div>
                 </div>
@@ -204,7 +208,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="nama_lengkap">Nama Lengkap</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap" value="{{old('nama_lengkap')}}" required>
+                            <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap" value="{{old('nama_lengkap')}}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -235,13 +239,13 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="kota">Kota</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="kota" id="kota" value="{{old('kota')}}" required>
+                            <input type="text" class="form-control" name="kota" id="kota" value="{{old('kota')}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="no_telp">No. Telp</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="no_telp" id="no_telp" value="{{old('no_telp')}}" required>
+                            <input type="text" class="form-control" name="no_telp" id="no_telp" value="{{old('no_telp')}}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -272,7 +276,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="no_identitas">No. Identitas</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="no_identitas" id="no_identitas" value="{{old('no_identitas')}}" required>
+                            <input type="text" class="form-control" name="no_identitas" id="no_identitas" value="{{old('no_identitas')}}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -286,5 +290,6 @@
             </div>
         </div>
     </div>
+    </form>
 </div>
 @endsection

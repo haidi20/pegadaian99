@@ -19,7 +19,7 @@ class AkadController extends Controller
 
     public function index()
     {
-    	$akad = $this->akad->paginate(10);
+    	$akad = $this->akad->nasabah()->orderBy('id_akad')->paginate(10);
 
     	return view('akad.index', compact('akad'));
     }
@@ -36,7 +36,15 @@ class AkadController extends Controller
 
     public function form($id = null)
     {
-    	return view('akad.form');
+    	if($id){
+    		$action = route('akad.update', $id);
+            $method = 'PUT';
+    	}else{
+    		$action = route('akad.store');
+            $method = 'POST';
+    	}
+
+    	return view('akad.form', compact('action', 'method'));
     }
 
     public function store()
@@ -51,6 +59,8 @@ class AkadController extends Controller
 
     public function save($id = null)
     {
+    	$input = $this->request->except('_token');
+
 
     }
 

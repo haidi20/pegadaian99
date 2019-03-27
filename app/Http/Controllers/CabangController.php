@@ -47,11 +47,11 @@ class CabangController extends Controller
 
         if($cariCabang){
             session()->flashInput($cariCabang->toArray());
-            $action = route('cabang.update',$id);
+            $action = route('cabang.update', $id);
             $method = 'PUT';
         }else{
             $action = route('cabang.store');
-            $method = 'PUT';
+            $method = 'store';
         }   
 
     	return view('cabang.form', compact('action', 'method'));
