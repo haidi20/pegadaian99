@@ -254,19 +254,19 @@
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_identitas" value="KTP" checked="{{checked('KTP', 'jenis_identitas')}}">
+                                        <input type="radio" name="jenis_id" value="KTP" checked="{{checked('KTP', 'jenis_id')}}">
                                         <i class="helper"></i>KTP
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_identitas" value="SIM" checked="{{checked('SIM', 'jenis_identitas')}}">
+                                        <input type="radio" name="jenis_id" value="SIM" checked="{{checked('SIM', 'jenis_id')}}">
                                         <i class="helper"></i>SIM
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_identitas" value="KK" checked="{{checked('KK', 'jenis_identitas')}}">
+                                        <input type="radio" name="jenis_id" value="KK" checked="{{checked('KK', 'jenis_id')}}">
                                         <i class="helper"></i>KK
                                     </label>
                                 </div>

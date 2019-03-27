@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Akad;
+use App\Models\Nasabah;
+
+use Carbon\Carbon;
 
 class AkadController extends Controller
 {
     public function __construct(
     							Akad $akad,
+    							Nasabah $nasabah,
                                 Request $request
                             )
     {
     	$this->akad 	= $akad;
+    	$this->nasabah 	= $nasabah;
         $this->request  = $request;
     }
 
@@ -61,7 +66,20 @@ class AkadController extends Controller
     {
     	$input = $this->request->except('_token');
 
+    	$nasabah = $this->nasabah;
+    	$nasabah->key_nasabah 	= uniqid();
+    	$nasabah->nama_lengkap	= request('nama_lengkap');
+    	$nasabah->jenis_kelamin	= request('jenis_kelamin');
+    	$nasabah->kota			= request('kota');
+    	$nasabah->no_telp		= request('no_telp');
+    	$nasabah->jenis_id		= request('jenis_id');
+    	$nasabah->no_identitas	= request('no_identitas');
+    	$nasabah->tanggal_lahir	= request('tanggal_lahir');
+    	$nasabah->alamat		= request('alamat');
+    	$nasabah->tanggal_daftar= Carbon::now()->format('Y-m-d');
+    	$nasabah->save();
 
+    	return redirect()->route('akad.index');
     }
 
     public function destroy($id)
