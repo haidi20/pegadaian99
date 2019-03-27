@@ -1,5 +1,21 @@
 @extends('_layouts.default')
 
+@section('script-bottom')
+    <!-- Bootstrap date-time-picker js -->
+    <script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/moment-with-locales.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('adminty/files/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/bootstrap-datetimepicker.min.js')}}"></script>
+    <!-- Date-range picker js -->
+    <script type="text/javascript" src="{{asset('adminty/files/bower_components/bootstrap-daterangepicker/js/daterangepicker.js')}}"></script>
+    <!-- Date-dropper js -->
+    <script type="text/javascript" src="{{asset('adminty/files/bower_components/datedropper/js/datedropper.min.js')}}"></script>
+    <!-- Color picker js -->
+    <script type="text/javascript" src="{{asset('adminty/files/bower_components/spectrum/js/spectrum.js')}}"></script>
+    <script type="text/javascript" src="{{asset('adminty/files/bower_components/jscolor/js/jscolor.js')}}"></script>
+
+    <script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/custom-picker.js')}}"></script>
+@endsection
+
 @section('content')
 <div class="page-header">
     <div class="row align-items-end">
@@ -26,25 +42,9 @@
 <div class="page-body">
     <div class="row">
         <div class="col-sm-6 col-md-12">
-
              <div class="card">
-                <div class="card-header">                             
-                    <form method="get" class="form-inline mb10">
-                        <div class="form-group">
-                            Show &nbsp;
-                            <select name="perpage" id="perpage" class="form-control">
-                                <option {{ (request('perpage') == 10) ? 'selected' : '' }}>10</option>
-                                <option {{ (request('perpage') == 25) ? 'selected' : '' }}>25</option>
-                                <option {{ (request('perpage') == 50) ? 'selected' : '' }}>50</option>
-                                <option {{ (request('perpage') == 100) ? 'selected' : '' }}>100</option>
-                            </select> &nbsp; Entries
-                        </div>
-                        <div class="form-group float-right">
-                            Search &nbsp; : &nbsp;
-                            <input type="text" name="q" id="q" class="form-control" value="{{ request('q') }}" placeholder="">
-                            <button class="btn btn-default" id="btn-search">Oke</button>
-                        </div>
-                    </form>
+                <div class="card-header">
+                    
                 </div>
                 <div class="card-block">
                     <!-- Row start -->
@@ -70,6 +70,31 @@
                             <div class="tab-content card-block">
                                 <div class="tab-pane active" id="home3" role="tabpanel">
                                     <div class="sub-title">List Nasabah Akad</div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xl-4 m-b-30">
+                                            <input type="text" name="daterange" class="form-control" value="01/01/2015 - 01/31/2015" />
+                                        </div>
+                                    </div>                             
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-12">
+                                            <form method="get" class="form-inline mb10">
+                                                <div class="form-group">
+                                                    Show &nbsp;
+                                                    <select name="perpage" id="perpage" class="form-control">
+                                                        <option {{ (request('perpage') == 10) ? 'selected' : '' }}>10</option>
+                                                        <option {{ (request('perpage') == 25) ? 'selected' : '' }}>25</option>
+                                                        <option {{ (request('perpage') == 50) ? 'selected' : '' }}>50</option>
+                                                        <option {{ (request('perpage') == 100) ? 'selected' : '' }}>100</option>
+                                                    </select> &nbsp; Entries
+                                                </div>
+                                                <div class="form-group float-right">
+                                                    Search &nbsp; : &nbsp;
+                                                    <input type="text" name="q" id="q" class="form-control" value="{{ request('q') }}" placeholder="">
+                                                    <button class="btn btn-default" id="btn-search">Oke</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div><br>
                                     <div class="table-responsive dt-responsive">
                                         <table id="dt-ajax-array" class="table table-striped table-bordered nowrap">
                                             <thead>
