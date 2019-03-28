@@ -20,11 +20,18 @@ class CabangController extends Controller
         $this->cabang           = $cabang;
         $this->request          = $request;
         $this->user_cabang      = $user_cabang;
+
+        view()->share([
+            'menu'          => 'cabang',
+            'menu_header'   => config('library.menu_header'),
+        ]);
     }
 
     public function index()
     {
         $cabang = $this->cabang->all();
+
+        // return config('library.menu_header');
 
     	return view('cabang.index', compact('cabang'));
     }
@@ -90,12 +97,13 @@ class CabangController extends Controller
 
     public function index_setting()
     {
+        $menu           = 'setting';
         $cabang         = $this->cabang->shortedNoCabang()->get();
         $user_cabang    = $this->user_cabang;
         // how to fetch data by username of user
         $user_cabang    = $user_cabang->baseUsername()->value('id_cabang');
 
-        return view('cabang.setting', compact('user_cabang', 'cabang'));
+        return view('cabang.setting', compact('user_cabang', 'cabang', 'menu'));
 
     }
 

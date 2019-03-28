@@ -3,30 +3,50 @@
         <br><br><br>
         {{-- <div class="pcoded-navigatio-lavel">Navigation</div> --}}
         <ul class="pcoded-item pcoded-left-item">
-            <li class=" ">
+            @foreach($menu_header as $index => $item)
+                <li class="{{$item['class']}} {{active($item['title'], $menu)}}">
+                    <a href="{{$item['route'] ? route($item['route']) : 'javascript:void(0)'}}">
+                        <span class="pcoded-micon"><i class="{{$item['icon']}}"></i></span>
+                        <span class="pcoded-mtext">{{$item['name']}}</span>
+                    </a>
+                    @if($item['child'])
+                       @foreach($item['child'] as $index => $child)
+                            <ul class="pcoded-submenu">
+                                <li class="{{active($child['url'])}}">
+                                    <a href="{{route($child['route'])}}">
+                                        <span class="pcoded-mtext">{{$child['name']}}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                       @endforeach
+                    @endif
+                </li>
+            @endforeach
+            <!-- <li class=" ">
                 <a href="{{route('akad.create')}}">
                     <span class="pcoded-micon"><i class="feather icon-file-plus"></i></span>
                     <span class="pcoded-mtext" >Akad Baru</span>
                     {{-- <span class="pcoded-badge label label-danger">HOT</span> --}}
                 </a>
             </li>
-            <li class="pcoded-hasmenu"> {{-- active pcoded-trigger --}}
+            <li class="pcoded-hasmenu {{active($menu, 'cabang')}}"> {{-- active pcoded-trigger --}}
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="feather icon-list"></i></span>
                     <span class="pcoded-mtext">Cabang</span>
                 </a>
+                BIKIN FITUR ACTIVE
                 <ul class="pcoded-submenu">
-                    <li class="">
+                    <li class="{{active($menu, 'cabang', '/create')}}">
                         <a href="{{route('cabang.create')}}">
                             <span class="pcoded-mtext">Tambah Cabang</span>
                         </a>
                     </li>
-                    <li class="">
+                    <li class="{{active($menu, 'cabang', '/edit')}}">
                         <a href="{{route('cabang.edit')}}">
                             <span class="pcoded-mtext">Edit Info Cabang</span>
                         </a>
                     </li>
-                    <li class="">
+                    <li class="{{active($menu, 'cabang')}}">
                         <a href="{{route('cabang.index')}}">
                             <span class="pcoded-mtext">Data Cabang</span>
                             {{-- <span class="pcoded-badge label label-info ">NEW</span> --}}
@@ -34,9 +54,6 @@
                     </li>
                 </ul>
             </li>
-        </ul>
-        {{-- <div class="pcoded-navigatio-lavel"></div> --}}
-        <ul class="pcoded-item pcoded-left-item">
             <li class="pcoded-hasmenu">
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="icofont icofont-database"></i></span>
@@ -54,7 +71,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> -->
         </ul>
     </div>
 </nav>

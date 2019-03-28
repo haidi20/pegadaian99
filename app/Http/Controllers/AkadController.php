@@ -23,6 +23,11 @@ class AkadController extends Controller
     	$this->nasabah 		= $nasabah;
     	$this->request  	= $request;
     	$this->user_cabang 	= $user_cabang;
+
+        view()->share([
+            'menu'          => 'akad',
+            'menu_header'   => config('library.menu_header'),
+        ]);
         
     }
 
