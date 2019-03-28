@@ -1,19 +1,31 @@
 @extends('_layouts.default')
 
 @section('script-bottom')
-    <!-- Bootstrap date-time-picker js -->
-    <script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/moment-with-locales.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('adminty/files/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/bootstrap-datetimepicker.min.js')}}"></script>
-    <!-- Date-range picker js -->
-    <script type="text/javascript" src="{{asset('adminty/files/bower_components/bootstrap-daterangepicker/js/daterangepicker.js')}}"></script>
-    <!-- Date-dropper js -->
-    <script type="text/javascript" src="{{asset('adminty/files/bower_components/datedropper/js/datedropper.min.js')}}"></script>
-    <!-- Color picker js -->
-    <script type="text/javascript" src="{{asset('adminty/files/bower_components/spectrum/js/spectrum.js')}}"></script>
-    <script type="text/javascript" src="{{asset('adminty/files/bower_components/jscolor/js/jscolor.js')}}"></script>
+<!-- Bootstrap date-time-picker js -->
+<script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/moment-with-locales.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('adminty/files/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/bootstrap-datetimepicker.min.js')}}"></script>
+<!-- Date-range picker js -->
+<script type="text/javascript" src="{{asset('adminty/files/bower_components/bootstrap-daterangepicker/js/daterangepicker.js')}}"></script>
+<!-- Date-dropper js -->
+<script type="text/javascript" src="{{asset('adminty/files/bower_components/datedropper/js/datedropper.min.js')}}"></script>
+<!-- Color picker js -->
+<script type="text/javascript" src="{{asset('adminty/files/bower_components/spectrum/js/spectrum.js')}}"></script>
+<script type="text/javascript" src="{{asset('adminty/files/bower_components/jscolor/js/jscolor.js')}}"></script>
 
-    <script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/custom-picker.js')}}"></script>
+<script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/custom-picker.js')}}"></script>
+
+<script>
+    $(function(){
+        $('.applyBtn').on('click', function(){
+            var date_start  = $('input[name="daterangepicker_start"]').val();
+            var date_end    = $('input[name="daterangepicker_end"]').val();
+            window.location.href = '{{request()->url()}}?date_start='+date_start+'&date_end='+date_end
+
+            // this.form.submit()
+        });
+    });
+</script>
 @endsection
 
 @section('content')
@@ -71,8 +83,13 @@
                                 <div class="tab-pane active" id="home3" role="tabpanel">
                                     <div class="sub-title">List Nasabah Akad</div>
                                     <div class="row">
-                                        <div class="col-sm-12 col-xl-4 m-b-30">
-                                            <input type="text" name="daterange" class="form-control" value="01/01/2015 - 01/31/2015" />
+                                        <div class="col-sm-6 col-md-6">
+                                            <form method="get">
+                                                <div class="form-group">
+                                                    <input type="text" name="daterange" id="date" class="form-control" value="01/01/{{$thisYear}} - 01/31/{{$thisYear}}" />
+                                                    
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>                             
                                     <div class="row">
@@ -97,7 +114,7 @@
                                                     &nbsp;
                                                     Search &nbsp; : &nbsp;
                                                     <input type="text" name="q" id="q" class="form-control" value="{{ request('q') }}" placeholder="">
-                                                    <button class="btn btn-default" id="btn-search">Oke</button>
+                                                    <button type="submit" class="btn btn-default" id="btn-search">Oke</button>
                                                 </div>
                                             </form>
                                         </div>

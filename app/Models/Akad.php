@@ -34,6 +34,11 @@ class Akad extends Model
         return $query->leftJoin('nasabah', 'akad.key_nasabah', '=', 'nasabah.key_nasabah');
     }
 
+    public function scopeRange($query, $start, $end)
+    {
+        return $query->whereBetween('tanggal_akad', [$start, $end]);
+    }
+
     public function getNamaNasabahAttribute()
     {
     	if($this->nasabah){

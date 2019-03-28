@@ -48,7 +48,18 @@ return [
 			'route'	=> false,
 			'title'	=> 'database',
 			'class' => 'pcoded-hasmenu',
-			'child'	=> false,
+			'child'	=> [
+				0	=> [
+					'url'	=> false,
+					'name'	=> 'Database Nasabah',
+					'route'	=> false,
+				],
+				1	=> [
+					'url'	=> 'akad',
+					'name'	=> 'Data Akad Nasabah',
+					'route'	=> 'akad.index',
+				],
+			],
 		],
 	],
 	'list_nasabah_akad' => [

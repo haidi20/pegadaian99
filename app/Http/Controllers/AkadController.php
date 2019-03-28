@@ -33,10 +33,21 @@ class AkadController extends Controller
 
     public function index()
     {
-    	$akad 		= $this->akad->nasabah()->orderBy('id_akad', 'desc')->paginate(10); 
+        $menu       = 'database';
+    	$akad 		= $this->akad->nasabah()->orderBy('id_akad', 'desc'); 
+        $thisYear   = Carbon::now()->format('Y');
     	$selectBy   = config('library.list_nasabah_akad');	
 
-    	return view('akad.index', compact('akad', 'selectBy'));
+        if(request('date_start')){
+            $start  =  carbon::parse(request('date_start'))->format('Y-m-d');
+            $end    =  carbon::parse(request('date_end'))->format('Y-m-d');
+
+            $akad   = $akad->range($start, $end);
+        }
+
+        $akad       = $akad->paginate(10);
+
+    	return view('akad.index', compact('akad', 'selectBy', 'menu', 'thisYear'));
     }
 
     public function create()

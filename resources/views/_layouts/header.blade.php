@@ -13,7 +13,7 @@
                        @foreach($item['child'] as $index => $child)
                             <ul class="pcoded-submenu">
                                 <li class="{{active($child['url'])}}">
-                                    <a href="{{route($child['route'])}}">
+                                    <a href="{{$child['route'] ? route($child['route']) : 'javascript:void(0)'}}">
                                         <span class="pcoded-mtext">{{$child['name']}}</span>
                                     </a>
                                 </li>
@@ -29,19 +29,19 @@
                     {{-- <span class="pcoded-badge label label-danger">HOT</span> --}}
                 </a>
             </li>
-            <li class="pcoded-hasmenu {{active($menu, 'cabang')}}"> {{-- active pcoded-trigger --}}
+            <li class="pcoded-hasmenu "> {{-- active pcoded-trigger --}}
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="feather icon-list"></i></span>
                     <span class="pcoded-mtext">Cabang</span>
                 </a>
                 BIKIN FITUR ACTIVE
                 <ul class="pcoded-submenu">
-                    <li class="{{active($menu, 'cabang', '/create')}}">
+                    <li class="">
                         <a href="{{route('cabang.create')}}">
                             <span class="pcoded-mtext">Tambah Cabang</span>
                         </a>
                     </li>
-                    <li class="{{active($menu, 'cabang', '/edit')}}">
+                    <li class="">
                         <a href="{{route('cabang.edit')}}">
                             <span class="pcoded-mtext">Edit Info Cabang</span>
                         </a>
