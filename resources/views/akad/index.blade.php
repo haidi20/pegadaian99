@@ -17,6 +17,7 @@
 
 <script>
     $(function(){
+        // for if want to filter data from date, can redirect to akad.index
         $('.applyBtn').on('click', function(){
             var date_start  = $('input[name="daterangepicker_start"]').val();
             var date_end    = $('input[name="daterangepicker_end"]').val();
@@ -86,7 +87,7 @@
                                         <div class="col-sm-6 col-md-6">
                                             <form method="get">
                                                 <div class="form-group">
-                                                    <input type="text" name="daterange" id="date" class="form-control" value="01/01/{{$thisYear}} - 01/31/{{$thisYear}}" />
+                                                    <input type="text" name="daterange" id="date" class="form-control" value="{{$dateRange}}" />
                                                     
                                                 </div>
                                             </form>

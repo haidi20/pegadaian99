@@ -39,15 +39,18 @@ class AkadController extends Controller
     	$selectBy   = config('library.list_nasabah_akad');	
 
         if(request('date_start')){
-            $start  =  carbon::parse(request('date_start'))->format('Y-m-d');
-            $end    =  carbon::parse(request('date_end'))->format('Y-m-d');
+            $start  =  carbon::parse(request('date_start'));
+            $end    =  carbon::parse(request('date_end'));
 
-            $akad   = $akad->range($start, $end);
+            $akad       = $akad->range($start, $end);
+            $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
+        }else{
+            $dateRange  = '';
         }
 
         $akad       = $akad->paginate(10);
 
-    	return view('akad.index', compact('akad', 'selectBy', 'menu', 'thisYear'));
+    	return view('akad.index', compact('akad', 'selectBy', 'menu', 'thisYear', 'dateRange'));
     }
 
     public function create()

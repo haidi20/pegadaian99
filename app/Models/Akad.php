@@ -36,7 +36,7 @@ class Akad extends Model
 
     public function scopeRange($query, $start, $end)
     {
-        return $query->whereBetween('tanggal_akad', [$start, $end]);
+        return $query->whereBetween('tanggal_akad', [$start->format('Y-m-d'), $end->format('Y-m-d')]);
     }
 
     public function getNamaNasabahAttribute()
