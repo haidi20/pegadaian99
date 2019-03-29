@@ -83,7 +83,7 @@
                                     &nbsp; --}}
                                     Search &nbsp; : &nbsp;
                                     <input type="text" name="q" id="q" class="form-control" value="{{ request('q') }}" placeholder="">
-                                    <button type="button" class="btn btn-default" id="btn-search">Oke</button>
+                                    <button type="submit" class="btn btn-default" id="btn-search">Oke</button>
                                 </div>
                             </form>
                             <br>

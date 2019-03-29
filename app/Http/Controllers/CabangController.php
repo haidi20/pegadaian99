@@ -29,7 +29,13 @@ class CabangController extends Controller
 
     public function index()
     {
-        $cabang = $this->cabang->orderBy('id_cabang', 'desc')->paginate(5);
+        $cabang = $this->cabang->orderBy('id_cabang', 'desc');
+
+        if(request('q')){
+            $cabang = $cabang->search(request('q'));
+        }
+
+        $cabang = $cabang->paginate(5);
 
     	return view('cabang.index', compact('cabang'));
     }

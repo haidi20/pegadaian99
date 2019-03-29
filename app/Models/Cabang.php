@@ -49,11 +49,14 @@ class Cabang extends Model
         // return 'string';
     }
 
+    public function scopeSearch($query, $q)
+    {
+        return $query->where('nama_cabang', 'LIKE', '%'.$q.'%');
+    }
+
     public function scopeShortedNoCabang($query)
     {
-        $query->orderBy('no_cabang', 'asc');
-
-        return $query;
+        return $query->orderBy('no_cabang', 'asc');
     }
 
 
