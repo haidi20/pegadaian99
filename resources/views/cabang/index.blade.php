@@ -43,12 +43,6 @@
     <div class="row">
         <div class="col-sm-12 col-md-12 col-xl-12">
              {!! session()->get('message') !!}
-             {{-- <div class="alert alert-success background-success">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <i class="icofont icofont-close-line-circled text-white"></i>
-                </button>
-                <strong>Sukses!</strong> Data akad baru dengan atas nama nasabah Ahmad Dany telah Berhasil
-            </div> --}}
         </div>
     </div>
     <div class="row">
@@ -70,34 +64,59 @@
     </div>
      <div class="row">
         <div class="col-xl-12 col-md-12">
-            <div class="card table-card">
+            <div class="card">
                 <div class="card-header">
-                    <h5>Modal Setiap Cabang</h5>
+                    <div class="sub-title">Modal Setiap Cabang</div>
                 </div>
                 <div class="card-block">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-borderless">
-                            <thead>
-                                <tr>
-                                    <th>Nomor Cabang</th>
-                                    <th>Nama Cabang</th>
-                                    <th class="text-right">Jumlah</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($cabang as $index => $item)
-                                <tr>
-                                    <td>{{$item->no_cabang}}</td>
-                                    <td>{{$item->nama_cabang}}</td>
-                                    <td class="text-right">Rp.540.000.00,-</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="text-right  m-r-20">
-                        {{-- <a href="#!" class="b-b-primary text-primary">View all Sales Locations </a> --}}
-                    </div>
+                     <!-- Row start -->
+                    <div class="row">
+                        <div class="col-lg-12 col-xl-12">
+                            <form method="get" class="form-inline">
+                                <div class="form-group float-right">
+                                    {{-- By &nbsp;
+                                    <select name="by" id="by" class="form-control">
+                                        @foreach($selectBy as $index => $item)
+                                            <option value="{{$item}}" {{selected($item, 'by', 'request')}}>{{$item}}</option>
+                                        @endforeach
+                                    </select>
+                                    &nbsp; --}}
+                                    Search &nbsp; : &nbsp;
+                                    <input type="text" name="q" id="q" class="form-control" value="{{ request('q') }}" placeholder="">
+                                    <button type="button" class="btn btn-default" id="btn-search">Oke</button>
+                                </div>
+                            </form>
+                            <br>
+                            <div class="table-responsive">
+                                <table class="table table-hover table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th>Nomor Cabang</th>
+                                            <th>Nama Cabang</th>
+                                            <th class="text-right">Jumlah</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($cabang as $index => $item)
+                                            <tr>
+                                                <td>{{$item->no_cabang}}</td>
+                                                <td>{{$item->nama_cabang}}</td>
+                                                <td class="text-right">Rp.540.000.00,-</td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="11" align="center">No data available in table</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                                {!! $cabang->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
+                            </div>
+                            <div class="text-right  m-r-20">
+                                {{-- <a href="#!" class="b-b-primary text-primary">View all Sales Locations </a> --}}
+                            </div>
+                        </div>
+                    </div>                    
                 </div>
             </div>
         </div>
@@ -255,3 +274,47 @@
         </div>  
     </div>
 @endsection
+
+<!-- <form method="get" class="form-inline">
+                        <div class="form-group float-right">
+                            {{-- By &nbsp;
+                            <select name="by" id="by" class="form-control">
+                                @foreach($selectBy as $index => $item)
+                                    <option value="{{$item}}" {{selected($item, 'by', 'request')}}>{{$item}}</option>
+                                @endforeach
+                            </select>
+                            &nbsp; --}}
+                            Search &nbsp; : &nbsp;
+                            <input type="text" name="q" id="q" class="form-control" value="{{ request('q') }}" placeholder="">
+                            <button type="button" class="btn btn-default" id="btn-search">Oke</button>
+                        </div>
+                    </form>
+                    <br>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>Nomor Cabang</th>
+                                    <th>Nama Cabang</th>
+                                    <th class="text-right">Jumlah</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($cabang as $index => $item)
+                                    <tr>
+                                        <td>{{$item->no_cabang}}</td>
+                                        <td>{{$item->nama_cabang}}</td>
+                                        <td class="text-right">Rp.540.000.00,-</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="11" align="center">No data available in table</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                        {!! $cabang->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
+                    </div>
+                    <div class="text-right  m-r-20">
+                        {{-- <a href="#!" class="b-b-primary text-primary">View all Sales Locations </a> --}}
+                    </div>

@@ -29,7 +29,7 @@ class CabangController extends Controller
 
     public function index()
     {
-        $cabang = $this->cabang->all();
+        $cabang = $this->cabang->orderBy('id_cabang', 'desc')->paginate(5);
 
     	return view('cabang.index', compact('cabang'));
     }
@@ -77,8 +77,10 @@ class CabangController extends Controller
         $input = $this->request->except('_token');
 
         if($id){
+            $type   = 'perbaharui';
             $cabang = $this->cabang->find($id);
         }else{
+            $type   = 'tambah';
             $cabang = $this->cabang;
         }    
 
@@ -90,7 +92,7 @@ class CabangController extends Controller
         $cabang->alamat_cabang  = request('alamat_cabang');
         $cabang->save();
 
-        $message    = '<strong>Sukses!</strong> Data Cabang baru dengan Nomor Cabang '.$cabang->no_cabang.
+        $message    = '<strong>Sukses!</strong> Data Cabang telah di '.$type.' dengan Nomor Cabang '.$cabang->no_cabang.
                       ' dan Nama Cabang '.$cabang->nama_cabang.' telah Berhasil';
         flash_message('message', $message);
 
