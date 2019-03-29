@@ -25,10 +25,3 @@
 
 <!-- Style.css -->
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/css/style.css')}}">
-
-<style>
-	.float-right{
-		position: absolute;
-		right:0px;
-	}
-</style>

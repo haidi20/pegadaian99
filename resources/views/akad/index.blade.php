@@ -46,6 +46,15 @@
 </script>
 @endsection
 
+@section('script-top')
+    <style>
+    .float-righ{
+        position: absolute;
+        right:0px;
+    }
+</style>
+@endsection
+
 @section('content')
 <div class="page-header">
     <div class="row align-items-end">
@@ -102,7 +111,7 @@
                                 <div class="tab-pane active" id="home3" role="tabpanel">
                                     <div class="sub-title">List Nasabah Akad</div>
                                     <div class="row">
-                                        <div class="col-sm-6 col-md-6">
+                                        <div class="col-sm-3 col-md-3">
                                             
                                                 <div class="form-group">
                                                     <input type="text" name="daterange" id="date" class="form-control" value="{{$dateRange}}" />
@@ -110,30 +119,42 @@
                                         </div>
                                     </div>                             
                                     <div class="row">
-                                        <div class="col-sm-6 col-md-12">
-                                            <form method="get" class="form-inline">
-                                                <div class="form-group">
-                                                    Show &nbsp;
-                                                    <select name="perpage" id="perpage" class="form-control">
-                                                        <option {{ selected(10, 'perpage', 'request')}}>10</option>
-                                                        <option {{ selected(25, 'perpage', 'request')}}>25</option>
-                                                        <option {{ selected(50, 'perpage', 'request')}}>50</option>
-                                                        <option {{ selected(100, 'perpage', 'request')}}>100</option>
-                                                    </select> &nbsp; Entries
+                                        <div class="col-sm-12 col-md-2">
+                                             <div class="form-group">
+                                                {{-- Show &nbsp; --}}
+                                                <select name="perpage" id="perpage" class="form-control">
+                                                    <option {{ selected(10, 'perpage', 'request')}}>10</option>
+                                                    <option {{ selected(25, 'perpage', 'request')}}>25</option>
+                                                    <option {{ selected(50, 'perpage', 'request')}}>50</option>
+                                                    <option {{ selected(100, 'perpage', 'request')}}>100</option>
+                                                </select> 
+                                                {{-- &nbsp; Entries --}}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 offset-md-4">
+                                            <div class="row">
+                                                <div class="col-sm-4 col-md-4">
+                                                    <div class="form-group">
+                                                       
+                                                        <select name="by" id="by" class="form-control">
+                                                            @foreach($selectBy as $index => $item)
+                                                                <option value="{{$item}}" {{selected($item, 'by', 'request')}}>{{$item}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group float-right">
-                                                    By &nbsp;
-                                                    <select name="by" id="by" class="form-control">
-                                                        @foreach($selectBy as $index => $item)
-                                                            <option value="{{$item}}" {{selected($item, 'by', 'request')}}>{{$item}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    &nbsp;
-                                                    Search &nbsp; : &nbsp;
-                                                    <input type="text" name="q" id="q" class="form-control" value="{{ request('q') }}" placeholder="">
+                                                <div class="col-sm-5 col-md-5">
+                                                    <div class="input-group input-group-success">
+                                                        <span class="input-group-addon">
+                                                           <i class="icofont icofont-ui-search"></i>
+                                                        </span>
+                                                        <input type="text" name="q" id="q" value="{{ request('q') }}" class="form-control" placeholder="Search">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2 col-md-2">
                                                     <button type="button" class="btn btn-default" id="btn-search">Oke</button>
                                                 </div>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div><br>
                                     <div class="table-responsive dt-responsive">
