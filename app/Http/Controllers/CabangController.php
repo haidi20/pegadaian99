@@ -62,8 +62,8 @@ class CabangController extends Controller
             $method = 'PUT';
         }else{
             $action = route('cabang.store');
-            $method = 'store';
-        }   
+            $method = 'POST';
+        } 
 
     	return view('cabang.form', compact('action', 'method'));
     }
@@ -86,11 +86,12 @@ class CabangController extends Controller
             $type   = 'perbaharui';
             $cabang = $this->cabang->find($id);
         }else{
-            $type   = 'tambah';
-            $cabang = $this->cabang;
+            $type                   = 'tambah';
+            $cabang                 = $this->cabang;
+            $cabang->id_cabang      = uniqid();
         }    
 
-        $cabang->id_cabang      = uniqid();
+       
         $cabang->investor       = request('investor');
         $cabang->no_cabang      = request('no_cabang');
         $cabang->nama_cabang    = request('nama_cabang');
