@@ -18,8 +18,8 @@
 
 @section('content')
 <div class="page-header">
-    <div class="row align-items-end">
-        <div class="col-lg-8">
+    <div class="row">
+        <div class="col-md-8">
             <div class="page-header-title">
                 <div class="d-inline">
                     <h4>Data Cabang</h4>
@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-md-4">
             {{-- <div class="page-header-breadcrumb">
                 <ul class="breadcrumb-title">
                     <li class="breadcrumb-item">
@@ -41,7 +41,7 @@
 </div>
 <div class="page-body">
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-xl-12">
+        <div class="col-sm-12 col-md-12">
              {!! session()->get('message') !!}
         </div>
     </div>
@@ -54,7 +54,7 @@
                 </div>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-xl-4 m-b-30">
+                        <div class="col-sm-12 m-b-30">
                             <input type="text" name="daterange" class="form-control" value="01/01/2015 - 01/31/2015" />
                         </div>
                     </div>   
@@ -63,7 +63,7 @@
         </div>
     </div>
      <div class="row">
-        <div class="col-xl-12 col-md-12">
+        <div class="col-sm-12 col-md-12">
             <div class="card">
                 <div class="card-header">
                     <div class="sub-title">Modal Setiap Cabang</div>
@@ -71,7 +71,7 @@
                 <div class="card-block">
                      <!-- Row start -->
                     <div class="row">
-                        <div class="col-lg-12 col-xl-12">
+                        <div class="col-sm-12 col-md-12">
                             <form method="get" class="form-inline">
                                 <div class="form-group float-right">
                                     {{-- By &nbsp;
@@ -122,7 +122,7 @@
         </div>
     </div>  
     <div class="row">
-        <div class="col-xl-6 col-md-6">
+        <div class="col-sm-12 col-md-6">
             <div class="card bg-c-yellow text-white">
                 <div class="card-block">
                     <div class="row align-items-center">
@@ -137,7 +137,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-6 col-md-6">
+        <div class="col-sm-12 col-md-6">
             <div class="card bg-c-green text-white">
                 <div class="card-block">
                     <div class="row align-items-center">
@@ -154,7 +154,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xl-12 col-md-12">
+        <div class="col-sm-12 col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h4>Nasabah</h4>
@@ -198,7 +198,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xl-12 col-md-12">
+        <div class="col-sm-12 col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h4>Pendapatan</h4>
@@ -238,7 +238,7 @@
         </div>  
     </div>
     <div class="row">
-        <div class="col-xl-12 col-md-12">
+        <div class="col-sm-12 col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h4>Operasional</h4>
