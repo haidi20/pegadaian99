@@ -31,8 +31,6 @@ class CabangController extends Controller
     {
         $cabang = $this->cabang->all();
 
-        // return config('library.menu_header');
-
     	return view('cabang.index', compact('cabang'));
     }
 
@@ -91,6 +89,10 @@ class CabangController extends Controller
         $cabang->telp_cabang    = request('telp_cabang');
         $cabang->alamat_cabang  = request('alamat_cabang');
         $cabang->save();
+
+        $message    = '<strong>Sukses!</strong> Data Cabang baru dengan Nomor Cabang '.$cabang->no_cabang.
+                      ' dan Nama Cabang '.$cabang->nama_cabang.' telah Berhasil';
+        flash_message('message', $message);
 
         return redirect()->route('cabang.index');
     }

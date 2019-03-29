@@ -17,13 +17,30 @@
 
 <script>
     $(function(){
+
         // for if want to filter data from date, can redirect to akad.index
         $('.applyBtn').on('click', function(){
-            var date_start  = $('input[name="daterangepicker_start"]').val();
+            var q           = $('#q').val();
+            var perpage     = $('#perpage').val();
             var date_end    = $('input[name="daterangepicker_end"]').val();
-            window.location.href = '{{request()->url()}}?date_start='+date_start+'&date_end='+date_end
+            var date_start  = $('input[name="daterangepicker_start"]').val();
 
-            // this.form.submit()
+            window.location.href = '{{url('/akad')}}?date_start='+date_start
+                                   +'&date_end='+date_end
+                                   +'&perpage='+perpage
+                                   +'&q='+q
+        });
+
+        $('#perpage').change(function(){
+            var q           = $('#q').val();
+            var perpage     = $(this).val();
+            var date_end    = $('input[name="daterangepicker_end"]').val();
+            var date_start  = $('input[name="daterangepicker_start"]').val();
+
+            window.location.href = '{{url('/akad')}}?date_start='+date_start
+                                   +'&date_end='+date_end
+                                   +'&perpage='+perpage
+                                   +'&q='+q
         });
     });
 </script>
@@ -61,7 +78,7 @@
                 </div>
                 <div class="card-block">
                     <!-- Row start -->
-                    <div class="row m-b-30">
+                    <div class="row">
                         <div class="col-lg-12 col-xl-12">
                             {{-- <div class="sub-title">List Nasabah Akad</div> --}}
                             <!-- Nav tabs -->
@@ -81,41 +98,40 @@
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content card-block">
+                                {{-- <form method="get"> --}}
                                 <div class="tab-pane active" id="home3" role="tabpanel">
                                     <div class="sub-title">List Nasabah Akad</div>
                                     <div class="row">
                                         <div class="col-sm-6 col-md-6">
-                                            <form method="get">
+                                            
                                                 <div class="form-group">
                                                     <input type="text" name="daterange" id="date" class="form-control" value="{{$dateRange}}" />
-                                                    
                                                 </div>
-                                            </form>
                                         </div>
                                     </div>                             
                                     <div class="row">
                                         <div class="col-sm-6 col-md-12">
-                                            <form method="get" class="form-inline mb10">
+                                            <form method="get" class="form-inline">
                                                 <div class="form-group">
                                                     Show &nbsp;
                                                     <select name="perpage" id="perpage" class="form-control">
-                                                        <option {{ (request('perpage') == 10) ? 'selected' : '' }}>10</option>
-                                                        <option {{ (request('perpage') == 25) ? 'selected' : '' }}>25</option>
-                                                        <option {{ (request('perpage') == 50) ? 'selected' : '' }}>50</option>
-                                                        <option {{ (request('perpage') == 100) ? 'selected' : '' }}>100</option>
+                                                        <option {{ selected(10, 'perpage', 'request')}}>10</option>
+                                                        <option {{ selected(25, 'perpage', 'request')}}>25</option>
+                                                        <option {{ selected(50, 'perpage', 'request')}}>50</option>
+                                                        <option {{ selected(100, 'perpage', 'request')}}>100</option>
                                                     </select> &nbsp; Entries
                                                 </div>
                                                 <div class="form-group float-right">
                                                     By &nbsp;
-                                                    <select name="perpage" id="perpage" class="form-control">
+                                                    <select name="by" id="by" class="form-control">
                                                         @foreach($selectBy as $index => $item)
-                                                            <option value="{{$item}}">{{$item}}</option>
+                                                            <option value="{{$item}}" {{selected($item, 'by', 'request')}}>{{$item}}</option>
                                                         @endforeach
                                                     </select>
                                                     &nbsp;
                                                     Search &nbsp; : &nbsp;
                                                     <input type="text" name="q" id="q" class="form-control" value="{{ request('q') }}" placeholder="">
-                                                    <button type="submit" class="btn btn-default" id="btn-search">Oke</button>
+                                                    <button type="button" class="btn btn-default" id="btn-search">Oke</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -182,6 +198,7 @@
                                     </div>
                                    {!! $akad->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
                                 </div>
+                            {{-- </form> --}}
                                 <div class="tab-pane" id="profile3" role="tabpanel">
                                      
                                 </div>

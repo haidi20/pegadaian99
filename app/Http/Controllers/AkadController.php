@@ -36,7 +36,7 @@ class AkadController extends Controller
         $menu       = 'database';
     	$akad 		= $this->akad->nasabah()->orderBy('id_akad', 'desc'); 
         $thisYear   = Carbon::now()->format('Y');
-    	$selectBy   = config('library.list_nasabah_akad');	
+    	$selectBy   = config('library.select_by.akad_nasabah');	
 
         if(request('date_start')){
             $start  =  carbon::parse(request('date_start'));
@@ -46,6 +46,9 @@ class AkadController extends Controller
             $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
         }else{
             $dateRange  = '';
+        }
+        if(request('perpage')){
+
         }
 
         $akad       = $akad->paginate(10);

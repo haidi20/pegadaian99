@@ -2,10 +2,11 @@
 
 return [
 	'menu_header' => [
-		/*
-		* title = just title for this menu
+		/* NOTE : 
+		* url 	= for condition active which is use function requeset()->is() in helper
 		* name 	= for show in view menu header
 		* link 	= for tag a and function is what redirect to
+		* title = just title for this menu
 		* class = for name class by that menu
 		* child = for sub menu
 		*/
@@ -62,15 +63,17 @@ return [
 			],
 		],
 	],
-	'list_nasabah_akad' => [
-		'nama',
-		'no_telp',
-		'no_id',
-		'jaminan',
-		'pinjaman',
-		'tunggakan',
-		'tanggal_akad',
-		'jatuh_tempo',
-		'prosedur',
+	'select_by' => [
+		'akad_nasabah' => [
+			'nama',
+			'no_telp',
+			'no_id',
+			'jaminan',
+			'pinjaman',
+			'tunggakan',
+			'tanggal_akad',
+			'jatuh_tempo',
+			'prosedur',
+		],
 	],
 ];

@@ -41,6 +41,17 @@
 </div>
 <div class="page-body">
     <div class="row">
+        <div class="col-sm-12 col-md-12 col-xl-12">
+             {!! session()->get('message') !!}
+             {{-- <div class="alert alert-success background-success">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="icofont icofont-close-line-circled text-white"></i>
+                </button>
+                <strong>Sukses!</strong> Data akad baru dengan atas nama nasabah Ahmad Dany telah Berhasil
+            </div> --}}
+        </div>
+    </div>
+    <div class="row">
         <div class="col-sm-12 col-md-12">
              <div class="card">
                  <div class="card-header">
