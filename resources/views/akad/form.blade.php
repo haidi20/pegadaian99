@@ -6,7 +6,7 @@
             $('#marhun_bih').on('keyup' ,function(){
                 var data = this.value.replace(",","").replace(".","")
                 $('#terbilang').val(terbilang(data));
-                // console.log(terbilang(this.value));
+                // console.log(data);
             });
         });
     </script>
@@ -170,23 +170,29 @@
                     {{-- <h3 class="sub-title">Keterangan Marhun Barang Jaminan</h3> --}}
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="taksiran_marhun">Taksiran Marhun</label>
-                        <div class="col-sm-10 ">
-                            <input type="text" class="form-control " name="taksiran_marhun" id="taksiran_marhun" value="{{old('taksiran_marhun')}}">
+                        <div class="col-sm-8 col-lg-10">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Rp.</span>
+                                <input type="text" class="form-control autonumber" data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="taksiran_marhun" id="taksiran_marhun" value="{{old('taksiran_marhun')}}">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="marhun_bih">Marhun Bih</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control autonumber" id="marhun_bih" data-a-sep="." data-a-dec="," name="marhun_bih" value="{{old('marhun_bih')}}">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Rp.</span>
+                                <input type="text" class="form-control autonumber"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," id="marhun_bih" name="marhun_bih" value="{{old('marhun_bih')}}">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-xs-2 col-form-label" for="persenan">Persenan</label>
                         <div class="col-sm-2 col-xs-2">
-                            <input type="text" class="form-control autonumber" name="persenan" id="persenan" value="{{old('persenan')}}">
-                        </div>
-                        <div class="col-sm-1 col-xs-1">
-                            <h4>%</h4>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">%</span>
+                                <input type="text" class="form-control autonumber"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="persenan" id="persenan" value="{{old('persenan')}}">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
