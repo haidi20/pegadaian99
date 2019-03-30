@@ -48,7 +48,7 @@ class AkadController extends Controller
             $dateRange  = '';
         }
         if(request('perpage')){
-
+            
         }
 
         $akad       = $akad->paginate(10);
@@ -97,7 +97,7 @@ class AkadController extends Controller
 
     	$input 		= $this->request->except('_token');
     	$id_cabang	= $this->user_cabang->baseUsername()->value('id_cabang');
-
+        return $input;
     	$nasabah 				= $this->nasabah;
     	$nasabah->key_nasabah 	= uniqid();
     	$nasabah->nama_lengkap	= request('nama_lengkap');
@@ -129,6 +129,9 @@ class AkadController extends Controller
     	$akad->terbilang			= request('terbilang'); 
     	$akad->status				= 'lunas';
     	$akad->save(); 
+
+        $message    = '<strong>Sukses!</strong> Data Akad Nasabah berhasil di tambahkan';
+        flash_message('message', $message);
 
     	return redirect()->route('akad.index');
     }

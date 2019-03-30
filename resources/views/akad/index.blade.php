@@ -25,6 +25,28 @@
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/jscolor/js/jscolor.js')}}"></script>
 
 <script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/custom-picker.js')}}"></script>
+
+<script>
+     $(function(){
+
+        // for if want to filter data from date, can redirect to akad.index
+        $('.applyBtn').on('click', function(){
+            var q           = $('#q').val();
+            var perpage     = $('#perpage').val();
+            var date_end    = $('input[name="daterangepicker_end"]').val();
+            var date_start  = $('input[name="daterangepicker_start"]').val();
+
+            window.location.href = '{{url('/akad')}}?date_start='+date_start
+                                   +'&date_end='+date_end
+                                   +'&perpage='+perpage
+                                   +'&q='+q
+        });
+
+        $('#perpage').change(function(){
+            this.form.submit()
+        });
+    });
+</script>
 @endsection
 
 @section('content')
@@ -52,11 +74,17 @@
 </div>
 <div class="page-body">
     <div class="row">
+        <div class="col-sm-12 col-md-12">
+             {!! session()->get('message') !!}
+        </div>
+    </div>
+    <div class="row">
         <div class="col-sm-6 col-md-12">
              <div class="card">
                 <div class="card-header">
                     
                 </div>
+                <form method="get">
                 <div class="card-block">
                     <!-- Row start -->
                     <div class="row">
@@ -200,6 +228,7 @@
                     </div>
                     <!-- Row end -->
                 </div>
+                </form>
             </div>
         </div>
     </div>

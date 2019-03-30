@@ -4,8 +4,10 @@
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/jquery-ui/js/jquery-ui.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/popper.js/js/popper.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/bootstrap/js/bootstrap.min.js')}}"></script>
+
 <!-- jquery slimscroll js -->
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/jquery-slimscroll/js/jquery.slimscroll.js')}}"></script>
+
 <!-- modernizr js -->
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/modernizr/js/modernizr.js')}}"></script>
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/modernizr/js/css-scrollbars.js')}}"></script>
@@ -15,6 +17,12 @@
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/jquery-i18next/js/jquery-i18next.min.js')}}"></script>
+
+<!-- Masking js for form format number --> 
+<script src="{{asset('adminty/files/assets/pages/form-masking/inputmask.js')}}"></script>
+<script src="{{asset('adminty/files/assets/pages/form-masking/jquery.inputmask.js')}}"></script>
+<script src="{{asset('adminty/files/assets/pages/form-masking/autoNumeric.js')}}"></script>
+<script src="{{asset('adminty/files/assets/pages/form-masking/form-mask.js')}}"></script>
 
 <!-- range slider js -->
 {{-- <script type="text/javascript" src="{{asset('adminty/files/bower_components/seiyria-bootstrap-slider/js/bootstrap-slider.js')}}"></script> --}}
