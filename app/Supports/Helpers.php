@@ -62,3 +62,10 @@ if( ! function_exists('fa') ){
     }
 }
 
+// remove_dot for remove "." of value form number
+if( ! function_exists('remove_dot') ){
+    function remove_dot($number)
+    {
+        return str_replace('.', '', $number);
+    }
+}

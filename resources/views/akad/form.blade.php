@@ -6,6 +6,7 @@
             $('#marhun_bih').on('keyup' ,function(){
                 var data = this.value.replace(",","").replace(".","")
                 $('#terbilang').val(terbilang(data));
+                $('#terbilang2').val(terbilang(data));
                 // console.log(data);
             });
         });
@@ -81,7 +82,8 @@
                     <div class="form-group row">
                         {{-- <label class="col-sm-2 col-form-label" for="investor">Investor</label> --}}
                         <div class="col-sm-10">
-                            <input type="input" class="form-control" name="tanggal_akad" id="tanggal_akad" value="{{$tanggal_akad}}" disabled>
+                            <input type="input" class="form-control" id="tanggal_akad" value="{{$tanggal_akad}}" disabled>
+                            <input type="hidden" class="form-control" name="tanggal_akad" value="{{$tanggal_akad}}" >
                         </div>
                     </div>
                 </div>
@@ -94,7 +96,8 @@
                     <div class="form-group row">
                         {{-- <label class="col-sm-2 col-form-label" for="investor">Investor</label> --}}
                         <div class="col-sm-10">
-                            <input type="input" class="form-control" name="tanggal_jatuh_tempo" id="tanggal_jatuh_tempo" value="{{$tanggal_jatuh}}" disabled>
+                            <input type="input" class="form-control" id="tanggal_jatuh_tempo" value="{{$tanggal_jatuh}}" disabled>
+                            <input type="hidden" class="form-control" name="tanggal_jatuh_tempo" value="{{$tanggal_jatuh}}">
                         </div>
                     </div>
                 </div>
@@ -125,7 +128,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="nama_barang">Nama Barang</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nama_barang" id="nama_barang" value="{{old('nama_barang')}}" >
+                            <input type="text" class="form-control" name="nama_barang" id="nama_barang" value="{{old('nama_barang')}}" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -150,13 +153,13 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" >Kelengkapan barang</label>
                         <div class="col-sm-10">
-                            <textarea rows="5" cols="5" class="form-control" id="kelengkapan" name="kelengkapan" >{{old('kelengkapan')}}</textarea>
+                            <textarea rows="5" cols="5" class="form-control" id="kelengkapan" name="kelengkapan" required>{{old('kelengkapan')}}</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" >Kekurangan / Kerusakan Barang</label>
                         <div class="col-sm-10">
-                            <textarea rows="5" cols="5" class="form-control" id="kekurangan" name="kekurangan" >{{old('kekurangan')}}</textarea>
+                            <textarea rows="5" cols="5" class="form-control" id="kekurangan" name="kekurangan" required>{{old('kekurangan')}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -173,7 +176,7 @@
                         <div class="col-sm-8 col-lg-10">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">Rp.</span>
-                                <input type="text" class="form-control autonumber" data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="taksiran_marhun" id="taksiran_marhun" value="{{old('taksiran_marhun')}}">
+                                <input type="text" class="form-control autonumber" data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="taksiran_marhun" id="taksiran_marhun" value="{{old('taksiran_marhun')}}" required>
                             </div>
                         </div>
                     </div>
@@ -182,7 +185,7 @@
                         <div class="col-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">Rp.</span>
-                                <input type="text" class="form-control autonumber"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," id="marhun_bih" name="marhun_bih" value="{{old('marhun_bih')}}">
+                                <input type="text" class="form-control autonumber"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," id="marhun_bih" name="marhun_bih" value="{{old('marhun_bih')}}" required>
                             </div>
                         </div>
                     </div>
@@ -191,29 +194,29 @@
                         <div class="col-sm-2 col-xs-2">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">%</span>
-                                <input type="text" class="form-control autonumber"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="persenan" id="persenan" value="{{old('persenan')}}">
+                                <input type="text" class="form-control autonumber"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="persenan" id="persenan" value="{{old('persenan')}}" required>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="bt_7_hari">Biaya Titip Per 7 Hari</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="{{old('bt_7_hari')}}"  disabled>
-                            <input type="hidden" class="form-control" name="bt_7_hari" id="bt_7_hari" value="{{old('bt_7_hari')}}">
+                            <input type="text" class="form-control" value="{{old('bt_7_hari', number_format(10000))}}"  disabled>
+                            <input type="hidden" class="form-control" name="bt_7_hari" id="bt_7_hari" value="{{old('bt_7_hari', 10000)}}" >
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="biaya_admin">Biaya Administrasi</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="biaya_admin" value="{{old('biaya_admin')}}" disabled>
-                            <input type="hidden" class="form-control" name="biaya_admin" id="biaya_admin" value="{{old('biaya_admin')}}">
+                            <input type="text" class="form-control" id="biaya_admin" value="{{old('biaya_admin', number_format(10000))}}" disabled>
+                            <input type="hidden" class="form-control" name="biaya_admin" id="biaya_admin" value="{{old('biaya_admin', 10000)}}" >
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="terbilang">Terbilang</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="terbilang" value="{{old('terbilang')}}" disabled>
-                            <input type="hidden" class="form-control" name="terbilang" value="{{old('terbilang')}}">
+                            <input type="hidden" class="form-control" name="terbilang" id="terbilang2" value="{{old('terbilang')}}">
                         </div>
                     </div>
                 </div>
@@ -302,7 +305,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="tanggal_lahir">Tanggal Lahir</label>
                         <div class="col-sm-10">
-                            <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" value="{{old('tanggal_lahir')}}">
+                            <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" value="{{old('tanggal_lahir', '2000-01-01')}}">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-xs">Proses</button>

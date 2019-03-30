@@ -97,7 +97,7 @@ class AkadController extends Controller
 
     	$input 		= $this->request->except('_token');
     	$id_cabang	= $this->user_cabang->baseUsername()->value('id_cabang');
-        return $input;
+        // return $input;
     	$nasabah 				= $this->nasabah;
     	$nasabah->key_nasabah 	= uniqid();
     	$nasabah->nama_lengkap	= request('nama_lengkap');
@@ -119,11 +119,11 @@ class AkadController extends Controller
     	$akad->jenis_barang			= request('jenis_barang'); 
     	$akad->kelengkapan			= request('kelengkapan'); 
     	$akad->kekurangan			= request('kekurangan'); 
-    	$akad->jangka_waktu_akad	= request('jangka_waktu_akad'); 
+    	$akad->jangka_waktu_akad	= number_format(request('jangka_waktu_akad')); 
     	$akad->tanggal_akad			= request('tanggal_akad'); 
     	$akad->tanggal_jatuh_tempo	= request('tanggal_jatuh_tempo'); 
-    	$akad->nilai_tafsir			= request('taksiran_marhun'); 
-    	$akad->nilai_pencairan		= request('marhun_bih'); 
+    	$akad->nilai_tafsir			= remove_dot(request('taksiran_marhun')); 
+    	$akad->nilai_pencairan		= remove_dot(request('marhun_bih')); 
     	$akad->bt_7_hari			= request('bt_7_hari'); 
     	$akad->biaya_admin			= request('biaya_admin'); 
     	$akad->terbilang			= request('terbilang'); 
