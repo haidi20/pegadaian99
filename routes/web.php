@@ -19,6 +19,7 @@ Route::get('/',function(){
 Route::middleware('auth')->group(function() {
 	Route::group(['prefix' => 'nasabah'], function(){
 		Route::get('/', 'NasabahController@index')->name('nasabah.index');
+		Route::get('/detail/{id}', 'NasabahController@detail')->name('nasabah.detail');
 	});
 	Route::group(['prefix' => 'akad'], function(){
 		Route::get('/', 'AkadController@index')->name('akad.index');

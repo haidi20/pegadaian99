@@ -35,7 +35,7 @@
 
   @include('_layouts.script-bottom')
   <script>
-    var Laravel = {
+    var laravel = {
       csrfToken: '{{ csrf_token() }}'
     }
   </script>

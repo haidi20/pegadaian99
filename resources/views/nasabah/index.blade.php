@@ -1,8 +1,83 @@
 @extends('_layouts.default')
 
 @section('script-bottom')
+    <!-- modalEffects js nifty modal window effects -->
+    {{-- <script type="text/javascript" src="{{asset('adminty/files/bower_components/sweetalert/js/sweetalert.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('adminty/files/assets/js/modal.js')}}"></script>
+    <script type="text/javascript" src="{{asset('adminty/files/assets/js/modalEffects.js')}}"></script>
+    <script type="text/javascript" src="{{asset('adminty/files/assets/js/classie.js')}}"></script>
+    <script type="text/javascript" src="{{asset('adminty/files/assets/js/vartical-layout.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('adminty/files/assets/js/script.js')}}"></script> --}}
     <script>
-         $(function(){
+        function detail(id)
+        {
+            var url = $('#detail_'+id).attr('data-url')
+            // console.log(laravel.csrfToken);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': laravel.csrfToken
+                }
+            });
+
+            $.ajax({
+                url: url,
+                method: 'get',
+                success: function(result){
+                    show_data(result)
+                }
+            });
+        }
+
+        function show_data(data)
+        {
+            var modal = $('#modal-detail').modal('show')
+
+            var rowsOne = '';
+            var rowsTwo = '';
+            rowsOne = rowsOne + '<tr>';
+                rowsOne = rowsOne + '<td>Nama</td>';
+                rowsOne = rowsOne + '<td>'+data.nama_lengkap+'</td>';
+            rowsOne = rowsOne + '</tr>';
+            rowsOne = rowsOne + '<tr>';
+                rowsOne = rowsOne + '<td>Jenis Kelamin</td>';
+                rowsOne = rowsOne + '<td>'+data.jenis_kelamin+'</td>';
+            rowsOne = rowsOne + '</tr>';
+            rowsOne = rowsOne + '<tr>';
+                rowsOne = rowsOne + '<td>Kota</td>';
+                rowsOne = rowsOne + '<td>'+data.kota+'</td>';
+            rowsOne = rowsOne + '</tr>';
+            rowsOne = rowsOne + '<tr>';
+                rowsOne = rowsOne + '<td>No. Telp</td>';
+                rowsOne = rowsOne + '<td>'+data.no_telp+'</td>';
+            rowsOne = rowsOne + '</tr>';
+            rowsOne = rowsOne + '<tr>';
+                rowsOne = rowsOne + '<td>Alamat</td>';
+                rowsOne = rowsOne + '<td>'+data.alamat+'</td>';
+            rowsOne = rowsOne + '</tr>';
+
+            rowsTwo = rowsTwo + '<tr>';
+                rowsTwo = rowsTwo + '<td>Jenis ID</td>';
+                rowsTwo = rowsTwo + '<td>'+data.jenis_id+'</td>';
+            rowsTwo = rowsTwo + '</tr>';
+            rowsTwo = rowsTwo + '<tr>';
+                rowsTwo = rowsTwo + '<td>No Identitas</td>';
+                rowsTwo = rowsTwo + '<td>'+data.no_identitas+'</td>';
+            rowsTwo = rowsTwo + '</tr>';
+            rowsTwo = rowsTwo + '<tr>';
+                rowsTwo = rowsTwo + '<td>Tanggal Lahir</td>';
+                rowsTwo = rowsTwo + '<td>'+data.tanggal_lahir+'</td>';
+            rowsTwo = rowsTwo + '</tr>';
+            rowsTwo = rowsTwo + '<tr>';
+                rowsTwo = rowsTwo + '<td>Tanggal Daftar</td>';
+                rowsTwo = rowsTwo + '<td>'+data.tanggal_daftar+'</td>';
+            rowsTwo = rowsTwo + '</tr>';
+
+            $("#table-detail-one").html(rowsOne);
+            $("#table-detail-two").html(rowsTwo);
+        }                
+
+        $(function(){
             $('#perpage').change(function(){
                 this.form.submit()
             });
@@ -11,6 +86,7 @@
 @endsection
 
 @section('content')
+@include('nasabah.modal')
 <div class="page-header">
     <div class="row">
         <div class="col-md-8">
@@ -65,7 +141,6 @@
                             <div class="row">
                                 <div class="col-sm-4 col-md-4">
                                     <div class="form-group">
-                                       
                                         <select name="by" id="by" class="form-control">
                                             @foreach($column as $index => $item)
                                                 <option value="{{$index}}" {{selected($index, 'by', 'request')}}>{{$item}}</option>
@@ -104,18 +179,15 @@
                                         <td>{{$item->nama_lengkap}}</td>
                                         <td>{{$item->no_telp}}</td>
                                         <td>{{$item->alamat}}</td>
-                                        <td></td>
-                                        {{-- <td>
-                                            <a href="{{route('akad.edit', $item->id)}}" class="btn btn-sm btn-info">
-                                                <i class="icon-pencil3"></i> Edit
+                                        <td align="center">
+                                            <a href="javascript:void(0)" onClick="detail({{$item->id_nasabah}})" 
+                                               data-url="{{route('nasabah.detail', $item->id_nasabah)}}" id="detail_{{$item->id_nasabah}}" class="btn btn-sm btn-info">
+                                                <i class="icofont icofont-external icofont-lg"></i>
                                             </a>
-                                            <a href="{{ route('akad.destroy', $item->id)}}"
-                                                data-method="delete" data-confirm="Anda yakin akan menghapus data ini ?"
-                                                class="btn btn-sm btn-danger" title="Hapus Data">
-                                                <i class="icon-trash3"></i>
-                                                Delete
+                                            <a href="#" class="btn btn-sm btn-danger" title="Hapus Data">
+                                                <i class="icofont icofont-ui-delete icofont-lg"></i>
                                             </a>
-                                        </td> --}}
+                                        </td>
                                     </tr>
                                 @empty
                                 <tr>

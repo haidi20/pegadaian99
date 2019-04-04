@@ -14,5 +14,8 @@
 
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/css/jquery.mCustomScrollbar.css')}}">
 
+<!-- animation nifty modal window effects css -->
+<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/css/component.css')}}">
+
 <!-- Style.css -->
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/css/style.css')}}">

@@ -32,15 +32,6 @@
 <script type="text/javascript" src="{{asset('adminty/files/assets/js/script.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/terbilang.min.js')}}"></script>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-23581568-13');
-</script>
 {{-- <script src="{{asset('js/laravel-method.js')}}"> </script> --}}
 <!-- /build-->
 <!-- END adminty JS-->

@@ -36,4 +36,9 @@ class NasabahController extends Controller
 
     	return view('nasabah.index', compact('nasabah', 'column', 'menu'));
     }
+
+    public function detail($id)
+    {
+        return $this->nasabah->find($id);
+    }
 }
