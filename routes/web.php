@@ -17,6 +17,9 @@ Route::get('/',function(){
 });
 
 Route::middleware('auth')->group(function() {
+	Route::group(['prefix' => 'nasabah'], function(){
+		Route::get('/', 'NasabahController@index')->name('nasabah.index');
+	});
 	Route::group(['prefix' => 'akad'], function(){
 		Route::get('/', 'AkadController@index')->name('akad.index');
 		Route::get('/create', 'AkadController@create')->name('akad.create');

@@ -23,4 +23,9 @@ class Nasabah extends Model
         'tanggal_daftar',
         'alamat',
     ];
+
+    public function scopeSorted($query, $by = 'nasabah.id_nasabah', $sort = 'desc')
+    {
+        return $query->orderBy($by, $sort);
+    }
 }

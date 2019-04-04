@@ -51,9 +51,9 @@ return [
 			'class' => 'pcoded-hasmenu',
 			'child'	=> [
 				0	=> [
-					'url'	=> false,
+					'url'	=> 'nasabah',
 					'name'	=> 'Database Nasabah',
-					'route'	=> false,
+					'route'	=> 'nasabah.index',
 				],
 				1	=> [
 					'url'	=> 'akad',
@@ -63,7 +63,7 @@ return [
 			],
 		],
 	],
-	'select_by' => [
+	'column' => [
 		'akad_nasabah' => [
 			'nama_lengkap' 	=> 'Nama',
 			'no_telp' 		=> 'No. telp',
@@ -74,6 +74,12 @@ return [
 			'tanggal_akad'	=> 'Tanggal Akad',
 			'jatuh_tempo'	=> 'Jatuh Tempo',
 			'prosedur' 		=> 'Prosedur',			
+		],
+		'nasabah' => [
+			'nama_lengkap' 	=> 'Nama',
+			'no_telp'		=> 'No Telp',
+			'alamat' 		=> 'Alamat',
+			'action'		=> 'Action'
 		],
 	],
 ];

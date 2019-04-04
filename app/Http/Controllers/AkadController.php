@@ -35,7 +35,7 @@ class AkadController extends Controller
     {
         $menu       = 'database';
     	$akad 		= $this->akad->nasabah()->sorted(); 
-    	$selectBy   = config('library.select_by.akad_nasabah');	
+    	$selectBy   = config('library.column.akad_nasabah');	
         // local function filter
         $filter     = $this->filter($akad);
 
