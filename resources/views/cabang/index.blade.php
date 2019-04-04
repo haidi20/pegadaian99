@@ -112,7 +112,7 @@
                                             <tr>
                                                 <td>{{$item->no_cabang}}</td>
                                                 <td>{{$item->nama_cabang}}</td>
-                                                <td class="text-right">Rp.540.000.00,-</td>
+                                                <td class="text-right">Rp. {{$item->tampilkan_total_kas}}</td>
                                             </tr>
                                         @empty
                                             <tr>
@@ -285,47 +285,3 @@
         </div>  
     </div>
 @endsection
-
-<!-- <form method="get" class="form-inline">
-                        <div class="form-group float-right">
-                            {{-- By &nbsp;
-                            <select name="by" id="by" class="form-control">
-                                @foreach($selectBy as $index => $item)
-                                    <option value="{{$item}}" {{selected($item, 'by', 'request')}}>{{$item}}</option>
-                                @endforeach
-                            </select>
-                            &nbsp; --}}
-                            Search &nbsp; : &nbsp;
-                            <input type="text" name="q" id="q" class="form-control" value="{{ request('q') }}" placeholder="">
-                            <button type="button" class="btn btn-default" id="btn-search">Oke</button>
-                        </div>
-                    </form>
-                    <br>
-                    <div class="table-responsive">
-                        <table class="table table-hover table-borderless">
-                            <thead>
-                                <tr>
-                                    <th>Nomor Cabang</th>
-                                    <th>Nama Cabang</th>
-                                    <th class="text-right">Jumlah</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($cabang as $index => $item)
-                                    <tr>
-                                        <td>{{$item->no_cabang}}</td>
-                                        <td>{{$item->nama_cabang}}</td>
-                                        <td class="text-right">Rp.540.000.00,-</td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="11" align="center">No data available in table</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                        {!! $cabang->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
-                    </div>
-                    <div class="text-right  m-r-20">
-                        {{-- <a href="#!" class="b-b-primary text-primary">View all Sales Locations </a> --}}
-                    </div>

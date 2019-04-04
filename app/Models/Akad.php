@@ -47,6 +47,11 @@ class Akad extends Model
         return $query->where($by, 'LIKE', '%'.$key.'%');
     }
 
+    public function scopeSorted($query, $by = 'id_akad', $sort = 'desc')
+    {
+        return $query->orderBy($by, $sort);
+    }
+
     public function getNamaNasabahAttribute()
     {
     	if($this->nasabah){

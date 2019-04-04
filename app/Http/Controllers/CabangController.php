@@ -30,7 +30,7 @@ class CabangController extends Controller
 
     public function index()
     {
-        $cabang = $this->cabang->orderBy('id_cabang', 'desc');
+        $cabang = $this->cabang->kasCabang()->sorted();
 
         // local function filter
         $filter = $this->filter($cabang);

@@ -22,7 +22,7 @@ class User_cabang extends Model
         return $this->belongsTo('App\Models\Cabang');
     }
 
-    // how to fetch data base username of user
+    // how to fetch data by username of user
     public function scopeBaseUsername($query)
     {
     	$query->whereUsername(Auth::user()->username);

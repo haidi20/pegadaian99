@@ -34,16 +34,6 @@ class Cabang extends Model
         // });
     }
 
-    public function admin_cabang()
-    {
-        
-    }
-
-    public function nasabah()
-    {
-        return $this->belongsTo('App\Models\Nasabah', 'key_nasabah');
-    }
-
     public function getIncrementing()
     {
         // return false;
@@ -59,14 +49,31 @@ class Cabang extends Model
         return $query->whereBetween('tanggal_akad', [$start->format('Y-m-d'), $end->format('Y-m-d')]);
     }
 
+    public function scopeKasCabang($query)
+    {
+        return $query->leftJoin('kas_cabang', 'cabang.id_cabang', '=', 'kas_cabang.id_cabang');
+    }
+
     public function scopeSearch($query, $q)
     {
         return $query->where('nama_cabang', 'LIKE', '%'.$q.'%');
     }
 
+    public function scopeSorted($query, $by = 'cabang.id_cabang', $sort = 'desc')
+    {
+        return $query->orderBy($by, $sort);
+    }
+
     public function scopeShortedNoCabang($query)
     {
         return $query->orderBy('no_cabang', 'asc');
+    }
+
+    public function getTampilkanTotalKasAttribute()
+    {
+        $total_kas = $this->total_kas ? $this->total_kas : 0;
+
+        return number_format($total_kas, 2);
     }
 
 
