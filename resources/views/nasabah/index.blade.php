@@ -1,5 +1,15 @@
 @extends('_layouts.default')
 
+@section('script-bottom')
+    <script>
+         $(function(){
+            $('#perpage').change(function(){
+                this.form.submit()
+            });
+        });
+    </script>
+@endsection
+
 @section('content')
 <div class="page-header">
     <div class="row">
@@ -35,6 +45,7 @@
                 <div class="card-header">
                     <div class="sub-title">Data Nasabah</div>
                 </div>
+                <form method="get">
                 <div class="card-block">
                      <!-- Row start -->
                      <div class="row">
@@ -76,6 +87,7 @@
                             </div>
                         </div>
                     </div><br>
+                    </form>
                     <div class="table-responsive dt-responsive">
                         <table id="dt-ajax-array" class="table table-striped table-bordered nowrap">
                             <thead>

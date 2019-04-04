@@ -24,6 +24,11 @@ class Nasabah extends Model
         'alamat',
     ];
 
+    public function scopeSearch($query, $by, $q)
+    {
+        return $query->where($by, 'LIKE', '%'.$q.'%');
+    }
+
     public function scopeSorted($query, $by = 'nasabah.id_nasabah', $sort = 'desc')
     {
         return $query->orderBy($by, $sort);
