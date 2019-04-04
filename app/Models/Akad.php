@@ -34,7 +34,7 @@ class Akad extends Model
         return $query->leftJoin('nasabah', 'akad.key_nasabah', '=', 'nasabah.key_nasabah');
     }
 
-    public function scopeRange($query, $start, $end)
+    public function scopeFilterRange($query, $start, $end)
     {
         return $query->whereBetween('tanggal_akad', [$start->format('Y-m-d'), $end->format('Y-m-d')]);
     }

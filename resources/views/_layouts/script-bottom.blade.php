@@ -18,11 +18,7 @@
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/jquery-i18next/js/jquery-i18next.min.js')}}"></script>
 
-<!-- Masking js for form format number --> 
-<script src="{{asset('adminty/files/assets/pages/form-masking/inputmask.js')}}"></script>
-<script src="{{asset('adminty/files/assets/pages/form-masking/jquery.inputmask.js')}}"></script>
-<script src="{{asset('adminty/files/assets/pages/form-masking/autoNumeric.js')}}"></script>
-<script src="{{asset('adminty/files/assets/pages/form-masking/form-mask.js')}}"></script>
+
 
 <!-- range slider js -->
 {{-- <script type="text/javascript" src="{{asset('adminty/files/bower_components/seiyria-bootstrap-slider/js/bootstrap-slider.js')}}"></script> --}}

@@ -1,16 +1,21 @@
 @extends('_layouts.default')
 
 @section('script-bottom')
-    <script>
-        $(document).ready(function(event) {
-            $('#marhun_bih').on('keyup' ,function(){
-                var data = this.value.replace(",","").replace(".","")
-                $('#terbilang').val(terbilang(data));
-                $('#terbilang2').val(terbilang(data));
-                // console.log(data);
-            });
+<!-- Masking js for form format number --> 
+<script src="{{asset('adminty/files/assets/pages/form-masking/inputmask.js')}}"></script>
+<script src="{{asset('adminty/files/assets/pages/form-masking/jquery.inputmask.js')}}"></script>
+<script src="{{asset('adminty/files/assets/pages/form-masking/autoNumeric.js')}}"></script>
+<script src="{{asset('adminty/files/assets/pages/form-masking/form-mask.js')}}"></script>
+<script>
+    $(document).ready(function(event) {
+        $('#marhun_bih').on('keyup' ,function(){
+            var data = this.value.replace(",","").replace(".","")
+            $('#terbilang').val(terbilang(data));
+            $('#terbilang2').val(terbilang(data));
+            // console.log(data);
         });
-    </script>
+    });
+</script>
 @endsection
 
 @section('content')

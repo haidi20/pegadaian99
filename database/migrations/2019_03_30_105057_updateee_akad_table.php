@@ -32,8 +32,13 @@ class UpdateeeAkadTable extends Migration
      */
     public function down()
     {
-         Schema::table('akad', function($table){
-            // $table->dropColumn('jangka_waktu', ['7', '1']);
-        });
+         DB::statement("ALTER TABLE
+    akad
+        MODIFY COLUMN
+            jangka_waktu_akad enum(
+                '60',
+                '30'
+            )
+        NOT NULL AFTER kekurangan;") ;    
     }
 }
