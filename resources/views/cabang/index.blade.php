@@ -66,7 +66,7 @@
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-12 m-b-30">
-                            <input type="text" name="daterange" class="form-control" value="01/01/2015 - 01/31/2015" />
+                            <input type="text" name="daterange" class="form-control" value="{{$dateRange}}" />
                         </div>
                     </div>   
                 </div>

@@ -35,20 +35,21 @@ class AkadController extends Controller
     {
         $menu       = 'database';
     	$akad 		= $this->akad->nasabah()->orderBy('id_akad', 'desc'); 
-        $thisYear   = Carbon::now()->format('Y');
     	$selectBy   = config('library.select_by.akad_nasabah');	
-        // for filter data from date range, perpage, and query by in index
+        // local function filter
         $filter     = $this->filter($akad);
 
         $akad       = $filter->akad->paginate(request('perpage', 10));
         $dateRange  = $filter->dateRange;
 
-    	return view('akad.index', compact('akad', 'selectBy', 'menu', 'thisYear', 'dateRange'));
+    	return view('akad.index', compact('akad', 'selectBy', 'menu', 'dateRange'));
     }
 
+    // for filter data from date range, perpage, and query by in index
     public function filter($akad)
     {
         if(request('perpage')){
+            // if get data from range date
             if(request('date_start') && request('date_end')){
                 $end    =  carbon::parse(request('date_end'));
                 $start  =  carbon::parse(request('date_start'));
@@ -57,11 +58,20 @@ class AkadController extends Controller
                 $start  = carbon::parse(substr(request('daterange'), 1, 9));
             }
 
+            // if get data from input word
+            if(request('by')){
+                $akad   = $akad->search(request('by'), request('q'));
+            }
+
+            // function scope filterRange
             $akad       = $akad->filterRange($start, $end);
             $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
         }else{
-            $akad       = $akad;
-            $dateRange  = '';
+            // for default date in form filter date range
+            $end        = Carbon::now()->subYear(1);
+            $start      = $end;
+
+            $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
         }
 
         return (object) compact('dateRange', 'akad');

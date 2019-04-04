@@ -29,14 +29,22 @@ class Akad extends Model
         'status',
     ];
 
+    // for filter data between date variable start to variable $end
+    public function scopeFilterRange($query, $start, $end)
+    {
+        return $query->whereBetween('tanggal_akad', [$start->format('Y-m-d'), $end->format('Y-m-d')]);
+    }
+
+    // for can fetch data nasabah use left join
     public function scopeNasabah($query)
     {
         return $query->leftJoin('nasabah', 'akad.key_nasabah', '=', 'nasabah.key_nasabah');
     }
 
-    public function scopeFilterRange($query, $start, $end)
+    // search data by keyword form input
+    public function scopeSearch($query, $by, $key)
     {
-        return $query->whereBetween('tanggal_akad', [$start->format('Y-m-d'), $end->format('Y-m-d')]);
+        return $query->where($by, 'LIKE', '%'.$key.'%');
     }
 
     public function getNamaNasabahAttribute()

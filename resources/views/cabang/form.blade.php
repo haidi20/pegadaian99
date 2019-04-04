@@ -13,10 +13,10 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label" for="investor">Investor</label>
                             <div class="col-sm-10">
-                                <input value="{{old('investor')}}" type="text" class="form-control" name="investor" id="investor">
+                                <input value="{{old('investor', '')}}" type="text" class="form-control" name="investor" id="investor">
                             </div>
                         </div>
-                        @if($method == 'post')
+                        @if($method == 'POST')
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label" for="modal_awal">Modal Awal</label>
                             <div class="col-sm-10">

@@ -31,15 +31,8 @@
 
         // for if want to filter data from date, can redirect to akad.index
         $('.applyBtn').on('click', function(){
-            var q           = $('#q').val();
-            var perpage     = $('#perpage').val();
-            var date_end    = $('input[name="daterangepicker_end"]').val();
-            var date_start  = $('input[name="daterangepicker_start"]').val();
-
-            window.location.href = '{{url('/akad')}}?date_start='+date_start
-                                   +'&date_end='+date_end
-                                   +'&perpage='+perpage
-                                   +'&q='+q
+            this.form.submit()
+            console.log('klik')
         });
 
         $('#perpage').change(function(){
@@ -112,10 +105,9 @@
                                     <div class="sub-title">List Nasabah Akad</div>
                                     <div class="row">
                                         <div class="col-sm-3 col-md-3">
-                                            
-                                                <div class="form-group">
-                                                    <input type="text" name="daterange" id="date" class="form-control" value="{{$dateRange}}" />
-                                                </div>
+                                            <div class="form-group">
+                                                <input type="text" name="daterange" id="date" class="form-control" value="{{$dateRange}}" />
+                                            </div>
                                         </div>
                                     </div>                             
                                     <div class="row">
@@ -138,7 +130,7 @@
                                                        
                                                         <select name="by" id="by" class="form-control">
                                                             @foreach($selectBy as $index => $item)
-                                                                <option value="{{$item}}" {{selected($item, 'by', 'request')}}>{{$item}}</option>
+                                                                <option value="{{$index}}" {{selected($index, 'by', 'request')}}>{{$item}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -152,7 +144,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2 col-md-2">
-                                                    <button type="button" class="btn btn-default" id="btn-search">Oke</button>
+                                                    <button type="submit" class="btn btn-default" id="btn-search">Oke</button>
                                                 </div>
                                             </div>
                                         </div>

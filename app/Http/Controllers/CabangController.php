@@ -8,6 +8,7 @@ use App\Models\Cabang;
 use App\Models\User_cabang;
 
 use Auth;
+use Carbon\Carbon;
 
 class CabangController extends Controller
 {
@@ -31,18 +32,42 @@ class CabangController extends Controller
     {
         $cabang = $this->cabang->orderBy('id_cabang', 'desc');
 
+        // local function filter
+        $filter = $this->filter($cabang);
+
+        $cabang     = $filter->cabang->paginate(5);
+        $dateRange  = $filter->dateRange;
+
+    	return view('cabang.index', compact('cabang', 'dateRange'));
+    }
+
+    public function filter($cabang)
+    {
+        // if get data from range date
+        if(request('date_start') && request('date_end')){
+            $end    =  carbon::parse(request('date_end'));
+            $start  =  carbon::parse(request('date_start'));
+        }else if(request('daterange')){
+            $end    = carbon::parse(substr(request('daterange'), 13, 20));
+            $start  = carbon::parse(substr(request('daterange'), 1, 9));
+        }else{
+            // for default date in form filter date range
+            $end        = Carbon::now()->subYear(1);
+            $start      = $end;
+        }
+
         if(request('q')){
             $cabang = $cabang->search(request('q'));
         }
 
-        $cabang = $cabang->paginate(5);
+        $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
 
-    	return view('cabang.index', compact('cabang'));
+        return (object) compact('cabang', 'dateRange');
     }
 
     public function create()
     {
-    	return $this->form();
+        return $this->form();
     }
 
     public function edit()
@@ -54,16 +79,17 @@ class CabangController extends Controller
 
     public function form($id = null)
     {
-        $cariCabang = $this->cabang->find($id);
+        $findCabang = $this->cabang->find($id);
 
-        if($cariCabang){
-            session()->flashInput($cariCabang->toArray());
+        if($findCabang){
+            session()->flashInput($findCabang->toArray());
             $action = route('cabang.update', $id);
             $method = 'PUT';
         }else{
+            session()->flashInput($this->cabang->toArray());
             $action = route('cabang.store');
             $method = 'POST';
-        } 
+        }
 
     	return view('cabang.form', compact('action', 'method'));
     }

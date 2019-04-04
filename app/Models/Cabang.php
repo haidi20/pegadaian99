@@ -34,6 +34,11 @@ class Cabang extends Model
         // });
     }
 
+    public function admin_cabang()
+    {
+        
+    }
+
     public function nasabah()
     {
         return $this->belongsTo('App\Models\Nasabah', 'key_nasabah');
@@ -47,6 +52,11 @@ class Cabang extends Model
     public function getKeyType()
     {
         // return 'string';
+    }
+
+    public function scopeFilterRange($query, $start, $end)
+    {
+        return $query->whereBetween('tanggal_akad', [$start->format('Y-m-d'), $end->format('Y-m-d')]);
     }
 
     public function scopeSearch($query, $q)
