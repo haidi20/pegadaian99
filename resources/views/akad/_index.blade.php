@@ -28,7 +28,6 @@
 
 <script>
      $(function(){
-
         // for if want to filter data from date, can redirect to akad.index
         $('.applyBtn').on('click', function(){
             this.form.submit()
@@ -39,6 +38,27 @@
             this.form.submit()
         });
     });
+
+     // for bug class active on tab
+     function removeActive(tab)
+     {
+        var nasabah_akad = $('#nasabah_akad')
+        var akad_jatuh_tempo = $('#akad_jatuh_tempo')
+        var pelunasan_dan_lelang = $('#tab_pelunasan_dan_lelang')
+
+        if(tab == 'nasabah_akad'){
+            akad_jatuh_tempo.removeClass('active')
+            perlunasan_dan_lelang.removeClass('active')
+        }else if(tab == 'akad_jatuh_tempo'){
+            nasabah_akad.removeClass('active')
+            perlunasan_dan_lelang.removeClass('active')
+        }else{
+            nasabah_akad.removeClass('active')
+            akad_jatuh_tempo.removeClass('active')
+        }
+
+        console.log(e)
+     }
 </script>
 @endsection
 
@@ -72,7 +92,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6 col-md-12">
+        <div class="col-sm-12 col-md-12">
              <div class="card">
                 <div class="card-header">
                     
@@ -80,42 +100,44 @@
                 <form method="get">
                 <div class="card-block">
                     <!-- Row start -->
-                    <div class="row">
+                    <div class="row m-b-30">
                         <div class="col-lg-12 col-xl-12">
-                            {{-- <div class="sub-title">List Nasabah Akad</div> --}}
+                            <div class="sub-title">Default</div>
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs md-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#nasabah_akad" role="tab">Nasabah akad</a>
+                                    <a class="nav-link active" data-toggle="tab" href="#nasabah_akad" onClick="removeActive('nasabah_akad')" role="tab">Nasabah akad</a>
                                     <div class="slide"></div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#akad_jatuh_tempo" role="tab">Akad Jatuh Tempo</a>
+                                    <a class="nav-link" data-toggle="tab" href="#akad_jatuh_tempo" onClick="removeActive('akad_jatuh_tempo')" role="tab">Akad Jatuh Tempo</a>
                                     <div class="slide"></div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#profile3" role="tab">Pelunasan & Lelang</a>
+                                    <a class="nav-link" data-toggle="tab" href="#pelunasan_dan_lelang" onClick="removeActive('pelunasan_dan_lelang')" role="tab">Pelunasan & Lelang</a>
                                     <div class="slide"></div>
                                 </li>
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content card-block">
-                                {{-- <form method="get"> --}}
                                 <div class="tab-pane active" id="nasabah_akad" role="tabpanel">
                                     {{-- table list nasabah akad  --}}
-                                    @include('akad.list-nasabah-akad')
+                                    @include('akad.nasabah-akad')
 
                                 </div>
-                                {{-- </form> --}}
                                 <div class="tab-pane" id="akad_jatuh_tempo" role="tabpanel">
                                     @foreach($nameTables as $index => $item)
                                         @include('akad.akad-jatuh-tempo')
                                         <br><br><br><br>
                                     @endforeach
                                 </div>
+                                <div class="tab-pane" id="pelunasan_dan_lelang" role="tabpanel">
+                                    @include('akad.pelunasan-dan-lelang')
+                                </div>
                             </div>
                         </div>
                     </div>
+                    
                     <!-- Row end -->
                 </div>
                 </form>

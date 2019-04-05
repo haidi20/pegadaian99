@@ -1,13 +1,6 @@
 <div class="sub-title">
-    <h6>List Nasabah Akad</h6>
-</div>
-<div class="row">
-    <div class="col-sm-3 col-md-3">
-        <div class="form-group">
-            <input type="text" name="daterange" id="date" class="form-control" value="{{$dateRange}}" />
-        </div>
-    </div>
-</div>                             
+    <h6>List Nasabah Lunas</h6>
+</div>                            
 <div class="row">
     <div class="col-sm-12 col-md-2">
          <div class="form-group">
@@ -27,7 +20,7 @@
                 <div class="form-group">
                    
                     <select name="by" id="by" class="form-control">
-                        @foreach($columnListNasabahAkad as $index => $item)
+                        @foreach($columnAkadJatuhTempo as $index => $item)
                             <option value="{{$index}}" {{selected($index, 'by', 'request')}}>{{$item}}</option>
                         @endforeach
                     </select>
@@ -52,14 +45,14 @@
         <thead>
         <tr>
             <th>No</th>
-             @foreach($columnListNasabahAkad as $index => $item)
+            @foreach($columnAkadJatuhTempo as $index => $item)
                 <th>{{$item}}</th>
-             @endforeach
+            @endforeach
             {{-- <th>action</th> --}}
         </tr>
         </thead>
-        <tbody>
-            @forelse($akad as $index => $item)
+        <tbody id="akad_jatuh_tempo_{{$index}}">
+            {{-- @forelse($akad as $index => $item)
                 <tr>
                     <td>{{$index + 1}}</td>
                     <td>{{$item->nama_lengkap}}</td>
@@ -71,7 +64,7 @@
                     <td>{{$item->tanggal_akad}}</td>
                     <td>{{$item->tanggal_jatuh_tempo}}</td>
                     <td></td>
-                    {{-- <td>
+                    <td>
                         <a href="{{route('akad.edit', $item->id)}}" class="btn btn-sm btn-info">
                             <i class="icon-pencil3"></i> Edit
                         </a>
@@ -81,13 +74,13 @@
                             <i class="icon-trash3"></i>
                             Delete
                         </a>
-                    </td> --}}
+                    </td>
                 </tr>
             @empty
             <tr>
                 <td colspan="11" align="center">No data available in table</td>
-            </tr>
-            @endforelse
+            </tr> 
+            @endforelse --}}
         </tbody>
         {{-- <tfoot>
         <tr>
@@ -101,4 +94,4 @@
         </tfoot> --}}
     </table>
 </div>
-{!! $akad->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
+{{-- {!! $akad->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!} --}}

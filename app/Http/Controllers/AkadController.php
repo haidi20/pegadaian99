@@ -38,17 +38,18 @@ class AkadController extends Controller
         // local function filter
         $filter     = $this->filter($akad);
 
+        // data from akad and dateRange after filter 
         $akad       = $filter->akad->paginate(request('perpage', 10));
         $dateRange  = $filter->dateRange;
 
-        // list column per tab
+        // list column per TAB
         $columnAkadJatuhTempo   = config('library.column.akad_nasabah.akad_jatuh_tempo');
         $columnListNasabahAkad  = config('library.column.akad_nasabah.list_akad_nasabah');
 
-        // list name tables on 'akad jatuh tempo'
+        // list name tables on TAB 'akad jatuh tempo'
         $nameTables = config('library.name_tables.akad_nasabah.akad_jatuh_tempo'); 
 
-    	return view('akad.index', compact(
+    	return view('akad._index', compact(
             'akad', 'menu', 'dateRange', 'nameTables',
             'columnListNasabahAkad', 'columnAkadJatuhTempo'
         ));
@@ -109,7 +110,7 @@ class AkadController extends Controller
     	$tanggal_akad	= Carbon::now()->format('Y-m-d');
     	$tanggal_jatuh 	= Carbon::now()->addYear()->subDay()->format('Y-m-d');
 
-    	return view('akad.form', compact('action', 'method', 'tanggal_akad', 'tanggal_jatuh'));
+    	return view('akad._form', compact('action', 'method', 'tanggal_akad', 'tanggal_jatuh'));
     }
 
     public function store()

@@ -60,4 +60,10 @@ function remove(id, action='delete', message='Anda yakin akan menghapus data ini
         }
     });
 }
+
+// for view paginate based on bootstrap 4
+$(function(){
+    var paginate = $('.pagination li')
+    paginate.addClass('page-link')
+});
 </script>

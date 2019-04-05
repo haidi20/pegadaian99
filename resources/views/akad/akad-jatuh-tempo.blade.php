@@ -51,7 +51,7 @@
             {{-- <th>action</th> --}}
         </tr>
         </thead>
-        <tbody>
+        <tbody id="akad_jatuh_tempo_{{$index}}">
             {{-- @forelse($akad as $index => $item)
                 <tr>
                     <td>{{$index + 1}}</td>
@@ -81,6 +81,7 @@
                 <td colspan="11" align="center">No data available in table</td>
             </tr> 
             @endforelse --}}
+            <td colspan="11" align="center">No data available in table</td>
         </tbody>
         {{-- <tfoot>
         <tr>
