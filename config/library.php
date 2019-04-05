@@ -52,7 +52,7 @@ return [
 			'child'	=> [
 				0	=> [
 					'url'	=> 'nasabah',
-					'name'	=> 'Database Nasabah',
+					'name'	=> 'Data Nasabah',
 					'route'	=> 'nasabah.index',
 				],
 				1	=> [
