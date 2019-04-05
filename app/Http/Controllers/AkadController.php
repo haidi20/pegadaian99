@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Akad;
 use App\Models\Nasabah;
-use App\Models\user_cabang;
+use App\Models\User_cabang;
 
 use Carbon\Carbon;
 

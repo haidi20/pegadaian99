@@ -34,6 +34,7 @@
             console.log('klik')
         });
 
+        // for if page choose can change count data
         $('#perpage').change(function(){
             this.form.submit()
         });
