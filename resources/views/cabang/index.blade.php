@@ -80,8 +80,11 @@
                 </div>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 m-b-30">
+                        <div class="col-sm-12 col-md-10">
                             <input type="text" name="daterange" class="form-control" value="{{$dateRange}}" />
+                        </div>
+                        <div class="col-sm-12 col-md-2 text-right">
+                            <button type="submit" class="btn btn-default" id="btn-search">Oke</button>
                         </div>
                     </div>   
                 </div>
@@ -95,22 +98,48 @@
                     <div class="sub-title">Modal Setiap Cabang</div>
                 </div>
                 <div class="card-block">
+                    <form method="get">              
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2">
+                                 <div class="form-group">
+                                    {{-- Show &nbsp; --}}
+                                    <select name="perpage" id="perpage" class="form-control">
+                                        <option {{ selected(10, 'perpage', 'request')}}>10</option>
+                                        <option {{ selected(25, 'perpage', 'request')}}>25</option>
+                                        <option {{ selected(50, 'perpage', 'request')}}>50</option>
+                                        <option {{ selected(100, 'perpage', 'request')}}>100</option>
+                                    </select> 
+                                    {{-- &nbsp; Entries --}}
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 offset-md-4">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="form-group">
+                                            <select name="by" id="by" class="form-control">
+                                                <option value="no_cabang">Nomor Cabang</option>
+                                                <option value="nama_cabang">Nama Cabang</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="input-group input-group-success">
+                                            <span class="input-group-addon">
+                                               <i class="icofont icofont-ui-search"></i>
+                                            </span>
+                                            <input type="text" name="q" id="q" value="{{ request('q') }}" class="form-control" placeholder="Search">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-2">
+                                        <button type="submit" class="btn btn-default" id="btn-search">Oke</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
                      <!-- Row start -->
                     <div class="row">
                         <div class="col-sm-12 col-md-12">
-                            <div class="form-group float-right">
-                                {{-- By &nbsp;
-                                <select name="by" id="by" class="form-control">
-                                    @foreach($selectBy as $index => $item)
-                                        <option value="{{$item}}" {{selected($item, 'by', 'request')}}>{{$item}}</option>
-                                    @endforeach
-                                </select>
-                                &nbsp; --}}
-                                Search &nbsp; : &nbsp;
-                                <input type="text" name="q" id="q" class="form-control" value="{{ request('q') }}" placeholder="">
-                                <button type="submit" class="btn btn-default" id="btn-search">Oke</button>
-                            </div>
-                            <br>
                             <div class="table-responsive">
                                 <table class="table table-hover table-borderless">
                                     <thead>

@@ -138,7 +138,7 @@
                         </div>
                         <div class="col-sm-12 col-md-6 offset-md-4">
                             <div class="row">
-                                <div class="col-sm-4 col-md-4">
+                                <div class="col-sm-12 col-md-3 offset-md-1">
                                     <div class="form-group">
                                         <select name="by" id="by" class="form-control">
                                             @foreach($column as $index => $item)
@@ -147,7 +147,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-5 col-md-5">
+                                <div class="col-sm-12 col-md-5">
                                     <div class="input-group input-group-success">
                                         <span class="input-group-addon">
                                            <i class="icofont icofont-ui-search"></i>
