@@ -41,4 +41,35 @@ class NasabahController extends Controller
     {
         return $this->nasabah->find($id);
     }
+
+    public function edit($id)
+    {
+        $findNasabah = $this->nasabah->find($id);
+
+        session()->flashInput($findNasabah->toArray());
+        $action = route('nasabah.update', $id);
+        $method = 'PUT';
+
+        return view('nasabah.form', compact('action', 'method'));
+    }
+
+    public function update($id)
+    {
+        $nasabah                = $this->nasabah->find($id);
+        $nasabah->kota          = request('kota');
+        $nasabah->alamat        = request('alamat');
+        $nasabah->no_telp       = request('no_telp');
+        $nasabah->jenis_id      = request('jenis_id');
+        $nasabah->no_identitas  = request('no_identitas');
+        $nasabah->nama_lengkap  = request('nama_lengkap');
+        $nasabah->jenis_kelamin = request('jenis_kelamin');
+        $nasabah->tanggal_lahir = request('tanggal_lahir');
+        $nasabah->tanggal_daftar= request('tanggal_daftar');
+        $nasabah->save();
+
+        $message    = '<strong>Sukses!</strong> Data Nasabah telah di perbaharui dengan Atas Nama'.$nasabah->nama_lengkap;
+        flash_message('message', $message);
+
+        return redirect()->route('nasabah.index');
+    }
 }

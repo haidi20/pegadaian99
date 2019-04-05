@@ -1,13 +1,6 @@
 @extends('_layouts.default')
 
 @section('script-bottom')
-    <!-- modalEffects js nifty modal window effects -->
-    {{-- <script type="text/javascript" src="{{asset('adminty/files/bower_components/sweetalert/js/sweetalert.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('adminty/files/assets/js/modal.js')}}"></script>
-    <script type="text/javascript" src="{{asset('adminty/files/assets/js/modalEffects.js')}}"></script>
-    <script type="text/javascript" src="{{asset('adminty/files/assets/js/classie.js')}}"></script>
-    <script type="text/javascript" src="{{asset('adminty/files/assets/js/vartical-layout.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('adminty/files/assets/js/script.js')}}"></script> --}}
     <script>
         function detail(id)
         {
@@ -180,12 +173,13 @@
                                         <td>{{$item->no_telp}}</td>
                                         <td>{{$item->alamat}}</td>
                                         <td align="center">
-                                            <a href="javascript:void(0)" onClick="detail({{$item->id_nasabah}})" 
+                                            <a href="javascript:void(0)" onClick="detail({{$item->id_nasabah}})" title="Detail Data"
                                                data-url="{{route('nasabah.detail', $item->id_nasabah)}}" id="detail_{{$item->id_nasabah}}" class="btn btn-sm btn-info">
                                                 <i class="icofont icofont-external icofont-lg"></i>
                                             </a>
-                                            <a href="#" class="btn btn-sm btn-danger" title="Hapus Data">
-                                                <i class="icofont icofont-ui-delete icofont-lg"></i>
+                                            <a href="{{route('nasabah.edit', $item->id_nasabah)}}" class="btn btn-sm btn-primary" title="Edit Data">
+                                                {{-- <i class="icofont icofont-ui-delete icofont-lg"></i> --}}
+                                                <i class="icofont icofont-edit icofont-lg"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -196,14 +190,6 @@
                                 @endforelse
                             </tbody>
                             {{-- <tfoot>
-                            <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                            </tr>
                             </tfoot> --}}
                         </table>
                     </div>

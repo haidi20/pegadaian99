@@ -19,13 +19,15 @@ Route::get('/',function(){
 Route::middleware('auth')->group(function() {
 	Route::group(['prefix' => 'nasabah'], function(){
 		Route::get('/', 'NasabahController@index')->name('nasabah.index');
+		Route::get('/edit/{id}', 'NasabahController@edit')->name('nasabah.edit');
 		Route::get('/detail/{id}', 'NasabahController@detail')->name('nasabah.detail');
+		Route::post('/update/{id}', 'NasabahController@update')->name('nasabah.update');
 	});
 	Route::group(['prefix' => 'akad'], function(){
 		Route::get('/', 'AkadController@index')->name('akad.index');
 		Route::get('/create', 'AkadController@create')->name('akad.create');
-		Route::post('/store', 'AkadController@store')->name('akad.store');
 		Route::get('/edit/{id}', 'AkadController@edit')->name('akad.edit');
+		Route::post('/store', 'AkadController@store')->name('akad.store');
 		Route::post('/update/{id}', 'AkadController@update')->name('akad.update');
 		Route::post('/destroy/{id}', 'AkadController@destroy')->name('akad.destroy');
 	});
