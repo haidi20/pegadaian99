@@ -35,14 +35,23 @@ class AkadController extends Controller
     {
         $menu       = 'database';
     	$akad 		= $this->akad->nasabah()->sorted(); 
-    	$selectBy   = config('library.column.akad_nasabah');	
         // local function filter
         $filter     = $this->filter($akad);
 
         $akad       = $filter->akad->paginate(request('perpage', 10));
         $dateRange  = $filter->dateRange;
 
-    	return view('akad.index', compact('akad', 'selectBy', 'menu', 'dateRange'));
+        // list column per tab
+        $columnAkadJatuhTempo   = config('library.column.akad_nasabah.akad_jatuh_tempo');
+        $columnListNasabahAkad  = config('library.column.akad_nasabah.list_akad_nasabah');
+
+        // list name tables on 'akad jatuh tempo'
+        $nameTables = config('library.name_tables.akad_nasabah.akad_jatuh_tempo'); 
+
+    	return view('akad.index', compact(
+            'akad', 'menu', 'dateRange', 'nameTables',
+            'columnListNasabahAkad', 'columnAkadJatuhTempo'
+        ));
     }
 
     // for filter data from date range, perpage, and query by in index

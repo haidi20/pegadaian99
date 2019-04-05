@@ -65,21 +65,44 @@ return [
 	],
 	'column' => [
 		'akad_nasabah' => [
-			'nama_lengkap' 	=> 'Nama',
-			'no_telp' 		=> 'No. telp',
-			'no_id' 		=> 'ID',
-			'jaminan' 		=> 'Jaminan',
-			'pinjaman'	 	=> 'Pinjaman',
-			'tunggakan' 	=> 'Tunggakan',
-			'tanggal_akad'	=> 'Tanggal Akad',
-			'jatuh_tempo'	=> 'Jatuh Tempo',
-			'prosedur' 		=> 'Prosedur',			
+			'list_akad_nasabah' => [
+				'nama_lengkap' 	=> 'Nama',
+				'no_telp' 		=> 'No. telp',
+				'no_id' 		=> 'ID',
+				'jaminan' 		=> 'Jaminan',
+				'pinjaman'	 	=> 'Pinjaman',
+				'tunggakan' 	=> 'Tunggakan',
+				'tanggal_akad'	=> 'Tanggal Akad',
+				'jatuh_tempo'	=> 'Jatuh Tempo',
+				'prosedur' 		=> 'Prosedur',	
+			],
+			'akad_jatuh_tempo'	=> [
+				'nama_lengkap' 		=> 'Nama',
+				'no_telp' 			=> 'No. telp',
+				'no_id' 			=> 'ID',
+				'jaminan' 			=> 'Jaminan',
+				'pinjaman'	 		=> 'Pinjaman',
+				'b_titip_berbayar'	=> 'B. Titip Terbayar',
+				'tunggakan' 		=> 'Tunggakan',
+				'tanggal_akad'		=> 'Tanggal Akad',
+				'jatuh_tempo'		=> 'Jatuh Tempo',
+			],		
 		],
 		'nasabah' => [
 			'nama_lengkap' 	=> 'Nama',
 			'no_telp'		=> 'No Telp',
 			'alamat' 		=> 'Alamat',
 			'action'		=> 'Action'
+		],
+	],
+	'name_tables' => [
+		'akad_nasabah' => [
+			'akad_jatuh_tempo' => [
+				'List Jatuh Tempo 7 Hari',
+				'List Jatuh Tempo 15 Hari',
+				'List Jatuh Tempo 30 Hari',
+				'List Jatuh Tempo 60 Hari',
+			],
 		],
 	],
 ];

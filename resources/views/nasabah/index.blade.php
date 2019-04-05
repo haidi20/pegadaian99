@@ -85,8 +85,7 @@
         <div class="col-md-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>Data Cabang</h4>
-                    <span>Rincian Dana</span>
+                    <h4>Data Nasabah</h4>
                 </div>
             </div>
         </div>
@@ -112,7 +111,7 @@
         <div class="col-sm-12 col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="sub-title">Data Nasabah</div>
+                    <div class="sub-title">Data Table Nasabah</div>
                 </div>
                 <form method="get">
                 <div class="card-block">

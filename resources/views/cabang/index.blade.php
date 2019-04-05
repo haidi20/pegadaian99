@@ -142,7 +142,7 @@
                             <h4 class="m-b-0">Rp.1.300.000.00,-</h4>
                         </div>
                         <div class="col col-auto text-right">
-                            <i class="feather icon-credit-card f-50 text-c-yellow"></i>
+                            <i class="icofont icofont-ui-fire-wall f-50 text-c-yellow"></i>
                         </div>
                     </div>
                 </div>
