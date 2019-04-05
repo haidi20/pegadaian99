@@ -16,7 +16,14 @@
             $.ajax({
                 url: url,
                 method: 'get',
+                beforeSend: function(){
+                    $('#modal-detail').modal('show')
+                    // view css loading show
+                    $('#loader-block').css('display', '')
+                },
                 success: function(result){
+                    // view css loading hide
+                    $('#loader-block').css('display', 'none')
                     show_data(result)
                 }
             });
