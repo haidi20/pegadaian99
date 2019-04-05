@@ -95,9 +95,9 @@
     <div class="row">
         <div class="col-sm-12 col-md-12">
              <div class="card">
-                <div class="card-header">
+                {{-- <div class="card-header">
                     
-                </div>
+                </div> --}}
                 <form method="get">
                 <div class="card-block">
                     <!-- Row start -->
