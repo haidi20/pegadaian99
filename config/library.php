@@ -1,6 +1,7 @@
 <?php 
 
 return [
+	// LIST MENU ON HEADER
 	'menu_header' => [
 		/* NOTE : 
 		* url 	= for condition active which is use function requeset()->is() in helper
@@ -63,6 +64,7 @@ return [
 			],
 		],
 	],
+	// LIST COLUMN ON TABLE
 	'column' => [
 		'akad_nasabah' => [
 			'list_akad_nasabah' => [
@@ -86,7 +88,42 @@ return [
 				'tunggakan' 		=> 'Tunggakan',
 				'tanggal_akad'		=> 'Tanggal Akad',
 				'jatuh_tempo'		=> 'Jatuh Tempo',
-			],		
+			],	
+			'pelunasan_dan_lelang' => [
+				'list_nasabah_lunas' => [
+					'nama_lengkap' 		=> 'Nama',
+					'no_telp' 			=> 'No. telp',
+					'no_id' 			=> 'ID',
+					'jaminan' 			=> 'Jaminan',
+					'pinjaman'	 		=> 'Pinjaman',
+					'b_titip_terbayar'	=> 'B. Titip Terbayar',
+					'tanggal_akad'		=> 'Tanggal Akad',
+					'tanggal_pelunasan'	=> 'Tanggal Pelunasan',
+				],
+				'list_nasabah_lelang' => [
+					'nama_lengkap' 		=> 'Nama',
+					'no_telp' 			=> 'No. telp',
+					'no_id' 			=> 'ID',
+					'jaminan' 			=> 'Jaminan',
+					'pinjaman'	 		=> 'Pinjaman',
+					'b_titip_terbayar'	=> 'B. Titip Terbayar',
+					'tanggal_akad'		=> 'Tanggal Akad',
+					'tanggal_lelang'	=> 'Tanggal Lelang',
+					'nomor_lelang'		=> 'N. Lelang',
+					'admin_lelang'		=> 'Adm. Lelang',
+				],
+				'list_nasabah_refund' => [
+					'nama_lengkap' 		=> 'Nama',
+					'no_telp' 			=> 'No. telp',
+					'no_id' 			=> 'ID',
+					'jaminan' 			=> 'Jaminan',
+					'pinjaman'	 		=> 'Pinjaman',
+					'tunggakan' 		=> 'Tunggakan',
+					'admin'				=> 'Admin',
+					'nilai_terlelang'	=> 'Nilai Terlelang',
+					'pengembalian'		=> 'Pengembalian',
+				],
+			],	
 		],
 		'nasabah' => [
 			'nama_lengkap' 	=> 'Nama',

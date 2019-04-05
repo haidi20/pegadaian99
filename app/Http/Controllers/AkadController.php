@@ -45,12 +45,14 @@ class AkadController extends Controller
         // list column per TAB
         $columnAkadJatuhTempo   = config('library.column.akad_nasabah.akad_jatuh_tempo');
         $columnListNasabahAkad  = config('library.column.akad_nasabah.list_akad_nasabah');
+        // list column for 'pelunasan & lelang'
+        $columnPelunasanLelang = config('library.column.akad_nasabah.pelunasan_dan_lelang');
 
-        // list name tables on TAB 'akad jatuh tempo'
+        // list name tables on TAB 'akad jatuh tempo' example list jatuh tempo 7 hari, 15 hari dll.
         $nameTables = config('library.name_tables.akad_nasabah.akad_jatuh_tempo'); 
 
     	return view('akad._index', compact(
-            'akad', 'menu', 'dateRange', 'nameTables',
+            'akad', 'menu', 'dateRange', 'nameTables', 'columnPelunasanLelang',
             'columnListNasabahAkad', 'columnAkadJatuhTempo'
         ));
     }
