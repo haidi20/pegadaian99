@@ -25,6 +25,20 @@
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/jscolor/js/jscolor.js')}}"></script>
 
 <script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/custom-picker.js')}}"></script>
+
+<script>
+     $(function(){
+        // for if want to filter data from date, can redirect to akad.index
+        $('.applyBtn').on('click', function(){
+            this.form.submit()
+        });
+
+        // for if page choose can change count data
+        $('#perpage').change(function(){
+            this.form.submit()
+        });
+    });
+</script>
 @endsection
 
 @section('content')
@@ -50,6 +64,7 @@
         </div>
     </div>
 </div>
+<form method="get">
 <div class="page-body">
     <div class="row">
         <div class="col-sm-12 col-md-12">
@@ -83,20 +98,18 @@
                      <!-- Row start -->
                     <div class="row">
                         <div class="col-sm-12 col-md-12">
-                            <form method="get" class="form-inline">
-                                <div class="form-group float-right">
-                                    {{-- By &nbsp;
-                                    <select name="by" id="by" class="form-control">
-                                        @foreach($selectBy as $index => $item)
-                                            <option value="{{$item}}" {{selected($item, 'by', 'request')}}>{{$item}}</option>
-                                        @endforeach
-                                    </select>
-                                    &nbsp; --}}
-                                    Search &nbsp; : &nbsp;
-                                    <input type="text" name="q" id="q" class="form-control" value="{{ request('q') }}" placeholder="">
-                                    <button type="submit" class="btn btn-default" id="btn-search">Oke</button>
-                                </div>
-                            </form>
+                            <div class="form-group float-right">
+                                {{-- By &nbsp;
+                                <select name="by" id="by" class="form-control">
+                                    @foreach($selectBy as $index => $item)
+                                        <option value="{{$item}}" {{selected($item, 'by', 'request')}}>{{$item}}</option>
+                                    @endforeach
+                                </select>
+                                &nbsp; --}}
+                                Search &nbsp; : &nbsp;
+                                <input type="text" name="q" id="q" class="form-control" value="{{ request('q') }}" placeholder="">
+                                <button type="submit" class="btn btn-default" id="btn-search">Oke</button>
+                            </div>
                             <br>
                             <div class="table-responsive">
                                 <table class="table table-hover table-borderless">
@@ -284,4 +297,5 @@
             </div>
         </div>  
     </div>
+</form>
 @endsection

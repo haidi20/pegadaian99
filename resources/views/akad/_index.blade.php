@@ -28,12 +28,6 @@
 
 <script>
      $(function(){
-        // for if want to filter data from date, can redirect to akad.index
-        $('.applyBtn').on('click', function(){
-            this.form.submit()
-            console.log('klik')
-        });
-
         // for if page choose can change count data
         $('#perpage').change(function(){
             this.form.submit()
@@ -98,7 +92,6 @@
                 {{-- <div class="card-header">
                     
                 </div> --}}
-                <form method="get">
                 <div class="card-block">
                     <!-- Row start -->
                     <div class="row m-b-30">
@@ -141,7 +134,6 @@
                     
                     <!-- Row end -->
                 </div>
-                </form>
             </div>
         </div>
     </div>

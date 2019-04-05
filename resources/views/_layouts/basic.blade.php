@@ -28,7 +28,7 @@
     
 </head>
 <body>
-
+  
   @include('_layouts.loading')
 
   @yield('basic-content')

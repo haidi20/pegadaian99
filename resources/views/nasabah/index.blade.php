@@ -79,7 +79,7 @@
 
         $(function(){
             $('#perpage').change(function(){
-                this.form.submit()
+                // this.form.submit()
             });
         });
     </script>

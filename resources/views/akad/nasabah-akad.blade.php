@@ -1,13 +1,15 @@
+
+<form method="get">
 <div class="sub-title">
     <h6>List Nasabah Akad</h6>
-</div>
+</div> 
 <div class="row">
     <div class="col-sm-3 col-md-3">
         <div class="form-group">
             <input type="text" name="daterange" id="date" class="form-control" value="{{$dateRange}}" />
         </div>
     </div>
-</div>                             
+</div>              
 <div class="row">
     <div class="col-sm-12 col-md-2">
          <div class="form-group">
@@ -25,7 +27,6 @@
         <div class="row">
             <div class="col-sm-4 col-md-4">
                 <div class="form-group">
-                   
                     <select name="by" id="by" class="form-control">
                         @foreach($columnListNasabahAkad as $index => $item)
                             <option value="{{$index}}" {{selected($index, 'by', 'request')}}>{{$item}}</option>
@@ -117,3 +118,4 @@
         {{-- </div> --}}
     </div>
 </div>
+</form>
