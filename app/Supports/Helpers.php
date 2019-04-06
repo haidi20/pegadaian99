@@ -2,7 +2,11 @@
 
 use Carbon\Carbon;
 
-// selected for selected on selection in anyware
+/* selected for selected on selection in anyware
+* $parm1 = value of option
+* $parm2 = name from field table 
+* $type  = type is 'request' or 'old'
+*/
 if( ! function_exists('selected') )
 {
 	function selected($parm1, $parm2, $type = null){
@@ -14,7 +18,10 @@ if( ! function_exists('selected') )
 	}
 }
 
-// checked for checked in radio button
+/* checked for checked in radio button
+* $parm1 = value of option
+* $parm2 = name from field table
+*/
 if( ! function_exists('checked') )
 {
 	function checked($parm1, $parm2){
@@ -22,12 +29,12 @@ if( ! function_exists('checked') )
 	}
 }
 
-// active for add class active in menu on header
+/* active for add class active in menu on header
+* $menu 	= name menu and then set name menu from controller
+* $feature 	= address url on aplication or name feature on aplication
+*/
 if( ! function_exists('active') )
 {
-	/* INFO
-	* $feature = address url on aplication or name feature on aplication
-	*/
 	function active($feature, $menu = null){
 		if($menu){
 			return $feature == $menu ? 'active pcoded-trigger' : '';
@@ -37,10 +44,13 @@ if( ! function_exists('active') )
 	}
 }
 
-// flash_message for show notification after some action. example after add, edit, or delete data
+/* flash_message for show notification after some action. example after add, edit, or delete data
+* $session 	= set name session 
+* $messages = input messages from controller 
+*/
 if( ! function_exists('flash_message') )
 {
-    function flash_message($session, $messages='', $close=true)
+    function flash_message($session, $messages='')
     {
     	$notification = '<div class="alert alert-success background-success">
 			                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -54,15 +64,9 @@ if( ! function_exists('flash_message') )
     }
 }
 
-// fa for icon
-if( ! function_exists('fa') ){
-    function fa($icon='pencil', $addClass='', $style='')
-    {
-        return '<i class="fa fa-'.$icon.' '.$addClass.'" style="'.$style.'"></i>';
-    }
-}
-
-// remove_dot for remove "." of value form number
+/* remove_dot for remove "." of value form number and then remove for input to database
+* $number = value number have "."
+*/
 if( ! function_exists('remove_dot') ){
     function remove_dot($number)
     {

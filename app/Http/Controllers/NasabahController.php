@@ -18,7 +18,7 @@ class NasabahController extends Controller
 
         view()->share([
             'menu'          => 'nasabah',
-            'menu_header'   => config('library.menu_header'),
+            'menuCabang'    => config('library.menu_header'),
         ]);
     }
 

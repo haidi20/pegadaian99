@@ -45,6 +45,8 @@ Route::middleware('auth')->group(function() {
 	});
 });
 
+Route::get('/api', 'CabangController@api');
+
 
 Auth::routes();
 

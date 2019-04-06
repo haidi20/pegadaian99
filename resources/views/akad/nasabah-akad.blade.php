@@ -1,15 +1,9 @@
 <div class="sub-title">
     <h6>List Nasabah Akad</h6>
-</div>
+</div> 
+<form method="get">              
 <div class="row">
-    <div class="col-sm-3 col-md-3">
-        <div class="form-group">
-            <input type="text" name="daterange" id="date" class="form-control" value="{{$dateRange}}" />
-        </div>
-    </div>
-</div>                             
-<div class="row">
-    <div class="col-sm-12 col-md-2">
+    <div class="col-sm-12 col-md-2 offset-md-1">
          <div class="form-group">
             {{-- Show &nbsp; --}}
             <select name="perpage" id="perpage" class="form-control">
@@ -21,11 +15,15 @@
             {{-- &nbsp; Entries --}}
         </div>
     </div>
-    <div class="col-sm-12 col-md-6 offset-md-4">
+    <div class="col-sm-12 col-md-3">
+        <div class="form-group">
+            <input type="text" name="daterange" id="date" class="form-control" value="{{$dateRange}}" />
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6">
         <div class="row">
-            <div class="col-sm-4 col-md-4">
+            <div class="col-sm-4 offset-md-1">
                 <div class="form-group">
-                   
                     <select name="by" id="by" class="form-control">
                         @foreach($columnListNasabahAkad as $index => $item)
                             <option value="{{$index}}" {{selected($index, 'by', 'request')}}>{{$item}}</option>
@@ -46,7 +44,9 @@
             </div>
         </div>
     </div>
-</div><br>
+</div>
+</form>
+<br>
 <div class="row">
     <div class="col-sm-12 col-md-12">
         <div class="table-responsive dt-responsive">
@@ -104,16 +104,5 @@
             </table>
         </div>
         {!! $akad->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
-        {{-- <div class="container"> --}}
-          {{-- <h2>Pagination</h2>
-          <p>To create a basic pagination, add the .pagination class to an ul element. Then add the .page-item to each li element and a .page-link class to each link inside li:</p>                  
-          <ul class="pagination">
-            <li ><a class="page-link" href="#">Previous</a></li>
-            <li ><a class="page-link" href="#">1</a></li>
-            <li ><a class="page-link" href="#">2</a></li>
-            <li ><a class="page-link" href="#">3</a></li>
-            <li ><a class="page-link" href="#">Next</a></li>
-          </ul> --}}
-        {{-- </div> --}}
     </div>
 </div>

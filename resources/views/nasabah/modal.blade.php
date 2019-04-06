@@ -27,20 +27,20 @@
                                     </div>
                                 </div>
                                 <div class="row" id="data-detail">
-                                    <div class="col-lg-12 col-xl-7 col-sm-7">
+                                    <div class="col-lg-12 col-xl-6 col-sm-6 col-md-6">
                                         <div class="table-responsive">
                                             <table class="table m-0">
                                                 <tbody id="table-detail-one">
-                                                    
+                                                    {{-- fetch data from jquery --}}
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 col-xl-5 col-sm-5">
+                                    <div class="col-lg-12 col-xl-6 col-sm-6 col-md-6">
                                         <div class="table-responsive">
                                             <table class="table m-0" >
                                                 <tbody id="table-detail-two">
-                                                   
+                                                   {{-- fetch data from jquery --}}
                                                 </tbody>
                                             </table>
                                         </div>

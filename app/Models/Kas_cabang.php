@@ -15,4 +15,9 @@ class Kas_cabang extends Model
         'id_cabang',
         'total_kas',
     ];
+
+    public function scopeIdCabang($query, $value)
+    {
+    	return $query->where('id_cabang', $value);
+    }
 }
