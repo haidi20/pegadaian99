@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Models\Akad;
 use App\Models\Nasabah;
+use App\Models\Kas_cabang;
 use App\Models\User_cabang;
 
 use Carbon\Carbon;
+use Auth;
 
 class AkadController extends Controller
 {
@@ -16,19 +18,20 @@ class AkadController extends Controller
     							Akad $akad,
     							Nasabah $nasabah,
     							Request $request,
+                                Kas_cabang $kas_cabang,
     							User_cabang $user_cabang
                             )
     {
     	$this->akad 		= $akad;
     	$this->nasabah 		= $nasabah;
     	$this->request  	= $request;
+        $this->kas_cabang   = $kas_cabang;
     	$this->user_cabang 	= $user_cabang;
 
         view()->share([
             'menu'          => 'akad',
-            'menuCabang'    => config('library.menu_header'),
+            'menuHeader'    => config('library.menu_header'),
         ]);
-        
     }
 
     public function index()
@@ -49,9 +52,9 @@ class AkadController extends Controller
         $columnPelunasanLelang = config('library.column.akad_nasabah.pelunasan_dan_lelang');
 
         // list name tables on TAB 'akad jatuh tempo' example list jatuh tempo 7 hari, 15 hari dll.
-        $nameTables = config('library.name_tables.akad_nasabah.akad_jatuh_tempo'); 
+        $nameTables = config('library.name_tables.akad_nasabah.akad_jatuh_tempo');
 
-    	return view('akad._index', compact(
+    	return $this->template('akad._index', compact(
             'akad', 'menu', 'dateRange', 'nameTables', 'columnPelunasanLelang',
             'columnListNasabahAkad', 'columnAkadJatuhTempo'
         ));
@@ -112,7 +115,7 @@ class AkadController extends Controller
     	$tanggal_akad	= Carbon::now()->format('Y-m-d');
     	$tanggal_jatuh 	= Carbon::now()->addYear()->subDay()->format('Y-m-d');
 
-    	return view('akad._form', compact('action', 'method', 'tanggal_akad', 'tanggal_jatuh'));
+    	return $this->template('akad._form', compact('action', 'method', 'tanggal_akad', 'tanggal_jatuh'));
     }
 
     public function store()
