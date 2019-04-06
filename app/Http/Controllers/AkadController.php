@@ -26,7 +26,7 @@ class AkadController extends Controller
 
         view()->share([
             'menu'          => 'akad',
-            'menu_header'   => config('library.menu_header'),
+            'menuCabang'    => config('library.menu_header'),
         ]);
         
     }

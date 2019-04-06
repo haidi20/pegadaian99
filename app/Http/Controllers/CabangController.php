@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Cabang;
+use App\Models\Kas_cabang;
 use App\Models\User_cabang;
 
 use Auth;
@@ -15,22 +16,27 @@ class CabangController extends Controller
     public function __construct(
                                 Cabang $cabang,
                                 Request $request,
+                                Kas_cabang $kas_cabang,
                                 User_cabang $user_cabang
                             )
     {
         $this->cabang           = $cabang;
         $this->request          = $request;
+        $this->kas_cabang       = $kas_cabang;
         $this->user_cabang      = $user_cabang;
 
         view()->share([
-            'menu'          => 'cabang',
-            'menu_header'   => config('library.menu_header'),
+            'menu'         => 'cabang',
+            'infoCabang'   => '',
+            'menuCabang'   => config('library.menu_header'),
         ]);
     }
 
     public function index()
     {
         $cabang = $this->cabang->kasCabang()->sorted();
+
+        return $this->coba();
 
         // local function filter
         $filter = $this->filter($cabang);
@@ -109,14 +115,19 @@ class CabangController extends Controller
         $input = $this->request->except('_token');
 
         if($id){
-            $type   = 'perbaharui';
-            $cabang = $this->cabang->find($id);
+            $type           = 'perbaharui';
+            $cabang         = $this->cabang->find($id);
         }else{
             $type                   = 'tambah';
             $cabang                 = $this->cabang;
+            $kas_cabang             = $this->kas_cabang;
             $cabang->id_cabang      = uniqid();
-        }    
 
+            // for input value 'modal_awal' to table kas_cabang
+            $kas_cabang->id_cabang  = $cabang->id_cabang;
+            $kas_cabang->total_kas  = request('modal_awal');
+            $kas_cabang->save();
+        }
        
         $cabang->investor       = request('investor');
         $cabang->no_cabang      = request('no_cabang');
@@ -124,6 +135,8 @@ class CabangController extends Controller
         $cabang->telp_cabang    = request('telp_cabang');
         $cabang->alamat_cabang  = request('alamat_cabang');
         $cabang->save();
+
+
 
         $message    = '<strong>Sukses!</strong> Data Cabang telah di '.$type.' dengan Nomor Cabang '.$cabang->no_cabang.
                       ' dan Nama Cabang '.$cabang->nama_cabang.' telah Berhasil';
@@ -150,6 +163,19 @@ class CabangController extends Controller
         $user_cabang->id_cabang     = request('id_cabang');
         $user_cabang->save();
 
+        $cabang     = $this->cabang->find(request('id_cabang'));
+
+        $message    = '<strong>Sukses!</strong> Data cabang anda saat ini cabang nomor '
+                        .$cabang->no_cabang.'  telah Berhasil';
+        flash_message('message', $message);
+
         return redirect()->route('cabang.setting');
+    }
+
+    public function api()
+    {
+        $cabang = $this->cabang->get();
+
+        return json_decode($cabang);
     }
 }

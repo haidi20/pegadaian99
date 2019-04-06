@@ -3,6 +3,11 @@
 @section('content')
 <div class="page-body">
     <div class="row">
+        <div class="col-sm-12 col-md-12">
+             {!! session()->get('message') !!}
+        </div>
+    </div>
+    <div class="row">
         <div class="col-sm-12">
              <div class="card">
                 <div class="card-block">
