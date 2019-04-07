@@ -135,10 +135,22 @@ return [
 	'name_tables' => [
 		'akad_nasabah' => [
 			'akad_jatuh_tempo' => [
-				'List Jatuh Tempo 7 Hari',
-				'List Jatuh Tempo 15 Hari',
-				'List Jatuh Tempo 30 Hari',
-				'List Jatuh Tempo 60 Hari',
+				0 => [
+					'key' 	=> '7',
+					'name' =>'List Jatuh Tempo 7 Hari',
+				],
+				1 => [
+					'key' 	=> '15',
+					'name' =>'List Jatuh Tempo 15 Hari',
+				],
+				2 => [
+					'key' 	=> '30',
+					'name' =>'List Jatuh Tempo 30 Hari',
+				],
+				3 => [
+					'key' 	=> '60',
+					'name' =>'List Jatuh Tempo 60 Hari',
+				],
 			],
 		],
 	],

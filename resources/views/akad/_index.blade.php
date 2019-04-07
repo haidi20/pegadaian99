@@ -120,7 +120,7 @@
 
                                 </div>
                                 <div class="tab-pane" id="akad_jatuh_tempo" role="tabpanel">
-                                    @foreach($nameTables as $index => $item)
+                                    @foreach($akadJatuhTempo as $index => $item)
                                         @include('akad.akad-jatuh-tempo')
                                         <br><br><br><br>
                                     @endforeach

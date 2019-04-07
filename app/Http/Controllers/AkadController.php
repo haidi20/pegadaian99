@@ -34,48 +34,66 @@ class AkadController extends Controller
         ]);
     }
 
+    /*
+    * na    = nasabah akad
+    * ajt   = akad jatuh tempo
+    * pl    = pelunasan dan lelang
+    */
+
     public function index()
     {
-        $menu       = 'database';
-    	$akad 		= $this->akad->nasabah()->sorted(); 
-        // local function filter
-        $filter     = $this->filter($akad);
-
-        // data from akad and dateRange after filter 
-        $akad       = $filter->akad->paginate(request('perpage', 10));
-        $dateRange  = $filter->dateRange;
+        $menu           = 'database';
+    	$nasabahAkad    = $this->akad->nasabah()->sorted();
+        $akadJatuhTempo = $this->akadJatuhTempo();              // akadJatuhTempo data array tables base on sum 'jatuh tempo hari'
+        $pelunasanLelang= $this->akad->nasabah()->sorted();
 
         // list column per TAB
+        // column for 'akad jatuh tempo'
         $columnAkadJatuhTempo   = config('library.column.akad_nasabah.akad_jatuh_tempo');
+        // column for 'nasabah akad'
         $columnListNasabahAkad  = config('library.column.akad_nasabah.list_akad_nasabah');
-        // list column for 'pelunasan & lelang'
-        $columnPelunasanLelang = config('library.column.akad_nasabah.pelunasan_dan_lelang');
+        // column for 'pelunasan & lelang'
+        $columnPelunasanLelang  = config('library.column.akad_nasabah.pelunasan_dan_lelang');
 
-        // list name tables on TAB 'akad jatuh tempo' example list jatuh tempo 7 hari, 15 hari dll.
-        $nameTables = config('library.name_tables.akad_nasabah.akad_jatuh_tempo');
+        // data from akad and dateRange after filter and use function local filter
+        $dateRange      = $this->filter($nasabahAkad, 'na')->dateRange;
+        $nasabahAkad    = $this->filter($nasabahAkad, 'na')->akad->paginate(request('perpage_na', 10));
 
     	return $this->template('akad._index', compact(
-            'akad', 'menu', 'dateRange', 'nameTables', 'columnPelunasanLelang',
-            'columnListNasabahAkad', 'columnAkadJatuhTempo'
+            'nasabahAkad', 'akadJatuhTempo', 'menu', 'dateRange', 
+            'columnAkadJatuhTempo', 'columnListNasabahAkad', 'columnPelunasanLelang'
         ));
     }
 
-    // for filter data from date range, perpage, and query by in index
-    public function filter($akad)
+    public function akadJatuhTempo()
     {
-        if(request('perpage')){
+        $now = Carbon::now()->format('Y-m-d');
+
+        // list name tables on TAB 'akad jatuh tempo' example list jatuh tempo 7 hari, 15 hari dll.
+        $nameTables     = config('library.name_tables.akad_nasabah.akad_jatuh_tempo');
+        // 7,15,30,60 days of data
+        $sixty          = $this->akad->nasabah()->sorted('tanggal_jatuh_tempo');
+        $thirty         = $this->akad->nasabah()->sorted('tanggal_jatuh_tempo');
+        $sevenDays      = $this->akad->nasabah()->sorted('tanggal_jatuh_tempo');
+        $fifteenDays    = $this->akad->nasabah()->sorted('tanggal_jatuh_tempo');
+
+        // subDay is scope function
+        $nameTables[0]['data']  = $this->filter($sevenDays, 'ajt_7')->akad->subDay('7', 1)->paginate(request('perpage_ajt_7', 10));
+        $nameTables[1]['data']  = $this->filter($fifteenDays, 'ajt_15')->akad->subDay('15', 2)->paginate(request('perpage_ajt_15', 10));
+        $nameTables[2]['data']  = $this->filter($thirty, 'ajt_30')->akad->subDay('30', 7)->paginate(request('perpage_ajt_30', 10));
+        $nameTables[3]['data']  = $this->filter($sixty, 'ajt_60')->akad->subDay('60', 7)->paginate(request('perpage_ajt_60', 10));
+
+        return $nameTables;
+    }
+
+    // for filter data from date range, perpage, and query by in index
+    public function filter($akad, $code)
+    {
+        if(request('perpage_'.$code) && $code == 'na'){
             // if get data from range date
-            if(request('date_start') && request('date_end')){
-                $end    =  carbon::parse(request('date_end'));
-                $start  =  carbon::parse(request('date_start'));
-            }else if(request('daterange')){
+            if(request('daterange')){
                 $end    = carbon::parse(substr(request('daterange'), 13, 20));
                 $start  = carbon::parse(substr(request('daterange'), 1, 9));
-            }
-
-            // if get data from input word
-            if(request('by')){
-                $akad   = $akad->search(request('by'), request('q'));
             }
 
             // function scope filterRange
@@ -87,6 +105,11 @@ class AkadController extends Controller
             $start      = $end;
 
             $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
+        }
+
+        // if get data from input keyword 
+        if(request('by_'.$code)){
+            $akad   = $akad->search(request('by_'.$code), request('q_'.$code));
         }
 
         return (object) compact('dateRange', 'akad');

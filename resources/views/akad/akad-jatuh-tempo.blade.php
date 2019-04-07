@@ -1,15 +1,15 @@
 <div class="sub-title">
-    <h6>{{$item}}</h6>
+    <h6>{{$item['name']}}</h6>
 </div>                            
 <div class="row">
     <div class="col-sm-12 col-md-2">
          <div class="form-group">
             {{-- Show &nbsp; --}}
-            <select name="perpage" id="perpage" class="form-control">
-                <option {{ selected(10, 'perpage', 'request')}}>10</option>
-                <option {{ selected(25, 'perpage', 'request')}}>25</option>
-                <option {{ selected(50, 'perpage', 'request')}}>50</option>
-                <option {{ selected(100, 'perpage', 'request')}}>100</option>
+            <select name="perpage_ajt_{{$item['key']}}" id="perpage" class="form-control">
+                <option {{ selected(10, 'perpage_ajt_'.$item['key'], 'request')}}>10</option>
+                <option {{ selected(25, 'perpage_ajt_'.$item['key'], 'request')}}>25</option>
+                <option {{ selected(50, 'perpage_ajt_'.$item['key'], 'request')}}>50</option>
+                <option {{ selected(100, 'perpage_ajt_'.$item['key'], 'request')}}>100</option>
             </select> 
             {{-- &nbsp; Entries --}}
         </div>
@@ -19,9 +19,9 @@
             <div class="col-sm-4 col-md-4">
                 <div class="form-group">
                    
-                    <select name="by" id="by" class="form-control">
-                        @foreach($columnAkadJatuhTempo as $index => $item)
-                            <option value="{{$index}}" {{selected($index, 'by', 'request')}}>{{$item}}</option>
+                    <select name="by_ajt_{{$item['key']}}" id="by" class="form-control">
+                        @foreach($columnAkadJatuhTempo as $key => $value)
+                            <option value="{{$key}}" {{selected($key, 'by_ajt_'.$item['key'], 'request')}}>{{$value}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -31,7 +31,7 @@
                     <span class="input-group-addon">
                        <i class="icofont icofont-ui-search"></i>
                     </span>
-                    <input type="text" name="q" id="q" value="{{ request('q') }}" class="form-control" placeholder="Search">
+                    <input type="text" name="q_ajt_{{$item['key']}}" id="q" value="{{ request('q_ajt_'.$item['key']) }}" class="form-control" placeholder="Search">
                 </div>
             </div>
             <div class="col-sm-2 col-md-2">
@@ -45,13 +45,13 @@
         <thead>
         <tr>
             <th>No</th>
-            @foreach($columnAkadJatuhTempo as $index => $item)
-                <th>{{$item}}</th>
+            @foreach($columnAkadJatuhTempo as $key => $value)
+                <th>{{$value}}</th>
             @endforeach
             {{-- <th>action</th> --}}
         </tr>
         </thead>
-        <tbody id="akad_jatuh_tempo_{{$index}}">
+        <tbody id="akad_jatuh_tempo_{{$item['key']}}">
             {{-- @forelse($akad as $index => $item)
                 <tr>
                     <td>{{$index + 1}}</td>

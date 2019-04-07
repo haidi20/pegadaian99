@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Carbon\Carbon;
+
 class Akad extends Model
 {
     protected $table        = "akad";
@@ -29,10 +31,19 @@ class Akad extends Model
         'status',
     ];
 
-    // for filter data between date variable start to variable $end
+    // for filter data between date variable start to variable $end field 'tanggal_akad'
     public function scopeFilterRange($query, $start, $end)
     {
         return $query->whereBetween('tanggal_akad', [$start->format('Y-m-d'), $end->format('Y-m-d')]);
+    }
+
+    // filter data base on 'jangka_waktu_akad' and then set interval previous date now
+    public function scopeSubDay($query, $day, $interval)
+    {
+        $end    = Carbon::now()->format('Y-m-d');
+        $start  = Carbon::now()->subDay($interval)->format('Y-m-d');
+
+        return $query->where('jangka_waktu_akad', $day)->whereBetween('tanggal_jatuh_tempo', [$start, $end]);
     }
 
     // for can fetch data nasabah use left join
