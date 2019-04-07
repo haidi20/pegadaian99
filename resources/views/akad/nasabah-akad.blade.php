@@ -1,12 +1,12 @@
 <div class="sub-title">
     <h6>List Nasabah Akad</h6>
 </div> 
-<form method="get">              
+{{-- <form method="get">--}}
 <div class="row">
     <div class="col-sm-12 col-md-2 offset-md-1">
          <div class="form-group">
             {{-- Show &nbsp; --}}
-            <select name="perpage_na" id="perpage" class="form-control">
+            <select name="perpage_na" id="perpage" class="form-control perpage">
                 <option {{ selected(10, 'perpage_na', 'request')}}>10</option>
                 <option {{ selected(25, 'perpage_na', 'request')}}>25</option>
                 <option {{ selected(50, 'perpage_na', 'request')}}>50</option>

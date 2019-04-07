@@ -33,13 +33,24 @@ if( ! function_exists('checked') )
 * $menu 	= name menu and then set name menu from controller
 * $feature 	= address url on aplication or name feature on aplication
 */
-if( ! function_exists('active') )
+if( ! function_exists('active_header') )
 {
-	function active($feature, $menu = null){
+	function active_header($feature, $menu = null){
 		if($menu){
 			return $feature == $menu ? 'active pcoded-trigger' : '';
 		}else{
 			return request()->is($feature) ? 'active' : '';
+		}
+	}
+}
+
+if( ! function_exists('active_tab') )
+{
+	function active_tab($parm1, $parm2){
+		if($parm2){
+			return $parm1 == $parm2 ? 'active' : '' ;
+		}else{
+			return $parm1 == 'nasabah_akad' ? 'active' : '';
 		}
 	}
 }

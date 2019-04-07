@@ -47,7 +47,7 @@ class AkadController extends Controller
         $akadJatuhTempo = $this->akadJatuhTempo();              // akadJatuhTempo data array tables base on sum 'jatuh tempo hari'
         $pelunasanLelang= $this->akad->nasabah()->sorted();
 
-        // list column per TAB
+        // list column per TAB :
         // column for 'akad jatuh tempo'
         $columnAkadJatuhTempo   = config('library.column.akad_nasabah.akad_jatuh_tempo');
         // column for 'nasabah akad'
