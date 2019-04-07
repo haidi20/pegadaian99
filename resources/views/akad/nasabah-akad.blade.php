@@ -17,7 +17,7 @@
     </div>
     <div class="col-sm-12 col-md-3">
         <div class="form-group">
-            <input type="text" name="daterange" id="date" class="form-control" value="{{$dateRange}}" />
+            <input type="text" name="daterange" id="date" class="form-control" value="{{$nasabahAkad->dateRange}}" />
         </div>
     </div>
     <div class="col-sm-12 col-md-6">
@@ -61,7 +61,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                    @forelse($nasabahAkad as $index => $item)
+                    @forelse($nasabahAkad->data as $index => $item)
                         <tr>
                             <td>{{$index + 1}}</td>
                             <td>{{$item->nama_lengkap}}</td>
@@ -103,6 +103,6 @@
                 </tfoot> --}}
             </table>
         </div>
-        {!! $nasabahAkad->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
+        {!! $nasabahAkad->data->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
     </div>
 </div>

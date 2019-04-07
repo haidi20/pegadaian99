@@ -49,7 +49,6 @@
             @foreach($columnAkadJatuhTempo as $key => $value)
                 <th>{{$value}}</th>
             @endforeach
-            <th>action</th>
             {{-- <th>action</th> --}}
         </tr>
         </thead>
@@ -66,17 +65,6 @@
                     <td>{{$item->tanggal_akad}}</td>
                     <td>{{$item->tanggal_jatuh_tempo}}</td>
                     <td></td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-info">
-                            <i class="icon-pencil3"></i> Edit
-                        </a>
-                        <a href="#"
-                            data-method="delete" data-confirm="Anda yakin akan menghapus data ini ?"
-                            class="btn btn-sm btn-danger" title="Hapus Data">
-                            <i class="icon-trash3"></i>
-                            Delete
-                        </a>
-                    </td>
                 </tr>
             @empty
             <tr>

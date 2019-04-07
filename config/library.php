@@ -137,19 +137,33 @@ return [
 			'akad_jatuh_tempo' => [
 				0 => [
 					'key' 	=> '7',
-					'name' =>'List Jatuh Tempo 7 Hari',
+					'name' 	=>'List Jatuh Tempo 7 Hari',
 				],
 				1 => [
 					'key' 	=> '15',
-					'name' =>'List Jatuh Tempo 15 Hari',
+					'name' 	=>'List Jatuh Tempo 15 Hari',
 				],
 				2 => [
 					'key' 	=> '30',
-					'name' =>'List Jatuh Tempo 30 Hari',
+					'name' 	=>'List Jatuh Tempo 30 Hari',
 				],
 				3 => [
 					'key' 	=> '60',
-					'name' =>'List Jatuh Tempo 60 Hari',
+					'name' 	=>'List Jatuh Tempo 60 Hari',
+				],
+			],
+			'pelunasan_dan_lelang' => [
+				0 => [
+					'key' => 'lunas',
+					'name'=> 'List Nasabah Lunas',
+				],
+				1 => [
+					'key' => 'lelang',
+					'name'=> 'List Nasabah Lelang',
+				],
+				2 => [
+					'key' => 'refund',
+					'name'=> 'List Nasabah Refund',
 				],
 			],
 		],

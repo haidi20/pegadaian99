@@ -43,7 +43,9 @@ class Akad extends Model
         $end    = Carbon::now()->format('Y-m-d');
         $start  = Carbon::now()->subDay($interval)->format('Y-m-d');
 
-        return $query->where('jangka_waktu_akad', $day)->whereBetween('tanggal_jatuh_tempo', [$start, $end]);
+        return $query->where('jangka_waktu_akad', $day)
+                     ->where('status', 'Belum Lunas')
+                     ->whereBetween('tanggal_jatuh_tempo', [$start, $end]);
     }
 
     // for can fetch data nasabah use left join
@@ -58,7 +60,7 @@ class Akad extends Model
         return $query->where($by, 'LIKE', '%'.$key.'%');
     }
 
-    public function scopeSorted($query, $by = 'id_akad', $sort = 'desc')
+    public function scopeSorted($query, $by = 'akad.id_akad', $sort = 'asc')
     {
         return $query->orderBy($by, $sort);
     }
