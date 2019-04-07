@@ -59,15 +59,19 @@ class AkadController extends Controller
         $columnPelunasanLelang  = config('library.column.akad_nasabah.pelunasan_dan_lelang');
 
     	return $this->template('akad._index', compact(
-            'nasabahAkad', 'akadJatuhTempo', 'menu', 
+            'nasabahAkad', 'akadJatuhTempo', 'pelunasanLelang', 'menu', 
             'columnAkadJatuhTempo', 'columnListNasabahAkad', 'columnPelunasanLelang'
         ));
     }
 
     public function pelunasanLelang()
     {
+        $data = '';
+
         // list name tables on TAB 'pelunasan dan lelang' example list 'nasabah lunas, lelang, dan refund'.
-        $nameTables     = config('library.name_tables.akad_nasabah.akad_jatuh_tempo');
+        $nameTables     = config('library.name_tables.akad_nasabah.pelunasan_dan_lelang');
+
+        return $nameTables;
     }
 
     public function nasabahAkad()

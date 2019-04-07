@@ -154,15 +154,15 @@ return [
 			],
 			'pelunasan_dan_lelang' => [
 				0 => [
-					'key' => 'lunas',
+					'key' => 'list_nasabah_lunas',
 					'name'=> 'List Nasabah Lunas',
 				],
 				1 => [
-					'key' => 'lelang',
+					'key' => 'list_nasabah_lelang',
 					'name'=> 'List Nasabah Lelang',
 				],
 				2 => [
-					'key' => 'refund',
+					'key' => 'list_nasabah_refund',
 					'name'=> 'List Nasabah Refund',
 				],
 			],

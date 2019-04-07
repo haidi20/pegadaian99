@@ -30,7 +30,7 @@
      $(function(){
         // for if page choose can change count data
         $('.perpage').change(function(){
-            // this.form.submit()
+            this.form.submit()
         });
     });
 
@@ -54,8 +54,6 @@
             nasabah_akad.removeClass('active')
             akad_jatuh_tempo.removeClass('active')
         }
-
-        console.log(e)
      }
 </script>
 @endsection
@@ -131,7 +129,9 @@
                                     @endforeach
                                 </div>
                                 <div class="tab-pane {{active_tab('pelunasan_dan_lelang', request('name_tab'))}}" id="pelunasan_dan_lelang" role="tabpanel">
-                                    @include('akad.pelunasan-dan-lelang')
+                                    @foreach($pelunasanLelang as $index => $item)
+                                        @include('akad.pelunasan-dan-lelang')
+                                    @endforeach
                                 </div>
                             </div>
                             </form>

@@ -1,16 +1,16 @@
 <div class="sub-title">
-    <h6></h6>
+    <h6>{{$item['name']}}</h6>
 </div>                            
 <div class="row">
     <div class="col-sm-12 col-md-2">
          <div class="form-group">
             {{-- Show &nbsp; --}}
-            {{-- <select name="perpage" id="perpage" class="form-control perpage">
-                <option {{ selected(10, 'perpage', 'request')}}>10</option>
-                <option {{ selected(25, 'perpage', 'request')}}>25</option>
-                <option {{ selected(50, 'perpage', 'request')}}>50</option>
-                <option {{ selected(100, 'perpage', 'request')}}>100</option>
-            </select>  --}}
+             <select name="perpage_pl_{{$item['key']}}" id="perpage" class="form-control perpage">
+                <option {{ selected(10, 'perpage_pl_'.$item['key'], 'request')}}>10</option>
+                <option {{ selected(25, 'perpage_pl_'.$item['key'], 'request')}}>25</option>
+                <option {{ selected(50, 'perpage_pl_'.$item['key'], 'request')}}>50</option>
+                <option {{ selected(100, 'perpage_pl_'.$item['key'], 'request')}}>100</option>
+            </select> 
             {{-- &nbsp; Entries --}}
         </div>
     </div>
@@ -18,12 +18,11 @@
         <div class="row">
             <div class="col-sm-4 col-md-4">
                 <div class="form-group">
-                   
-                    {{-- <select name="by" id="by" class="form-control">
-                        @foreach($columnPelunasanLelang['list_nasabah_lunas'] as $index => $item)
-                            <option value="{{$index}}" {{selected($index, 'by', 'request')}}>{{$item}}</option>
+                    <select name="by_pl_{{$item['key']}}" id="by" class="form-control">
+                        @foreach($columnPelunasanLelang[$item['key']] as $key => $value)
+                            <option value="{{$index}}" {{selected($key, 'by_pl_'.$item['key'], 'request')}}>{{$value}}</option>
                         @endforeach
-                    </select> --}}
+                    </select>
                 </div>
             </div>
             <div class="col-sm-5 col-md-5">
@@ -31,7 +30,7 @@
                     <span class="input-group-addon">
                        <i class="icofont icofont-ui-search"></i>
                     </span>
-                    <input type="text" name="q" id="q" value="{{ request('q') }}" class="form-control" placeholder="Search">
+                    <input type="text" name="q_pl_{{$item['key']}}" id="q" value="{{ request('q_pl_'.$item['key']) }}" class="form-control" placeholder="Search">
                 </div>
             </div>
             <div class="col-sm-2 col-md-2">
@@ -45,9 +44,9 @@
         <thead>
         <tr>
             <th>No</th>
-            {{-- @foreach($columnPelunasanLelang['list_nasabah_lunas'] as $index => $item)
+            @foreach($columnPelunasanLelang[$item['key']] as $index => $item)
                 <th>{{$item}}</th>
-            @endforeach --}}
+            @endforeach
             {{-- <th>action</th> --}}
         </tr>
         </thead>

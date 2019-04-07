@@ -3,7 +3,7 @@
 </div> 
 {{-- <form method="get">--}}
 <div class="row">
-    <div class="col-sm-12 col-md-2 offset-md-1">
+    <div class="col-sm-12 col-md-2">
          <div class="form-group">
             {{-- Show &nbsp; --}}
             <select name="perpage_na" id="perpage" class="form-control perpage">
@@ -20,7 +20,7 @@
             <input type="text" name="daterange" id="date" class="form-control" value="{{$nasabahAkad->dateRange}}" />
         </div>
     </div>
-    <div class="col-sm-12 col-md-6">
+    <div class="col-sm-12 col-md-6 offset-md-1">
         <div class="row">
             <div class="col-sm-4 offset-md-1">
                 <div class="form-group">
