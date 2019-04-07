@@ -156,10 +156,10 @@ class AkadController extends Controller
             $method = 'POST';
     	}
 
-    	$tanggal_akad	= Carbon::now()->format('Y-m-d');
-    	$tanggal_jatuh 	= Carbon::now()->addYear()->subDay()->format('Y-m-d');
+    	$tanggal_akad	     = Carbon::now()->format('Y-m-d');
+    	$tanggal_jatuh_tempo = Carbon::now()->addDay('60')->format('Y-m-d');
 
-    	return $this->template('akad._form', compact('action', 'method', 'tanggal_akad', 'tanggal_jatuh'));
+    	return $this->template('akad._form', compact('action', 'method', 'tanggal_akad', 'tanggal_jatuh_tempo'));
     }
 
     public function store()

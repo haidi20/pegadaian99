@@ -31,6 +31,7 @@
 <script type="text/javascript" src="{{asset('adminty/files/assets/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('adminty/files/assets/js/script.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/terbilang.min.js')}}"></script>
+<script src="{{asset('js/moment.js')}}"></script>
 
 {{-- <script src="{{asset('js/laravel-method.js')}}"> </script> --}}
 <!-- /build-->

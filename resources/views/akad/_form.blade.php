@@ -7,7 +7,7 @@
 <script src="{{asset('adminty/files/assets/pages/form-masking/autoNumeric.js')}}"></script>
 <script src="{{asset('adminty/files/assets/pages/form-masking/form-mask.js')}}"></script>
 <script>
-    $(document).ready(function(event) {
+    $(function(){
         $('#marhun_bih').on('keyup' ,function(){
             var data = this.value.replace(",","").replace(".","")
             $('#terbilang').val(terbilang(data));
@@ -15,6 +15,13 @@
             // console.log(data);
         });
     });
+
+    function changeTime(time)
+    {
+        var tanggal_jatuh_tempo = moment().add(time, 'days').format('Y-MM-DD');
+
+        $('#tanggal_jatuh_tempo').val(tanggal_jatuh_tempo)
+    }
 </script>
 @endsection
 
@@ -53,25 +60,25 @@
                         <div class="form-radio">
                             <div class="radio radio-inline">
                                 <label>
-                                    <input type="radio" name="jangka_waktu_akad" value="1" checked="{{checked('1', 'jangka_waktu_akad')}}">
+                                    <input type="radio" name="jangka_waktu_akad" value="1" onClick="changeTime(1)" checked="{{checked('1', old('jangka_waktu_akad'))}}">
                                     <i class="helper"></i>1 Hari
                                 </label>
                             </div>
                             <div class="radio radio-inline">
                                 <label>
-                                    <input type="radio" name="jangka_waktu_akad" value="7" checked="{{checked('7', 'jangka_waktu_akad')}}">
+                                    <input type="radio" name="jangka_waktu_akad" value="7" onClick="changeTime(7)" checked="{{checked('7', old('jangka_waktu_akad'))}}">
                                     <i class="helper"></i>7 Hari
                                 </label>
                             </div>
                             <div class="radio radio-inline">
                                 <label>
-                                    <input type="radio" name="jangka_waktu_akad" value="30" checked="{{checked('30', 'jangka_waktu_akad')}}">
+                                    <input type="radio" name="jangka_waktu_akad" value="30" onClick="changeTime(30)" checked="{{checked('30', old('jangka_waktu_akad'))}}">
                                     <i class="helper"></i>30 Hari
                                 </label>
                             </div>
                             <div class="radio radio-inline">
                                 <label>
-                                    <input type="radio" name="jangka_waktu_akad" value="60" checked="{{checked('60', 'jangka_waktu_akad')}}">
+                                    <input type="radio" name="jangka_waktu_akad" value="60" onClick="changeTime(60)" checked="{{checked('60', old('jangka_waktu_akad'))}}">
                                     <i class="helper"></i>60 hari
                                 </label>
                             </div>
@@ -101,8 +108,8 @@
                     <div class="form-group row">
                         {{-- <label class="col-sm-2 col-form-label" for="investor">Investor</label> --}}
                         <div class="col-sm-10">
-                            <input type="input" class="form-control" id="tanggal_jatuh_tempo" value="{{$tanggal_jatuh}}" disabled>
-                            <input type="hidden" class="form-control" name="tanggal_jatuh_tempo" value="{{$tanggal_jatuh}}">
+                            <input type="input" class="form-control" id="tanggal_jatuh_tempo" value="{{$tanggal_jatuh_tempo}}" disabled>
+                            <input type="hidden" class="form-control" name="tanggal_jatuh_tempo" value="{{$tanggal_jatuh_tempo}}">
                         </div>
                     </div>
                 </div>
@@ -142,13 +149,13 @@
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_barang" value="elektronik" checked="{{checked('elektronik', 'jenis_barang')}}">
+                                        <input type="radio" name="jenis_barang" value="elektronik" checked="{{checked('elektronik', old('jenis_barang'))}}">
                                         <i class="helper"></i>Elektronik
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_barang" value="kendaraan" checked="{{checked('kendaran', 'jenis_barang')}}">
+                                        <input type="radio" name="jenis_barang" value="kendaraan" checked="{{checked('kendaran', old('jenis_barang'))}}">
                                         <i class="helper"></i>Kendaraan
                                     </label>
                                 </div>
@@ -245,13 +252,13 @@
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_kelamin" value="pria" checked="{{checked('pria', 'jenis_kelamin')}}">
+                                        <input type="radio" name="jenis_kelamin" value="pria" checked="{{checked('pria', old('jenis_kelamin'))}}">
                                         <i class="helper"></i>Pria
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_kelamin" value="wanita" checked="{{checked('wanita', 'jenis_kelamin')}}">
+                                        <input type="radio" name="jenis_kelamin" value="wanita" checked="{{checked('wanita', old('jenis_kelamin'))}}">
                                         <i class="helper"></i>Wanita
                                     </label>
                                 </div>
@@ -282,19 +289,19 @@
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_id" value="KTP" checked="{{checked('KTP', 'jenis_id')}}">
+                                        <input type="radio" name="jenis_id" value="KTP" checked="{{checked('KTP', old('jenis_id'))}}">
                                         <i class="helper"></i>KTP
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_id" value="SIM" checked="{{checked('SIM', 'jenis_id')}}">
+                                        <input type="radio" name="jenis_id" value="SIM" checked="{{checked('SIM', old('jenis_id'))}}">
                                         <i class="helper"></i>SIM
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_id" value="KK" checked="{{checked('KK', 'jenis_id')}}">
+                                        <input type="radio" name="jenis_id" value="KK" checked="{{checked('KK', old('jenis_id'))}}">
                                         <i class="helper"></i>KK
                                     </label>
                                 </div>

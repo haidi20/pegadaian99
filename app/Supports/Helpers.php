@@ -25,7 +25,7 @@ if( ! function_exists('selected') )
 if( ! function_exists('checked') )
 {
 	function checked($parm1, $parm2){
-		return $parm1 == old($parm2) ? 'checked' : '' ;
+		return $parm1 == $parm2 ? 'checked' : '' ;
 	}
 }
 
