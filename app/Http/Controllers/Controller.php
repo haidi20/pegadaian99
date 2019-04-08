@@ -29,7 +29,7 @@ class Controller extends BaseController
         // and then get total 'kas cabang' base on id_cabang
         $kas_cabang     = $this->kas_cabang->whereId_cabang($user_cabang->id_cabang)->first();
         // 'total kas' base on cabang
-        $total_kas      = number_format($kas_cabang->total_kas, 2);
+        $total_kas      = nominal($kas_cabang->total_kas);
 
         return (object) compact('total_kas');
     }

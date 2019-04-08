@@ -42,7 +42,10 @@ class CabangController extends Controller
         $cabang     = $filter->cabang->paginate(5);
         $dateRange  = $filter->dateRange;
 
-    	return  $this->template('cabang.index', compact('cabang', 'dateRange'));
+        $totalKas   = $this->cabang->kasCabang()->sum('kas_cabang.total_kas');
+        $totalKas   = nominal($totalKas);
+
+    	return  $this->template('cabang.index', compact('cabang', 'dateRange', 'totalKas'));
     }
 
     public function filter($cabang)
