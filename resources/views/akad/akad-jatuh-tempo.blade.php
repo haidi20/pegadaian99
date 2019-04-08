@@ -86,4 +86,4 @@
     </table>
 </div>
 {{-- </form> --}}
-{{-- {!! $item['data']->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!} --}}
+{!! $item['data']->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}

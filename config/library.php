@@ -90,7 +90,7 @@ return [
 				'jatuh_tempo'		=> 'Jatuh Tempo',
 			],	
 			'pelunasan_dan_lelang' => [
-				'list_nasabah_lunas' => [
+				'lunas' => [
 					'nama_lengkap' 		=> 'Nama',
 					'no_telp' 			=> 'No. telp',
 					'no_id' 			=> 'ID',
@@ -100,7 +100,7 @@ return [
 					'tanggal_akad'		=> 'Tanggal Akad',
 					'tanggal_pelunasan'	=> 'Tanggal Pelunasan',
 				],
-				'list_nasabah_lelang' => [
+				'lelang' => [
 					'nama_lengkap' 		=> 'Nama',
 					'no_telp' 			=> 'No. telp',
 					'no_id' 			=> 'ID',
@@ -112,7 +112,7 @@ return [
 					'nomor_lelang'		=> 'N. Lelang',
 					'admin_lelang'		=> 'Adm. Lelang',
 				],
-				'list_nasabah_refund' => [
+				'refund' => [
 					'nama_lengkap' 		=> 'Nama',
 					'no_telp' 			=> 'No. telp',
 					'no_id' 			=> 'ID',
@@ -154,15 +154,15 @@ return [
 			],
 			'pelunasan_dan_lelang' => [
 				0 => [
-					'key' => 'list_nasabah_lunas',
+					'key' => 'lunas',
 					'name'=> 'List Nasabah Lunas',
 				],
 				1 => [
-					'key' => 'list_nasabah_lelang',
+					'key' => 'lelang',
 					'name'=> 'List Nasabah Lelang',
 				],
 				2 => [
-					'key' => 'list_nasabah_refund',
+					'key' => 'refund',
 					'name'=> 'List Nasabah Refund',
 				],
 			],

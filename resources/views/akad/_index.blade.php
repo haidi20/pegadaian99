@@ -115,7 +115,7 @@
                             </ul>
                             <!-- Tab panes -->
                             <form method="get">
-                            <input type="hidden" id="name_tab" name="name_tab">
+                            <input type="hidden" id="name_tab" name="name_tab" value="{{request('name_tab')}}">
                             <div class="tab-content card-block">
                                 <div class="tab-pane {{active_tab('nasabah_akad', request('name_tab'))}}" id="nasabah_akad" role="tabpanel">
                                     {{-- table list nasabah akad  --}}

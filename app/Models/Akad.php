@@ -31,10 +31,10 @@ class Akad extends Model
         'status',
     ];
 
-    // for filter data between date variable start to variable $end field 'tanggal_akad'
+    // for filter data between date variable start to variable $end field 'tanggal_jatuh_tempo'
     public function scopeFilterRange($query, $start, $end)
     {
-        return $query->whereBetween('tanggal_akad', [$start->format('Y-m-d'), $end->format('Y-m-d')]);
+        return $query->whereBetween('tanggal_jatuh_tempo', [$start->format('Y-m-d'), $end->format('Y-m-d')]);
     }
 
     // filter data base on 'jangka_waktu_akad' and then set interval previous date now

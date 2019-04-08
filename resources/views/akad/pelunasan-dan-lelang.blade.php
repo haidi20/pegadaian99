@@ -58,6 +58,17 @@
                     <td>{{$value->no_telp}}</td>
                     <td>{{$value->no_id}}</td>
                     <td>{{$value->nama_barang}}</td>
+                    <td></td>
+                    @if($item['key'] == 'lunas')
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    @elseif($item['key'] == 'refund')
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    @endif
                 </tr>
             @empty
             <tr>
