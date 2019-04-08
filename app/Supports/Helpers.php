@@ -3,7 +3,7 @@
 use Carbon\Carbon;
 
 /* selected for selected on selection in anyware
-* $parm1 = value of option
+* $parm1 = value of tag option
 * $parm2 = name from field table 
 * $type  = type is 'request' or 'old'
 */
@@ -44,6 +44,7 @@ if( ! function_exists('active_header') )
 	}
 }
 
+// active_tab for add class active in tabs 'data akad nasabah'
 if( ! function_exists('active_tab') )
 {
 	function active_tab($parm1, $parm2){
@@ -75,12 +76,20 @@ if( ! function_exists('flash_message') )
     }
 }
 
-/* remove_dot for remove "." of value form number and then remove for input to database
+/* remove_dot for remove "." of value form number and then input to database
 * $number = value number have "."
 */
 if( ! function_exists('remove_dot') ){
     function remove_dot($number)
     {
         return str_replace('.', '', $number);
+    }
+}
+
+// nominal for number use format nominal indonesia
+if( ! function_exists('nominal') ){
+    function nominal($number)
+    {
+        return  number_format($number, 2, ',', '.').',-';
     }
 }

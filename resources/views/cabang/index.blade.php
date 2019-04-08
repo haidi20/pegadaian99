@@ -154,7 +154,7 @@
                                             <tr>
                                                 <td>{{$item->no_cabang}}</td>
                                                 <td>{{$item->nama_cabang}}</td>
-                                                <td class="text-right">Rp. {{$item->total_kas}}</td>
+                                                <td class="text-right">Rp. {{$item->tampilkan_total_kas}}</td>
                                             </tr>
                                         @empty
                                             <tr>
@@ -181,7 +181,7 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <p class="m-b-5">Modal Keseluruhan</p>
-                            <h4 class="m-b-0">Rp.1.300.000.00,-</h4>
+                            <h4 class="m-b-0">Rp. {{$totalKas}}</h4>
                         </div>
                         <div class="col col-auto text-right">
                             <i class="icofont icofont-ui-fire-wall f-50 text-c-yellow"></i>
@@ -196,7 +196,7 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <p class="m-b-5">Total Sisa Modal</p>
-                            <h4 class="m-b-0">Rp.500.000.00,-</h4>
+                            <h4 class="m-b-0">Rp. 500.000.00,-</h4>
                         </div>
                         <div class="col col-auto text-right">
                             <i class="feather icon-credit-card f-50 text-c-green"></i>
@@ -212,13 +212,13 @@
                 <div class="card-header">
                     <h4>Nasabah</h4>
                     <div class="card-header-right">
-                        <ul class="list-unstyled card-option">
+                        {{-- <ul class="list-unstyled card-option">
                             <li><i class="fa fa fa-wrench open-card-option"></i></li>
                             <li><i class="fa fa-window-maximize full-card"></i></li>
                             <li><i class="fa fa-minus minimize-card"></i></li>
                             <li><i class="fa fa-refresh reload-card"></i></li>
                             <li><i class="fa fa-trash close-card"></i></li>
-                        </ul>
+                        </ul> --}}
                     </div>
                 </div>
                 <div class="card-block">
@@ -256,13 +256,13 @@
                 <div class="card-header">
                     <h4>Pendapatan</h4>
                     <div class="card-header-right">
-                        <ul class="list-unstyled card-option">
+                        {{-- <ul class="list-unstyled card-option">
                             <li><i class="fa fa fa-wrench open-card-option"></i></li>
                             <li><i class="fa fa-window-maximize full-card"></i></li>
                             <li><i class="fa fa-minus minimize-card"></i></li>
                             <li><i class="fa fa-refresh reload-card"></i></li>
                             <li><i class="fa fa-trash close-card"></i></li>
-                        </ul>
+                        </ul> --}}
                     </div>
                 </div>
                 <div class="card-block">
@@ -296,13 +296,13 @@
                 <div class="card-header">
                     <h4>Operasional</h4>
                     <div class="card-header-right">
-                        <ul class="list-unstyled card-option">
+                        {{-- <ul class="list-unstyled card-option">
                             <li><i class="fa fa fa-wrench open-card-option"></i></li>
                             <li><i class="fa fa-window-maximize full-card"></i></li>
                             <li><i class="fa fa-minus minimize-card"></i></li>
                             <li><i class="fa fa-refresh reload-card"></i></li>
                             <li><i class="fa fa-trash close-card"></i></li>
-                        </ul>
+                        </ul> --}}
                     </div>
                 </div>
                 <div class="card-block">
