@@ -76,7 +76,7 @@ class NasabahController extends Controller
         $nasabah->tanggal_daftar= request('tanggal_daftar');
         $nasabah->save();
 
-        $message    = '<strong>Sukses!</strong> Data Nasabah telah di perbaharui dengan Atas Nama'.$nasabah->nama_lengkap;
+        $message    = '<strong>Sukses!</strong> Data Nasabah telah di perbaharui dengan Atas Nama '.$nasabah->nama_lengkap;
         flash_message('message', $message);
 
         return redirect()->route('nasabah.index');
