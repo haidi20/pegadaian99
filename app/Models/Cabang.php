@@ -72,7 +72,7 @@ class Cabang extends Model
 
     public function getTampilkanTotalKasAttribute()
     {
-        $total_kas = $this->total_kas ? $this->total_kas : 0;
+        $total_kas = $this->kas_cabang->total_kas ? $this->kas_cabang->total_kas : 0;
 
         return number_format($total_kas, 2);
     }

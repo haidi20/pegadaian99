@@ -123,7 +123,7 @@ class CabangController extends Controller
 
             // for input value 'modal_awal' to table kas_cabang
             $kas_cabang->id_cabang  = $cabang->id_cabang;
-            $kas_cabang->total_kas  = request('modal_awal');
+            $kas_cabang->total_kas  = remove_dot(request('modal_awal'));
             $kas_cabang->save();
         }
        

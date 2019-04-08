@@ -154,7 +154,7 @@
                                             <tr>
                                                 <td>{{$item->no_cabang}}</td>
                                                 <td>{{$item->nama_cabang}}</td>
-                                                <td class="text-right">Rp. {{$item->tampilkan_total_kas}}</td>
+                                                <td class="text-right">Rp. {{$item->total_kas}}</td>
                                             </tr>
                                         @empty
                                             <tr>
