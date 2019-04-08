@@ -88,7 +88,7 @@ if( ! function_exists('remove_dot') ){
 
 // nominal for number use format nominal indonesia
 if( ! function_exists('nominal') ){
-    function nominal($number)
+    function nominal($number = null)
     {
         return number_format($number, 2);
     }
