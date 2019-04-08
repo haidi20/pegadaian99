@@ -74,7 +74,7 @@ class Cabang extends Model
     {
         $total_kas = $this->total_kas ? $this->total_kas : 0;
 
-        return nominal($total_kas);
+        return $total_kas;
     }
 
 
