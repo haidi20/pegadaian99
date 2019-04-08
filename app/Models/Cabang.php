@@ -49,6 +49,7 @@ class Cabang extends Model
         return $query->whereBetween('tanggal_akad', [$start->format('Y-m-d'), $end->format('Y-m-d')]);
     }
 
+    // for connect 'kas cabang' and then get 'total_modal'
     public function scopeKasCabang($query)
     {
         return $query->leftJoin('kas_cabang', 'cabang.id_cabang', '=', 'kas_cabang.id_cabang');

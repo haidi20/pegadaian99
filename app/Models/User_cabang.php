@@ -25,8 +25,6 @@ class User_cabang extends Model
     // how to fetch data by username of user
     public function scopeBaseUsername($query)
     {
-    	$query->whereUsername(Auth::user()->username);
-
-    	return $query;
+    	return $query->where('username', Auth::user()->username);
     }
 }

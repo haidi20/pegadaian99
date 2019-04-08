@@ -27,16 +27,14 @@ class CabangController extends Controller
 
         view()->share([
             'menu'         => 'cabang',
-            'infoCabang'   => '',
-            'menuCabang'   => config('library.menu_header'),
+            'menuHeader'   => config('library.menu_header')
         ]);
     }
 
     public function index()
     {
+        // kasCabang is function scope
         $cabang = $this->cabang->kasCabang()->sorted();
-
-        return $this->coba();
 
         // local function filter
         $filter = $this->filter($cabang);
@@ -44,7 +42,7 @@ class CabangController extends Controller
         $cabang     = $filter->cabang->paginate(5);
         $dateRange  = $filter->dateRange;
 
-    	return view('cabang.index', compact('cabang', 'dateRange'));
+    	return  $this->template('cabang.index', compact('cabang', 'dateRange'));
     }
 
     public function filter($cabang)
@@ -97,7 +95,7 @@ class CabangController extends Controller
             $method = 'POST';
         }
 
-    	return view('cabang.form', compact('action', 'method'));
+    	return  $this->template('cabang.form', compact('action', 'method'));
     }
 
     public function store()
@@ -153,7 +151,7 @@ class CabangController extends Controller
         // how to fetch data by username of user
         $user_cabang    = $user_cabang->baseUsername()->value('id_cabang');
 
-        return view('cabang.setting', compact('user_cabang', 'cabang', 'menu'));
+        return  $this->template('cabang.setting', compact('user_cabang', 'cabang', 'menu'));
 
     }
 

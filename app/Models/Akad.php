@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Carbon\Carbon;
+
 class Akad extends Model
 {
     protected $table        = "akad";
@@ -29,11 +31,43 @@ class Akad extends Model
         'status',
     ];
 
-    // for filter data between date variable start to variable $end
+    // for filter data between date variable start to variable $end field 'tanggal_jatuh_tempo'
     public function scopeFilterRange($query, $start, $end)
     {
-        return $query->whereBetween('tanggal_akad', [$start->format('Y-m-d'), $end->format('Y-m-d')]);
+        return $query->whereBetween('tanggal_jatuh_tempo', [$start->format('Y-m-d'), $end->format('Y-m-d')]);
     }
+
+    // filter data base on 'jangka_waktu_akad' and then set interval previous date now
+    public function scopeSubDay($query, $day, $interval)
+    {
+        $end    = Carbon::now()->format('Y-m-d');
+        $start  = Carbon::now()->subDay($interval)->format('Y-m-d');
+
+        return $query->where('jangka_waktu_akad', $day)
+                     ->whereBetween('tanggal_jatuh_tempo', [$start, $end]);
+    }
+
+    //start query status 'lunas, belum lunas, lelang dan refund'
+    public function scopeBelumLunas($query)
+    {
+        return $query->whereStatus('Belum Lunas');
+    }
+
+    public function scopeLelang($query)
+    {
+        return $query->whereStatus('Lelang');
+    }
+
+    public function scopeLunas($query)
+    {
+        return $query->whereStatus('Lunas');
+    }
+
+    public function scopeRefund($query)
+    {
+        return $query->whereStatus('Refund');
+    }
+    //end query status 'lunas, belum lunas, lelang dan refund'
 
     // for can fetch data nasabah use left join
     public function scopeNasabah($query)
@@ -47,7 +81,7 @@ class Akad extends Model
         return $query->where($by, 'LIKE', '%'.$key.'%');
     }
 
-    public function scopeSorted($query, $by = 'id_akad', $sort = 'desc')
+    public function scopeSorted($query, $by = 'akad.id_akad', $sort = 'asc')
     {
         return $query->orderBy($by, $sort);
     }

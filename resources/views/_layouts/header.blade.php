@@ -4,7 +4,7 @@
         {{-- <div class="pcoded-navigatio-lavel">Navigation</div> --}}
         <ul class="pcoded-item pcoded-left-item">
             @foreach($menuHeader as $index => $item)
-                <li class="{{$item['class']}} {{active($item['title'], $menu)}}">
+                <li class="{{$item['class']}} {{active_header($item['title'], $menu)}}">
                     <a href="{{$item['route'] ? route($item['route']) : 'javascript:void(0)'}}">
                         <span class="pcoded-micon"><i class="{{$item['icon']}}"></i></span>
                         <span class="pcoded-mtext">{{$item['name']}}</span>
@@ -12,7 +12,7 @@
                     @if($item['child'])
                        @foreach($item['child'] as $index => $child)
                             <ul class="pcoded-submenu">
-                                <li class="{{active($child['url'])}}">
+                                <li class="{{active_header($child['url'])}}">
                                     <a href="{{$child['route'] ? route($child['route']) : 'javascript:void(0)'}}">
                                         <span class="pcoded-mtext">{{$child['name']}}</span>
                                     </a>
@@ -50,9 +50,7 @@
             <ul class="nav-right">
                 <li class="header-notification">
                     <div class="dropdown-primary dropdown">
-                        <div>
-                            <h5>Cabang : </h5>
-                        </div>
+                        <h6>Cabang  | Kas Cabang : Rp. <b>{{$infoCabang->total_kas}}</b> | Admin : Rp. 0</h6>
                     </div>
                 </li>
                 <li class="header-notification">

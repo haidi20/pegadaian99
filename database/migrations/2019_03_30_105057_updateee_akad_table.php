@@ -19,8 +19,8 @@ class UpdateeeAkadTable extends Migration
             jangka_waktu_akad enum(
                 '60',
                 '30',
+                '15',
                 '7',
-                '1'
             )
         NOT NULL AFTER kekurangan;") ;       
     }

@@ -10,13 +10,18 @@
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/icon/icofont/css/icofont.css')}}">
 <!-- feather Awesome -->
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/icon/feather/css/feather.css')}}">
+<!-- Font Awesome -->
+<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/icon/font-awesome/css/font-awesome.min.css')}}">
 
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/css/linearicons.css')}}">
 
-<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/css/jquery.mCustomScrollbar.css')}}">
+<!-- Mini-color css -->
+<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/jquery-minicolors/css/jquery.minicolors.css')}}">
 
 <!-- animation nifty modal window effects css -->
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/css/component.css')}}">
 
 <!-- Style.css  very important --> 
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/css/style.css')}}">
+
+<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/css/jquery.mCustomScrollbar.css')}}">

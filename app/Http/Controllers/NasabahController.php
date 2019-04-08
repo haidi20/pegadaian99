@@ -4,21 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Akad;
 use App\Models\Nasabah;
+use App\Models\Kas_cabang;
+use App\Models\User_cabang;
 
 class NasabahController extends Controller
 {
     public function __construct(
+                                Akad $akad,
                                 Nasabah $nasabah,
-                                Request $request
-                               )
+                                Request $request,
+                                Kas_cabang $kas_cabang,
+                                User_cabang $user_cabang
+                            )
     {
-        $this->nasabah          = $nasabah;
-        $this->request          = $request;
+        $this->akad         = $akad;
+        $this->nasabah      = $nasabah;
+        $this->request      = $request;
+        $this->kas_cabang   = $kas_cabang;
+        $this->user_cabang  = $user_cabang;
 
         view()->share([
-            'menu'          => 'nasabah',
-            'menuCabang'    => config('library.menu_header'),
+            'menu'          => 'akad',
+            'menuHeader'    => config('library.menu_header'),
         ]);
     }
 
@@ -34,7 +43,7 @@ class NasabahController extends Controller
 
         $nasabah 	 = $nasabah->paginate(request('perpage', 10));
 
-    	return view('nasabah.index', compact('nasabah', 'column', 'menu'));
+    	return  $this->template('nasabah.index', compact('nasabah', 'column', 'menu'));
     }
 
     public function detail($id)
@@ -50,7 +59,7 @@ class NasabahController extends Controller
         $action = route('nasabah.update', $id);
         $method = 'PUT';
 
-        return view('nasabah.form', compact('action', 'method'));
+        return  $this->template('nasabah.form', compact('action', 'method'));
     }
 
     public function update($id)

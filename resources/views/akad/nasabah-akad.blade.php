@@ -1,32 +1,32 @@
 <div class="sub-title">
     <h6>List Nasabah Akad</h6>
 </div> 
-<form method="get">              
+{{-- <form method="get">--}}
 <div class="row">
-    <div class="col-sm-12 col-md-2 offset-md-1">
+    <div class="col-sm-12 col-md-2">
          <div class="form-group">
             {{-- Show &nbsp; --}}
-            <select name="perpage" id="perpage" class="form-control">
-                <option {{ selected(10, 'perpage', 'request')}}>10</option>
-                <option {{ selected(25, 'perpage', 'request')}}>25</option>
-                <option {{ selected(50, 'perpage', 'request')}}>50</option>
-                <option {{ selected(100, 'perpage', 'request')}}>100</option>
+            <select name="perpage_na" id="perpage" class="form-control perpage">
+                <option {{ selected(10, 'perpage_na', 'request')}}>10</option>
+                <option {{ selected(25, 'perpage_na', 'request')}}>25</option>
+                <option {{ selected(50, 'perpage_na', 'request')}}>50</option>
+                <option {{ selected(100, 'perpage_na', 'request')}}>100</option>
             </select> 
             {{-- &nbsp; Entries --}}
         </div>
     </div>
     <div class="col-sm-12 col-md-3">
         <div class="form-group">
-            <input type="text" name="daterange" id="date" class="form-control" value="{{$dateRange}}" />
+            <input type="text" name="daterange" id="date" class="form-control" value="{{$nasabahAkad->dateRange}}" />
         </div>
     </div>
-    <div class="col-sm-12 col-md-6">
+    <div class="col-sm-12 col-md-6 offset-md-1">
         <div class="row">
             <div class="col-sm-4 offset-md-1">
                 <div class="form-group">
-                    <select name="by" id="by" class="form-control">
+                    <select name="by_na" id="by" class="form-control">
                         @foreach($columnListNasabahAkad as $index => $item)
-                            <option value="{{$index}}" {{selected($index, 'by', 'request')}}>{{$item}}</option>
+                            <option value="{{$index}}" {{selected($index, 'by_na', 'request')}}>{{$item}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -36,7 +36,7 @@
                     <span class="input-group-addon">
                        <i class="icofont icofont-ui-search"></i>
                     </span>
-                    <input type="text" name="q" id="q" value="{{ request('q') }}" class="form-control" placeholder="Search">
+                    <input type="text" name="q_na" id="q" value="{{ request('q_na') }}" class="form-control" placeholder="Search">
                 </div>
             </div>
             <div class="col-sm-2 col-md-2">
@@ -61,7 +61,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                    @forelse($akad as $index => $item)
+                    @forelse($nasabahAkad->data as $index => $item)
                         <tr>
                             <td>{{$index + 1}}</td>
                             <td>{{$item->nama_lengkap}}</td>
@@ -103,6 +103,6 @@
                 </tfoot> --}}
             </table>
         </div>
-        {!! $akad->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
+        {!! $nasabahAkad->data->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
     </div>
 </div>

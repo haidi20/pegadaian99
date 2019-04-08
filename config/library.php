@@ -90,7 +90,7 @@ return [
 				'jatuh_tempo'		=> 'Jatuh Tempo',
 			],	
 			'pelunasan_dan_lelang' => [
-				'list_nasabah_lunas' => [
+				'lunas' => [
 					'nama_lengkap' 		=> 'Nama',
 					'no_telp' 			=> 'No. telp',
 					'no_id' 			=> 'ID',
@@ -100,7 +100,7 @@ return [
 					'tanggal_akad'		=> 'Tanggal Akad',
 					'tanggal_pelunasan'	=> 'Tanggal Pelunasan',
 				],
-				'list_nasabah_lelang' => [
+				'lelang' => [
 					'nama_lengkap' 		=> 'Nama',
 					'no_telp' 			=> 'No. telp',
 					'no_id' 			=> 'ID',
@@ -112,7 +112,7 @@ return [
 					'nomor_lelang'		=> 'N. Lelang',
 					'admin_lelang'		=> 'Adm. Lelang',
 				],
-				'list_nasabah_refund' => [
+				'refund' => [
 					'nama_lengkap' 		=> 'Nama',
 					'no_telp' 			=> 'No. telp',
 					'no_id' 			=> 'ID',
@@ -135,10 +135,36 @@ return [
 	'name_tables' => [
 		'akad_nasabah' => [
 			'akad_jatuh_tempo' => [
-				'List Jatuh Tempo 7 Hari',
-				'List Jatuh Tempo 15 Hari',
-				'List Jatuh Tempo 30 Hari',
-				'List Jatuh Tempo 60 Hari',
+				0 => [
+					'key' 	=> '7',
+					'name' 	=>'List Jatuh Tempo 7 Hari',
+				],
+				1 => [
+					'key' 	=> '15',
+					'name' 	=>'List Jatuh Tempo 15 Hari',
+				],
+				2 => [
+					'key' 	=> '30',
+					'name' 	=>'List Jatuh Tempo 30 Hari',
+				],
+				3 => [
+					'key' 	=> '60',
+					'name' 	=>'List Jatuh Tempo 60 Hari',
+				],
+			],
+			'pelunasan_dan_lelang' => [
+				0 => [
+					'key' => 'lunas',
+					'name'=> 'List Nasabah Lunas',
+				],
+				1 => [
+					'key' => 'lelang',
+					'name'=> 'List Nasabah Lelang',
+				],
+				2 => [
+					'key' => 'refund',
+					'name'=> 'List Nasabah Refund',
+				],
 			],
 		],
 	],
