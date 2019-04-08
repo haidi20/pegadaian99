@@ -53,17 +53,17 @@
         </tr>
         </thead>
         <tbody id="akad_jatuh_tempo_{{$item['key']}}">
-            @forelse($item['data'] as $index => $item)
+            @forelse($item['data'] as $key => $value)
                 <tr>
-                    <td>{{$index + 1}}</td>
-                    <td>{{$item->nama_lengkap}}</td>
-                    <td>{{$item->no_telp}}</td>
-                    <td>{{$item->no_id}}</td>
-                    <td>{{$item->nama_barang}}</td>
-                    <td>{{$item->nilai_tafsir}}</td>
+                    <td>{{$key + 1}}</td>
+                    <td>{{$value->nama_lengkap}}</td>
+                    <td>{{$value->no_telp}}</td>
+                    <td>{{$value->no_id}}</td>
+                    <td>{{$value->nama_barang}}</td>
+                    <td>{{$value->nilai_tafsir}}</td>
                     <td></td>
-                    <td>{{$item->tanggal_akad}}</td>
-                    <td>{{$item->tanggal_jatuh_tempo}}</td>
+                    <td>{{$value->tanggal_akad}}</td>
+                    <td>{{$value->tanggal_jatuh_tempo}}</td>
                     <td></td>
                 </tr>
             @empty

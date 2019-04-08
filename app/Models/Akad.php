@@ -44,9 +44,30 @@ class Akad extends Model
         $start  = Carbon::now()->subDay($interval)->format('Y-m-d');
 
         return $query->where('jangka_waktu_akad', $day)
-                     ->where('status', 'Belum Lunas')
                      ->whereBetween('tanggal_jatuh_tempo', [$start, $end]);
     }
+
+    //start query status 'lunas, belum lunas, lelang dan refund'
+    public function scopeBelumLunas($query)
+    {
+        return $query->whereStatus('Belum Lunas');
+    }
+
+    public function scopeLelang($query)
+    {
+        return $query->whereStatus('Lelang');
+    }
+
+    public function scopeLunas($query)
+    {
+        return $query->whereStatus('Lunas');
+    }
+
+    public function scopeRefund($query)
+    {
+        return $query->whereStatus('Refund');
+    }
+    //end query status 'lunas, belum lunas, lelang dan refund'
 
     // for can fetch data nasabah use left join
     public function scopeNasabah($query)
