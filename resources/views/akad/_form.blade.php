@@ -9,21 +9,42 @@
 <script>
     $(function(){
         $('#marhun_bih').on('keyup' ,function(){
-            var data = this.value.replace(",","").replace(".","")
-            $('#terbilang').val(terbilang(data));
-            $('#terbilang2').val(terbilang(data));
-            // console.log(data);
+            var marhun_bih = this.value.replace(",","").replace(".","")
+
+            if(marhun_bih == 0){ marhun_bih = 0 }
+
+            // process 'terbilang' of 'marhub_bih'
+            $('#terbilang').val(terbilang(marhun_bih));
+            $('#terbilang2').val(terbilang(marhun_bih));
+
+            // determine 'biaya admin' from 'marhun_bih'
+            biaya_admin(marhun_bih)
         });
 
         // for default checked 'OPSI PEMBAYARAN HARIAN / 1'
         $('#op_1').css('display', '') 
     });
 
+    function biaya_admin(marhun_bih)
+    {
+        var persenan  = $('#persenan').val()
+        var biaya_admin = marhun_bih * (persenan/100)
+
+        // process format idr
+        var locale = 'id';
+        var options = {style: 'currency', currency: 'idr', minimumFractionDigits: 2, maximumFractionDigits: 2};
+        var formatter = new Intl.NumberFormat(locale, options);
+        
+        $('#biaya_admin1').val(formatter.format(biaya_admin))
+        $('#biaya_admin2').val(biaya_admin)
+    }
+
     function timePeriod(time)
     {
         var tanggal_jatuh_tempo = moment().add(time, 'days').format('Y-MM-DD');
         $('#tanggal_jatuh_tempo').val(tanggal_jatuh_tempo)
 
+        // function local
         paymentOption(time)
     }
 

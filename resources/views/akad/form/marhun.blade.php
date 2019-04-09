@@ -101,8 +101,8 @@
                         <div class="col-sm-2 col-xs-2">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">%</span>
-                                <input type="text" class="form-control autonumber"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," id="persenan" disabled>
-                                <input type="hidden" name="persenan">
+                                <input type="text" class="form-control" id="persenan" value="10"  disabled>
+                                <input type="hidden" name="persenan" value="10">
                             </div>
                         </div>
                     </div>
@@ -110,6 +110,7 @@
                         <label class="col-sm-2 col-form-label" >Opsi Pembayaran</label>
                         <div class="col-sm-10">
                             <div class="form-radio">
+                                {{-- setting show / hide use jquery  --}}
                                 @foreach($listTime as $index => $item)
                                     <div class="radio radio-inline" id="op_{{$item['value']}}" style="display: none">
                                         <label>
@@ -122,17 +123,36 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label" for="bt_7_hari">Biaya Titip Per 7 Hari</label>
+                        <label class="col-sm-2 col-form-label" for="bt_7_hari">Biaya Titip</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="{{old('bt_7_hari', number_format(10000))}}"  disabled>
-                            <input type="hidden" class="form-control" name="bt_7_hari" id="bt_7_hari" value="{{old('bt_7_hari', 10000)}}" >
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Rp.</span>
+                                <input type="text" class="form-control autonumber"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," id="bt_7_hari" name="bt_7_hari" disabled>
+                                <input type="hidden" name="bt_7_hari" class="bt_7_hari">
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="bt_yang_dibayar">Biaya Titip yang Dibayar</label>
+                        <div class="col-sm-12 col-md-1">
+                            {{-- <select name="bt_yang_dibayar" id="bt_yang_dibayar" class="form-control">
+                                <option {{ selected(1, 'bt_yang_dibayar', 'old')}}>1</option>
+                            </select>  --}}
+                            <input type="text" class="form-control" value="{{old('bt_yang_dibayar', number_format(1))}}"  disabled>
+                        </div>
+                        <label class="col-sm-12 col-md-3 col-form-label" for="jumlah_bt_yang_dibayar">Jumlah Biaya Titip yang Dibayar</label>
+                        <div class="col-sm-12 col-md-6">
+                            {{-- <select name="bt_yang_dibayar" id="bt_yang_dibayar" class="form-control">
+                                <option {{ selected(1, 'bt_yang_dibayar', 'old')}}>1</option>
+                            </select>  --}}
+                            <input type="text" class="form-control" value="{{old('bt_yang_dibayar')}}"  disabled>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="biaya_admin">Biaya Administrasi</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="biaya_admin" value="{{old('biaya_admin', number_format(10000))}}" disabled>
-                            <input type="hidden" class="form-control" name="biaya_admin" id="biaya_admin" value="{{old('biaya_admin', 10000)}}" >
+                            <input type="text" class="form-control autonumber" id="biaya_admin1"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," id="biaya_admin" name="biaya_admin" disabled>
+                            <input type="hidden" class="form-control" id="biaya_admin2" name="biaya_admin" >
                         </div>
                     </div>
                     <div class="form-group row">
