@@ -14,14 +14,21 @@
             $('#terbilang2').val(terbilang(data));
             // console.log(data);
         });
+
+        // for default checked 'OPSI PEMBAYARAN HARIAN / 1'
+        $('#op_1').css('display', '') 
     });
 
     function timePeriod(time)
     {
         var tanggal_jatuh_tempo = moment().add(time, 'days').format('Y-MM-DD');
-
         $('#tanggal_jatuh_tempo').val(tanggal_jatuh_tempo)
 
+        paymentOption(time)
+    }
+
+    function paymentOption(time)
+    {
         var opsi_pembayaran = $('input[name="opsi_pembayaran"]')
 
         $.each(opsi_pembayaran, function(){
@@ -30,7 +37,6 @@
             if(value <= time){
                 $('#op_'+value).css('display', '')
             }else{
-                // console.log(value);
                 $('#op_'+value).css('display', 'none')
             }
         })

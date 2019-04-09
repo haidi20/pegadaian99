@@ -111,7 +111,7 @@
                         <div class="col-sm-10">
                             <div class="form-radio">
                                 @foreach($listTime as $index => $item)
-                                    <div class="radio radio-inline" id="op_{{$item['value']}}">
+                                    <div class="radio radio-inline" id="op_{{$item['value']}}" style="display: none">
                                         <label>
                                             <input type="radio" name="opsi_pembayaran"  value="{{$item['value']}}" {{checked($item['value'], 'opsi_pembayaran', 1)}}>
                                             <i class="helper"></i>{{$item['text']}}
