@@ -17,11 +17,6 @@ class User_cabang extends Model
     	'username',
     ];
 
-    public function cabang()
-    {
-        return $this->belongsTo('App\Models\Cabang');
-    }
-
     // how to fetch data by username of user
     public function scopeBaseUsername($query)
     {

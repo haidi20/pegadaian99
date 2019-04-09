@@ -119,18 +119,18 @@
                             <div class="tab-content card-block">
                                 <div class="tab-pane {{active_tab('nasabah_akad', request('name_tab'))}}" id="nasabah_akad" role="tabpanel">
                                     {{-- table list nasabah akad  --}}
-                                    @include('akad.nasabah-akad')
+                                    @include('akad.index.nasabah-akad')
 
                                 </div>
                                 <div class="tab-pane {{active_tab('akad_jatuh_tempo', request('name_tab'))}}" id="akad_jatuh_tempo" role="tabpanel">
                                     @foreach($akadJatuhTempo as $index => $item)
-                                        @include('akad.akad-jatuh-tempo')
+                                        @include('akad.index.akad-jatuh-tempo')
                                         <br><br><br><br>
                                     @endforeach
                                 </div>
                                 <div class="tab-pane {{active_tab('pelunasan_dan_lelang', request('name_tab'))}}" id="pelunasan_dan_lelang" role="tabpanel">
                                     @foreach($pelunasanLelang as $index => $item)
-                                        @include('akad.pelunasan-dan-lelang')
+                                        @include('akad.index.pelunasan-dan-lelang')
                                     @endforeach
                                 </div>
                             </div>

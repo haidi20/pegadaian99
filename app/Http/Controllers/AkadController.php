@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Akad;
+use App\Models\Cabang;
 use App\Models\Nasabah;
 use App\Models\Kas_cabang;
 use App\Models\User_cabang;
@@ -16,6 +17,7 @@ class AkadController extends Controller
 {
     public function __construct(
     							Akad $akad,
+                                Cabang $cabang,
     							Nasabah $nasabah,
     							Request $request,
                                 Kas_cabang $kas_cabang,
@@ -23,6 +25,7 @@ class AkadController extends Controller
                             )
     {
     	$this->akad 		= $akad;
+        $this->cabang       = $cabang;
     	$this->nasabah 		= $nasabah;
     	$this->request  	= $request;
         $this->kas_cabang   = $kas_cabang;
@@ -34,7 +37,7 @@ class AkadController extends Controller
         ]);
     }
 
-    /*
+    /* code tab-tab in data akad nasabah :
     * na    = nasabah akad
     * ajt   = akad jatuh tempo
     * pl    = pelunasan dan lelang
@@ -64,37 +67,34 @@ class AkadController extends Controller
         ));
     }
 
-    // PELUNASAN DAN LELANG
-    public function pelunasanLelang()
-    {
-        $code   = 'pl_';
-        $perpage= 'perpage_';
-
-        // list name tables on TAB 'pelunasan dan lelang' example list 'nasabah lunas, lelang, dan refund'.
-        $nameTables     = config('library.name_tables.akad_nasabah.pelunasan_dan_lelang');
-        // data of list nasabah lunas, lelang, refund
-        $lunas          = $this->akad->nasabah()->lunas()->sorted('akad.tanggal_jatuh_tempo', 'desc');
-        $refund         = $this->akad->nasabah()->refund()->sorted('akad.tanggal_jatuh_tempo', 'desc');
-        $lelang         = $this->akad->nasabah()->lelang()->sorted('akad.tanggal_jatuh_tempo', 'desc');
-
-        $nameTables[0]['data'] = $this->filter($lunas, $code.'lunas')->akad->paginate(request($perpage.$code.'lunas', 10));
-        $nameTables[1]['data'] = $this->filter($refund, $code.'lelang')->akad->paginate(request($perpage.$code.'lelang', 10));
-        $nameTables[2]['data'] = $this->filter($lelang, $code.'refund')->akad->paginate(request($perpage.$code.'refund', 10));
-
-        return $nameTables;
-    }
-
     // NASABAH AKAD
     public function nasabahAkad()
     {
-        // name field tanggal jatuh tempo for sorted
+        // name field 'tanggal jatuh tempo' for sorted
         $nameFieldSorted= 'akad.tanggal_jatuh_tempo';
 
-        $nasabahAkad= $this->akad->nasabah()->sorted($nameFieldSorted, 'desc');
+        $nasabahAkad    = $this->akad->nasabah()->sorted($nameFieldSorted, 'desc');
+
+        // this condition just for 'nasabah akad'
+        if(request('perpage_na')){
+            // if get data from range date
+            if(request('daterange')){
+                $end    = carbon::parse(substr(request('daterange'), 13, 20));
+                $start  = carbon::parse(substr(request('daterange'), 1, 9));
+            }
+            // function scope filterRange
+            $nasabahAkad= $nasabahAkad->filterRange($start, $end);
+            $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
+        }else{
+            // for default date in form filter date range
+            $end        = Carbon::now()->day(30);
+            $start      = Carbon::now()->day(1);
+            // format dateRange base on template
+            $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
+        }
 
         // data from akad and dateRange after filter and use function local filter
-        $data       = $this->filter($nasabahAkad, 'na')->akad->paginate(request('perpage_na', 10));
-        $dateRange  = $this->filter($nasabahAkad, 'na')->dateRange;
+        $data           = $nasabahAkad->paginate(request('perpage_na', 10));
 
         return (object) compact('data', 'dateRange');
     }
@@ -123,34 +123,35 @@ class AkadController extends Controller
         return $nameTables;
     }
 
-    // for filter data from date range, perpage, and query by in index
+    // PELUNASAN DAN LELANG
+    public function pelunasanLelang()
+    {
+        $code   = 'pl_';
+        $perpage= 'perpage_';
+
+        // list name tables on TAB 'pelunasan dan lelang' example list 'nasabah lunas, lelang, dan refund'.
+        $nameTables     = config('library.name_tables.akad_nasabah.pelunasan_dan_lelang');
+        // data of list nasabah lunas, lelang, refund
+        $lunas          = $this->akad->nasabah()->lunas()->sorted('akad.tanggal_jatuh_tempo', 'desc');
+        $refund         = $this->akad->nasabah()->refund()->sorted('akad.tanggal_jatuh_tempo', 'desc');
+        $lelang         = $this->akad->nasabah()->lelang()->sorted('akad.tanggal_jatuh_tempo', 'desc');
+
+        $nameTables[0]['data'] = $this->filter($lunas, $code.'lunas')->akad->paginate(request($perpage.$code.'lunas', 10));
+        $nameTables[1]['data'] = $this->filter($refund, $code.'lelang')->akad->paginate(request($perpage.$code.'lelang', 10));
+        $nameTables[2]['data'] = $this->filter($lelang, $code.'refund')->akad->paginate(request($perpage.$code.'refund', 10));
+
+        return $nameTables;
+    }
+
+    //for filter data from perpage, and query by in index
     public function filter($akad, $code)
     {
-        // this condition just for 'nasabah akad'
-        if(request('perpage_'.$code) && $code == 'na'){
-            // if get data from range date
-            if(request('daterange')){
-                $end    = carbon::parse(substr(request('daterange'), 13, 20));
-                $start  = carbon::parse(substr(request('daterange'), 1, 9));
-            }
-
-            // function scope filterRange
-            $akad       = $akad->filterRange($start, $end);
-            $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
-        }else{
-            // for default date in form filter date range
-            $end        = Carbon::now()->day(30);
-            $start      = Carbon::now()->day(1);
-
-            $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
-        }
-
         // if get data from input keyword 
         if(request('q_'.$code)){
             $akad   = $akad->search(request('by_'.$code), request('q_'.$code));
         }
 
-        return (object) compact('dateRange', 'akad');
+        return (object) compact('akad');
     }
 
     public function create()
@@ -174,9 +175,12 @@ class AkadController extends Controller
     	}
 
     	$tanggal_akad	     = Carbon::now()->format('Y-m-d');
-    	$tanggal_jatuh_tempo = Carbon::now()->addDay('60')->format('Y-m-d');
+    	$tanggal_jatuh_tempo = Carbon::now()->addDay('7')->format('Y-m-d');
 
-    	return $this->template('akad._form', compact('action', 'method', 'tanggal_akad', 'tanggal_jatuh_tempo'));
+        // list time example : 1, 7, 15, 30, 60 days. for 'jangka_waktu_akad' and 'opsi_pembayaran'
+        $listTime            = config('library.form.akad');
+
+    	return $this->template('akad._form', compact('action', 'method', 'tanggal_akad', 'tanggal_jatuh_tempo', 'listTime'));
     }
 
     public function store()
