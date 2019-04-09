@@ -14,13 +14,12 @@ class UpdateeeAkadTable extends Migration
     public function up()
     {
        DB::statement("ALTER TABLE
-    akad
-        MODIFY COLUMN
-            jangka_waktu_akad enum(
+    akad MODIFY COLUMN jangka_waktu_akad enum(
                 '60',
                 '30',
                 '15',
                 '7',
+                '1',
             )
         NOT NULL AFTER kekurangan;") ;       
     }

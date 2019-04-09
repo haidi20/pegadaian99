@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Akad;
+use App\Models\Cabang;
 use App\Models\Nasabah;
 use App\Models\Kas_cabang;
 use App\Models\User_cabang;
@@ -16,6 +17,7 @@ class AkadController extends Controller
 {
     public function __construct(
     							Akad $akad,
+                                Cabang $cabang,
     							Nasabah $nasabah,
     							Request $request,
                                 Kas_cabang $kas_cabang,
@@ -23,6 +25,7 @@ class AkadController extends Controller
                             )
     {
     	$this->akad 		= $akad;
+        $this->cabang       = $cabang;
     	$this->nasabah 		= $nasabah;
     	$this->request  	= $request;
         $this->kas_cabang   = $kas_cabang;
@@ -176,7 +179,10 @@ class AkadController extends Controller
     	$tanggal_akad	     = Carbon::now()->format('Y-m-d');
     	$tanggal_jatuh_tempo = Carbon::now()->addDay('60')->format('Y-m-d');
 
-    	return $this->template('akad._form', compact('action', 'method', 'tanggal_akad', 'tanggal_jatuh_tempo'));
+        // list time example : 1, 7, 15, 30, 60 days. for 'jangka_waktu_akad' and 'opsi_pembayaran'
+        $listTime            = config('library.form.akad');
+
+    	return $this->template('akad._form', compact('action', 'method', 'tanggal_akad', 'tanggal_jatuh_tempo', 'listTime'));
     }
 
     public function store()

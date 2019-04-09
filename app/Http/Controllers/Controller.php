@@ -24,14 +24,17 @@ class Controller extends BaseController
     // FYI important => auth::user()->username not working in __construct()
     public function infoCabang()
     {
-        // get data cabang from table 'user_cabang' base on this user
+        // get data id_cabang from table 'user_cabang' base on this user
         $user_cabang    = $this->user_cabang->baseUsername()->first();
+        // get data cabang from table 'user_cabang' base on this user
+        $cabang         = $this->cabang->find($user_cabang->id_cabang);
         // and then get total 'kas cabang' base on id_cabang
         $kas_cabang     = $this->kas_cabang->whereId_cabang($user_cabang->id_cabang)->first();
         // 'total kas' base on cabang
         $total_kas      = nominal($kas_cabang->total_kas);
+        $nomorCabang    = $cabang->no_cabang;
 
-        return (object) compact('total_kas');
+        return (object) compact('total_kas', 'nomorCabang');
     }
 
 
