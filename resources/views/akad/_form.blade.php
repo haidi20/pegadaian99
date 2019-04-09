@@ -22,7 +22,7 @@
         });
 
         // for default checked 'OPSI PEMBAYARAN HARIAN / 1'
-        $('#op_1').css('display', '') 
+        $('#op_1,#op_7').css('display', '') 
     });
 
     function biaya_admin(marhun_bih)

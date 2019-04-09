@@ -175,7 +175,7 @@ class AkadController extends Controller
     	}
 
     	$tanggal_akad	     = Carbon::now()->format('Y-m-d');
-    	$tanggal_jatuh_tempo = Carbon::now()->addDay('60')->format('Y-m-d');
+    	$tanggal_jatuh_tempo = Carbon::now()->addDay('7')->format('Y-m-d');
 
         // list time example : 1, 7, 15, 30, 60 days. for 'jangka_waktu_akad' and 'opsi_pembayaran'
         $listTime            = config('library.form.akad');

@@ -5,12 +5,14 @@
                     <h3 class="sub-title">Jangka Waktu Akad</h3>
                         <div class="form-radio">
                             @foreach($listTime as $index => $item)
-                                <div class="radio radio-inline">
-                                    <label>
-                                        <input type="radio" name="jangka_waktu_akad"  value="{{$item['value']}}" onClick="timePeriod({{$item['value']}})" {{checked($item['value'], 'opsi_pembayaran', 1)}}>
-                                        <i class="helper"></i>{{$item['text']}}
-                                    </label>
-                                </div>
+                                @if($item['value'] != 1)
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="jangka_waktu_akad"  value="{{$item['value']}}" onClick="timePeriod({{$item['value']}})" {{checked($item['value'], 'opsi_pembayaran', 7)}}>
+                                            <i class="helper"></i>{{$item['text']}}
+                                        </label>
+                                    </div>
+                                @endif
                             @endforeach  
                         </div>
                     </form>
