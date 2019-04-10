@@ -25,7 +25,7 @@
                                         <i class="helper"></i>Kendaraan
                                     </label>
                                 </div>
-                                <input type="hidden" id="nilai_jenis_barang" >
+                                <input type="hidden" id="nilai_jenis_barang" value="elektronik">
                             </div>
                         </div>
                     </div>
@@ -117,38 +117,41 @@
                                 @foreach($listTime as $index => $item)
                                     <div class="radio radio-inline" id="op_{{$item['value']}}" style="display: none">
                                         <label>
-                                            <input type="radio" name="opsi_pembayaran"  value="{{$item['value']}}" {{checked($item['value'], 'opsi_pembayaran', 1)}}>
+                                            <input type="radio" name="opsi_pembayaran" onClick="valueOptionPayment('{{$item['value']}}')" value="{{$item['value']}}" {{checked($item['value'], 'opsi_pembayaran', 1)}}>
                                             <i class="helper"></i>{{$item['text']}}
                                         </label>
                                     </div>
                                 @endforeach
                             </div>
+                            <input type="hidden" id="nilai_opsi_pembayaran" value="1">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label" for="bt_7_hari">Biaya Titip</label>
+                        <label class="col-sm-2 col-form-label" for="biaya_titip">Biaya Titip</label>
                         <div class="col-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">Rp.</span>
-                                <input type="text" class="form-control autonumber"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," id="bt_7_hari" name="bt_7_hari" disabled>
-                                <input type="hidden" name="bt_7_hari" class="bt_7_hari">
+                                <input type="text" class="form-control autonumber"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," id="biaya_titip" disabled>
+                                <input type="hidden" name="biaya_titip" class="biaya_titip">
                             </div>                            
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="bt_yang_dibayar">Biaya Titip yang Dibayar</label>
-                        <div class="col-sm-12 col-md-1">
+                        <div class="col-sm-12 col-md-2">
                             {{-- <select name="bt_yang_dibayar" id="bt_yang_dibayar" class="form-control">
                                 <option {{ selected(1, 'bt_yang_dibayar', 'old')}}>1</option>
                             </select>  --}}
-                            <input type="text" class="form-control" value="{{old('bt_yang_dibayar', number_format(1))}}"  disabled>
+                            <input type="number" class="form-control" id="bt_yang_dibayar" value="{{old('bt_yang_dibayar', 1)}}"  disabled>
                         </div>
-                        <label class="col-sm-12 col-md-3 col-form-label" for="jumlah_bt_yang_dibayar">Jumlah Biaya Titip yang Dibayar</label>
-                        <div class="col-sm-12 col-md-6">
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label" for="jumlah_bt_yang_dibayar">Jumlah Biaya Titip yang Dibayar</label>
+                        <div class="col-sm-12 col-md-10">
                             {{-- <select name="bt_yang_dibayar" id="bt_yang_dibayar" class="form-control">
                                 <option {{ selected(1, 'bt_yang_dibayar', 'old')}}>1</option>
                             </select>  --}}
-                            <input type="text" class="form-control" value="{{old('bt_yang_dibayar')}}"  disabled>
+                            <input type="text" class="form-control" id="jml_bt_yang_dibayar" disabled>
                         </div>
                     </div>
                     <div class="form-group row">
