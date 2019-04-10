@@ -63,6 +63,59 @@ return [
 				],
 			],
 		],
+		3 => [
+			'name' 	=> 'Data Pembayaran',
+			'icon'	=> 'zmdi zmdi-money',
+			'route'	=> false,
+			'title'	=> 'pembayaran',
+			'class' => 'pcoded-hasmenu',
+			'child'	=> [
+				0	=> [
+					'url'	=> 'pendapatan',
+					'name'	=> 'Pendapatan',
+					'route'	=> 'pembayaran.pendapatan',
+				],
+				1	=> [
+					'url'	=> 'bku',
+					'name'	=> 'BKU',
+					'route'	=> 'pembayaran.bku',
+				],
+			],
+		],
+		4 => [
+			'name' 	=> 'Data Permodalan',
+			'icon'	=> 'zmdi zmdi-money-box',
+			'route'	=> false,
+			'title'	=> 'permodalan',
+			'class' => 'pcoded-hasmenu',
+			'child'	=> [
+				0	=> [
+					'url'	=> 'permodalan/create',
+					'name'	=> 'Tambah Saldo',
+					'route'	=> 'permodalan.create',
+				],
+				1	=> [
+					'url'	=> 'permodalan/penambahan-saldo',
+					'name'	=> 'List Penambahan Saldo',
+					'route'	=> 'permodalan.penambahan',
+				],
+				2	=> [
+					'url'	=> 'permodalan/refund-saldo',
+					'name'	=> 'Refund Saldo',
+					'route'	=> 'permodalan.refund',
+				],
+				3	=> [
+					'url'	=> 'permodalan/list-data-refund-saldo',
+					'name'	=> 'List Data Refund Saldo',
+					'route'	=> 'permodalan.list.refund',
+				],
+				4	=> [
+					'url'	=> 'permodalan/hutang-dan-piutang',
+					'name'	=> 'Hutang dan Piutang',
+					'route'	=> 'permodalan.hutang',
+				],
+			],
+		],
 	],
 	// LIST COLUMN ON TABLE
 	'column' => [
