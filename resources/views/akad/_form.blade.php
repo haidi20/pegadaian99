@@ -47,8 +47,8 @@
     }
 
     // determine 'biaya titp'
-    // value is nilai from 'marhun_bih' or 'opsi_pembayaran'
-    // option for condition between marhun bih and 'opsi_pembayaran'
+    // value is nilai from 'marhun_bih', 'opsi_pembayaran', or 'jenis_barang'
+    // option for condition between marhun bih, 'opsi_pembayaran' and 'jenis_barang'
     function biaya_titip(value, option)
     {
         var persenan        = $('#persenan').val() / 100
@@ -174,7 +174,7 @@
         </div>
     </div>
 </div>
- <form action="{{$action}}" method="post">
+<form action="{{$action}}" method="post">
 <input type="hidden" name="_method" value="post">
 {{csrf_field()}}
 <div class="page-body">
