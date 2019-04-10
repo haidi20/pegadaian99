@@ -19,6 +19,9 @@
 
             // determine 'biaya admin' from 'marhun_bih'
             biaya_admin(marhun_bih)
+
+            // determine 'biaya titip'
+            biaya_titip(marhun_bih)
         });
 
         // for default checked 'OPSI PEMBAYARAN HARIAN / 1'
@@ -39,6 +42,11 @@
         $('#biaya_admin2').val(biaya_admin)
     }
 
+    function biaya_titip(marhun_bih)
+    {
+
+    }
+
     function timePeriod(time)
     {
         var tanggal_jatuh_tempo = moment().add(time, 'days').format('Y-MM-DD');
@@ -55,22 +63,31 @@
         $.each(opsi_pembayaran, function(){
             var value = $(this).val()
 
+            // condition value of 'opsi_pembayaran' with value time of 'jangka_waktu_akad' 
             if(value <= time){
                 $('#op_'+value).css('display', '')
             }else{
                 $('#op_'+value).css('display', 'none')
-            }
+            } 
         })
     }
 
     function itemType(type)
-    {
+    {   
+        var persenan_real = $('#persenan-real').val()
+
         if(type == 'elektronik'){
             $('#item_elektronik').css('display', '')
             $('#item_kendaraan').css('display', 'none')
+            $('#nilai_jenis_barang').val()
+            // for condition if type == 'elektronik'. 'persenan' = 10% or etc
+            $('.persenan').val(persenan_real)
         }else{
             $('#item_elektronik').css('display', 'none')
             $('#item_kendaraan').css('display', '')
+            $('#nilai_jenis_barang').val()
+            // for condition if type == 'kendaraan'. 'persenan' = 0
+            $('.persenan').val(0)
         }
     }
 </script>

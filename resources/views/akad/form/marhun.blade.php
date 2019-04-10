@@ -25,10 +25,11 @@
                                         <i class="helper"></i>Kendaraan
                                     </label>
                                 </div>
+                                <input type="hidden" id="nilai_jenis_barang" >
                             </div>
                         </div>
                     </div>
-                    <div class="form-group row" id="item_elektronik" style="display:none">
+                    <div class="form-group row" id="item_elektronik" style="display:">
                         <label class="col-sm-2 col-form-label" for="type">Type</label>
                         <div class="col-sm-12 col-md-2">
                             <input type="text" class="form-control" name="type" id="type" value="{{old('type')}}">
@@ -42,7 +43,7 @@
                             <input type="text" class="form-control" name="no_serial" id="no_serial" value="{{old('no_serial')}}">
                         </div>
                     </div>
-                    <div class="form-group row" id="item_kendaraan" style="display:">
+                    <div class="form-group row" id="item_kendaraan" style="display:none">
                         <label class="col-sm-2 col-form-label" for="kt">KT</label>
                         <div class="col-sm-12 col-md-2">
                             <input type="text" class="form-control" name="kt" id="kt" value="{{old('kt')}}">
@@ -101,8 +102,10 @@
                         <div class="col-sm-2 col-xs-2">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">%</span>
-                                <input type="text" class="form-control" id="persenan" value="10"  disabled>
-                                <input type="hidden" name="persenan" value="10">
+                                <input type="text" class="form-control persenan" id="persenan" value="10"  disabled>
+                                <input type="hidden" class="persenan" name="persenan" value="10">
+                                {{-- for helping jquery keep get value 'persenan' from database --}}
+                                <input type="hidden" id="persenan-real" value="10">
                             </div>
                         </div>
                     </div>

@@ -8,7 +8,7 @@
                                 @if($item['value'] != 1)
                                     <div class="radio radio-inline">
                                         <label>
-                                            <input type="radio" name="jangka_waktu_akad"  value="{{$item['value']}}" onClick="timePeriod({{$item['value']}})" {{checked($item['value'], 'opsi_pembayaran', 7)}}>
+                                            <input type="radio" name="jangka_waktu_akad"  value="{{$item['value']}}" onClick="timePeriod({{$item['value']}})" {{checked($item['value'], 'jangka_waktu_akad', 7)}}>
                                             <i class="helper"></i>{{$item['text']}}
                                         </label>
                                     </div>
