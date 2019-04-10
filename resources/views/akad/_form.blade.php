@@ -9,7 +9,7 @@
 <script>
     $(function(){
         $('#marhun_bih').on('keyup' ,function(){
-            var marhun_bih = this.value.replace(",","").replace(".","")
+            var marhun_bih = this.value.replace(",","").replace(".","").replace(".","").replace(".","")
 
             if(marhun_bih == 0){ marhun_bih = 0 }
 
@@ -21,32 +21,81 @@
             biaya_admin(marhun_bih)
 
             // determine 'biaya titip'
-            biaya_titip(marhun_bih)
+            biaya_titip(marhun_bih, 'marhun_bih')
         });
 
         // for default checked 'OPSI PEMBAYARAN HARIAN / 1'
         $('#op_1,#op_7').css('display', '') 
     });
 
+    // setting value 'opsi pembayaran'
+    function valueOptionPayment(value)
+    {
+        $('#nilai_opsi_pembayaran').val(value)
+
+        biaya_titip(value, 'opsi_pembayaran')
+    }
+
+    // determine 'biaya admin'
     function biaya_admin(marhun_bih)
     {
         var persenan  = $('#persenan').val()
         var biaya_admin = marhun_bih * (persenan/100)
-
-        // process format idr
-        var locale = 'id';
-        var options = {style: 'currency', currency: 'idr', minimumFractionDigits: 2, maximumFractionDigits: 2};
-        var formatter = new Intl.NumberFormat(locale, options);
         
-        $('#biaya_admin1').val(formatter.format(biaya_admin))
+        $('#biaya_admin1').val(format_nominal(biaya_admin))
         $('#biaya_admin2').val(biaya_admin)
     }
 
-    function biaya_titip(marhun_bih)
+    // determine 'biaya titp'
+    // value is nilai from 'marhun_bih' or 'opsi_pembayaran'
+    // option for condition between marhun bih and 'opsi_pembayaran'
+    function biaya_titip(value, option)
     {
+        var persenan        = $('#persenan').val() / 100
+        var jenis_barang    = $('#nilai_jenis_barang').val()
+        var opsi_pembayaran = $('#nilai_opsi_pembayaran').val()
+        var bt_yang_dibayar = $('#bt_yang_dibayar').val()
 
+        // override base on condition form 'opsi_pembayaran'
+        if(option == 'marhun_bih'){
+            marhun_bih = value
+        }else if(option == 'opsi_pembayaran'){
+            opsi_pembayaran = value
+            marhun_bih = $('#marhun_bih').val().replace(".","").replace(".","").replace(".","")
+        }
+
+        if(option == 'jenis_barang'){
+            jenis_barang = value
+        }
+
+        if(jenis_barang == 'elektronik'){
+            if(opsi_pembayaran == 1){
+                var result = marhun_bih * persenan - (10000 / 2) / 7
+            }else if (opsi_pembayaran == 15){
+                var result = marhun_bih * persenan 
+            }else{
+                var result = marhun_bih * persenan - (10000 / 2)
+            }
+
+            var biaya_titip = result * bt_yang_dibayar
+
+            // condition for negativ number
+            biaya_titip = biaya_titip <= 0 ? 0 : biaya_titip
+        }else{
+            var biaya_titip = marhun_bih
+        }
+
+        var nominal_biaya_titip = format_nominal(biaya_titip)
+        nominal_biaya_titip     = nominal_biaya_titip.replace("Rp", "")
+        $('#biaya_titip').val(nominal_biaya_titip)
+
+        nominal_biaya_titip = nominal_biaya_titip <= 0 ? 0 : nominal_biaya_titip
+
+        var jml_bt_yang_dibayar = nominal_biaya_titip.toString().replace(",","").replace(".","").replace(".","").replace(".","")
+        $('#jml_bt_yang_dibayar').val(terbilang(jml_bt_yang_dibayar))
     }
 
+    // determine 'tanggal jatuh tempo' base on 'tanggal akad'
     function timePeriod(time)
     {
         var tanggal_jatuh_tempo = moment().add(time, 'days').format('Y-MM-DD');
@@ -56,6 +105,7 @@
         paymentOption(time)
     }
 
+    // setting show / hide 'opsi pembayaran' base on 'jangka waktu akad'
     function paymentOption(time)
     {
         var opsi_pembayaran = $('input[name="opsi_pembayaran"]')
@@ -72,22 +122,30 @@
         })
     }
 
+    // determine detail item base on 'jenis barang'
     function itemType(type)
     {   
+        // value real 'persenan' from database
         var persenan_real = $('#persenan-real').val()
 
         if(type == 'elektronik'){
             $('#item_elektronik').css('display', '')
             $('#item_kendaraan').css('display', 'none')
-            $('#nilai_jenis_barang').val()
+            //get value 'jenis_kendaraan'
+            $('#nilai_jenis_barang').val('elektronik')
             // for condition if type == 'elektronik'. 'persenan' = 10% or etc
             $('.persenan').val(persenan_real)
+            // for condition 'biaya titip'
+            biaya_titip('elektronik', 'jenis_barang')
         }else{
             $('#item_elektronik').css('display', 'none')
             $('#item_kendaraan').css('display', '')
-            $('#nilai_jenis_barang').val()
+            //get value 'jenis_kendaraan'
+            $('#nilai_jenis_barang').val('kendaraan')
             // for condition if type == 'kendaraan'. 'persenan' = 0
             $('.persenan').val(0)
+            // for condition 'biaya titip'
+            biaya_titip('kendaraan', 'jenis_barang')
         }
     }
 </script>

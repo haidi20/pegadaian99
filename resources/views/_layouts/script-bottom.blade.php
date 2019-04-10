@@ -61,4 +61,14 @@ function remove(id, action='delete', message='Anda yakin akan menghapus data ini
         }
     });
 }
+
+function format_nominal(value)
+{
+    // process format idr
+    var locale = 'id';
+    var options = {style: 'currency', currency: 'idr', minimumFractionDigits: 0, maximumFractionDigits: 0};
+    var formatter = new Intl.NumberFormat(locale, options);
+
+    return formatter.format(value)
+}
 </script>
