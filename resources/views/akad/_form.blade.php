@@ -64,6 +64,10 @@
             marhun_bih = $('#marhun_bih').val().replace(".","").replace(".","").replace(".","")
         }
 
+        if(option == 'jenis_barang'){
+            jenis_barang = value
+        }
+
         if(jenis_barang == 'elektronik'){
             if(opsi_pembayaran == 1){
                 var result = marhun_bih * persenan - (10000 / 2) / 7
@@ -131,6 +135,8 @@
             $('#nilai_jenis_barang').val('elektronik')
             // for condition if type == 'elektronik'. 'persenan' = 10% or etc
             $('.persenan').val(persenan_real)
+            // for condition 'biaya titip'
+            biaya_titip('elektronik', 'jenis_barang')
         }else{
             $('#item_elektronik').css('display', 'none')
             $('#item_kendaraan').css('display', '')
@@ -138,6 +144,8 @@
             $('#nilai_jenis_barang').val('kendaraan')
             // for condition if type == 'kendaraan'. 'persenan' = 0
             $('.persenan').val(0)
+            // for condition 'biaya titip'
+            biaya_titip('kendaraan', 'jenis_barang')
         }
     }
 </script>
