@@ -43,6 +43,12 @@ Route::middleware('auth')->group(function() {
 		Route::get('/detail/{id}', 'NasabahController@detail')->name('nasabah.detail');
 		Route::post('/update/{id}', 'NasabahController@update')->name('nasabah.update');
 	});
+	Route::group(['prefix' => 'operasional'], function(){
+		Route::get('/create', 'OperasionalController@create')->name('operasional.create');
+		Route::get('/bku-admin', 'OperasionaController@bku')->name('operasional.bku');
+		Route::get('/data-pengeluaran', 'OperasionalController@pengeluaran')->name('operasional.pengeluaran');
+		Route::get('/hutang-dan-pembayaran', 'OperasionalController@hutang')->name('operasional.hutang');
+	});
 	Route::group(['prefix' => 'pembayaran'], function(){
 		Route::get('/bku', 'PembayaranController@bku')->name('pembayaran.bku');
 		Route::get('/pendapatan', 'PembayaranController@pembayaran')->name('pembayaran.pendapatan');

@@ -116,6 +116,35 @@ return [
 				],
 			],
 		],
+		5 => [
+			'name' 	=> 'Biaya Operasional',
+			'icon'	=> 'zmdi zmdi-settings-square',
+			'route'	=> false,
+			'title'	=> 'operasional',
+			'class' => 'pcoded-hasmenu',
+			'child'	=> [
+				0	=> [
+					'url'	=> 'operasional/create',
+					'name'	=> 'Tambah Data',
+					'route'	=> 'operasional.create',
+				],
+				1	=> [
+					'url'	=> 'operasional/data-pengeluaran',
+					'name'	=> 'Data Pengeluaran',
+					'route'	=> 'operasional.pengeluaran',
+				],
+				2	=> [
+					'url'	=> 'operasional/bku-admin',
+					'name'	=> 'BKU Admin',
+					'route'	=> 'operasional.bku',
+				],
+				3	=> [
+					'url'	=> 'operasional/hutang-dan-pembayaran',
+					'name'	=> 'Hutang dan Pembayaran',
+					'route'	=> 'operasional.hutang',
+				],
+			],
+		],
 	],
 	// LIST COLUMN ON TABLE
 	'column' => [
