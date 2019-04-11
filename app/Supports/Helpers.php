@@ -35,7 +35,7 @@ if( ! function_exists('checked') )
 
 /* active for add class active in menu on header
 * $menu 	= name menu and then set name menu from controller
-* $feature 	= address url on aplication or name feature on aplication
+* $feature 	= address url of aplication or name feature of aplication
 */
 if( ! function_exists('active_header') )
 {

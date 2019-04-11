@@ -61,9 +61,9 @@
                                 <div class="col-sm-12 col-md-3 offset-md-1">
                                     <div class="form-group">
                                         <select name="by" id="by" class="form-control">
-                                            {{-- @foreach($column as $index => $item)
+                                            @foreach($column as $index => $item)
                                                 <option value="{{$index}}" {{selected($index, 'by', 'request')}}>{{$item}}</option>
-                                            @endforeach --}}
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -87,9 +87,9 @@
                             <thead>
                             <tr>
                                 <th>No</th>
-                               {{--  @foreach($column as $index => $item)
+                                @foreach($column as $index => $item)
                                     <th>{{$item}}</th>
-                                @endforeach --}}
+                                @endforeach
                                 {{-- <th>action</th> --}}
                             </tr>
                             </thead>

@@ -8,8 +8,8 @@ use App\Models\Cabang;
 use App\Models\Kas_cabang;
 use App\Models\User_cabang;
 
-use Carbon\Carbon;
 use Auth;
+use Carbon\Carbon;
 
 class PembayaranController extends Controller
 {
@@ -26,18 +26,30 @@ class PembayaranController extends Controller
     	$this->user_cabang 	= $user_cabang;
 
         view()->share([
-            'menu'          => 'akad',
             'menuHeader'    => config('library.menu_header'),
         ]);
     }
 
     public function pembayaran()
     {
-    	return $this->template('pembayaran.pendapatan', array());
+        $menu = 'pembayaran';
+
+        // list column 'list biaya titip' and 'list biaya administrasi'
+        $columnBiayaTitip           = config('library.column.pendapatan.list_biaya_titip');
+        $columnBiayaAdministrasi    = config('library.column.pendapatan.list_biaya_administrasi');
+
+    	return $this->template('pembayaran.pendapatan', compact(
+            'menu', 'columnBiayaTitip', 'columnBiayaAdministrasi'
+        ));
     }
 
     public function bku()
     {
-    	return $this->template('pembayaran.bku', array());
+        $menu   = 'bku';
+        $column = config('library.column.bku');
+
+    	return $this->template('pembayaran.bku', compact(
+            'menu', 'column'
+        ));
     }
 }

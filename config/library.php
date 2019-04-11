@@ -71,12 +71,12 @@ return [
 			'class' => 'pcoded-hasmenu',
 			'child'	=> [
 				0	=> [
-					'url'	=> 'pendapatan',
+					'url'	=> 'pembayaran/pendapatan',
 					'name'	=> 'Pendapatan',
 					'route'	=> 'pembayaran.pendapatan',
 				],
 				1	=> [
-					'url'	=> 'bku',
+					'url'	=> 'pembayaran/bku',
 					'name'	=> 'BKU',
 					'route'	=> 'pembayaran.bku',
 				],
@@ -212,6 +212,27 @@ return [
 			'no_telp'		=> 'No Telp',
 			'alamat' 		=> 'Alamat',
 			'action'		=> 'Action'
+		],
+		'pendapatan' => [
+			'list_biaya_titip' => [
+				'nama_investor' => 'Nama',
+				'no_id' 		=> 'ID',
+				'jangka_waktu'	=> 'Jangka Waktu',
+				'tanggal_akad'  => 'Tanggal Akad',
+				'total_bt'		=> 'Total BT',
+			],
+			'list_biaya_administrasi' => [
+				'tanggal_transaksi' => 'Tanggal Transaksi',
+				'jumlah' 			=> 'Jumlah',
+				'keterangan'		=> 'Keterangan',
+			],
+		],
+		'bku' => [
+			'tanggal' 	=> 'Tanggal',
+			'uraian' 	=> 'Uraian',
+			'debit'		=> 'debit',
+			'kredit'	=> 'Kredit',
+			'saldo'		=> 'Saldo',
 		],
 	],
 	// LIST NAME TABLE IN FEATURE DATA AKAD NASABAH
