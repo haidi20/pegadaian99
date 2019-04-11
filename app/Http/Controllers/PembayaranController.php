@@ -38,6 +38,6 @@ class PembayaranController extends Controller
 
     public function bku()
     {
-    	
+    	return $this->template('pembayaran.bku', array());
     }
 }
