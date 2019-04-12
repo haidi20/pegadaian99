@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function() {
 	});
 	Route::group(['prefix' => 'operasional'], function(){
 		Route::get('/create', 'OperasionalController@create')->name('operasional.create');
-		Route::get('/bku-admin', 'OperasionaController@bku')->name('operasional.bku');
+		Route::get('/bku-admin', 'OperasionalController@bku')->name('operasional.bku');
 		Route::get('/data-pengeluaran', 'OperasionalController@pengeluaran')->name('operasional.pengeluaran');
 		Route::get('/hutang-dan-pembayaran', 'OperasionalController@hutang')->name('operasional.hutang');
 

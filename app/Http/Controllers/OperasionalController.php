@@ -38,7 +38,9 @@ class OperasionalController extends Controller
 
     public function bku()
     {
-    	return 'BKU Admin';
+    	$column = config('library.column.bku');
+
+        return $this->template('operasional.bku', compact('column'));
     }
 
     public function pengeluaran()
@@ -50,6 +52,8 @@ class OperasionalController extends Controller
 
     public function hutang()
     {
-    	return 'Hutang dan Pembayaran';
+        $column = config('library.column.hutang');
+
+        return $this->template('operasional.hutang', compact('column'));
     }
 }

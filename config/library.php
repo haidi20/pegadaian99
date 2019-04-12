@@ -254,6 +254,19 @@ return [
 			'keterangan'=> 'Keterangan',
 			'jumlah'	=> 'Jumlah',
 		],
+		'bku'			=> [
+			'tanggal'   => 'Tanggal',
+			'uraian'	=> 'Uraian',
+			'debit'		=> 'Debit',
+			'kredit'	=> 'Kredit',
+			'saldo'		=> 'Saldo',
+		],
+		'hutang' 		=> [
+			'jumlah'	=> 'Jumlah',
+			'keterangan'=> 'Keterangan',
+			'tanggal'	=> 'Tanggal',
+			'status'	=> 'Status',
+		],
 	],
 	// LIST NAME TABLE IN FEATURE DATA AKAD NASABAH
 	'name_tables' => [
