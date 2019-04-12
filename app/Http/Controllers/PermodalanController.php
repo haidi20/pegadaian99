@@ -33,7 +33,9 @@ class PermodalanController extends Controller
 
     public function create()
     {
-    	return $this->template('permodalan.form', array());
+        $feature = 'Tambah Saldo';
+
+    	return $this->template('permodalan.form', compact('feature'));
     }
 
     public function store()
@@ -45,12 +47,16 @@ class PermodalanController extends Controller
 
     public function penambahan()
     {
-    	return 'list penambahan saldo';
+        $column = config('library.column.penambahan');
+
+    	return $this->template('permodalan.penambahan', compact('column'));
     }
 
     public function refund()
     {
-    	return 'refund saldo';
+        $feature = 'refund saldo';
+
+    	return $this->template('permodalan.form', compact('feature'));
     }
 
     public function list_refund()

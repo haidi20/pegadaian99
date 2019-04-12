@@ -234,6 +234,11 @@ return [
 			'kredit'	=> 'Kredit',
 			'saldo'		=> 'Saldo',
 		],
+		'penambahan' => [
+			'tanggal' 	=> 'Tanggal',
+			'uraian'	=> 'Uraian',
+			'Jumlah'	=> 'Jumlah',
+		],
 	],
 	// LIST NAME TABLE IN FEATURE DATA AKAD NASABAH
 	'name_tables' => [
