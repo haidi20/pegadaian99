@@ -117,16 +117,17 @@
             <div class="col-sm-12">
                  <div class="card">
                     <div class="card-block">
-                        <h3 class="sub-title">Jenis Modal</h3>
+                        <h3 class="sub-title">Rincian</h3>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label" for="jenis_modal">Jenis</label>
+                            <label class="col-sm-2 col-form-label" for="jumlah">Jumlah</label>
                             <div class="col-sm-10">
-                                <select name="jenis_modal" id="jenis_modal" class="form-control form-control-success">
-                                    <option value="">Pilih Jenis Modal</option>
-                                    <option value="hutang_cabang">Hutang Cabang</option>
-                                    <option value="hutang_personal">Hutang Personal</option>
-                                    <option value="penambahan_kas_saldo">Penambahan Kas Saldo</option>
-                                </select>
+                               <input placeholder="Jumlah" type="text" class="form-control" name="jumlah" id="jumlah"required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label" for="keterangan">Keterangan</label>
+                            <div class="col-sm-10">
+                               <textarea rows="5" cols="5" class="form-control" id="keterangan" name="keterangan" placeholder="Keterangan" required></textarea>
                             </div>
                         </div>
                     </div>
