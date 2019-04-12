@@ -20,16 +20,18 @@ Route::middleware('auth')->group(function() {
 	Route::group(['prefix' => 'akad'], function(){
 		Route::get('/', 'AkadController@index')->name('akad.index');
 		Route::get('/create', 'AkadController@create')->name('akad.create');
-		Route::post('/store', 'AkadController@store')->name('akad.store');
 		Route::get('/edit/{id}', 'AkadController@edit')->name('akad.edit');
+
+		Route::post('/store', 'AkadController@store')->name('akad.store');
 		Route::post('/update/{id}', 'AkadController@update')->name('akad.update');
 		Route::post('/destroy/{id}', 'AkadController@destroy')->name('akad.destroy');
 	});
 	Route::group(['prefix' => 'cabang'], function(){
 		Route::get('/', 'CabangController@index')->name('cabang.index');
 		Route::get('/edit', 'CabangController@edit')->name('cabang.edit');
-		Route::post('/store', 'CabangController@store')->name('cabang.store');
 		Route::get('/create', 'CabangController@create')->name('cabang.create');
+
+		Route::post('/store', 'CabangController@store')->name('cabang.store');
 		Route::post('/update/{id}', 'CabangController@update')->name('cabang.update');
 
 		Route::group(['prefix' => '/setting'], function(){
@@ -41,6 +43,7 @@ Route::middleware('auth')->group(function() {
 		Route::get('/', 'NasabahController@index')->name('nasabah.index');
 		Route::get('/edit/{id}', 'NasabahController@edit')->name('nasabah.edit');
 		Route::get('/detail/{id}', 'NasabahController@detail')->name('nasabah.detail');
+
 		Route::post('/update/{id}', 'NasabahController@update')->name('nasabah.update');
 	});
 	Route::group(['prefix' => 'operasional'], function(){
@@ -59,6 +62,8 @@ Route::middleware('auth')->group(function() {
 		Route::get('/penambahan-saldo', 'PermodalanController@penambahan')->name('permodalan.penambahan');
 		Route::get('/hutang-dan-piutang', 'PermodalanController@hutang')->name('permodalan.hutang');
 		Route::get('/list-data-refund-saldo', 'PermodalanController@list_refund')->name('permodalan.list.refund');
+
+		Route::post('/store', 'PermodalanController@store')->name('permodalan.store');
 	});
 });
 
