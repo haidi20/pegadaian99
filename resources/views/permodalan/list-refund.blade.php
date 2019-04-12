@@ -11,7 +11,7 @@
         <div class="col-md-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>Data Penambahan Modal</h4>
+                    <h4>Data Refund Modal</h4>
                 </div>
             </div>
         </div>

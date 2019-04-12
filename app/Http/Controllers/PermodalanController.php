@@ -61,11 +61,17 @@ class PermodalanController extends Controller
 
     public function list_refund()
     {
-    	return 'list data refund saldo';
+        $column = config('library.column.list_refund');
+
+    	return $this->template('permodalan.list-refund', compact('column'));
     }
 
     public function hutang()
     {
-    	return 'hutang dan piutang';
+        $nameTables = config('library.name_tables.hutang_piutang');
+
+        $column     = config('library.column.hutang_piutang');
+
+    	return $this->template('permodalan.hutang-piutang', compact('nameTables', 'column'));
     }
 }

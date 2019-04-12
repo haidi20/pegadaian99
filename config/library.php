@@ -4,9 +4,8 @@ return [
 	// LIST MENU ON HEADER
 	'menu_header' => [
 		/* NOTE : 
-		* url 	= for condition active which is use function requeset()->is() in helper
+		* url 	= for condition active which is use function requeset()->is() in helpers.php
 		* name 	= for show in view menu header
-		* link 	= for tag a and function is what redirect to
 		* title = just title for this menu
 		* class = for name class by that menu
 		* child = for sub menu
@@ -237,12 +236,22 @@ return [
 		'penambahan' => [
 			'tanggal' 	=> 'Tanggal',
 			'uraian'	=> 'Uraian',
-			'Jumlah'	=> 'Jumlah',
+			'jumlah'	=> 'Jumlah',
+		],
+		'list_refund' => [
+			'tanggal' 	=> 'Tanggal',
+			'uraian'	=> 'Uraian',
+			'jumlah'	=> 'Jumlah',
+		],
+		'hutang_piutang'=> [
+			'uraian' 	=> 'Uraian',
+			'status'	=> 'Status',
+			'jumlah'	=> 'Jumlah',
 		],
 	],
 	// LIST NAME TABLE IN FEATURE DATA AKAD NASABAH
 	'name_tables' => [
-		'akad_nasabah' => [
+		'akad_nasabah' 	=> [
 			'akad_jatuh_tempo' => [
 				0 => [
 					'key' 	=> '7',
@@ -275,8 +284,23 @@ return [
 					'name'=> 'List Nasabah Refund',
 				],
 			],
-		],
+		],	
+		'hutang_piutang'=> [
+			0 => [
+				'key' 	=> 'hp',
+				'name' 	=> 'Hutang Personal',
+			],
+			1 => [
+				'key' 	=> 'hc',
+				'name' 	=> 'Hutang Cabang',
+			],
+			2 => [
+				'key' 	=> 'pc',
+				'name' 	=> 'Piutang Cabang',
+			],
+		], 
 	],
+	// LIST 'JATUH TEMPO' in AKAD FORM
 	'form' => [
 		'akad' => [
 			0 => [
