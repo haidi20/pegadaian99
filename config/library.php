@@ -244,8 +244,14 @@ return [
 			'jumlah'	=> 'Jumlah',
 		],
 		'hutang_piutang'=> [
+			'tanggal'	=> 'Tanggal',
 			'uraian' 	=> 'Uraian',
 			'status'	=> 'Status',
+			'jumlah'	=> 'Jumlah',
+		],
+		'pengeluaran' 	=> [
+			'tanggal'	=> 'Tanggal',
+			'keterangan'=> 'Keterangan',
 			'jumlah'	=> 'Jumlah',
 		],
 	],

@@ -108,6 +108,7 @@
                                <textarea rows="5" cols="5" class="form-control" id="keterangan" name="keterangan" placeholder="Keterangan" required></textarea>
                             </div>
                         </div>
+                         <button type="submit" class="btn btn-primary btn-xs">Proses</button>
                     </div>
                 </div>
             </div>
@@ -130,6 +131,7 @@
                                <textarea rows="5" cols="5" class="form-control" id="keterangan" name="keterangan" placeholder="Keterangan" required></textarea>
                             </div>
                         </div>
+                         <button type="submit" class="btn btn-primary btn-xs">Proses</button>
                     </div>
                 </div>
             </div>
