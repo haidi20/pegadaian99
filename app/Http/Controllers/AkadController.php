@@ -106,7 +106,7 @@ class AkadController extends Controller
 
         // list name tables on TAB 'akad jatuh tempo' example list 'jatuh tempo 7 hari', '15 hari' dll.
         $nameTables     = config('library.name_tables.akad_nasabah.akad_jatuh_tempo');
-        // name field tanggal jatuh tempo for sorted
+        // name field 'tanggal jatuh tempo' for sorted
         $nameFieldSorted= 'akad.tanggal_jatuh_tempo';
         // 7,15,30,60 days of data
         $sixty          = $this->akad->nasabah()->belumLunas()->sorted($nameFieldSorted, 'desc');
