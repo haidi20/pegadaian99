@@ -56,13 +56,15 @@ class NasabahController extends Controller
 
     public function edit($id)
     {
+        $menu = '';
+
         $findNasabah = $this->nasabah->find($id);
 
         session()->flashInput($findNasabah->toArray());
         $action = route('nasabah.update', $id);
         $method = 'PUT';
 
-        return  $this->template('nasabah.form', compact('action', 'method'));
+        return  $this->template('nasabah.form', compact('action', 'method', 'menu'));
     }
 
     public function update($id)

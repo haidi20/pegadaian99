@@ -4,9 +4,8 @@ return [
 	// LIST MENU ON HEADER
 	'menu_header' => [
 		/* NOTE : 
-		* url 	= for condition active which is use function requeset()->is() in helper
+		* url 	= for condition active which is use function requeset()->is() in helpers.php
 		* name 	= for show in view menu header
-		* link 	= for tag a and function is what redirect to
 		* title = just title for this menu
 		* class = for name class by that menu
 		* child = for sub menu
@@ -60,6 +59,88 @@ return [
 					'url'	=> 'akad',
 					'name'	=> 'Data Akad Nasabah',
 					'route'	=> 'akad.index',
+				],
+			],
+		],
+		3 => [
+			'name' 	=> 'Data Pembayaran',
+			'icon'	=> 'zmdi zmdi-money',
+			'route'	=> false,
+			'title'	=> 'pembayaran',
+			'class' => 'pcoded-hasmenu',
+			'child'	=> [
+				0	=> [
+					'url'	=> 'pembayaran/pendapatan',
+					'name'	=> 'Pendapatan',
+					'route'	=> 'pembayaran.pendapatan',
+				],
+				1	=> [
+					'url'	=> 'pembayaran/bku',
+					'name'	=> 'BKU',
+					'route'	=> 'pembayaran.bku',
+				],
+			],
+		],
+		4 => [
+			'name' 	=> 'Data Permodalan',
+			'icon'	=> 'zmdi zmdi-money-box',
+			'route'	=> false,
+			'title'	=> 'permodalan',
+			'class' => 'pcoded-hasmenu',
+			'child'	=> [
+				0	=> [
+					'url'	=> 'permodalan/create',
+					'name'	=> 'Tambah Saldo',
+					'route'	=> 'permodalan.create',
+				],
+				1	=> [
+					'url'	=> 'permodalan/penambahan-saldo',
+					'name'	=> 'List Penambahan Saldo',
+					'route'	=> 'permodalan.penambahan',
+				],
+				2	=> [
+					'url'	=> 'permodalan/refund-saldo',
+					'name'	=> 'Refund Saldo',
+					'route'	=> 'permodalan.refund',
+				],
+				3	=> [
+					'url'	=> 'permodalan/list-data-refund-saldo',
+					'name'	=> 'List Data Refund Saldo',
+					'route'	=> 'permodalan.list.refund',
+				],
+				4	=> [
+					'url'	=> 'permodalan/hutang-dan-piutang',
+					'name'	=> 'Hutang dan Piutang',
+					'route'	=> 'permodalan.hutang',
+				],
+			],
+		],
+		5 => [
+			'name' 	=> 'Biaya Operasional',
+			'icon'	=> 'zmdi zmdi-settings-square',
+			'route'	=> false,
+			'title'	=> 'operasional',
+			'class' => 'pcoded-hasmenu',
+			'child'	=> [
+				0	=> [
+					'url'	=> 'operasional/create',
+					'name'	=> 'Tambah Data',
+					'route'	=> 'operasional.create',
+				],
+				1	=> [
+					'url'	=> 'operasional/data-pengeluaran',
+					'name'	=> 'Data Pengeluaran',
+					'route'	=> 'operasional.pengeluaran',
+				],
+				2	=> [
+					'url'	=> 'operasional/bku-admin',
+					'name'	=> 'BKU Admin',
+					'route'	=> 'operasional.bku',
+				],
+				3	=> [
+					'url'	=> 'operasional/hutang-dan-pembayaran',
+					'name'	=> 'Hutang dan Pembayaran',
+					'route'	=> 'operasional.hutang',
 				],
 			],
 		],
@@ -131,10 +212,65 @@ return [
 			'alamat' 		=> 'Alamat',
 			'action'		=> 'Action'
 		],
+		'pendapatan' => [
+			'list_biaya_titip' => [
+				'nama_investor' => 'Nama',
+				'no_id' 		=> 'ID',
+				'jangka_waktu'	=> 'Jangka Waktu',
+				'tanggal_akad'  => 'Tanggal Akad',
+				'total_bt'		=> 'Total BT',
+			],
+			'list_biaya_administrasi' => [
+				'tanggal_transaksi' => 'Tanggal Transaksi',
+				'jumlah' 			=> 'Jumlah',
+				'keterangan'		=> 'Keterangan',
+			],
+		],
+		'bku' => [
+			'tanggal' 	=> 'Tanggal',
+			'uraian' 	=> 'Uraian',
+			'debit'		=> 'debit',
+			'kredit'	=> 'Kredit',
+			'saldo'		=> 'Saldo',
+		],
+		'penambahan' => [
+			'tanggal' 	=> 'Tanggal',
+			'uraian'	=> 'Uraian',
+			'jumlah'	=> 'Jumlah',
+		],
+		'list_refund' => [
+			'tanggal' 	=> 'Tanggal',
+			'uraian'	=> 'Uraian',
+			'jumlah'	=> 'Jumlah',
+		],
+		'hutang_piutang'=> [
+			'tanggal'	=> 'Tanggal',
+			'uraian' 	=> 'Uraian',
+			'status'	=> 'Status',
+			'jumlah'	=> 'Jumlah',
+		],
+		'pengeluaran' 	=> [
+			'tanggal'	=> 'Tanggal',
+			'keterangan'=> 'Keterangan',
+			'jumlah'	=> 'Jumlah',
+		],
+		'bku'			=> [
+			'tanggal'   => 'Tanggal',
+			'uraian'	=> 'Uraian',
+			'debit'		=> 'Debit',
+			'kredit'	=> 'Kredit',
+			'saldo'		=> 'Saldo',
+		],
+		'hutang' 		=> [
+			'jumlah'	=> 'Jumlah',
+			'keterangan'=> 'Keterangan',
+			'tanggal'	=> 'Tanggal',
+			'status'	=> 'Status',
+		],
 	],
 	// LIST NAME TABLE IN FEATURE DATA AKAD NASABAH
 	'name_tables' => [
-		'akad_nasabah' => [
+		'akad_nasabah' 	=> [
 			'akad_jatuh_tempo' => [
 				0 => [
 					'key' 	=> '7',
@@ -167,8 +303,23 @@ return [
 					'name'=> 'List Nasabah Refund',
 				],
 			],
-		],
+		],	
+		'hutang_piutang'=> [
+			0 => [
+				'key' 	=> 'hp',
+				'name' 	=> 'Hutang Personal',
+			],
+			1 => [
+				'key' 	=> 'hc',
+				'name' 	=> 'Hutang Cabang',
+			],
+			2 => [
+				'key' 	=> 'pc',
+				'name' 	=> 'Piutang Cabang',
+			],
+		], 
 	],
+	// LIST 'JATUH TEMPO' in AKAD FORM
 	'form' => [
 		'akad' => [
 			0 => [

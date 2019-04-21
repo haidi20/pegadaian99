@@ -21,6 +21,9 @@
 <!-- animation nifty modal window effects css -->
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/css/component.css')}}">
 
+<!-- Material Icon -->
+<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/icon/material-design/css/material-design-iconic-font.min.css')}}">
+
 <!-- Style.css  very important --> 
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/css/style.css')}}">
 
