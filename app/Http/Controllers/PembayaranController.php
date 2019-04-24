@@ -63,11 +63,11 @@ class PembayaranController extends Controller
 
         $bku = $this->bku->idCabang();
 
-        if(request('by_adm')){
-            $bku = $bku->search(request('by_adm'), request('q_adm'));
+        if(request('by')){
+            $bku = $bku->search(request('by'), request('q'));
         }
 
-        $bku = $bku->paginate(request('perpage_adm', 10));
+        $bku = $bku->paginate(request('perpage', 10));
 
         $column = config('library.column.bku');
 
