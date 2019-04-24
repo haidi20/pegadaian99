@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 use App\Models\Cabang;
 use App\Models\User_cabang;
-use App\Models\Saldo_cabang;
+use App\Models\Kas_cabang;
 
 use Auth;
 
@@ -33,9 +33,9 @@ class Controller extends BaseController
         // get data cabang from table 'user_cabang' base on this user
         $cabang         = Cabang::find($user_cabang->id_cabang);
         // and then get total 'kas cabang' base on id_cabang
-        $saldo_cabang   = Saldo_cabang::whereId_cabang($user_cabang->id_cabang)->first();
+        $saldo_cabang   = Kas_cabang::whereId_cabang($user_cabang->id_cabang)->first();
         // 'total kas' base on cabang
-        $total_kas      = nominal($saldo_cabang->total_saldo);
+        $total_kas      = nominal($saldo_cabang->total_kas);
         $nomorCabang    = $cabang->no_cabang;
 
         return (object) compact('total_kas', 'nomorCabang');
