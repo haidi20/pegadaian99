@@ -45,6 +45,11 @@
 @section('content')
 <div class="page-header">
     <div class="row">
+        <div class="col-sm-12 col-md-12">
+             {!! session()->get('message') !!}
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-8">
             <div class="page-header-title">
                 <div class="d-inline">
