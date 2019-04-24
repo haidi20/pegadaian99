@@ -4,18 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\User_cabang;
-
-class Kas_cabang extends Model
+class Penambahan_modal extends Model
 {
-    protected $table        = "kas_cabang";
+    protected $table        = "penambahan_modal";
     public $timestamps      = false;
-    protected $primaryKey   = 'id_kas';
+    protected $primaryKey   = 'id_penambahan_modal';
     // protected $guarded   = [];
     protected $fillable     = [
-    	'id_kas',
+    	'id_penambahan_modal',
         'id_cabang',
-        'total_kas',
+    	'tanggal',
+    	'jumlah',
+    	'keterangan',
     ];
 
     // how to fetch data by username of user
