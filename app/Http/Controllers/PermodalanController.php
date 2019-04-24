@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Cabang;
 use App\Models\Hutang;
 use App\Models\User_cabang;
+use App\Models\Penambahan_modal;
 
 use Auth;
 use Carbon\Carbon;
@@ -16,12 +17,14 @@ class PermodalanController extends Controller
     public function __construct(
                                 Cabang $cabang,
                                 Hutang $hutang,
-                                Request $request
+                                Request $request,
+                                Penambahan_modal $tambahModal
                             )
     {
-        $this->cabang   = $cabang;
-        $this->hutang   = $hutang;
-        $this->request  = $request;
+        $this->cabang       = $cabang;
+        $this->hutang       = $hutang;
+        $this->request      = $request;
+        $this->tambahModal  = $tambahModal;
 
         view()->share([
             'menu'          => 'permodalan',
@@ -48,15 +51,20 @@ class PermodalanController extends Controller
         if(request('jenis_modal') == 'hutang_cabang'){
 
         }elseif(request('jenis_modal') == 'hutang_personal'){
-            $hutang = $this->hutang;
-            $hutang->id_cabang = $user_cabang->id_cabang;
-            $hutang->tanggal_hutang = Carbon::now()->format('Y-m-d');
-            $hutang->jumlah_hutang = request('jumlah');
-            $hutang->keterangan_hutang = request('keterangan');
-            $hutang->status_hutang = 'Belum Lunas';
+            $hutang                     = $this->hutang;
+            $hutang->id_cabang          = $user_cabang->id_cabang;
+            $hutang->status_hutang      = 'Belum Lunas';
+            $hutang->jumlah_hutang      = request('jumlah');
+            $hutang->tanggal_hutang     = Carbon::now()->format('Y-m-d');
+            $hutang->keterangan_hutang  = request('keterangan');
             $hutang->save();
         }else{
-
+            $tambahModal = $this->tambahModal;
+            $tambahModal->tanggal   = Carbon::now()->format('Y-m-d');
+            $tambahModal->jumlah    = request('jumlah');
+            $tambahModal->keterangan= request('keterangan');
+            $tambahModal->id_cabang = $user_cabang->id_cabang;
+            $tambahModal->save();            
         }
 
         $jenis_modal = str_replace('_', ' ', request('jenis_modal'));
