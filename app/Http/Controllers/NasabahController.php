@@ -5,28 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Akad;
-use App\Models\Cabang;
 use App\Models\Nasabah;
-use App\Models\Kas_cabang;
-use App\Models\User_cabang;
 
 class NasabahController extends Controller
 {
     public function __construct(
                                 Akad $akad,
-                                Cabang $cabang,
                                 Nasabah $nasabah,
-                                Request $request,
-                                Kas_cabang $kas_cabang,
-                                User_cabang $user_cabang
+                                Request $request
                             )
     {
         $this->akad         = $akad;
-        $this->cabang       = $cabang;
         $this->nasabah      = $nasabah;
         $this->request      = $request;
-        $this->kas_cabang   = $kas_cabang;
-        $this->user_cabang  = $user_cabang;
 
         view()->share([
             'menu'          => 'akad',

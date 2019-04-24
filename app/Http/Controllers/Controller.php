@@ -7,6 +7,10 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
+use App\Models\Cabang;
+use App\Models\User_cabang;
+use App\Models\Saldo_cabang;
+
 use Auth;
 
 class Controller extends BaseController
@@ -25,13 +29,13 @@ class Controller extends BaseController
     public function infoCabang()
     {
         // get data id_cabang from table 'user_cabang' base on this user
-        $user_cabang    = $this->user_cabang->baseUsername()->first();
+        $user_cabang    = User_cabang::baseUsername()->first();
         // get data cabang from table 'user_cabang' base on this user
-        $cabang         = $this->cabang->find($user_cabang->id_cabang);
+        $cabang         = Cabang::find($user_cabang->id_cabang);
         // and then get total 'kas cabang' base on id_cabang
-        $kas_cabang     = $this->kas_cabang->whereId_cabang($user_cabang->id_cabang)->first();
+        $saldo_cabang   = Saldo_cabang::whereId_cabang($user_cabang->id_cabang)->first();
         // 'total kas' base on cabang
-        $total_kas      = nominal($kas_cabang->total_kas);
+        $total_kas      = nominal($saldo_cabang->total_saldo);
         $nomorCabang    = $cabang->no_cabang;
 
         return (object) compact('total_kas', 'nomorCabang');
