@@ -6,16 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User_cabang;
 
-class Kas_cabang extends Model
+class Hutang extends Model
 {
-    protected $table        = "kas_cabang";
+    protected $table        = "hutang";
     public $timestamps      = false;
-    protected $primaryKey   = 'id_kas';
+    protected $primaryKey   = 'id_hutang';
     // protected $guarded   = [];
     protected $fillable     = [
-    	'id_kas',
-        'id_cabang',
-        'total_kas',
+    	'id_hutang',
+    	'id_cabang',
+    	'tanggal_hutang',
+    	'jumlah_hutang',
+    	'keterangan_hutang',
+    	'status_hutang',
     ];
 
     // how to fetch data by username of user

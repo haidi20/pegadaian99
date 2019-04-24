@@ -140,11 +140,11 @@
                         <div class="col-sm-12 col-md-2">
                              <div class="form-group">
                                 {{-- Show &nbsp; --}}
-                                <select name="perpage" id="perpage" class="form-control">
-                                    <option {{ selected(10, 'perpage', 'request')}}>10</option>
-                                    <option {{ selected(25, 'perpage', 'request')}}>25</option>
-                                    <option {{ selected(50, 'perpage', 'request')}}>50</option>
-                                    <option {{ selected(100, 'perpage', 'request')}}>100</option>
+                                <select name="perpage_adm" id="perpage_adm" class="form-control">
+                                    <option {{ selected(10, 'perpage_adm', 'request')}}>10</option>
+                                    <option {{ selected(25, 'perpage_adm', 'request')}}>25</option>
+                                    <option {{ selected(50, 'perpage_adm', 'request')}}>50</option>
+                                    <option {{ selected(100, 'perpage_adm', 'request')}}>100</option>
                                 </select> 
                                 {{-- &nbsp; Entries --}}
                             </div>
@@ -153,9 +153,9 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-3 offset-md-1">
                                     <div class="form-group">
-                                        <select name="by" id="by" class="form-control">
+                                        <select name="by_adm" id="by_adm" class="form-control">
                                             @foreach($columnBiayaAdministrasi as $index => $item)
-                                                <option value="{{$index}}" {{selected($index, 'by', 'request')}}>{{$item}}</option>
+                                                <option value="{{$index}}" {{selected($index, 'by_adm', 'request')}}>{{$item}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -165,7 +165,7 @@
                                         <span class="input-group-addon">
                                            <i class="icofont icofont-ui-search"></i>
                                         </span>
-                                        <input type="text" name="q" id="q" value="{{ request('q') }}" class="form-control" placeholder="Search">
+                                        <input type="text" name="q_adm" id="q_adm" value="{{ request('q_adm') }}" class="form-control" placeholder="Search">
                                     </div>
                                 </div>
                                 <div class="col-sm-2 col-md-2">
@@ -183,39 +183,26 @@
                                 @foreach($columnBiayaAdministrasi as $index => $item)
                                     <th>{{$item}}</th>
                                 @endforeach
-                                {{-- <th>action</th> --}}
                             </tr>
                             </thead>
                             <tbody>
-                                {{-- @forelse($nasabah as $index => $item)
+                                @forelse($administrasi as $index => $item)
                                     <tr>
-                                        <td>{{$item->nama_lengkap}}</td>
-                                        <td>{{$item->no_telp}}</td>
-                                        <td>{{$item->alamat}}</td>
-                                        <td align="center">
-                                            <a href="javascript:void(0)" onClick="detail({{$item->id_nasabah}})" title="Detail Data"
-                                               data-url="{{route('nasabah.detail', $item->id_nasabah)}}" id="detail_{{$item->id_nasabah}}" class="btn btn-sm btn-info">
-                                                <i class="icofont icofont-external icofont-lg"></i>
-                                            </a>
-                                            <a href="{{route('nasabah.edit', $item->id_nasabah)}}" class="btn btn-sm btn-primary" title="Edit Data">
-                                                {{-- <i class="icofont icofont-ui-delete icofont-lg"></i>
-                                                <i class="icofont icofont-edit icofont-lg"></i>
-                                            </a>
-                                        </td>
+                                        <td>{{$item->tanggal_transaksi}}</td>
+                                        <td>{{$item->jumlah}}</td>
+                                        <td>{{$item->keterangan}}</td>
                                     </tr>
                                 @empty
-                                <tr>
-                                    <td colspan="11" align="center">No data available in table</td>
-                                </tr>
-                                @endforelse --}} 
-                                 <td colspan="11" align="center">No data available in table</td>
+                                    <tr>
+                                        <td colspan="11" align="center">No data available in table</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                             {{-- <tfoot>
                             </tfoot> --}}
                         </table>
                     </div>
-                   {{-- {!! $nasabah->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}                    --}}
-                </div>
+                    {!! $administrasi->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
             </div>
         </div>
     </div>

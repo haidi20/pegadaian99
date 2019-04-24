@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Cabang;
-use App\Models\Kas_cabang;
+use App\Models\Hutang;
 use App\Models\User_cabang;
+use App\Models\Penambahan_modal;
 
 use Auth;
 use Carbon\Carbon;
@@ -15,15 +16,15 @@ class PermodalanController extends Controller
 {
     public function __construct(
                                 Cabang $cabang,
+                                Hutang $hutang,
                                 Request $request,
-                                Kas_cabang $kas_cabang,
-                                User_cabang $user_cabang
+                                Penambahan_modal $tambahModal
                             )
     {
         $this->cabang       = $cabang;
+        $this->hutang       = $hutang;
         $this->request      = $request;
-        $this->kas_cabang   = $kas_cabang;
-        $this->user_cabang  = $user_cabang;
+        $this->tambahModal  = $tambahModal;
 
         view()->share([
             'menu'          => 'permodalan',
@@ -35,14 +36,43 @@ class PermodalanController extends Controller
     {
         $feature = 'Tambah Saldo';
 
-    	return $this->template('permodalan.form', compact('feature'));
+        $cabang  = $this->cabang->all();
+
+    	return $this->template('permodalan.form', compact('feature', 'cabang'));
     }
 
     public function store()
     {
+        // get data id_cabang from table 'user_cabang' base on this user
+        $user_cabang    = User_cabang::baseUsername()->first(); 
+
         $input = $this->request->except('_token');
 
-        return $input;
+        if(request('jenis_modal') == 'hutang_cabang'){
+
+        }elseif(request('jenis_modal') == 'hutang_personal'){
+            $hutang                     = $this->hutang;
+            $hutang->id_cabang          = $user_cabang->id_cabang;
+            $hutang->status_hutang      = 'Belum Lunas';
+            $hutang->jumlah_hutang      = request('jumlah');
+            $hutang->tanggal_hutang     = Carbon::now()->format('Y-m-d');
+            $hutang->keterangan_hutang  = request('keterangan');
+            $hutang->save();
+        }else{
+            $tambahModal = $this->tambahModal;
+            $tambahModal->tanggal   = Carbon::now()->format('Y-m-d');
+            $tambahModal->jumlah    = request('jumlah');
+            $tambahModal->keterangan= request('keterangan');
+            $tambahModal->id_cabang = $user_cabang->id_cabang;
+            $tambahModal->save();            
+        }
+
+        $jenis_modal = str_replace('_', ' ', request('jenis_modal'));
+
+        $message    = '<strong>Sukses!</strong> Data '.$jenis_modal.' berhasil di tambah';
+        flash_message('message', $message);
+
+        return redirect()->route('permodalan.create');
     }
 
     public function penambahan()

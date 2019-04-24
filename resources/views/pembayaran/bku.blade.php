@@ -90,38 +90,29 @@
                                 @foreach($column as $index => $item)
                                     <th>{{$item}}</th>
                                 @endforeach
-                                {{-- <th>action</th> --}}
                             </tr>
                             </thead>
                             <tbody>
-                                {{-- @forelse($nasabah as $index => $item)
+                                @forelse($bku as $index => $item)
                                     <tr>
-                                        <td>{{$item->nama_lengkap}}</td>
-                                        <td>{{$item->no_telp}}</td>
-                                        <td>{{$item->alamat}}</td>
-                                        <td align="center">
-                                            <a href="javascript:void(0)" onClick="detail({{$item->id_nasabah}})" title="Detail Data"
-                                               data-url="{{route('nasabah.detail', $item->id_nasabah)}}" id="detail_{{$item->id_nasabah}}" class="btn btn-sm btn-info">
-                                                <i class="icofont icofont-external icofont-lg"></i>
-                                            </a>
-                                            <a href="{{route('nasabah.edit', $item->id_nasabah)}}" class="btn btn-sm btn-primary" title="Edit Data">
-                                                {{-- <i class="icofont icofont-ui-delete icofont-lg"></i>
-                                                <i class="icofont icofont-edit icofont-lg"></i>
-                                            </a>
-                                        </td>
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{$item->tanggal}}</td>
+                                        <td>{{$item->uraian}}</td>
+                                        <td>{{$item->debit}}</td>
+                                        <td>{{$item->kredit}}</td>
+                                        <td>{{$item->saldo}}</td>
                                     </tr>
                                 @empty
                                 <tr>
                                     <td colspan="11" align="center">No data available in table</td>
                                 </tr>
-                                @endforelse --}} 
-                                 <td colspan="11" align="center">No data available in table</td>
+                                @endforelse
                             </tbody>
                             {{-- <tfoot>
                             </tfoot> --}}
                         </table>
                     </div>
-                   {{-- {!! $nasabah->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}                    --}}
+                   {!! $bku->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}                   
                 </div>
             </div>
         </div>

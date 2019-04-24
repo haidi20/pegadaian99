@@ -8,17 +8,24 @@
 			var jenis_modal = $(this).val()
 			var form_cabang = $('.cabang')
 
-			// show / hide base on option 'jenis_modal'
+            $('#cabang').val('')
+            $('#jumlah').val('')
+            $('#keterangan').val('')
+
+			// show / hide FORM INPUT base on option 'jenis_modal'
 			if(jenis_modal){
 				card_form.css('display', '')
 			}else{
 				card_form.css('display', 'none')
 			}
 
+            // show / hide option cabang base on option 'jenis_modal'
 			if(jenis_modal == 'hutang_cabang'){
 				form_cabang.css('display', '')
+                $('#cabang').prop("required", true);
 			}else{
 				form_cabang.css('display', 'none')
+                $('#cabang').removeAttr("required");
 			}
 
 			// change title form base on  option 'jenis_modal'
@@ -37,6 +44,11 @@
 
 @section('content')
 <div class="page-header">
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+             {!! session()->get('message') !!}
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-8">
             <div class="page-header-title">
@@ -91,8 +103,10 @@
                         <div class="form-group row cabang">
                             <label class="col-sm-2 col-form-label" for="cabang">Cabang</label>
                             <div class="col-sm-10">
-                                <select name="cabang" id="cabang" class="form-control">
-                                    
+                                <select name="cabang" id="cabang" class="form-control" required>
+                                    @foreach ($cabang as $index => $item)
+                                        <option value="{{$item->id_cabang}}" {{ selected(1, 'cabang', 'old')}}>{{$item->nama_cabang}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
