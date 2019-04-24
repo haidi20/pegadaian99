@@ -140,11 +140,11 @@
                         <div class="col-sm-12 col-md-2">
                              <div class="form-group">
                                 {{-- Show &nbsp; --}}
-                                <select name="perpage" id="perpage" class="form-control">
-                                    <option {{ selected(10, 'perpage', 'request')}}>10</option>
-                                    <option {{ selected(25, 'perpage', 'request')}}>25</option>
-                                    <option {{ selected(50, 'perpage', 'request')}}>50</option>
-                                    <option {{ selected(100, 'perpage', 'request')}}>100</option>
+                                <select name="perpage_adm" id="perpage_adm" class="form-control">
+                                    <option {{ selected(10, 'perpage_adm', 'request')}}>10</option>
+                                    <option {{ selected(25, 'perpage_adm', 'request')}}>25</option>
+                                    <option {{ selected(50, 'perpage_adm', 'request')}}>50</option>
+                                    <option {{ selected(100, 'perpage_adm', 'request')}}>100</option>
                                 </select> 
                                 {{-- &nbsp; Entries --}}
                             </div>
@@ -153,9 +153,9 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-3 offset-md-1">
                                     <div class="form-group">
-                                        <select name="by" id="by" class="form-control">
+                                        <select name="by_adm" id="by_adm" class="form-control">
                                             @foreach($columnBiayaAdministrasi as $index => $item)
-                                                <option value="{{$index}}" {{selected($index, 'by', 'request')}}>{{$item}}</option>
+                                                <option value="{{$index}}" {{selected($index, 'by_adm', 'request')}}>{{$item}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -165,7 +165,7 @@
                                         <span class="input-group-addon">
                                            <i class="icofont icofont-ui-search"></i>
                                         </span>
-                                        <input type="text" name="q" id="q" value="{{ request('q') }}" class="form-control" placeholder="Search">
+                                        <input type="text" name="q_adm" id="q_adm" value="{{ request('q_adm') }}" class="form-control" placeholder="Search">
                                     </div>
                                 </div>
                                 <div class="col-sm-2 col-md-2">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Bku;
 use App\Models\Administrasi;
 
 use Auth;
@@ -12,11 +13,13 @@ use Carbon\Carbon;
 class PembayaranController extends Controller
 {
 	public function __construct(
-    							Request $request,
+    							Bku $bku,
+                                Request $request,
                                 Administrasi $administrasi
                             )
     {
-    	$this->request  	= $request;
+    	$this->bku  	    = $bku;
+        $this->request      = $request;
         $this->administrasi = $administrasi;
 
         view()->share([
@@ -40,12 +43,16 @@ class PembayaranController extends Controller
         ));
     }
 
+    // for table 'LIST BIAYA ADMINISTRASI'
     public function administrasi()
     {
         $administrasi = $this->administrasi;
 
+        if(request('by_adm')){
+            $administrasi = $administrasi->search(request('by_adm'), request('q_adm'));
+        }
 
-        $administrasi = $administrasi->paginate(request('perpage', 10));
+        $administrasi = $administrasi->paginate(request('perpage_adm', 10));
 
         return $administrasi;
     }
@@ -53,10 +60,19 @@ class PembayaranController extends Controller
     public function bku()
     {
         $menu   = 'bku';
+
+        $bku = $this->bku->idCabang();
+
+        if(request('by_adm')){
+            $bku = $bku->search(request('by_adm'), request('q_adm'));
+        }
+
+        $bku = $bku->paginate(request('perpage_adm', 10));
+
         $column = config('library.column.bku');
 
     	return $this->template('pembayaran.bku', compact(
-            'menu', 'column'
+            'menu', 'column', 'bku'
         ));
     }
 }

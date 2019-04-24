@@ -16,4 +16,9 @@ class Administrasi extends Model
     	'jumlah',
     	'keterangan',
     ];
+
+    public function scopeSearch($query, $by, $key)
+    {
+        return $query->where($by, 'LIKE', '%'.$key.'%');
+    }
 }
