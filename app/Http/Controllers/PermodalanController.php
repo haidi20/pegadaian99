@@ -4,16 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Cabang;
+
 use Auth;
 use Carbon\Carbon;
 
 class PermodalanController extends Controller
 {
     public function __construct(
+                                Cabang $cabang,
                                 Request $request
                             )
     {
-        $this->request      = $request;
+        $this->cabang   = $cabang;
+        $this->request  = $request;
 
         view()->share([
             'menu'          => 'permodalan',
@@ -25,7 +29,9 @@ class PermodalanController extends Controller
     {
         $feature = 'Tambah Saldo';
 
-    	return $this->template('permodalan.form', compact('feature'));
+        $cabang  = $this->cabang->all();
+
+    	return $this->template('permodalan.form', compact('feature', 'cabang'));
     }
 
     public function store()
