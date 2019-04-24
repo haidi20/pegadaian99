@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Administrasi extends Model
 {
-    protected $table 		= 'Administrasi';
+    protected $table 		= 'administrasi';
     public $timestamps      = false;
     protected $primaryKey	= 'id_adm';
     protected $fillable 	= [
