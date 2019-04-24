@@ -16,6 +16,7 @@ class Saldo_cabang extends Model
         'total_saldo',
     ];
 
+    // how to fetch data by username of user
     public function scopeIdCabang($query, $value)
     {
     	return $query->where('id_cabang', $value);

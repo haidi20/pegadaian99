@@ -12,10 +12,12 @@ use Carbon\Carbon;
 class PembayaranController extends Controller
 {
 	public function __construct(
-    							Request $request
+    							Request $request,
+                                Administrasi $administrasi
                             )
     {
     	$this->request  	= $request;
+        $this->administrasi = $administrasi;
 
         view()->share([
             'menuHeader'    => config('library.menu_header'),
@@ -26,13 +28,26 @@ class PembayaranController extends Controller
     {
         $menu = 'pembayaran';
 
+        $administrasi = $this->administrasi();
+
         // list column 'list biaya titip' and 'list biaya administrasi'
         $columnBiayaTitip           = config('library.column.pendapatan.list_biaya_titip');
         $columnBiayaAdministrasi    = config('library.column.pendapatan.list_biaya_administrasi');
 
     	return $this->template('pembayaran.pendapatan', compact(
-            'menu', 'columnBiayaTitip', 'columnBiayaAdministrasi'
+            'menu', 'columnBiayaTitip', 'columnBiayaAdministrasi',
+            'administrasi'
         ));
+    }
+
+    public function administrasi()
+    {
+        $administrasi = $this->administrasi;
+
+
+        $administrasi = $administrasi->paginate(request('perpage', 10));
+
+        return $administrasi;
     }
 
     public function bku()
