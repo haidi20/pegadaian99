@@ -37,7 +37,13 @@ class PermodalanController extends Controller
 
     public function create()
     {
-        $feature = 'Tambah Saldo';
+        $featureUrl = request()->segment(3);
+
+        if($featureUrl == 'tambah-saldo'){
+            $feature = 'Tambah Saldo';
+        }else{
+            $feature = 'refund saldo';
+        }
 
         $cabang  = $this->cabang->all();
 
@@ -72,7 +78,7 @@ class PermodalanController extends Controller
         flash_message('message', $message);
 
         // condition for after insert data redirect page base on 'jenis_modal'
-        $route = request('jenis_modal') == 'refund_saldo' ? 'permodalan.refund' : 'permodalan.create';
+        $route = request('jenis_modal') == 'refund_saldo' ? 'permodalan.create.refund-saldo' : 'permodalan.create.tambah-saldo';
 
         return redirect()->route($route);
     }
@@ -126,18 +132,19 @@ class PermodalanController extends Controller
     	return $this->template('permodalan.penambahan', compact('column', 'tambahModal'));
     }
 
-    public function refund()
-    {
-        $feature = 'refund saldo';
-
-    	return $this->template('permodalan.form', compact('feature'));
-    }
-
     public function list_refund()
     {
         $column = config('library.column.list_refund');
 
-    	return $this->template('permodalan.list-refund', compact('column'));
+        $refund = $this->refund->sorted();
+
+        if(request('by')){
+            $refund = $refund->search(request('by'), request('q'));
+        }
+
+        $refund     = $refund->paginate(request('perpage', 10));
+
+    	return $this->template('permodalan.list-refund', compact('column', 'refund'));
     }
 
     public function hutang()

@@ -89,9 +89,9 @@ return [
 			'class' => 'pcoded-hasmenu',
 			'child'	=> [
 				0	=> [
-					'url'	=> 'permodalan/create',
+					'url'	=> 'permodalan/create/tambah-saldo',
 					'name'	=> 'Tambah Saldo',
-					'route'	=> 'permodalan.create',
+					'route'	=> 'permodalan.create.tambah-saldo',
 				],
 				1	=> [
 					'url'	=> 'permodalan/penambahan-saldo',
@@ -99,9 +99,9 @@ return [
 					'route'	=> 'permodalan.penambahan',
 				],
 				2	=> [
-					'url'	=> 'permodalan/refund-saldo',
+					'url'	=> 'permodalan/create/refund-saldo',
 					'name'	=> 'Refund Saldo',
-					'route'	=> 'permodalan.refund',
+					'route'	=> 'permodalan.create.refund-saldo',
 				],
 				3	=> [
 					'url'	=> 'permodalan/list-data-refund-saldo',

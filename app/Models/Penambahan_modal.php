@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\User_cabang;
+
 class Penambahan_modal extends Model
 {
     protected $table        = "penambahan_modal";
