@@ -58,7 +58,7 @@ class PembayaranController extends Controller
 
     public function bku()
     {
-        $bku = $this->bku->idCabang();
+        $bku = $this->bku->idCabang()->sorted();
 
         if(request('by')){
             $bku = $bku->search(request('by'), request('q'));
