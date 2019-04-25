@@ -2,6 +2,25 @@
 
 @section('script-bottom')
     <script>
+        function edit(id)
+        {
+            bootbox.confirm({
+                message: 'Anda yakin data ini status menjadi LUNAS ?',
+                buttons: {
+                    confirm: {
+                        label: 'OK',
+                        className: 'btn-success ml-1'
+                    },
+                    cancel: {
+                        label: 'Cancel',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function(result){
+                    console.log(id)
+                }
+            });
+        }
     </script>
 @endsection
 
@@ -87,46 +106,48 @@
                                 <thead>
                                 <tr>
                                     <th>No</th>
+                                    @if($item['key'] == 'hp')
+                                        <th>Tanggal</th>
+                                    @endif
                                     @foreach($column as $key => $value)
                                         <th>{{$value}}</th>
                                     @endforeach
                                     @if($item['key'] != 'pc')
-                                        <th>Status</th>
+                                        <th>action</th>
                                     @endif
-                                    {{-- <th>action</th> --}}
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @forelse($nasabah as $index => $item)
+                                    @forelse($item['data'] as $key => $value)
                                         <tr>
-                                            <td>{{$item->nama_lengkap}}</td>
-                                            <td>{{$item->no_telp}}</td>
-                                            <td>{{$item->alamat}}</td>
-                                            <td align="center">
-                                                <a href="javascript:void(0)" onClick="detail({{$item->id_nasabah}})" title="Detail Data"
-                                                   data-url="{{route('nasabah.detail', $item->id_nasabah)}}" id="detail_{{$item->id_nasabah}}" class="btn btn-sm btn-info">
-                                                    <i class="icofont icofont-external icofont-lg"></i>
-                                                </a>
-                                                <a href="{{route('nasabah.edit', $item->id_nasabah)}}" class="btn btn-sm btn-primary" title="Edit Data">
-                                                    {{-- <i class="icofont icofont-ui-delete icofont-lg"></i>
-                                                    <i class="icofont icofont-edit icofont-lg"></i>
-                                                </a>
-                                            </td>
+                                            <td>{{$key + 1}}</td>
+                                            @if($item['key'] == 'hp')
+                                                <td>{{$value->tanggal_hutang}}</td>
+                                            @endif
+                                            <td>{{$value->keterangan_hutang}}</td>
+                                            <td>{{$value->status_hutang}}</td>
+                                            <td>Rp. {{$value->nominal_jumlah}}</td>
+                                            @if($item['key'] != 'pc')
+                                                <td align="center">
+                                                    @if($value->status_hutang == 'Belum Lunas')
+                                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary" onClick="edit({{$value->id_hutang}})" title="Edit Data">
+                                                            <i class="icofont icofont-edit icofont-lg"></i>
+                                                        </a>
+                                                    @endif
+                                                </td>
+                                            @endif
                                         </tr>
                                     @empty
-                                    <tr>
-                                        <td colspan="11" align="center">No data available in table</td>
-                                    </tr>
-                                    @endforelse --}}
-                                    <tr>
-                                        <td colspan="11" align="center">No data available in table</td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="11" align="center">No data available in table</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                                 {{-- <tfoot>
                                 </tfoot> --}}
                             </table>
                         </div>
-                       {{-- {!! $nasabah->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}                    --}}
+                       {!! $item['data']->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}                   
                     </div>
                 </div>
             </div>

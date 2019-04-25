@@ -151,8 +151,18 @@ class PermodalanController extends Controller
     {
         $nameTables = config('library.name_tables.hutang_piutang');
 
+        $hutang_personal = $this->hutang->sorted()->paginate(request('by', 10));
+
+        $nameTables[0]['data'] = $hutang_personal;
+        $nameTables[1]['data'] = $hutang_personal;
+        $nameTables[2]['data'] = $hutang_personal;
+
         $column     = config('library.column.hutang_piutang');
 
-    	return $this->template('permodalan.hutang-piutang', compact('nameTables', 'column'));
+        // return $nameTables;
+
+    	return $this->template('permodalan.hutang-piutang', compact(
+            'nameTables', 'column'
+        ));
     }
 }
