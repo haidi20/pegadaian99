@@ -97,7 +97,7 @@
                                         <td>{{$index + 1}}</td>
                                         <td>{{$item->tanggal}}</td>
                                         <td>{{$item->uraian}}</td>
-                                        <td>{{$item->jumlah}}</td>
+                                        <td>Rp. {{$item->nominal_jumlah}}</td>
                                     </tr>
                                 @empty
                                     <tr>

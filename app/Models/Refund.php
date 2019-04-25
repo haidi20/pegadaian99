@@ -38,4 +38,9 @@ class Refund extends Model
     {
         return $query->orderBy($by, $sort);
     }
+
+    public function getNominalJumlahAttribute()
+    {
+        return nominal($this->jumlah);
+    }
 }
