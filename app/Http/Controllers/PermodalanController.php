@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Cabang;
 use App\Models\Hutang;
+use App\Models\Refund;
 use App\Models\User_cabang;
 use App\Models\Penambahan_modal;
 
@@ -17,12 +18,14 @@ class PermodalanController extends Controller
     public function __construct(
                                 Cabang $cabang,
                                 Hutang $hutang,
+                                Refund $refund,
                                 Request $request,
                                 Penambahan_modal $tambahModal
                             )
     {
         $this->cabang       = $cabang;
         $this->hutang       = $hutang;
+        $this->refund       = $refund;
         $this->request      = $request;
         $this->tambahModal  = $tambahModal;
 
@@ -48,14 +51,19 @@ class PermodalanController extends Controller
 
         $input = $this->request->except('_token');
 
+        // return $input;
+
         if(request('jenis_modal') == 'hutang_cabang'){
 
         }elseif(request('jenis_modal') == 'hutang_personal'){
             // local function
             $this->hutang_personal($user_cabang);
-        }else{
+        }elseif(request('jenis_modal') == 'penambahan_kas_saldo'){
             // local function
             $this->tambah_modal($user_cabang);            
+        }elseif(request('jenis_modal') == 'refund_saldo'){
+            // local function
+            $this->refund_saldo($user_cabang);
         }
 
         $jenis_modal = str_replace('_', ' ', request('jenis_modal'));
@@ -63,30 +71,44 @@ class PermodalanController extends Controller
         $message = '<strong>Sukses!</strong> Data '.$jenis_modal.' berhasil di tambah';
         flash_message('message', $message);
 
-        return redirect()->route('permodalan.create');
+        // condition for after insert data redirect page base on 'jenis_modal'
+        $route = request('jenis_modal') == 'refund_saldo' ? 'permodalan.refund' : 'permodalan.create';
+
+        return redirect()->route($route);
     }
 
-    // process input data into table 'hutang'
+    // proccess input data into table 'hutang'
     public function hutang_personal($user_cabang)
     {
         $hutang                     = $this->hutang;
         $hutang->id_cabang          = $user_cabang->id_cabang;
         $hutang->status_hutang      = 'Belum Lunas';
-        $hutang->jumlah_hutang      = request('jumlah');
+        $hutang->jumlah_hutang      = remove_dot(request('jumlah'));
         $hutang->tanggal_hutang     = Carbon::now()->format('Y-m-d');
         $hutang->keterangan_hutang  = request('keterangan');
         $hutang->save();
     }
 
-    // process input data into table 'penambahan_modal'
+    // proccess input data into table 'penambahan_modal'
     public function tambah_modal($user_cabang)
     {
         $tambahModal            = $this->tambahModal;
-        $tambahModal->jumlah    = request('jumlah');
+        $tambahModal->jumlah    = remove_dot(request('jumlah'));
         $tambahModal->tanggal   = Carbon::now()->format('Y-m-d');
         $tambahModal->id_cabang = $user_cabang->id_cabang;
         $tambahModal->keterangan= request('keterangan');
         $tambahModal->save();
+    }
+
+    // proccess input data into table 'refund'
+    public function refund_saldo($user_cabang)
+    {
+        $refund            = $this->refund;
+        $refund->uraian    = request('keterangan');
+        $refund->jumlah    = remove_dot(request('jumlah'));
+        $refund->tanggal   = Carbon::now()->format('Y-m-d');
+        $refund->id_cabang = $user_cabang->id_cabang;
+        $refund->save();
     }
 
     public function penambahan()
