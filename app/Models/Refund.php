@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\User_cabang;
+
 class Refund extends Model
 {
     protected $table        = "refund";
@@ -18,11 +20,6 @@ class Refund extends Model
     	'uraian',
     ];
 
-    public function scopeSearch($query, $by, $q)
-    {
-        return $query->where($by, 'LIKE', '%'.$q.'%');
-    }
-
     // how to fetch data by username of user
     public function scopeIdCabang($query)
     {
@@ -30,5 +27,15 @@ class Refund extends Model
         $user_cabang    = User_cabang::baseUsername()->first();
 
         return $query->where('id_cabang', $user_cabang->id_cabang);
+    }
+
+    public function scopeSearch($query, $by, $q)
+    {
+        return $query->where($by, 'LIKE', '%'.$q.'%');
+    }
+
+    public function scopeSorted($query, $by = 'tanggal', $sort = 'desc')
+    {
+        return $query->orderBy($by, $sort);
     }
 }
