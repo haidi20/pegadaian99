@@ -183,4 +183,19 @@ class PermodalanController extends Controller
 
         return (object) compact('hutang');
     }
+
+    public function change_status($id, $code)
+    {
+        if($code == 'hp'){
+            $hutang_personal = $this->hutang->find($id);
+            $hutang_personal->status_hutang = 'Lunas';
+            $hutang_personal->save();
+        }else{
+            $hutang_cabang = $this->hutang_cabang->find($id);
+            $hutang_cabang->status = 'Lunas';
+            $hutang_cabang->save();
+        }
+
+        return redirect()->route('permodalan.hutang');
+    }
 }
