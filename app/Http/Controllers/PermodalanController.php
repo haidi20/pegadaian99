@@ -51,35 +51,57 @@ class PermodalanController extends Controller
         if(request('jenis_modal') == 'hutang_cabang'){
 
         }elseif(request('jenis_modal') == 'hutang_personal'){
-            $hutang                     = $this->hutang;
-            $hutang->id_cabang          = $user_cabang->id_cabang;
-            $hutang->status_hutang      = 'Belum Lunas';
-            $hutang->jumlah_hutang      = request('jumlah');
-            $hutang->tanggal_hutang     = Carbon::now()->format('Y-m-d');
-            $hutang->keterangan_hutang  = request('keterangan');
-            $hutang->save();
+            // local function
+            $this->hutang_personal($user_cabang);
         }else{
-            $tambahModal = $this->tambahModal;
-            $tambahModal->tanggal   = Carbon::now()->format('Y-m-d');
-            $tambahModal->jumlah    = request('jumlah');
-            $tambahModal->keterangan= request('keterangan');
-            $tambahModal->id_cabang = $user_cabang->id_cabang;
-            $tambahModal->save();            
+            // local function
+            $this->tambah_modal($user_cabang);            
         }
 
         $jenis_modal = str_replace('_', ' ', request('jenis_modal'));
 
-        $message    = '<strong>Sukses!</strong> Data '.$jenis_modal.' berhasil di tambah';
+        $message = '<strong>Sukses!</strong> Data '.$jenis_modal.' berhasil di tambah';
         flash_message('message', $message);
 
         return redirect()->route('permodalan.create');
+    }
+
+    // process input data into table 'hutang'
+    public function hutang_personal($user_cabang)
+    {
+        $hutang                     = $this->hutang;
+        $hutang->id_cabang          = $user_cabang->id_cabang;
+        $hutang->status_hutang      = 'Belum Lunas';
+        $hutang->jumlah_hutang      = request('jumlah');
+        $hutang->tanggal_hutang     = Carbon::now()->format('Y-m-d');
+        $hutang->keterangan_hutang  = request('keterangan');
+        $hutang->save();
+    }
+
+    // process input data into table 'penambahan_modal'
+    public function tambah_modal($user_cabang)
+    {
+        $tambahModal            = $this->tambahModal;
+        $tambahModal->jumlah    = request('jumlah');
+        $tambahModal->tanggal   = Carbon::now()->format('Y-m-d');
+        $tambahModal->id_cabang = $user_cabang->id_cabang;
+        $tambahModal->keterangan= request('keterangan');
+        $tambahModal->save();
     }
 
     public function penambahan()
     {
         $column = config('library.column.penambahan');
 
-    	return $this->template('permodalan.penambahan', compact('column'));
+        $tambahModal = $this->tambahModal;
+
+        if(request('by')){
+            $tambahModal = $tambahModal->search(request('by'), request('q'));
+        }
+
+        $tambahModal     = $tambahModal->paginate(request('perpage', 10));
+
+    	return $this->template('permodalan.penambahan', compact('column', 'tambahModal'));
     }
 
     public function refund()

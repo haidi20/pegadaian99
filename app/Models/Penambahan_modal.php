@@ -18,6 +18,11 @@ class Penambahan_modal extends Model
     	'keterangan',
     ];
 
+    public function scopeSearch($query, $by, $q)
+    {
+        return $query->where($by, 'LIKE', '%'.$q.'%');
+    }
+
     // how to fetch data by username of user
     public function scopeIdCabang($query)
     {
