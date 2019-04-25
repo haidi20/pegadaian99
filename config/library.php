@@ -235,7 +235,7 @@ return [
 		],
 		'penambahan' => [
 			'tanggal' 	=> 'Tanggal',
-			'keterangan'	=> 'Uraian',
+			'keterangan'=> 'Uraian',
 			'jumlah'	=> 'Jumlah',
 		],
 		'list_refund' => [
@@ -244,9 +244,21 @@ return [
 			'jumlah'	=> 'Jumlah',
 		],
 		'hutang_piutang'=> [
-			'uraian' 	=> 'Keterangan',
-			'status'	=> 'Status',
-			'jumlah'	=> 'Jumlah',
+			'hp' => [
+				'keterangan_hutang'	=> 'Keterangan',
+				'status_hutang'		=> 'Status',
+				'jumlah_hutang'		=> 'Jumlah',
+			],
+			'hc' => [
+				'uraian_hutang'		=> 'Keterangan',
+				'status'			=> 'Status',
+				'jumlah'			=> 'Jumlah',
+			],
+			'pc' => [
+				'uraian_piutang'	=> 'Keterangan',
+				'status'			=> 'Status',
+				'jumlah'			=> 'Jumlah',
+			],
 		],
 		'pengeluaran' 	=> [
 			'tanggal'	=> 'Tanggal',

@@ -33,43 +33,41 @@
 <script type="text/javascript" src="{{asset('js/terbilang.min.js')}}"></script>
 <script src="{{asset('js/moment.js')}}"></script>
 <script src="{{asset('js/bootbox.js')}}"></script>
-
-{{-- <script src="{{asset('js/laravel-method.js')}}"> </script> --}}
 <!-- /build-->
 <!-- END adminty JS-->
 
 <script>
 
-function remove(id, action='delete', message='Anda yakin akan menghapus data ini?')
-{
-    bootbox.confirm({
-        message: message,
-        buttons: {
-            confirm: {
-                label: 'OK',
-                className: 'btn-success ml-1'
+    function remove(id, action='delete', message='Anda yakin akan menghapus data ini?')
+    {
+        bootbox.confirm({
+            message: message,
+            buttons: {
+                confirm: {
+                    label: 'OK',
+                    className: 'btn-success ml-1'
+                },
+                cancel: {
+                    label: 'Cancel',
+                    className: 'btn-danger'
+                }
             },
-            cancel: {
-                label: 'Cancel',
-                className: 'btn-danger'
+            callback: function(result){
+                if(result){
+                    element = $('.btn-'+action+'-'+id);
+                    window.location.href = element.data('url');
+                }
             }
-        },
-        callback: function(result){
-            if(result){
-                element = $('.btn-'+action+'-'+id);
-                window.location.href = element.data('url');
-            }
-        }
-    });
-}
+        });
+    }
 
-function format_nominal(value)
-{
-    // process format idr
-    var locale = 'id';
-    var options = {style: 'currency', currency: 'idr', minimumFractionDigits: 0, maximumFractionDigits: 0};
-    var formatter = new Intl.NumberFormat(locale, options);
+    function format_nominal(value)
+    {
+        // process format idr
+        var locale = 'id';
+        var options = {style: 'currency', currency: 'idr', minimumFractionDigits: 0, maximumFractionDigits: 0};
+        var formatter = new Intl.NumberFormat(locale, options);
 
-    return formatter.format(value)
-}
+        return formatter.format(value)
+    }
 </script>

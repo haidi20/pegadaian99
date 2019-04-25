@@ -66,22 +66,22 @@
                             <div class="col-sm-12 col-md-2">
                                  <div class="form-group">
                                     {{-- Show &nbsp; --}}
-                                    <select name="perpage" id="perpage" class="form-control">
-                                        <option {{ selected(10, 'perpage', 'request')}}>10</option>
-                                        <option {{ selected(25, 'perpage', 'request')}}>25</option>
-                                        <option {{ selected(50, 'perpage', 'request')}}>50</option>
-                                        <option {{ selected(100, 'perpage', 'request')}}>100</option>
+                                    <select name="perpage_{{$item['key']}}" id="perpage_{{$item['key']}}" class="form-control">
+                                        <option {{ selected(10, 'perpage_'.$item['key'], 'request')}}>10</option>
+                                        <option {{ selected(25, 'perpage_'.$item['key'], 'request')}}>25</option>
+                                        <option {{ selected(50, 'perpage_'.$item['key'], 'request')}}>50</option>
+                                        <option {{ selected(100, 'perpage_'.$item['key'], 'request')}}>100</option>
                                     </select> 
                                     {{-- &nbsp; Entries --}}
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6 offset-md-4">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-3 offset-md-1">
+                                    <div class="col-sm-12 col-md-4 offset-md-">
                                         <div class="form-group">
-                                            <select name="by" id="by" class="form-control">
-                                                @foreach($column as $key => $value)
-                                                    <option value="{{$key}}" {{selected($key, 'by', 'request')}}>{{$value}}</option>
+                                            <select name="by_{{$item['key']}}" id="by_{{$item['key']}}" class="form-control">
+                                                @foreach($column[$item['key']] as $key => $value)
+                                                    <option value="{{$key}}" {{selected($key, 'by_'.$item['key'], 'request')}}>{{$value}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -91,7 +91,7 @@
                                             <span class="input-group-addon">
                                                <i class="icofont icofont-ui-search"></i>
                                             </span>
-                                            <input type="text" name="q" id="q" value="{{ request('q') }}" class="form-control" placeholder="Search">
+                                            <input type="text" name="q_{{$item['key']}}" id="q_{{$item['key']}}" value="{{ request('q_'.$item['key']) }}" class="form-control" placeholder="Search">
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-md-2">
@@ -109,7 +109,7 @@
                                     @if($item['key'] == 'hp')
                                         <th>Tanggal</th>
                                     @endif
-                                    @foreach($column as $key => $value)
+                                    @foreach($column[$item['key']] as $key => $value)
                                         <th>{{$value}}</th>
                                     @endforeach
                                     @if($item['key'] != 'pc')
@@ -122,9 +122,44 @@
                                         <tr>
                                             <td>{{$key + 1}}</td>
                                             @if($item['key'] == 'hp')
+                                                {{-- for field table 'hutang'  --}}
                                                 <td>{{$value->tanggal_hutang}}</td>
+                                                <td>{{$value->keterangan_hutang}}</td>
+                                                <td>{{$value->status_hutang}}</td>
+                                                <td>Rp. {{$value->nominal_jumlah}}</td>
+                                            @else
+                                                {{-- for field table 'hutang_cabang'  --}}
+                                                @if($item['key'] == 'hc')
+                                                    <td>{{$value->uraian_hutang}}</td>
+                                                @else
+                                                    <td>{{$value->uraian_piutang}}</td>
+                                                @endif
+                                                <td>{{$value->status}}</td>
+                                                <td>{{$value->jumlah}}</td>
                                             @endif
-                                            <td>{{$value->keterangan_hutang}}</td>
+                                            @if($item['key'] == 'hp')
+                                                <td align="center">
+                                                    @if($value->status_hutang == 'Belum Lunas')
+                                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary" onClick="edit({{$value->id_hutang}})" title="Edit Data">
+                                                            <i class="icofont icofont-edit icofont-lg"></i>
+                                                        </a>
+                                                    @endif
+                                                </td>
+                                            @elseif($item['key'] == 'hc')
+                                                <td align="center">
+                                                    @if($value->status == 'Belum Lunas')
+                                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary" onClick="edit({{$value->id_hutang_cabang}})" title="Edit Data">
+                                                            <i class="icofont icofont-edit icofont-lg"></i>
+                                                        </a>
+                                                    @endif
+                                                </td>
+                                            @endif
+                                           {{--  @if($item['key'] == 'hp')
+                                                <td>{{$value->tanggal_hutang}}</td>
+                                                <td>{{$value->keterangan_hutang}}</td>
+                                            @elseif($item['key'] == 'hc')
+                                                <td>{{$value->uraian_hutang}}</td>
+                                            @endif
                                             <td>{{$value->status_hutang}}</td>
                                             <td>Rp. {{$value->nominal_jumlah}}</td>
                                             @if($item['key'] != 'pc')
@@ -135,7 +170,7 @@
                                                         </a>
                                                     @endif
                                                 </td>
-                                            @endif
+                                            @endif --}}
                                         </tr>
                                     @empty
                                         <tr>
