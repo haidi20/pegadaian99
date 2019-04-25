@@ -115,7 +115,7 @@ class PermodalanController extends Controller
     {
         $column = config('library.column.penambahan');
 
-        $tambahModal = $this->tambahModal;
+        $tambahModal = $this->tambahModal->sorted();
 
         if(request('by')){
             $tambahModal = $tambahModal->search(request('by'), request('q'));

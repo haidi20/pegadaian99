@@ -18,11 +18,6 @@ class Penambahan_modal extends Model
     	'keterangan',
     ];
 
-    public function scopeSearch($query, $by, $q)
-    {
-        return $query->where($by, 'LIKE', '%'.$q.'%');
-    }
-
     // how to fetch data by username of user
     public function scopeIdCabang($query)
     {
@@ -30,5 +25,15 @@ class Penambahan_modal extends Model
         $user_cabang    = User_cabang::baseUsername()->first();
 
         return $query->where('id_cabang', $user_cabang->id_cabang);
+    }
+
+    public function scopeSearch($query, $by, $q)
+    {
+        return $query->where($by, 'LIKE', '%'.$q.'%');
+    }
+
+    public function scopeSorted($query, $by = 'tanggal', $sort = 'desc')
+    {
+        return $query->orderBy($by, $sort);
     }
 }
