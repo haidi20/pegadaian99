@@ -29,4 +29,19 @@ class Hutang extends Model
 
         return $query->where('id_cabang', $user_cabang->id_cabang);
     }
+
+    public function scopeSearch($query, $by, $q)
+    {
+        return $query->where($by, 'LIKE', '%'.$q.'%');
+    }
+
+    public function scopeSorted($query, $by = 'tanggal_hutang', $sort = 'desc')
+    {
+        return $query->orderBy($by, $sort);
+    }
+
+    public function getNominalJumlahAttribute()
+    {
+        return nominal($this->jumlah_hutang);
+    }
 }

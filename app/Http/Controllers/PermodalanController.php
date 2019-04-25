@@ -8,6 +8,7 @@ use App\Models\Cabang;
 use App\Models\Hutang;
 use App\Models\Refund;
 use App\Models\User_cabang;
+use App\Models\Hutang_cabang;
 use App\Models\Penambahan_modal;
 
 use Auth;
@@ -20,6 +21,8 @@ class PermodalanController extends Controller
                                 Hutang $hutang,
                                 Refund $refund,
                                 Request $request,
+                                User_cabang $user_cabang,
+                                Hutang_cabang $hutang_cabang,
                                 Penambahan_modal $tambahModal
                             )
     {
@@ -27,7 +30,9 @@ class PermodalanController extends Controller
         $this->hutang       = $hutang;
         $this->refund       = $refund;
         $this->request      = $request;
+        $this->user_cabang  = $user_cabang;
         $this->tambahModal  = $tambahModal;
+        $this->hutang_cabang= $hutang_cabang;
 
         view()->share([
             'menu'          => 'permodalan',
@@ -53,7 +58,7 @@ class PermodalanController extends Controller
     public function store()
     {
         // get data id_cabang from table 'user_cabang' base on this user
-        $user_cabang    = User_cabang::baseUsername()->first(); 
+        $user_cabang    = $this->user_cabang->baseUsername()->first(); 
 
         $input = $this->request->except('_token');
 
@@ -151,8 +156,31 @@ class PermodalanController extends Controller
     {
         $nameTables = config('library.name_tables.hutang_piutang');
 
+        $hutang_cabang      = $this->hutang_cabang->sorted();
+        $piutang_cabang     = $this->hutang_cabang->sorted();
+        $hutang_personal    = $this->hutang->sorted();
+
+        $nameTables[0]['data'] = $this->filter($hutang_personal, 'hp')->hutang->paginate(request('perpage_hp', 10));
+        $nameTables[1]['data'] = $this->filter($hutang_cabang, 'hc')->hutang->paginate(request('perpage_hc', 10));
+        $nameTables[2]['data'] = $this->filter($piutang_cabang, 'pc')->hutang->paginate(request('perpage_pc', 10));
+
         $column     = config('library.column.hutang_piutang');
 
-    	return $this->template('permodalan.hutang-piutang', compact('nameTables', 'column'));
+        // return $nameTables;
+
+    	return $this->template('permodalan.hutang-piutang', compact(
+            'nameTables', 'column'
+        ));
+    }
+
+    //for filter data from perpage, and query by in index
+    public function filter($hutang, $code)
+    {
+        // if get data from input keyword 
+        if(request('q_'.$code)){
+            $hutang   = $hutang->search(request('by_'.$code), request('q_'.$code));
+        }
+
+        return (object) compact('hutang');
     }
 }
