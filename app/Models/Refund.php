@@ -4,18 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Penambahan_modal extends Model
+class Refund extends Model
 {
-    protected $table        = "penambahan_modal";
+    protected $table        = "refund";
     public $timestamps      = false;
-    protected $primaryKey   = 'id_penambahan_modal';
+    protected $primaryKey   = 'id_refund';
     // protected $guarded   = [];
     protected $fillable     = [
-    	'id_penambahan_modal',
+    	'id_refund',
         'id_cabang',
     	'tanggal',
     	'jumlah',
-    	'keterangan',
+    	'uraian',
     ];
 
     public function scopeSearch($query, $by, $q)

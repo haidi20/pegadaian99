@@ -235,7 +235,7 @@ return [
 		],
 		'penambahan' => [
 			'tanggal' 	=> 'Tanggal',
-			'uraian'	=> 'Uraian',
+			'keterangan'	=> 'Uraian',
 			'jumlah'	=> 'Jumlah',
 		],
 		'list_refund' => [
