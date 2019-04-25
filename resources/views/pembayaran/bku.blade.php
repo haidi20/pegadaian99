@@ -98,9 +98,9 @@
                                         <td>{{$index + 1}}</td>
                                         <td>{{$item->tanggal}}</td>
                                         <td>{{$item->uraian}}</td>
-                                        <td>{{$item->debit}}</td>
-                                        <td>{{$item->kredit}}</td>
-                                        <td>{{$item->saldo}}</td>
+                                        <td>Rp. {{$item->nominal_debit}}</td>
+                                        <td>Rp. {{$item->nominal_kredit}}</td>
+                                        <td>Rp. {{$item->nominal_saldo}}</td>
                                     </tr>
                                 @empty
                                 <tr>
