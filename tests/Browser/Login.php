@@ -45,7 +45,7 @@ class Login extends DuskTestCase
                  */
                 ->press('.btn')
                 // ->assertPathIs('/cabang')
-                ->screenshot('LoginScreen')
+                ->screenshot('UserAuthLogin')
                 // end
             ;
         });
