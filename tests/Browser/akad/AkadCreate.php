@@ -27,7 +27,12 @@ class AkadCreate extends CabangView
                  * <a href='x'> param </a>
                  */
                 ->clickLink('Akad Baru')
+                ->assertPathIs('/akad/create')
                 ->assertSee('Akad Baru')
+                /**
+                 * ?Click the submit button on the page
+                 */
+                // ->click('button[type="submit"]')
                 ->screenshot('UserCreateAkad')
                 // end
             ;
