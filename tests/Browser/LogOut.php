@@ -2,10 +2,8 @@
 
 namespace Tests\Browser;
 
-use Tests\DuskTestCase;
 use Tests\Browser\Login;
 use Laravel\Dusk\Browser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class LogOut extends Login
 {
@@ -16,14 +14,29 @@ class LogOut extends Login
      */
     public function user_logout()
     {
+        /**
+         * first todo
+         * todo auth|login|middleware
+         * alternative use ->loginAs(Model::find(id))
+         */
         $this->user_login();
+        // open browser
         $this->browse(function (Browser $browser) {
             $browser
                 ->assertSee('Data Cabang')
+                /**
+                 * ?clickLink('param')
+                 * the function for this
+                 * <a href='x'> param </a>
+                 */
                 ->clickLink('Logout')
+                // don't forget to put path after execute link/move/change address.url
                 ->assertPathIs('/login')
                 ->assertSee('Form Login')
-                // ->type('username', 'berhasilLogout')
+                // fill some field , for the toast end of execute
+                ->value('#id_username', 'berhasil logout')
+                // ->type('username', 'berhasil Logout')
+                // capture the task
                 ->screenshot('UserAuthLogout')
                 // end
             ;

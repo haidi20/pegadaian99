@@ -2,9 +2,7 @@
 
 namespace Tests\Browser\akad;
 
-use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\Browser\cabang\CabangView;
 
 class AkadCreate extends CabangView
@@ -27,6 +25,7 @@ class AkadCreate extends CabangView
                  * <a href='x'> param </a>
                  */
                 ->clickLink('Akad Baru')
+                // don't forget to put path link after execute link/move/change address.url
                 ->assertPathIs('/akad/create')
                 ->assertSee('Akad Baru')
                 /**

@@ -4,7 +4,6 @@ namespace Tests\Browser;
 
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class Login extends DuskTestCase
 {
@@ -26,6 +25,7 @@ class Login extends DuskTestCase
      */
     public function user_login()
     {
+        // open browser
         $this->browse(function (Browser $browser) {
             // #path_url-01 login_path()
             $browser->visit($this->login_path())
@@ -44,7 +44,7 @@ class Login extends DuskTestCase
                  * '.class', '#id' , 'name'
                  */
                 ->press('.btn')
-                // ->assertPathIs('/cabang')
+                // capture the task
                 ->screenshot('UserAuthLogin')
                 // end
             ;
