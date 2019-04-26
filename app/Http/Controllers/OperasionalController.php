@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Atk;
+use App\Models\Bku;
+use App\Models\Hutang_kas;
 
 use Auth;
 use Carbon\Carbon;
@@ -13,11 +15,15 @@ class OperasionalController extends Controller
 {
     public function __construct(
                                 Atk $atk,
-                                Request $request
+                                Bku $bku,
+                                Request $request,
+                                Hutang_kas $hutang_kas
                             )
     {
-        $this->atk      = $atk;
-        $this->request  = $request;
+        $this->atk          = $atk;
+        $this->bku          = $bku;
+        $this->request      = $request;
+        $this->hutang_kas   = $hutang_kas;
 
         view()->share([
             'menu'          => 'operasional',
@@ -50,9 +56,17 @@ class OperasionalController extends Controller
 
     public function bku()
     {
+        $bku = $this->bku->idCabang()->sorted();
+
+        if(request('by')){
+            $bku = $bku->search(request('by'), request('q'));
+        }
+
+        $bku = $bku->paginate(request('perpage', 10));
+
     	$column = config('library.column.bku');
 
-        return $this->template('operasional.bku', compact('column'));
+        return $this->template('operasional.bku', compact('column', 'bku'));
     }
 
     public function pengeluaran()
@@ -72,8 +86,16 @@ class OperasionalController extends Controller
 
     public function hutang()
     {
+        $hutang_kas = $this->hutang_kas->sorted();
+
+        if(request('by')){
+            $hutang_kas = $hutang_kas->search(request('by'), request('q'));
+        }
+
+        $hutang_kas     = $hutang_kas->paginate(request('perpage', 10));
+
         $column = config('library.column.hutang');
 
-        return $this->template('operasional.hutang', compact('column'));
+        return $this->template('operasional.hutang', compact('column', 'hutang_kas'));
     }
 }

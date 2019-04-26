@@ -273,10 +273,10 @@ return [
 			'saldo'		=> 'Saldo',
 		],
 		'hutang' 		=> [
-			'jumlah'	=> 'Jumlah',
-			'keterangan'=> 'Keterangan',
-			'tanggal'	=> 'Tanggal',
-			'status'	=> 'Status',
+			'jumlah'		=> 'Jumlah',
+			'uraian'		=> 'Keterangan',
+			'tanggal_hutang'=> 'Tanggal',
+			'status_hutang'	=> 'Status',
 		],
 	],
 	// LIST NAME TABLE IN FEATURE DATA AKAD NASABAH

@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function() {
 		Route::get('/create', 'OperasionalController@create')->name('operasional.create');
 		Route::get('/bku-admin', 'OperasionalController@bku')->name('operasional.bku');
 		Route::get('/data-pengeluaran', 'OperasionalController@pengeluaran')->name('operasional.pengeluaran');
+		Route::get('/change-status/{id}', 'OperasionalController@change_status')->name('operasional.change-status');
 		Route::get('/hutang-dan-pembayaran', 'OperasionalController@hutang')->name('operasional.hutang');
 
 		Route::post('/store', 'OperasionalController@store')->name('operasional.store');

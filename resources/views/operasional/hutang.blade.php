@@ -2,21 +2,38 @@
 
 @section('script-bottom')
     <script>
-        function add()
+        function edit(url)
         {
-            $('#modal-add').modal('show')
+            bootbox.confirm({
+                message: 'Anda yakin data ini status menjadi LUNAS ?',
+                buttons: {
+                    confirm: {
+                        label: 'OK',
+                        className: 'btn-success ml-1'
+                    },
+                    cancel: {
+                        label: 'Cancel',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function(result){
+                    if(result == true){
+                        console.log(url)
+                        // window.location.href = url
+                    }
+                }
+            });
         }
     </script>
 @endsection
 
 @section('content')
-@include('operasional.modal')
 <div class="page-header">
     <div class="row">
         <div class="col-md-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>BKU Kas</h4>
+                    <h4>Hutang Kas</h4>
                 </div>
             </div>
         </div>
@@ -38,12 +55,11 @@
              {!! session()->get('message') !!}
         </div>
     </div>
-     <div class="row">
+    <div class="row">
         <div class="col-sm-12 col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="sub-title">List Data</div>
-                    <button type="submit" class="btn btn-primary btn-xs" onClick="add()">Tambah</button>
+                    <div class="sub-title">Data Hutang</div>
                 </div>
                 <form method="get">
                 <div class="card-block">
@@ -95,22 +111,19 @@
                                 @foreach($column as $index => $item)
                                     <th>{{$item}}</th>
                                 @endforeach
-                                {{-- <th>action</th> --}}
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                                {{-- @forelse($nasabah as $index => $item)
+                                @forelse($hutang_kas as $index => $item)
                                     <tr>
-                                        <td>{{$item->nama_lengkap}}</td>
-                                        <td>{{$item->no_telp}}</td>
-                                        <td>{{$item->alamat}}</td>
-                                        <td align="center">
-                                            <a href="javascript:void(0)" onClick="detail({{$item->id_nasabah}})" title="Detail Data"
-                                               data-url="{{route('nasabah.detail', $item->id_nasabah)}}" id="detail_{{$item->id_nasabah}}" class="btn btn-sm btn-info">
-                                                <i class="icofont icofont-external icofont-lg"></i>
-                                            </a>
-                                            <a href="{{route('nasabah.edit', $item->id_nasabah)}}" class="btn btn-sm btn-primary" title="Edit Data">
-                                                {{-- <i class="icofont icofont-ui-delete icofont-lg"></i>
+                                        <td>{{$index + 1}}</td>
+                                        <td>Rp. {{$item->nominal_jumlah}}</td>
+                                        <td>{{$item->uraian}}</td>
+                                        <td>{{$item->tanggal_hutang}}</td>
+                                        <td>{{$item->status_hutang}}</td>
+                                        <td>
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-primary" onClick="edit('{{url('operasional/change-status', $item->id_hutang)}}')" title="Edit Data">
                                                 <i class="icofont icofont-edit icofont-lg"></i>
                                             </a>
                                         </td>
@@ -119,16 +132,13 @@
                                 <tr>
                                     <td colspan="11" align="center">No data available in table</td>
                                 </tr>
-                                @endforelse --}}
-                                <tr>
-                                    <td colspan="11" align="center">No data available in table</td>
-                                </tr>
+                                @endforelse
                             </tbody>
                             {{-- <tfoot>
                             </tfoot> --}}
                         </table>
                     </div>
-                   {{-- {!! $nasabah->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}                    --}}
+                   {!! $hutang_kas->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}                   
                 </div>
             </div>
         </div>
