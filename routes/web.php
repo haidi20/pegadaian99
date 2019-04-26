@@ -60,11 +60,12 @@ Route::middleware('auth')->group(function() {
 	});
 	Route::group(['prefix' => 'permodalan'], function(){
 		// url create for 'tambah saldo' & 'refund saldo'
-		Route::get('/create/tambah-saldo', 'PermodalanController@create')->name('permodalan.create.tambah-saldo');
-		Route::get('/create/refund-saldo', 'PermodalanController@create')->name('permodalan.create.refund-saldo');
 		Route::get('/penambahan-saldo', 'PermodalanController@penambahan')->name('permodalan.penambahan');
 		Route::get('/hutang-dan-piutang', 'PermodalanController@hutang')->name('permodalan.hutang');
+		Route::get('/create/tambah-saldo', 'PermodalanController@create')->name('permodalan.create.tambah-saldo');
+		Route::get('/create/refund-saldo', 'PermodalanController@create')->name('permodalan.create.refund-saldo');
 		Route::get('/list-data-refund-saldo', 'PermodalanController@list_refund')->name('permodalan.list.refund');
+		Route::get('/change-status/{id}/{code}', 'PermodalanController@change_status')->name('permodalan.change_status');
 
 		Route::post('/store', 'PermodalanController@store')->name('permodalan.store');
 	});

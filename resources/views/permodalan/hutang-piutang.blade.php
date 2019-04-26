@@ -2,7 +2,7 @@
 
 @section('script-bottom')
     <script>
-        function edit(id)
+        function edit(url)
         {
             bootbox.confirm({
                 message: 'Anda yakin data ini status menjadi LUNAS ?',
@@ -17,7 +17,10 @@
                     }
                 },
                 callback: function(result){
-                    console.log(id)
+                    if(result == true){
+                        console.log(url)
+                        window.location.href = url
+                    }
                 }
             });
         }
@@ -140,7 +143,7 @@
                                             @if($item['key'] == 'hp')
                                                 <td align="center">
                                                     @if($value->status_hutang == 'Belum Lunas')
-                                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary" onClick="edit({{$value->id_hutang}})" title="Edit Data">
+                                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary" onClick="edit('{{url('permodalan/change-status',[$value->id_hutang, 'hp'])}}')" title="Edit Data">
                                                             <i class="icofont icofont-edit icofont-lg"></i>
                                                         </a>
                                                     @endif
@@ -148,7 +151,7 @@
                                             @elseif($item['key'] == 'hc')
                                                 <td align="center">
                                                     @if($value->status == 'Belum Lunas')
-                                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary" onClick="edit({{$value->id_hutang_cabang}})" title="Edit Data">
+                                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary" onClick="edit('{{url('permodalan/change-status',[$value->id_hutang_cabang, 'hc'])}}')" title="Edit Data">
                                                             <i class="icofont icofont-edit icofont-lg"></i>
                                                         </a>
                                                     @endif
