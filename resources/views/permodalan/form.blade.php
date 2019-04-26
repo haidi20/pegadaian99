@@ -120,7 +120,7 @@
                             <div class="col-sm-8 col-lg-10">
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon1">Rp.</span>
-                                    <input type="text" class="form-control autonumber" data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="jumlah" id="jumlah" value="{{old('jumlah')}}" required>
+                                    <input type="text" class="form-control autonumber" data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="jumlah" id="jumlah" value="{{old('jumlah')}}" placeholder="Jumlah" required>
                                 </div>
                             </div>
                         </div>
@@ -147,7 +147,7 @@
                                 <div class="input-group">
                                     <input type="hidden" name="jenis_modal" value="refund_saldo">
                                     <span class="input-group-addon" id="basic-addon1">Rp.</span>
-                                    <input type="text" class="form-control autonumber" data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="jumlah" id="jumlah" value="{{old('jumlah')}}" required>
+                                    <input type="text" class="form-control autonumber" data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="jumlah" id="jumlah" value="{{old('jumlah')}}" placeholder="Jumlah" required>
                                 </div>
                             </div>
                         </div>

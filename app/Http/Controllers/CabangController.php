@@ -79,7 +79,7 @@ class CabangController extends Controller
 
     public function edit()
     {
-        $id    = $this->user_cabang->baseUsername()->value('id_cabang'); 
+        $id    = $this->id_cabang(); 
 
         return $this->form($id);
     }

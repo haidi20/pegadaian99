@@ -1,6 +1,11 @@
 @extends('_layouts.default')
 
 @section('script-bottom')
+    <!-- Masking js for form format number --> 
+    <script src="{{asset('adminty/files/assets/pages/form-masking/inputmask.js')}}"></script>
+    <script src="{{asset('adminty/files/assets/pages/form-masking/jquery.inputmask.js')}}"></script>
+    <script src="{{asset('adminty/files/assets/pages/form-masking/autoNumeric.js')}}"></script>
+    <script src="{{asset('adminty/files/assets/pages/form-masking/form-mask.js')}}"></script>
 	<script>
 		$('#jenis_modal').on('change', function(){
 			var card_form 	= $('.card-form')
@@ -38,6 +43,11 @@
 @section('content')
 <div class="page-header">
     <div class="row">
+        <div class="col-sm-12 col-md-12">
+             {!! session()->get('message') !!}
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-8">
             <div class="page-header-title">
                 <div class="d-inline">
@@ -68,8 +78,11 @@
                     <h3 class="sub-title">Form Belanja ATK</h3>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="jumlah">Jumlah</label>
-                        <div class="col-sm-10">
-                           <input placeholder="Jumlah" type="text" class="form-control" name="jumlah" id="jumlah"required>
+                        <div class="col-sm-8 col-lg-10">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Rp.</span>
+                                <input type="text" class="form-control autonumber" data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="jumlah" id="jumlah" value="{{old('jumlah')}}" placeholder="Jumlah" required>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">

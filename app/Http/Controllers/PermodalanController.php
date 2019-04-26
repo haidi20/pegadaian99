@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Cabang;
 use App\Models\Hutang;
 use App\Models\Refund;
-use App\Models\User_cabang;
 use App\Models\Hutang_cabang;
 use App\Models\Penambahan_modal;
 
@@ -21,7 +20,6 @@ class PermodalanController extends Controller
                                 Hutang $hutang,
                                 Refund $refund,
                                 Request $request,
-                                User_cabang $user_cabang,
                                 Hutang_cabang $hutang_cabang,
                                 Penambahan_modal $tambahModal
                             )
@@ -30,7 +28,6 @@ class PermodalanController extends Controller
         $this->hutang       = $hutang;
         $this->refund       = $refund;
         $this->request      = $request;
-        $this->user_cabang  = $user_cabang;
         $this->tambahModal  = $tambahModal;
         $this->hutang_cabang= $hutang_cabang;
 
@@ -57,24 +54,21 @@ class PermodalanController extends Controller
 
     public function store()
     {
-        // get data id_cabang from table 'user_cabang' base on this user
-        $user_cabang    = $this->user_cabang->baseUsername()->first(); 
-
         $input = $this->request->except('_token');
 
         // return $input;
 
         if(request('jenis_modal') == 'hutang_cabang'){
-
+            // not yet
         }elseif(request('jenis_modal') == 'hutang_personal'){
             // local function
-            $this->hutang_personal($user_cabang);
+            $this->hutang_personal();
         }elseif(request('jenis_modal') == 'penambahan_kas_saldo'){
             // local function
-            $this->tambah_modal($user_cabang);            
+            $this->tambah_modal();            
         }elseif(request('jenis_modal') == 'refund_saldo'){
             // local function
-            $this->refund_saldo($user_cabang);
+            $this->refund_saldo();
         }
 
         $jenis_modal = str_replace('_', ' ', request('jenis_modal'));
@@ -89,10 +83,10 @@ class PermodalanController extends Controller
     }
 
     // proccess input data into table 'hutang'
-    public function hutang_personal($user_cabang)
+    public function hutang_personal()
     {
         $hutang                     = $this->hutang;
-        $hutang->id_cabang          = $user_cabang->id_cabang;
+        $hutang->id_cabang          = $this->id_cabang();
         $hutang->status_hutang      = 'Belum Lunas';
         $hutang->jumlah_hutang      = remove_dot(request('jumlah'));
         $hutang->tanggal_hutang     = Carbon::now()->format('Y-m-d');
@@ -101,24 +95,24 @@ class PermodalanController extends Controller
     }
 
     // proccess input data into table 'penambahan_modal'
-    public function tambah_modal($user_cabang)
+    public function tambah_modal()
     {
         $tambahModal            = $this->tambahModal;
         $tambahModal->jumlah    = remove_dot(request('jumlah'));
         $tambahModal->tanggal   = Carbon::now()->format('Y-m-d');
-        $tambahModal->id_cabang = $user_cabang->id_cabang;
+        $tambahModal->id_cabang = $this->id_cabang();
         $tambahModal->keterangan= request('keterangan');
         $tambahModal->save();
     }
 
     // proccess input data into table 'refund'
-    public function refund_saldo($user_cabang)
+    public function refund_saldo()
     {
         $refund            = $this->refund;
         $refund->uraian    = request('keterangan');
         $refund->jumlah    = remove_dot(request('jumlah'));
         $refund->tanggal   = Carbon::now()->format('Y-m-d');
-        $refund->id_cabang = $user_cabang->id_cabang;
+        $refund->id_cabang = $this->id_cabang();
         $refund->save();
     }
 
@@ -184,6 +178,7 @@ class PermodalanController extends Controller
         return (object) compact('hutang');
     }
 
+    // proccess change status from 'Belum Lunas' to 'Lunas' on 'hutang personal' & 'hutang cabang'
     public function change_status($id, $code)
     {
         if($code == 'hp'){

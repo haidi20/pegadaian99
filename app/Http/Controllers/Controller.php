@@ -41,5 +41,11 @@ class Controller extends BaseController
         return (object) compact('total_kas', 'nomorCabang');
     }
 
+    // get data id_cabang from table 'user_cabang' base on this user
+    public function id_cabang()
+    {
+        return User_cabang::baseUsername()->value('id_cabang');
+    }
+
 
 }
