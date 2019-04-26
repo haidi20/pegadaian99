@@ -261,9 +261,9 @@ return [
 			],
 		],
 		'pengeluaran' 	=> [
-			'tanggal'	=> 'Tanggal',
-			'keterangan'=> 'Keterangan',
-			'jumlah'	=> 'Jumlah',
+			'tanggal_atk'	=> 'Tanggal',
+			'keterangan'	=> 'Keterangan',
+			'jumlah_atk'	=> 'Jumlah',
 		],
 		'bku'			=> [
 			'tanggal'   => 'Tanggal',
