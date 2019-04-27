@@ -61,22 +61,22 @@ class AkadController extends Controller
         ));
     }
 
-    // NASABAH AKAD
-    public function nasabahAkad()
+    // 'NASABAH AKAD'
+    public function nasabahAkad() 
     {
         // name field 'tanggal jatuh tempo' for sorted
         $nameFieldSorted= 'akad.tanggal_jatuh_tempo';
 
         $nasabahAkad    = $this->akad->nasabah()->sorted($nameFieldSorted, 'desc');
 
-        // this condition just for 'nasabah akad'
         if(request('perpage_na')){
             // if get data from range date
             if(request('daterange')){
                 $end    = carbon::parse(substr(request('daterange'), 13, 20));
                 $start  = carbon::parse(substr(request('daterange'), 1, 9));
             }
-            // function scope filterRange
+
+            // scope function filterRange
             $nasabahAkad= $nasabahAkad->filterRange($start, $end);
             $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
         }else{
@@ -87,18 +87,17 @@ class AkadController extends Controller
             $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
         }
 
-        // data from akad and dateRange after filter and use function local filter
-        $data           = $nasabahAkad->paginate(request('perpage_na', 10));
+        $data           = $this->filter($nasabahAkad, 'na')->akad->paginate(request('perpage_na', 10));
 
         return (object) compact('data', 'dateRange');
     }
 
-    // AKAD JATUH TEMPO
+    // 'AKAD JATUH TEMPO'
     public function akadJatuhTempo()
     {
         $now = Carbon::now()->format('Y-m-d');
 
-        // list name tables on TAB 'akad jatuh tempo' example list 'jatuh tempo 7 hari', '15 hari' dll.
+        // list name tables on TAB 'akad jatuh tempo' example list 'jatuh tempo 7 hari', '15 hari' etc.
         $nameTables     = config('library.name_tables.akad_nasabah.akad_jatuh_tempo');
         // name field 'tanggal jatuh tempo' for sorted
         $nameFieldSorted= 'akad.tanggal_jatuh_tempo';
@@ -117,7 +116,7 @@ class AkadController extends Controller
         return $nameTables;
     }
 
-    // PELUNASAN DAN LELANG
+    // 'PELUNASAN DAN LELANG'
     public function pelunasanLelang()
     {
         $code   = 'pl_';
@@ -131,13 +130,13 @@ class AkadController extends Controller
         $lelang         = $this->akad->nasabah()->lelang()->sorted('akad.tanggal_jatuh_tempo', 'desc');
 
         $nameTables[0]['data'] = $this->filter($lunas, $code.'lunas')->akad->paginate(request($perpage.$code.'lunas', 10));
-        $nameTables[1]['data'] = $this->filter($refund, $code.'lelang')->akad->paginate(request($perpage.$code.'lelang', 10));
-        $nameTables[2]['data'] = $this->filter($lelang, $code.'refund')->akad->paginate(request($perpage.$code.'refund', 10));
+        $nameTables[1]['data'] = $this->filter($lelang, $code.'lelang')->akad->paginate(request($perpage.$code.'lelang', 10));
+        $nameTables[2]['data'] = $this->filter($refund, $code.'refund')->akad->paginate(request($perpage.$code.'refund', 10));
 
         return $nameTables;
     }
 
-    //for filter data from perpage, and query by in index
+    //for filter data from perpage, and query in file view index
     public function filter($akad, $code)
     {
         // if get data from input keyword 
