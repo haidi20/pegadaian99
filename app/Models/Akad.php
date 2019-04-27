@@ -38,6 +38,8 @@ class Akad extends Model
     }
 
     // filter data base on 'jangka_waktu_akad' and then set interval previous date now
+    // variable day for condition field 'jangka_waktu_akad'
+    // variable interval for condition total day before 'tanggal jatuh tempo'
     public function scopeAddDay($query, $day, $interval)
     {
         $end    = Carbon::now()->addDay($interval)->format('Y-m-d');
