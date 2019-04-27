@@ -131,7 +131,7 @@
                         <div class="col-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">Rp.</span>
-                                <input type="text" class="form-control autonumber"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," id="biaya_titip" disabled>
+                                <input type="text" class="form-control autonumber biaya_titip"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," disabled>
                                 <input type="hidden" name="biaya_titip" class="biaya_titip">
                             </div>                            
                         </div>
