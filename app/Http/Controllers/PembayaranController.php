@@ -30,7 +30,8 @@ class PembayaranController extends Controller
 
     public function pembayaran()
     {
-        $administrasi = $this->administrasi();
+        $biaya_titip    = $this->biaya_titip();
+        $administrasi   = $this->administrasi();
 
         // list column 'list biaya titip' and 'list biaya administrasi'
         $columnBiayaTitip           = config('library.column.pendapatan.list_biaya_titip');
@@ -40,6 +41,12 @@ class PembayaranController extends Controller
             'columnBiayaTitip', 'columnBiayaAdministrasi',
             'administrasi'
         ));
+    }
+
+    // for table 'LIST BIAYA TITIP'
+    public function biaya_titip()
+    {
+
     }
 
     // for table 'LIST BIAYA ADMINISTRASI'
