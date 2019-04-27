@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `akad` (
   `terbilang` text NOT NULL,
   `status` enum('Lunas','Belum Lunas','Lelang','Perpanjang') NOT NULL,
   PRIMARY KEY (`id_akad`)
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table pegadaian99.akad: ~42 rows (approximately)
 /*!40000 ALTER TABLE `akad` DISABLE KEYS */;
@@ -108,7 +108,9 @@ INSERT INTO `akad` (`id_akad`, `id_cabang`, `no_id`, `key_nasabah`, `nama_barang
 	(72, '58e13deeccc1b', 'C99-02-030517-002', '5909590cd0f83', 'TOSHIBA SATELITE C840', 'Elektronik', 'UNIT\nCHARGER\nTAS', 'LECET FISIK 20%', '60', '2017-05-03', '2017-06-02', '2000000', '1500000', '70000', '10000', 'Satu Juta Lima Ratus Ribu Rupiah', 'Lunas'),
 	(73, '58e13deeccc1b', 'C99-02-030517-003', '590009a13bfdb', 'XIOMY RED MI NOT 3', 'Elektronik', 'UNIT\nCHARGER', 'KOTAK\nHEADSET\nLECETFISIK 30%', '60', '2017-05-03', '2017-06-02', '1000000', '500000', '20000', '10000', 'Lima Ratus Ribu Rupiah', 'Lunas'),
 	(80, '58e13deeccc1b', 'C99-02-040517-007', '590ab7b513cd9', 'ACER ASPIRE ONE 14', 'Elektronik', 'UNIT\nCHARGER', 'TAS', '7', '2019-03-06', '2019-04-06', '1500000', '1100000', '50000', '10000', 'Satu Juta Seratus Ribu Rupiah', 'Belum Lunas'),
-	(81, '58e13deeccc1b', 'C99-02-040517-008', '590aca9009027', 'IPHONE 5S 16GB', 'Elektronik', 'FULL SET\nSILIKON HP', '-', '60', '2019-05-03', '2017-06-03', '2000000', '1000000', '45000', '10000', 'Satu Juta Rupiah', 'Lunas');
+	(81, '58e13deeccc1b', 'C99-02-040517-008', '590aca9009027', 'IPHONE 5S 16GB', 'Elektronik', 'FULL SET\nSILIKON HP', '-', '60', '2019-05-03', '2017-06-03', '2000000', '1000000', '45000', '10000', 'Satu Juta Rupiah', 'Lunas'),
+	(82, '5a52ca606fe65', 'C99-01-030417-001', '5cc3f425936fc', 'handphone', 'Elektronik', 'kotak', 'lecet dikit', '7', '2019-04-27', '2019-05-04', '1200000', '1000000', ' 99286', '100000', 'Satu Juta', 'Belum Lunas'),
+	(83, '5a52ca606fe65', 'C99-01-030417-001', '5cc3f6bb6b428', 'handphone', 'Elektronik', 'earphone', 'lecet sedikit', '7', '2019-04-27', '2019-05-04', '1200000', '1000000', ' 99286', '100000', 'Satu Juta', 'Belum Lunas');
 /*!40000 ALTER TABLE `akad` ENABLE KEYS */;
 
 -- Dumping structure for table pegadaian99.atk
@@ -119,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `atk` (
   `jumlah_atk` varchar(100) NOT NULL,
   `keterangan` text NOT NULL,
   PRIMARY KEY (`id_atk`)
-) ENGINE=InnoDB AUTO_INCREMENT=417 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=419 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table pegadaian99.atk: ~415 rows (approximately)
 /*!40000 ALTER TABLE `atk` DISABLE KEYS */;
@@ -538,7 +540,9 @@ INSERT INTO `atk` (`id_atk`, `id_cabang`, `tanggal_atk`, `jumlah_atk`, `keterang
 	(413, '58e13deeccc1b', '2018-07-23', '446000', 'Bayar speedy'),
 	(414, '58e13deeccc1b', '2018-07-25', '22000', 'MINUMAN FIESTA 1 DUS'),
 	(415, '58e13deeccc1b', '2018-07-25', '30000', 'FOTOCOPY AKTA BUAT OJK'),
-	(416, '5a49d1e6d31fb', '2018-07-25', '320000', 'bayar indihome');
+	(416, '5a49d1e6d31fb', '2018-07-25', '320000', 'bayar indihome'),
+	(417, '5a52ca606fe65', '2019-04-26', '30000', 'penggaris 1'),
+	(418, '5a52ca606fe65', '2019-04-26', '22000', 'pulpen banyak');
 /*!40000 ALTER TABLE `atk` ENABLE KEYS */;
 
 -- Dumping structure for table pegadaian99.bea_titip
@@ -19169,7 +19173,6 @@ INSERT INTO `cabang` (`id_cabang`, `no_cabang`, `investor`, `nama_cabang`, `telp
 	('5a49d1e6d31fb', '03', 'Fadliansyah', 'Bhayangkara', '085752506463', 'Jl. Bhayangkara No. 51'),
 	('5a52ca606fe65', '04', 'SURIP HADI WIDJAYA', 'INV. SOETOMO', '081255664444', 'JL. DR. SUTOMO NO. 16'),
 	('5c9d7b585a908', '05', 'haidi', 'sempaja', '085251015838', 'jl. p.m.noor'),
-	('5caac9eaae8f7', '10', 'haidi', 'cabang samarinda sebrang', '398423984234', 'palaran sebrang'),
 	('5cab0dfce3fb9', '13', 'sandi', 'pemuda', '34958439843', 'jl. a.yani 03');
 /*!40000 ALTER TABLE `cabang` ENABLE KEYS */;
 
@@ -19182,7 +19185,7 @@ CREATE TABLE IF NOT EXISTS `hutang` (
   `keterangan_hutang` text NOT NULL,
   `status_hutang` enum('Lunas','Belum Lunas') NOT NULL,
   PRIMARY KEY (`id_hutang`)
-) ENGINE=InnoDB AUTO_INCREMENT=138 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table pegadaian99.hutang: ~137 rows (approximately)
 /*!40000 ALTER TABLE `hutang` DISABLE KEYS */;
@@ -19314,16 +19317,17 @@ INSERT INTO `hutang` (`id_hutang`, `id_cabang`, `tanggal_hutang`, `jumlah_hutang
 	(125, '5a52ca606fe65', '2018-04-18', '700000', 'hutang ke bt o4', 'Lunas'),
 	(126, '5a52ca606fe65', '2018-04-19', '100000', 'HUTANG KE BIAYA TITIP 04', 'Lunas'),
 	(127, '58e13deeccc1b', '2018-04-19', '1000000', 'HUTANG B. TITIP 02', 'Lunas'),
-	(128, '58e13deeccc1b', '2018-04-19', '500000', 'HUTANG BIAYA TITIP 02', 'Lunas'),
+	(128, '58e13deeccc1b', '2018-04-19', '500000', 'HUTANG BIAYA TITIP 02', 'Belum Lunas'),
 	(129, '58e13deeccc1b', '2018-04-19', '200000', 'HUTANG KE BIAYA TITIP 02', 'Lunas'),
 	(130, '58e13deeccc1b', '2018-04-19', '200000', 'HUTANG KE BIAYA TITIP 02', 'Lunas'),
-	(131, '5a52ca606fe65', '2018-04-19', '300000', 'hutang b. titip 04', 'Lunas'),
-	(132, '58e13deeccc1b', '2018-04-19', '1000000', 'HUTANG B.TITIP 02', 'Lunas'),
+	(131, '5a52ca606fe65', '2018-04-19', '300000', 'hutang b. titip 04', 'Belum Lunas'),
+	(132, '58e13deeccc1b', '2018-04-19', '1000000', 'HUTANG B.TITIP 02', 'Belum Lunas'),
 	(133, '5a52ca606fe65', '2018-04-19', '600000', 'hutang b. titip 04', 'Lunas'),
-	(134, '5a52ca606fe65', '2018-04-19', '900000', 'HUTANG BIAYA TITIP 04', 'Lunas'),
-	(135, '5a49d1e6d31fb', '2018-04-20', '600000', 'hutang ke b.titip 03', 'Lunas'),
+	(134, '5a52ca606fe65', '2018-04-19', '900000', 'HUTANG BIAYA TITIP 04', 'Belum Lunas'),
+	(135, '5a49d1e6d31fb', '2018-04-20', '600000', 'hutang ke b.titip 03', 'Belum Lunas'),
 	(136, '5a49d1e6d31fb', '2018-04-21', '200000', 'hutang k bt 03', 'Lunas'),
-	(137, '5a49d1e6d31fb', '2018-04-23', '500000', 'HUTANG BIAYA TITIP 03', 'Lunas');
+	(137, '5a49d1e6d31fb', '2018-04-23', '500000', 'HUTANG BIAYA TITIP 03', 'Lunas'),
+	(138, '5a52ca606fe65', '2019-04-24', '30000', 'dodi hutang duit', 'Belum Lunas');
 /*!40000 ALTER TABLE `hutang` ENABLE KEYS */;
 
 -- Dumping structure for table pegadaian99.hutang_cabang
@@ -19347,7 +19351,7 @@ INSERT INTO `hutang_cabang` (`id_hutang_cabang`, `id_hutang`, `id_piutang`, `tan
 	(2, '58e13deeccc1b', '58e13893dc44a', '2017-08-03', '100000', 'Hutang dari 01', 'Piutang ke 02', 'DANA TALANGAN', 'Lunas'),
 	(3, '58e13deeccc1b', '58e13893dc44a', '2017-09-28', '1000000', 'Hutang dari 01', 'Piutang ke 02', 'HUTANG CAB.01', 'Belum Lunas'),
 	(4, '58e13deeccc1b', '58e13893dc44a', '2017-10-18', '600000', 'Hutang dari 01', 'Piutang ke 02', 'HUTANG ', 'Belum Lunas'),
-	(5, '58e13deeccc1b', '58e13893dc44a', '2018-01-01', '1300000', 'Hutang dari 01', 'Piutang ke 02', 'PERALIHAN SALDO KE 01-02', 'Belum Lunas'),
+	(5, '58e13deeccc1b', '58e13893dc44a', '2018-01-01', '1300000', 'Hutang dari 01', 'Piutang ke 02', 'PERALIHAN SALDO KE 01-02', 'Lunas'),
 	(6, '5a52ca606fe65', '58e13deeccc1b', '2018-02-17', '1800000', 'Hutang dari 02', 'Piutang ke 04', 'DANA TALANGAN DARI 02', 'Lunas'),
 	(7, '5a52ca606fe65', '58e13deeccc1b', '2018-03-06', '800000', 'Hutang dari 02', 'Piutang ke 04', 'HUTANG DARI 02', 'Lunas'),
 	(8, '5a52ca606fe65', '58e13deeccc1b', '2018-03-16', '1100000', 'Hutang dari 02', 'Piutang ke 04', 'hutang cabang 4 ke cabang 2', 'Lunas'),
@@ -38762,9 +38766,9 @@ CREATE TABLE IF NOT EXISTS `nasabah` (
   `tanggal_daftar` date NOT NULL,
   `alamat` text NOT NULL,
   PRIMARY KEY (`id_nasabah`)
-) ENGINE=InnoDB AUTO_INCREMENT=961 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=965 DEFAULT CHARSET=latin1;
 
--- Dumping data for table pegadaian99.nasabah: ~959 rows (approximately)
+-- Dumping data for table pegadaian99.nasabah: ~960 rows (approximately)
 /*!40000 ALTER TABLE `nasabah` DISABLE KEYS */;
 INSERT INTO `nasabah` (`id_nasabah`, `key_nasabah`, `nama_lengkap`, `jenis_kelamin`, `kota`, `no_telp`, `jenis_id`, `no_identitas`, `tanggal_lahir`, `tanggal_daftar`, `alamat`) VALUES
 	(1, '58e1b7a876849', 'RASYID DJAMALUDDIN keren banget', 'Wanita', 'SAMARINDA', '082351869949', 'KK', '6472020103830002', '1983-03-01', '2017-04-03', 'JL. BUNG TOMO RT.24'),
@@ -39725,7 +39729,11 @@ INSERT INTO `nasabah` (`id_nasabah`, `key_nasabah`, `nama_lengkap`, `jenis_kelam
 	(957, '5b5810b4246bd', 'DEVI YULISTIA ANGGRENI', 'Wanita', 'SAMARINDA', '082250256655', 'KTP', '6472035408900002', '1990-08-14', '2018-07-25', 'JL PAHLAWAN 2 NO 31'),
 	(958, '5b581da15af0e', 'JULIYATI', 'Wanita', 'SAMARINDA', '082353269833', 'SIM', '660717150452', '2066-07-23', '2018-07-25', 'JL. GAJAH MADA GG. BDN NO. 2 RT 03'),
 	(959, '5b5820739ee28', 'IWAN SUMANTO', 'Wanita', 'SAMARINDA', '085339372999', 'KK', '6472030708840010', '1984-08-07', '2018-07-25', 'JL KADRIE OENING NO 44 RT 31'),
-	(960, '5b582311c2bc8', 'NUR INDA MARLIDANI', 'Wanita', 'SAMARINDA', '081345482884', 'KK', '6472046106970002', '1997-06-21', '2018-07-25', 'JL. AMPERA RT 17');
+	(960, '5b582311c2bc8', 'NUR INDA MARLIDANI', 'Wanita', 'SAMARINDA', '081345482884', 'KK', '6472046106970002', '1997-06-21', '2018-07-25', 'JL. AMPERA RT 17'),
+	(961, '5cc3efd05ed77', 'budi', 'Pria', 'samarinda', '345346474', 'KTP', '97924287989', '1998-02-03', '2019-04-27', 'sempaja'),
+	(962, '5cc3f02e6b5cf', 'budi', 'Pria', 'samarinda', '345346474', 'KTP', '97924287989', '1998-02-03', '2019-04-27', 'sempaja'),
+	(963, '5cc3f425936fc', 'budi', 'Pria', 'samarinda', '4558582', 'KTP', '97924287989', '2000-01-06', '2019-04-27', 'sdfkluii'),
+	(964, '5cc3f6bb6b428', 'ahmad budi', 'Pria', 'samarinda', '09348504534', 'KTP', '890802342', '2000-01-01', '2019-04-27', 'smd sebrang');
 /*!40000 ALTER TABLE `nasabah` ENABLE KEYS */;
 
 -- Dumping structure for table pegadaian99.notif
@@ -39757,7 +39765,7 @@ CREATE TABLE IF NOT EXISTS `penambahan_modal` (
   `jumlah` varchar(100) NOT NULL,
   `keterangan` text NOT NULL,
   PRIMARY KEY (`id_penambahan_modal`)
-) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=135 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table pegadaian99.penambahan_modal: ~43 rows (approximately)
 /*!40000 ALTER TABLE `penambahan_modal` DISABLE KEYS */;
@@ -39804,7 +39812,8 @@ INSERT INTO `penambahan_modal` (`id_penambahan_modal`, `id_cabang`, `tanggal`, `
 	(130, '5a49d1e6d31fb', '2018-04-19', '2500000', 'PERALIHAN SALDO AUTO GADGET'),
 	(131, '5a52ca606fe65', '2018-04-20', '10000000', 'tambah saldo'),
 	(132, '5a49d1e6d31fb', '2018-04-24', '500000', 'PERALIHAN AUTO GADGET'),
-	(133, '5a49d1e6d31fb', '2018-04-24', '5000000', 'PERALIHAN SALDO AUTO GADGET');
+	(133, '5a49d1e6d31fb', '2018-04-24', '5000000', 'PERALIHAN SALDO AUTO GADGET'),
+	(134, '5a52ca606fe65', '2019-04-24', '50000', 'tkjsdf');
 /*!40000 ALTER TABLE `penambahan_modal` ENABLE KEYS */;
 
 -- Dumping structure for table pegadaian99.peralihan_modal
@@ -39874,12 +39883,18 @@ CREATE TABLE IF NOT EXISTS `refund` (
   `jumlah` varchar(100) NOT NULL,
   `uraian` text NOT NULL,
   PRIMARY KEY (`id_refund`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
--- Dumping data for table pegadaian99.refund: 1 rows
+-- Dumping data for table pegadaian99.refund: 7 rows
 /*!40000 ALTER TABLE `refund` DISABLE KEYS */;
 INSERT INTO `refund` (`id_refund`, `id_cabang`, `tanggal`, `jumlah`, `uraian`) VALUES
-	(9, '58e13deeccc1b', '2018-03-08', '8400000', 'Salah Top Up Saldo ');
+	(9, '58e13deeccc1b', '2018-03-08', '8400000', 'Salah Top Up Saldo '),
+	(10, '5a52ca606fe65', '2019-04-25', '30000', 'tidak jadi'),
+	(11, '5a52ca606fe65', '2019-04-25', '30000', 'tidak jadi lagi'),
+	(12, '5a52ca606fe65', '2019-04-25', '456456', 'lskdjflkjsdf'),
+	(13, '5a52ca606fe65', '2019-04-25', '200000', 'kejlkjsdf'),
+	(14, '5a52ca606fe65', '2019-04-25', '200000', 'kejlkjsdf'),
+	(15, '5a52ca606fe65', '2019-04-26', '400000', 'kebanyakan minjam');
 /*!40000 ALTER TABLE `refund` ENABLE KEYS */;
 
 -- Dumping structure for table pegadaian99.saldo_cabang

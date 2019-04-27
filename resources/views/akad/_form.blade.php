@@ -79,7 +79,7 @@
 
             var biaya_titip = result * bt_yang_dibayar
 
-            // condition for negativ number
+            // condition for negatif number
             biaya_titip = biaya_titip <= 0 ? 0 : biaya_titip
         }else{
             var biaya_titip = marhun_bih
@@ -87,8 +87,9 @@
 
         var nominal_biaya_titip = format_nominal(biaya_titip)
         nominal_biaya_titip     = nominal_biaya_titip.replace("Rp", "")
-        $('#biaya_titip').val(nominal_biaya_titip)
+        $('.biaya_titip').val(nominal_biaya_titip)
 
+         // condition for negatif number
         nominal_biaya_titip = nominal_biaya_titip <= 0 ? 0 : nominal_biaya_titip
 
         var jml_bt_yang_dibayar = nominal_biaya_titip.toString().replace(",","").replace(".","").replace(".","").replace(".","")

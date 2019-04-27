@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Akad;
 use App\Models\Nasabah;
+use App\Models\User_cabang;
 
 use Carbon\Carbon;
 use Auth;
@@ -15,12 +16,14 @@ class AkadController extends Controller
     public function __construct(
     							Akad $akad,
     							Nasabah $nasabah,
-    							Request $request
+    							Request $request,
+                                User_cabang $user_cabang
                             )
     {
     	$this->akad 		= $akad;
     	$this->nasabah 		= $nasabah;
     	$this->request  	= $request;
+        $this->user_cabang  = $user_cabang;
 
         view()->share([
             'menu'          => 'akad',
@@ -105,11 +108,11 @@ class AkadController extends Controller
         $sevenDays      = $this->akad->nasabah()->belumLunas()->sorted($nameFieldSorted, 'desc');
         $fifteenDays    = $this->akad->nasabah()->belumLunas()->sorted($nameFieldSorted, 'desc');
 
-        // subDay is scope function
-        $nameTables[0]['data']  = $this->filter($sevenDays, 'ajt_7')->akad->subDay('7', 1)->paginate(request('perpage_ajt_7', 10));
-        $nameTables[1]['data']  = $this->filter($fifteenDays, 'ajt_15')->akad->subDay('15', 2)->paginate(request('perpage_ajt_15', 10));
-        $nameTables[2]['data']  = $this->filter($thirty, 'ajt_30')->akad->subDay('30', 7)->paginate(request('perpage_ajt_30', 10));
-        $nameTables[3]['data']  = $this->filter($sixty, 'ajt_60')->akad->subDay('60', 7)->paginate(request('perpage_ajt_60', 10));
+        // addDay is scope function
+        $nameTables[0]['data']  = $this->filter($sevenDays, 'ajt_7')->akad->addDay('7', 1)->paginate(request('perpage_ajt_7', 10));
+        $nameTables[1]['data']  = $this->filter($fifteenDays, 'ajt_15')->akad->addDay('15', 2)->paginate(request('perpage_ajt_15', 10));
+        $nameTables[2]['data']  = $this->filter($thirty, 'ajt_30')->akad->addDay('30', 7)->paginate(request('perpage_ajt_30', 10));
+        $nameTables[3]['data']  = $this->filter($sixty, 'ajt_60')->akad->addDay('60', 7)->paginate(request('perpage_ajt_60', 10));
 
         return $nameTables;
     }
@@ -216,7 +219,7 @@ class AkadController extends Controller
     	$akad->tanggal_jatuh_tempo	= request('tanggal_jatuh_tempo'); 
     	$akad->nilai_tafsir			= remove_dot(request('taksiran_marhun')); 
     	$akad->nilai_pencairan		= remove_dot(request('marhun_bih')); 
-    	$akad->bt_7_hari			= request('bt_7_hari'); 
+    	$akad->bt_7_hari			= remove_dot(request('biaya_titip')); 
     	$akad->biaya_admin			= request('biaya_admin'); 
     	$akad->terbilang			= request('terbilang'); 
     	$akad->status				= 'Belum Lunas';

@@ -38,10 +38,10 @@ class Akad extends Model
     }
 
     // filter data base on 'jangka_waktu_akad' and then set interval previous date now
-    public function scopeSubDay($query, $day, $interval)
+    public function scopeAddDay($query, $day, $interval)
     {
-        $end    = Carbon::now()->format('Y-m-d');
-        $start  = Carbon::now()->subDay($interval)->format('Y-m-d');
+        $end    = Carbon::now()->addDay($interval)->format('Y-m-d');
+        $start  = Carbon::now()->format('Y-m-d');
 
         return $query->where('jangka_waktu_akad', $day)
                      ->whereBetween('tanggal_jatuh_tempo', [$start, $end]);
@@ -91,5 +91,10 @@ class Akad extends Model
     	if($this->nasabah){
     		return $this->nasabah->nama_lengkap;
     	}
+    }
+
+    public function getNominalNilaiTafsirAttribute()
+    {
+        return nominal($this->nilai_tafsir);
     }
 }
