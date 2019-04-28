@@ -1,14 +1,11 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\cabang;
 
 use Laravel\Dusk\Browser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Auth\User;
-// use LoginTest
 use Tests\Browser\Login;
 
-class Cabang extends Login
+class CabangView extends Login
 {
     /**
      * declare
@@ -25,7 +22,7 @@ class Cabang extends Login
      * @test
      * @return void
      */
-    public function a_user_cabang_view()
+    public function user_view_cabang()
     {
         /**
          * first todo
@@ -34,16 +31,22 @@ class Cabang extends Login
          */
         $this->user_login();
         // second todo
-        $this->browse(function ($browser) {
+        $this->browse(function (Browser $browser) {
             $browser
-                // #path_url-02 cabang_path()
+                /**
+                 * #path_url-02 cabang_path()
+                 * don't forget to put path link after execute link/move/change address.url
+                 * in this case we have move from user_login
+                 */
                 ->assertPathIs($this->cabang_path())
+                ->assertSee('Data Cabang')
                 // ->loginAs(51)
                 // ->visit('/cabang')
                 // ->assertSee('Data Cabang')
                 // ->maximize()
                 // ->assertSee('Data Cabang')
-                ->screenshot('CabangView')
+                // capture the task
+                ->screenshot('UserViewCabang')
                 // end
             ;
         });
