@@ -89,9 +89,9 @@ return [
 			'class' => 'pcoded-hasmenu',
 			'child'	=> [
 				0	=> [
-					'url'	=> 'permodalan/create',
+					'url'	=> 'permodalan/create/tambah-saldo',
 					'name'	=> 'Tambah Saldo',
-					'route'	=> 'permodalan.create',
+					'route'	=> 'permodalan.create.tambah-saldo',
 				],
 				1	=> [
 					'url'	=> 'permodalan/penambahan-saldo',
@@ -99,9 +99,9 @@ return [
 					'route'	=> 'permodalan.penambahan',
 				],
 				2	=> [
-					'url'	=> 'permodalan/refund-saldo',
+					'url'	=> 'permodalan/create/refund-saldo',
 					'name'	=> 'Refund Saldo',
-					'route'	=> 'permodalan.refund',
+					'route'	=> 'permodalan.create.refund-saldo',
 				],
 				3	=> [
 					'url'	=> 'permodalan/list-data-refund-saldo',
@@ -235,7 +235,7 @@ return [
 		],
 		'penambahan' => [
 			'tanggal' 	=> 'Tanggal',
-			'uraian'	=> 'Uraian',
+			'keterangan'=> 'Uraian',
 			'jumlah'	=> 'Jumlah',
 		],
 		'list_refund' => [
@@ -244,15 +244,26 @@ return [
 			'jumlah'	=> 'Jumlah',
 		],
 		'hutang_piutang'=> [
-			'tanggal'	=> 'Tanggal',
-			'uraian' 	=> 'Uraian',
-			'status'	=> 'Status',
-			'jumlah'	=> 'Jumlah',
+			'hp' => [
+				'keterangan_hutang'	=> 'Keterangan',
+				'status_hutang'		=> 'Status',
+				'jumlah_hutang'		=> 'Jumlah',
+			],
+			'hc' => [
+				'uraian_hutang'		=> 'Keterangan',
+				'status'			=> 'Status',
+				'jumlah'			=> 'Jumlah',
+			],
+			'pc' => [
+				'uraian_piutang'	=> 'Keterangan',
+				'status'			=> 'Status',
+				'jumlah'			=> 'Jumlah',
+			],
 		],
 		'pengeluaran' 	=> [
-			'tanggal'	=> 'Tanggal',
-			'keterangan'=> 'Keterangan',
-			'jumlah'	=> 'Jumlah',
+			'tanggal_atk'	=> 'Tanggal',
+			'keterangan'	=> 'Keterangan',
+			'jumlah_atk'	=> 'Jumlah',
 		],
 		'bku'			=> [
 			'tanggal'   => 'Tanggal',
@@ -262,10 +273,10 @@ return [
 			'saldo'		=> 'Saldo',
 		],
 		'hutang' 		=> [
-			'jumlah'	=> 'Jumlah',
-			'keterangan'=> 'Keterangan',
-			'tanggal'	=> 'Tanggal',
-			'status'	=> 'Status',
+			'jumlah'		=> 'Jumlah',
+			'uraian'		=> 'Keterangan',
+			'tanggal_hutang'=> 'Tanggal',
+			'status_hutang'	=> 'Status',
 		],
 	],
 	// LIST NAME TABLE IN FEATURE DATA AKAD NASABAH

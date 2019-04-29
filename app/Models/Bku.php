@@ -37,4 +37,24 @@ class Bku extends Model
     {
         return $query->where($by, 'LIKE', '%'.$key.'%');
     }
+
+    public function scopeSorted($query, $by = 'tanggal', $sort = 'desc')
+    {
+        return $query->orderBy($by, $sort);
+    }
+
+    public function getNominalDebitAttribute()
+    {
+        return nominal(floatval($this->debit));
+    }
+
+    public function getNominalKreditAttribute()
+    {
+        return nominal(floatval($this->kredit));
+    }
+
+    public function getNominalSaldoAttribute()
+    {
+        return nominal(floatval($this->saldo));
+    }
 }

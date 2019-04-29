@@ -4,20 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\User_cabang;
-
-class Penambahan_modal extends Model
+class Hutang_kas extends Model
 {
-    protected $table        = "penambahan_modal";
+    protected $table        = "hutang_kas";
     public $timestamps      = false;
-    protected $primaryKey   = 'id_penambahan_modal';
+    protected $primaryKey   = 'id_hutang_kas';
     // protected $guarded   = [];
     protected $fillable     = [
-    	'id_penambahan_modal',
+    	'id_hutang_kas',
         'id_cabang',
-    	'tanggal',
-    	'jumlah',
-    	'keterangan',
+        'jumlah',
+        'uraian',
+    	'tanggal_hutang',
+    	'status_hutang',
     ];
 
     // how to fetch data by username of user
@@ -34,7 +33,7 @@ class Penambahan_modal extends Model
         return $query->where($by, 'LIKE', '%'.$q.'%');
     }
 
-    public function scopeSorted($query, $by = 'tanggal', $sort = 'desc')
+    public function scopeSorted($query, $by = 'tanggal_hutang', $sort = 'desc')
     {
         return $query->orderBy($by, $sort);
     }

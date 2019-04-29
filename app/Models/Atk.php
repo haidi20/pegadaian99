@@ -4,19 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\User_cabang;
-
-class Penambahan_modal extends Model
+class Atk extends Model
 {
-    protected $table        = "penambahan_modal";
+    protected $table        = "atk";
     public $timestamps      = false;
-    protected $primaryKey   = 'id_penambahan_modal';
+    protected $primaryKey   = 'id_atk';
     // protected $guarded   = [];
     protected $fillable     = [
-    	'id_penambahan_modal',
+    	'id_atk',
         'id_cabang',
-    	'tanggal',
-    	'jumlah',
+    	'tanggal_atk',
+    	'jumlah_atk',
     	'keterangan',
     ];
 
@@ -34,13 +32,13 @@ class Penambahan_modal extends Model
         return $query->where($by, 'LIKE', '%'.$q.'%');
     }
 
-    public function scopeSorted($query, $by = 'tanggal', $sort = 'desc')
+    public function scopeSorted($query, $by = 'tanggal_atk', $sort = 'desc')
     {
         return $query->orderBy($by, $sort);
     }
 
     public function getNominalJumlahAttribute()
     {
-        return nominal($this->jumlah);
+        return nominal($this->jumlah_atk);
     }
 }

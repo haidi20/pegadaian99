@@ -79,7 +79,7 @@ class CabangController extends Controller
 
     public function edit()
     {
-        $id    = $this->user_cabang->baseUsername()->value('id_cabang'); 
+        $id    = $this->id_cabang(); 
 
         return $this->form($id);
     }
@@ -121,13 +121,13 @@ class CabangController extends Controller
         }else{
             $type                   = 'tambah';
             $cabang                 = $this->cabang;
-            $kas_cabang             = $this->kas_cabang;
+            $saldo_cabang           = $this->saldo_cabang;
             $cabang->id_cabang      = uniqid();
 
-            // for input value 'modal_awal' to table kas_cabang
-            $kas_cabang->id_cabang  = $cabang->id_cabang;
-            $kas_cabang->total_kas  = remove_dot(request('modal_awal'));
-            $kas_cabang->save();
+            // for input value 'modal_awal' to table saldo_cabang
+            $saldo_cabang->id_cabang  = $cabang->id_cabang;
+            $saldo_cabang->total_saldo= remove_dot(request('modal_awal'));
+            $saldo_cabang->save();
         }
        
         $cabang->investor       = request('investor');
@@ -167,7 +167,7 @@ class CabangController extends Controller
         $cabang     = $this->cabang->find(request('id_cabang'));
 
         $message    = '<strong>Sukses!</strong> Data cabang anda saat ini cabang nomor '
-                        .$cabang->no_cabang.'  telah Berhasil';
+                      .$cabang->no_cabang.'  telah Berhasil';
         flash_message('message', $message);
 
         return redirect()->route('cabang.setting');

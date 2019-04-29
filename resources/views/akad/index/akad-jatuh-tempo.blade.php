@@ -62,9 +62,9 @@
                     <td>{{$value->nama_barang}}</td>
                     <td>{{$value->nilai_tafsir}}</td>
                     <td></td>
+                    <td></td>
                     <td>{{$value->tanggal_akad}}</td>
                     <td>{{$value->tanggal_jatuh_tempo}}</td>
-                    <td></td>
                 </tr>
             @empty
             <tr>

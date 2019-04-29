@@ -93,36 +93,24 @@
                             </tr>
                             </thead>
                             <tbody>
-                                {{-- @forelse($nasabah as $index => $item)
+                                @forelse($tambahModal as $index => $item)
                                     <tr>
-                                        <td>{{$item->nama_lengkap}}</td>
-                                        <td>{{$item->no_telp}}</td>
-                                        <td>{{$item->alamat}}</td>
-                                        <td align="center">
-                                            <a href="javascript:void(0)" onClick="detail({{$item->id_nasabah}})" title="Detail Data"
-                                               data-url="{{route('nasabah.detail', $item->id_nasabah)}}" id="detail_{{$item->id_nasabah}}" class="btn btn-sm btn-info">
-                                                <i class="icofont icofont-external icofont-lg"></i>
-                                            </a>
-                                            <a href="{{route('nasabah.edit', $item->id_nasabah)}}" class="btn btn-sm btn-primary" title="Edit Data">
-                                                {{-- <i class="icofont icofont-ui-delete icofont-lg"></i>
-                                                <i class="icofont icofont-edit icofont-lg"></i>
-                                            </a>
-                                        </td>
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{$item->tanggal}}</td>
+                                        <td>{{$item->keterangan}}</td>
+                                        <td>Rp. {{$item->nominal_jumlah}}</td>
                                     </tr>
                                 @empty
                                 <tr>
                                     <td colspan="11" align="center">No data available in table</td>
                                 </tr>
-                                @endforelse --}}
-                                <tr>
-                                    <td colspan="11" align="center">No data available in table</td>
-                                </tr>
+                                @endforelse
                             </tbody>
                             {{-- <tfoot>
                             </tfoot> --}}
                         </table>
                     </div>
-                   {{-- {!! $nasabah->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}                    --}}
+                   {!! $tambahModal->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}                   
                 </div>
             </div>
         </div>
