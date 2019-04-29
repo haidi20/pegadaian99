@@ -40,13 +40,26 @@ class CabangView extends Login
                  */
                 ->assertPathIs($this->cabang_path())
                 ->assertSee('Data Cabang')
-                // ->loginAs(51)
-                // ->visit('/cabang')
-                // ->assertSee('Data Cabang')
-                // ->maximize()
-                // ->assertSee('Data Cabang')
                 // capture the task
-                ->screenshot('UserViewCabang')
+                ->screenshot('UserViewCabang[1]')
+                // pagination move -> |2|
+                ->clickLink('2')
+                // measure againts browser assert
+                ->assertSee('OKA - SUTOMO')
+                // capture the task
+                ->screenshot('UserViewCabangPagination[2]')
+                /**
+                 * sorting
+                 * modal setiap cabang
+                 * !!button oke redundant
+                 */
+                ->value('#q', 'OMO')
+                ->select('by', 'nama_cabang')
+                // ->clickLink('Oke')
+                // ->assertSee('516.000,00')
+
+                // capture the task
+                ->screenshot('UserViewCabangSearch[3]')
                 // end
             ;
         });
