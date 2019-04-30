@@ -19,7 +19,7 @@ class UpdateeeAkadTable extends Migration
                 '30',
                 '15',
                 '7',
-                '1',
+                '1'
             )
         NOT NULL AFTER kekurangan;"); 
 
