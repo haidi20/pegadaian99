@@ -26,4 +26,9 @@ class Saldo_cabang extends Model
 
         return $query->where('id_cabang', $user_cabang->id_cabang);
     }
+
+    public function getNominalTotalSaldoAttribute()
+    {
+        return nominal($this->total_saldo);
+    }
 }

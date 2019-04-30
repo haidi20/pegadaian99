@@ -130,8 +130,9 @@
         var persenan_real = $('#persenan-real').val()
 
         if(type == 'elektronik'){
-            $('#item_elektronik').css('display', '')
-            $('#item_kendaraan').css('display', 'none')
+            $('.kelengkapan_barang_satu').html('Type')
+            $('.kelengkapan_barang_dua').html('Merk')
+            $('.kelengkapan_barang_tiga').html('Imei / Nomor Serial')
             //get value 'jenis_kendaraan'
             $('#nilai_jenis_barang').val('elektronik')
             // for condition if type == 'elektronik'. 'persenan' = 10% or etc
@@ -139,8 +140,9 @@
             // for condition 'biaya titip'
             biaya_titip('elektronik', 'jenis_barang')
         }else{
-            $('#item_elektronik').css('display', 'none')
-            $('#item_kendaraan').css('display', '')
+            $('.kelengkapan_barang_satu').html('KT')
+            $('.kelengkapan_barang_dua').html('Warna')
+            $('.kelengkapan_barang_tiga').html('Nomor Rangka')
             //get value 'jenis_kendaraan'
             $('#nilai_jenis_barang').val('kendaraan')
             // for condition if type == 'kendaraan'. 'persenan' = 0

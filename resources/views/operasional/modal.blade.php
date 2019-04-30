@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="#" method="post">
+                <form action="{{route('operasional.hutang.store')}}" method="post">
 			    <input type="hidden" name="_method" value="post">
 			    {{csrf_field()}}
 			    <div class="row">
@@ -17,13 +17,17 @@
 			             <div class="form-group row">
 	                        <label class="col-sm-2 col-form-label" for="jumlah">Saldo Cabang</label>
 	                        <div class="col-sm-10">
-	                           <input value="0" type="text" class="form-control" name="jumlah" id="jumlah" disabled>
+	                           <input value="{{$saldo_cabang->nominal_total_saldo}}" type="text" class="form-control" name="jumlah" id="jumlah" disabled>
+	                           <input type="hidden" name="id_cabang" value="{{$saldo_cabang->id_cabang}}">
 	                        </div>
 	                    </div>
 	                    <div class="form-group row">
-	                        <label class="col-sm-2 col-form-label" for="jumlah">Jumlah</label>
-	                        <div class="col-sm-10">
-	                           <input placeholder="Jumlah" type="text" class="form-control" name="jumlah" id="jumlah"required>
+	                        <label class="col-sm-2 col-form-label">Jumlah</label>
+	                        <div class="col-sm-8 col-lg-10">
+	                            <div class="input-group">
+	                                <span class="input-group-addon" id="basic-addon1">Rp</span>
+	                                <input type="text" class="form-control autonumber" data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="jumlah" id="jumlah" placeholder="Jumlah" required>
+	                            </div>
 	                        </div>
 	                    </div>
 	                    <div class="form-group row">
@@ -34,11 +38,12 @@
 	                    </div>
 			        </div>
 			    </div>
+			    <button type="submit" class="btn btn-primary btn-xs ">Proses</button>
 				</form>
             </div>
-            <div class="modal-footer">
+            {{-- <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-success waves-effect" >Proses</button>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

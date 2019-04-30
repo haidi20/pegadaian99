@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Atk;
 use App\Models\Bku;
 use App\Models\Hutang_kas;
+use App\Models\Saldo_cabang;
 
 use Auth;
 use Carbon\Carbon;
@@ -17,13 +18,15 @@ class OperasionalController extends Controller
                                 Atk $atk,
                                 Bku $bku,
                                 Request $request,
-                                Hutang_kas $hutang_kas
+                                Hutang_kas $hutang_kas,
+                                Saldo_cabang $saldo_cabang
                             )
     {
         $this->atk          = $atk;
         $this->bku          = $bku;
         $this->request      = $request;
         $this->hutang_kas   = $hutang_kas;
+        $this->saldo_cabang = $saldo_cabang;
 
         view()->share([
             'menu'          => 'operasional',
@@ -96,6 +99,39 @@ class OperasionalController extends Controller
 
         $column = config('library.column.hutang');
 
-        return $this->template('operasional.hutang', compact('column', 'hutang_kas'));
+        $saldo_cabang = $this->saldo_cabang->idCabang()->first();
+
+        return $this->template('operasional.hutang', compact('column', 'hutang_kas', 'saldo_cabang'));
+    }
+
+    public function hutang_store()
+    {
+        $input = $this->request->except('_token');
+        // return $input;
+
+        $hutang_kas                = $this->hutang_kas;
+        $hutang_kas->id_cabang     = request('id_cabang');
+        $hutang_kas->jumlah        = remove_dot(request('jumlah'));
+        $hutang_kas->uraian        = request('keterangan');
+        $hutang_kas->tanggal_hutang= Carbon::now()->format('Y-m-d');
+        $hutang_kas->status_hutang = 'Belum Lunas';
+        $hutang_kas->save();
+
+        $message    = '<strong>Sukses!</strong> Data Hutang Cabang telah di tambah';
+        flash_message('message', $message);
+
+        return redirect()->route('operasional.hutang');
+    }
+
+    public function change_status($id)
+    {
+        $hutang_kas = $this->hutang_kas->find($id);
+        $hutang_kas->status_hutang = "Lunas";
+        $hutang_kas->save();
+
+        $message    = '<strong>Sukses!</strong> Data Hutang Cabang telah di perbaharui';
+        flash_message('message', $message);
+
+        return redirect()->route('operasional.hutang');
     }
 }

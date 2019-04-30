@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Akad;
 use App\Models\Nasabah;
+use App\Models\Setting;
 use App\Models\User_cabang;
 
 use Carbon\Carbon;
@@ -16,12 +17,14 @@ class AkadController extends Controller
     public function __construct(
     							Akad $akad,
     							Nasabah $nasabah,
+                                Setting $setting,
     							Request $request,
                                 User_cabang $user_cabang
                             )
     {
     	$this->akad 		= $akad;
     	$this->nasabah 		= $nasabah;
+        $this->setting      = $setting;
     	$this->request  	= $request;
         $this->user_cabang  = $user_cabang;
 
@@ -174,7 +177,15 @@ class AkadController extends Controller
         // list time example : 1, 7, 15, 30, 60 days. for 'jangka_waktu_akad' and 'opsi_pembayaran'
         $listTime            = config('library.form.akad');
 
-    	return $this->template('akad._form', compact('action', 'method', 'tanggal_akad', 'tanggal_jatuh_tempo', 'listTime'));
+        // get value 'persenan' & 'biaya titip yang dibayar'
+        $setting    = $this->setting->first();
+        $persenan   = is_null($setting) ? 1 : $setting->persenan;
+        $biaya_titip= is_null($setting) ? 1 : $setting->biaya_titip;
+
+    	return $this->template('akad._form', compact(
+            'action', 'method', 'tanggal_akad', 'tanggal_jatuh_tempo', 
+            'listTime', 'persenan', 'biaya_titip'
+        ));
     }
 
     public function store()
@@ -206,23 +217,26 @@ class AkadController extends Controller
     	$nasabah->tanggal_daftar= Carbon::now()->format('Y-m-d');
     	$nasabah->save();
 
-    	$akad 						= $this->akad;
-    	$akad->id_cabang 			= $id_cabang;
-    	$akad->no_id 				= request('no_id');
-    	$akad->key_nasabah 			= $nasabah->key_nasabah;
-    	$akad->nama_barang			= request('nama_barang'); 
-    	$akad->jenis_barang			= request('jenis_barang'); 
-    	$akad->kelengkapan			= request('kelengkapan'); 
-    	$akad->kekurangan			= request('kekurangan'); 
-    	$akad->jangka_waktu_akad	= number_format(request('jangka_waktu_akad')); 
-    	$akad->tanggal_akad			= request('tanggal_akad'); 
-    	$akad->tanggal_jatuh_tempo	= request('tanggal_jatuh_tempo'); 
-    	$akad->nilai_tafsir			= remove_dot(request('taksiran_marhun')); 
-    	$akad->nilai_pencairan		= remove_dot(request('marhun_bih')); 
-    	$akad->bt_7_hari			= remove_dot(request('biaya_titip')); 
-    	$akad->biaya_admin			= request('biaya_admin'); 
-    	$akad->terbilang			= request('terbilang'); 
-    	$akad->status				= 'Belum Lunas';
+    	$akad 						  = $this->akad;
+    	$akad->id_cabang 			  = $id_cabang;
+    	$akad->no_id 				  = request('no_id');
+    	$akad->key_nasabah 			  = $nasabah->key_nasabah;
+    	$akad->nama_barang			  = request('nama_barang'); 
+    	$akad->jenis_barang			  = request('jenis_barang'); 
+    	$akad->kelengkapan			  = request('kelengkapan'); 
+        $akad->kelengkapan_barang_satu= request('kelengkapan_barang_satu'); 
+        $akad->kelengkapan_barang_dua = request('kelengkapan_barang_dua'); 
+        $akad->kelengkapan_barang_tiga= request('kelengkapan_barang_tiga'); 
+    	$akad->kekurangan			  = request('kekurangan'); 
+    	$akad->jangka_waktu_akad	  = number_format(request('jangka_waktu_akad')); 
+    	$akad->tanggal_akad			  = request('tanggal_akad'); 
+    	$akad->tanggal_jatuh_tempo	  = request('tanggal_jatuh_tempo'); 
+    	$akad->nilai_tafsir			  = remove_dot(request('taksiran_marhun')); 
+    	$akad->nilai_pencairan		  = remove_dot(request('marhun_bih')); 
+    	$akad->bt_7_hari			  = remove_dot(request('biaya_titip')); 
+    	$akad->biaya_admin			  = request('biaya_admin'); 
+    	$akad->terbilang			  = request('terbilang'); 
+    	$akad->status				  = 'Belum Lunas';
     	$akad->save(); 
 
         $message    = '<strong>Sukses!</strong> Data Akad Nasabah berhasil di tambahkan';
