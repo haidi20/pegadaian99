@@ -1,6 +1,16 @@
 @extends('_layouts.default')
 
+@section('script-bottom')
+    <script>
+        function create()
+        {
+            $('#modal-setting').modal('show')
+        }
+    </script>
+@endsection
+
 @section('content')
+@include('setting.modal')
 <div class="page-body">
     <div class="row">
         <div class="col-sm-12 col-md-12">
@@ -12,6 +22,12 @@
              <div class="card">
                 <div class="card-block">
                     <h3 class="sub-title">Pengaturan Persenan & Jumlah Biaya Titip yang di bayar</h3>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <a href="javascript:void(0)" onClick="create()" class="btn btn-success">Buat</a>
+                        </div>
+                    </div>
+                    <br>
                     <div class="row">
                         <div class="col-sm-12 col-md-12">
                             <div class="table-responsive">
