@@ -30,31 +30,17 @@
                         </div>
                     </div>
                     <div class="form-group row" id="item_elektronik" style="display:">
-                        <label class="col-sm-2 col-form-label" for="type">Type</label>
+                        <label class="col-sm-2 col-form-label kelengkapan_barang_satu" for="kelengkapan_barang_satu">Type</label>
                         <div class="col-sm-12 col-md-2">
-                            <input type="text" class="form-control" name="type" id="type" value="{{old('type')}}">
+                            <input type="text" class="form-control" name="kelengkapan_barang_satu" id="kelengkapan_barang_satu" value="{{old('kelengkapan_barang_satu')}}">
                         </div>
-                        <label class="col-sm-1 col-form-label" for="merk">Merk</label>
+                        <label class="col-sm-1 col-form-label kelengkapan_barang_dua" for="kelengkapan_barang_dua">Merk</label>
                         <div class="col-sm-12 col-md-2">
-                            <input type="text" class="form-control" name="merk" id="merk" value="{{old('merk')}}">
+                            <input type="text" class="form-control" name="kelengkapan_barang_dua" id="kelengkapan_barang_dua" value="{{old('kelengkapan_barang_dua')}}">
                         </div>
-                        <label class="col-sm-2 col-form-label" for="no_serial">Imei / Nomor Serial</label>
+                        <label class="col-sm-2 col-form-label kelengkapan_barang_tiga" for="kelengkapan_barang_tiga">Imei / Nomor Serial</label>
                         <div class="col-sm-12 col-md-3">
-                            <input type="text" class="form-control" name="no_serial" id="no_serial" value="{{old('no_serial')}}">
-                        </div>
-                    </div>
-                    <div class="form-group row" id="item_kendaraan" style="display:none">
-                        <label class="col-sm-2 col-form-label" for="kt">KT</label>
-                        <div class="col-sm-12 col-md-2">
-                            <input type="text" class="form-control" name="kt" id="kt" value="{{old('kt')}}">
-                        </div>
-                        <label class="col-sm-1 col-form-label" for="warna">warna</label>
-                        <div class="col-sm-12 col-md-2">
-                            <input type="text" class="form-control" name="warna" id="warna" value="{{old('warna')}}">
-                        </div>
-                        <label class="col-sm-2 col-form-label" for="no_rangka">Nomor Rangka</label>
-                        <div class="col-sm-12 col-md-3">
-                            <input type="text" class="form-control" name="no_rangka" id="no_rangka" value="{{old('no_rangka')}}">
+                            <input type="text" class="form-control" name="kelengkapan_barang_tiga" id="kelengkapan_barang_tiga" value="{{old('kelengkapan_barang_tiga')}}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -102,10 +88,10 @@
                         <div class="col-sm-2 col-xs-2">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">%</span>
-                                <input type="text" class="form-control persenan" id="persenan" value="10"  disabled>
-                                <input type="hidden" class="persenan" name="persenan" value="10">
+                                <input type="text" class="form-control persenan" id="persenan" value="{{$persenan}}"  disabled>
+                                <input type="hidden" class="persenan" name="persenan" value="{{$persenan}}">
                                 {{-- for helping jquery keep get value 'persenan' from database --}}
-                                <input type="hidden" id="persenan-real" value="10">
+                                <input type="hidden" id="persenan-real" value="{{$persenan}}">
                             </div>
                         </div>
                     </div>
@@ -142,7 +128,7 @@
                             {{-- <select name="bt_yang_dibayar" id="bt_yang_dibayar" class="form-control">
                                 <option {{ selected(1, 'bt_yang_dibayar', 'old')}}>1</option>
                             </select>  --}}
-                            <input type="number" class="form-control" id="bt_yang_dibayar" value="{{old('bt_yang_dibayar', 1)}}"  disabled>
+                            <input type="number" class="form-control" id="bt_yang_dibayar" value="{{old('bt_yang_dibayar', $biaya_titip)}}"  disabled>
                         </div>
                     </div>
                     <div class="form-group row">

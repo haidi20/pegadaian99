@@ -38,7 +38,6 @@ class SettingController extends Controller
     public function store()
     {
     	$input = $this->request->except('_token');
-
     	
     	if(request('id')){
     		$setting 			= $this->setting->find(request('id'));

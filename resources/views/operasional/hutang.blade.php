@@ -1,6 +1,10 @@
 @extends('_layouts.default')
 
 @section('script-bottom')
+    <script src="{{asset('adminty/files/assets/pages/form-masking/inputmask.js')}}"></script>
+    <script src="{{asset('adminty/files/assets/pages/form-masking/jquery.inputmask.js')}}"></script>
+    <script src="{{asset('adminty/files/assets/pages/form-masking/autoNumeric.js')}}"></script>
+    <script src="{{asset('adminty/files/assets/pages/form-masking/form-mask.js')}}"></script>
     <script>
         function edit(url)
         {
@@ -18,16 +22,21 @@
                 },
                 callback: function(result){
                     if(result == true){
-                        console.log(url)
-                        // window.location.href = url
+                        // console.log(url)
+                        window.location.href = url
                     }
                 }
             });
+        }
+
+        function create(){
+            $('#modal-add').modal('show')
         }
     </script>
 @endsection
 
 @section('content')
+@include('operasional.modal')
 <div class="page-header">
     <div class="row">
         <div class="col-md-8">
@@ -65,7 +74,7 @@
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
-                            <a href="javascript:void(0)" class="btn btn-success">Buat</a>
+                            <a href="javascript:void(0)" onClick="create()" class="btn btn-success">Buat</a>
                         </div>
                     </div>
                     <br>
@@ -129,15 +138,15 @@
                                         <td>{{$item->tanggal_hutang}}</td>
                                         <td>{{$item->status_hutang}}</td>
                                         <td>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-primary" onClick="edit('{{url('operasional/change-status', $item->id_hutang)}}')" title="Edit Data">
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-primary" onClick="edit('{{url('operasional/change-status', $item->id_hutang_kas)}}')" title="Edit Data">
                                                 <i class="icofont icofont-edit icofont-lg"></i>
                                             </a>
                                         </td>
                                     </tr>
                                 @empty
-                                <tr>
-                                    <td colspan="11" align="center">No data available in table</td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="11" align="center">No data available in table</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                             {{-- <tfoot>
