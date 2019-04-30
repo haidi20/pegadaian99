@@ -146,33 +146,6 @@ class CabangController extends Controller
         return redirect()->route('cabang.index');
     }
 
-    public function index_setting()
-    {
-        $menu           = 'setting';
-        $cabang         = $this->cabang->shortedNoCabang()->get();
-        $user_cabang    = $this->user_cabang;
-        // how to fetch data by username of user
-        $user_cabang    = $user_cabang->baseUsername()->value('id_cabang');
-
-        return  $this->template('cabang.setting', compact('user_cabang', 'cabang', 'menu'));
-
-    }
-
-    public function store_setting()
-    {
-        $user_cabang                = $this->user_cabang->baseUsername()->first();
-        $user_cabang->id_cabang     = request('id_cabang');
-        $user_cabang->save();
-
-        $cabang     = $this->cabang->find(request('id_cabang'));
-
-        $message    = '<strong>Sukses!</strong> Data cabang anda saat ini cabang nomor '
-                      .$cabang->no_cabang.'  telah Berhasil';
-        flash_message('message', $message);
-
-        return redirect()->route('cabang.setting');
-    }
-
     public function api()
     {
         $cabang = $this->cabang->get();

@@ -12,7 +12,7 @@
              <div class="card">
                 <div class="card-block">
                     <h3 class="sub-title">Pilih Cabang</h3>
-                    <form action="{{route('cabang.setting.store')}}" method="post">
+                    <form action="{{route('setting.pilih-cabang.store')}}" method="post">
                         <input type="hidden" name="_method" value="post">
                         {{csrf_field()}}
                         <div class="form-group row">

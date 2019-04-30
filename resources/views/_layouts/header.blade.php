@@ -86,8 +86,13 @@
                         </div>
                         <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                             <li>
-                                <a href="{{route('cabang.setting')}}">
-                                    <i class="feather icon-settings"></i> Pilih Cabang
+                                <a href="{{route('setting.pilih-cabang')}}">
+                                    <i class="zmdi zmdi-label-alt-outline"></i> Pilih Cabang
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('setting.index')}}">
+                                    <i class="feather icon-settings"></i> Pengaturan
                                 </a>
                             </li>
                             <li>

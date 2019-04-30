@@ -119,6 +119,7 @@ class AkadController extends Controller
     // 'PELUNASAN DAN LELANG'
     public function pelunasanLelang()
     {
+        // code is code tab pl = 'pelunasan & lelang'
         $code   = 'pl_';
         $perpage= 'perpage_';
 
@@ -136,7 +137,7 @@ class AkadController extends Controller
         return $nameTables;
     }
 
-    //for filter data from perpage, and query in file view index
+    //for filter data from perpage, and query in file view akad.index
     public function filter($akad, $code)
     {
         // if get data from input keyword 
