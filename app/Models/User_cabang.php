@@ -15,7 +15,7 @@ class User_cabang extends Model
     public $timestamps      = false;
     protected $primaryKey	= 'id_user_cabang';
     protected $fillable 	= [
-    	'id_user_cabang',
+    	// 'id_user_cabang',
     	'id_cabang',
     	'username',
     ];

@@ -30,13 +30,18 @@ class Controller extends BaseController
     {
         // get data id_cabang from table 'user_cabang' base on this user
         $user_cabang    = User_cabang::baseUsername()->first();
-        // get data cabang from table 'user_cabang' base on this user
-        $cabang         = Cabang::find($user_cabang->id_cabang);
-        // and then get total 'kas cabang' base on id_cabang
-        $saldo_cabang   = Kas_cabang::idCabang()->first();
-        // 'total kas' base on cabang
-        $total_kas      = nominal($saldo_cabang->total_kas);
-        $nomorCabang    = $cabang->no_cabang;
+        if($user_cabang){
+            // get data cabang from table 'user_cabang' base on this user
+            $cabang         = Cabang::find($user_cabang->id_cabang);
+            // and then get total 'kas cabang' base on id_cabang
+            $saldo_cabang   = Kas_cabang::idCabang()->first();
+            // 'total kas' base on cabang
+            $total_kas      = nominal($saldo_cabang->total_kas);
+            $nomorCabang    = $cabang->no_cabang;       
+        }else{
+            $total_kas      = 'Tidak Ditemukan';
+            $nomorCabang    = 'Tidak Ditemukan';
+        }
 
         return (object) compact('total_kas', 'nomorCabang');
     }
