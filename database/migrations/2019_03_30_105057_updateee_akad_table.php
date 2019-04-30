@@ -23,11 +23,11 @@ class UpdateeeAkadTable extends Migration
             )
         NOT NULL AFTER kekurangan;"); 
 
-        // Schema::table('akad', function (Blueprint $table) {
-        //     $table->string('kelengkapan_barang_satu')->nullable();
-        //     $table->string('kelengkapan_barang_dua')->nullable();
-        //     $table->string('kelengkapan_barang_tiga')->nullable();
-        // });      
+        Schema::table('akad', function (Blueprint $table) {
+            $table->string('kelengkapan_barang_satu')->nullable();
+            $table->string('kelengkapan_barang_dua')->nullable();
+            $table->string('kelengkapan_barang_tiga')->nullable();
+        });      
     }
 
     /**
