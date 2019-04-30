@@ -35,6 +35,18 @@ class SettingController extends Controller
     	return $this->template('setting.index', compact('setting'));
     }
 
+    public function store()
+    {
+    	$input = $this->request->except('_token');
+
+    	$setting 				= $this->setting;
+    	$setting->persenan 		= request('persenan');
+    	$setting->biaya_titip	= request('biaya_titip');
+    	$setting->save();
+
+    	return redirect()->route('setting.index');
+    }
+
     public function pilih_cabang()
     {
         $cabang         = $this->cabang->shortedNoCabang()->get();

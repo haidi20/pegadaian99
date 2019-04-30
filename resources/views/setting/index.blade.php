@@ -1,6 +1,10 @@
 @extends('_layouts.default')
 
 @section('script-bottom')
+    <script src="{{asset('adminty/files/assets/pages/form-masking/inputmask.js')}}"></script>
+    <script src="{{asset('adminty/files/assets/pages/form-masking/jquery.inputmask.js')}}"></script>
+    <script src="{{asset('adminty/files/assets/pages/form-masking/autoNumeric.js')}}"></script>
+    <script src="{{asset('adminty/files/assets/pages/form-masking/form-mask.js')}}"></script>
     <script>
         function create()
         {
@@ -36,7 +40,7 @@
                                         <tr>
                                             <th>Jumlah Persenan</th>
                                             <th>Jumlah Biaya Titip yang Dibayar</th>
-                                            <th class="text-right">Action</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -45,7 +49,7 @@
                                                 <td>{{$setting->persenan}}</td>
                                                 <td>{{$setting->biaya_titip}}</td>
                                                 <td align="center">
-                                                    <a href="{{route('setting.edit', $setting->id)}}" title="Detail Data" class="btn btn-sm btn-info">
+                                                    <a href="javascript:void(0)" title="Detail Data" class="btn btn-sm btn-info">
                                                         <i class="icofont icofont-external icofont-lg"></i>
                                                     </a>
                                                 </td>
