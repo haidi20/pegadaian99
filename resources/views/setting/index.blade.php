@@ -15,16 +15,30 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-12">
                             <div class="table-responsive">
-                                <table class="table table-hover table-borderless">
+                                <table class="table table table-striped table-bordered nowrap table-hover">
                                     <thead>
                                         <tr>
-                                            <th> Jumlah Persenan</th>
+                                            <th>Jumlah Persenan</th>
                                             <th>Jumlah Biaya Titip yang Dibayar</th>
                                             <th class="text-right">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                       
+                                        <tr>
+                                            @if(!is_null($setting))
+                                                <td>{{$setting->persenan}}</td>
+                                                <td>{{$setting->biaya_titip}}</td>
+                                                <td align="center">
+                                                    <a href="{{route('setting.edit', $setting->id)}}" title="Detail Data" class="btn btn-sm btn-info">
+                                                        <i class="icofont icofont-external icofont-lg"></i>
+                                                    </a>
+                                                </td>
+                                            @else
+                                                <tr>
+                                                    <td colspan="3" align="center">No data available in table</td>
+                                                </tr>
+                                            @endif
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

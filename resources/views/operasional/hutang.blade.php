@@ -63,6 +63,12 @@
                 </div>
                 <form method="get">
                 <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <a href="javascript:void(0)" class="btn btn-success">Buat</a>
+                        </div>
+                    </div>
+                    <br>
                      <!-- Row start -->
                      <div class="row">
                         <div class="col-sm-12 col-md-2">

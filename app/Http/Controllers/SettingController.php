@@ -30,9 +30,9 @@ class SettingController extends Controller
 
     public function index()
     {
-    	$setting = $this->setting;
+    	$setting = $this->setting->first();
 
-    	return $this->template('setting.index', []);
+    	return $this->template('setting.index', compact('setting'));
     }
 
     public function pilih_cabang()
