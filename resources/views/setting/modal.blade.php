@@ -12,6 +12,7 @@
                 <form action="{{route('setting.store')}}" method="post">
                     <input type="hidden" name="_method" value="post">
                     {{csrf_field()}}
+                    <input type="hidden" name="id" id="id" value=""> 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Jumlah Persenan</label>
                         <div class="col-sm-8 col-lg-10">

@@ -39,7 +39,13 @@ class SettingController extends Controller
     {
     	$input = $this->request->except('_token');
 
-    	$setting 				= $this->setting;
+    	
+    	if(request('id')){
+    		$setting 			= $this->setting->find(request('id'));
+    	}else{
+    		$setting 			= $this->setting;
+    	}
+
     	$setting->persenan 		= request('persenan');
     	$setting->biaya_titip	= request('biaya_titip');
     	$setting->save();
