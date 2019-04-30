@@ -33,11 +33,6 @@ Route::middleware('auth')->group(function() {
 
 		Route::post('/store', 'CabangController@store')->name('cabang.store');
 		Route::post('/update/{id}', 'CabangController@update')->name('cabang.update');
-
-		Route::group(['prefix' => '/setting'], function(){
-			Route::get('/', 'CabangController@index_setting')->name('cabang.setting');
-			Route::post('/store', 'CabangController@store_setting')->name('cabang.setting.store');
-		});
 	});
 	Route::group(['prefix' => 'nasabah'], function(){
 		Route::get('/', 'NasabahController@index')->name('nasabah.index');
@@ -69,6 +64,12 @@ Route::middleware('auth')->group(function() {
 		Route::get('/change-status/{id}/{code}', 'PermodalanController@change_status')->name('permodalan.change_status');
 
 		Route::post('/store', 'PermodalanController@store')->name('permodalan.store');
+	});
+	Route::group(['prefix' => 'setting'], function(){
+		Route::get('/', 'SettingController@index')->name('setting.index');
+		Route::get('/cabang', 'SettingController@pilih_cabang')->name('setting.pilih-cabang');
+
+		Route::post('/cabang/store', 'SettingController@pilih_cabang_store')->name('setting.pilih-cabang.store');
 	});
 });
 
