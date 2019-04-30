@@ -8,6 +8,8 @@ use App\Models\Cabang;
 use App\Models\Setting;
 use App\Models\User_cabang;
 
+use auth;
+
 class SettingController extends Controller
 {
     public function __construct(
@@ -65,7 +67,10 @@ class SettingController extends Controller
 
     public function pilih_cabang_store()
     {
-        $user_cabang                = $this->user_cabang->baseUsername()->first();
+        $input = $this->request->except('_token');
+        // return $input;
+
+        $user_cabang                = $this->user_cabang->firstOrNew(['username' => 'admin']);
         $user_cabang->id_cabang     = request('id_cabang');
         $user_cabang->save();
 
