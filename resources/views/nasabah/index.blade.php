@@ -22,7 +22,7 @@
                     $('#loader-block').css('display', '')
                 },
                 success: function(result){
-                    var modal = $('#modal-coba').modal('show')
+                    // var modal = $('#modal-coba').modal('show')
                     // view css loading hide
                     $('#loader-block').css('display', 'none')
                     show_data(result)
