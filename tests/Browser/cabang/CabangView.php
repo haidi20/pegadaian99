@@ -42,7 +42,12 @@ class CabangView extends Login
                 ->assertSee('Data Cabang')
                 // capture the task
                 ->screenshot('UserViewCabang[1]')
-                // pagination move -> |2|
+                /**
+                 * ?clickLink('param')
+                 * the function for this
+                 * <a href='x'> param </a>
+                 * pagination move -> |2|
+                 */
                 ->clickLink('2')
                 // measure againts browser assert
                 ->assertSee('OKA - SUTOMO')
@@ -52,11 +57,14 @@ class CabangView extends Login
                  * sorting
                  * modal setiap cabang
                  * !!button oke redundant
+                 * field data value('name|class|id', '$value')
                  */
                 ->value('#q', 'OMO')
                 ->select('by', 'nama_cabang')
+                // button OKE search
+                ->click('#btn-search')
                 // ->clickLink('Oke')
-                // ->assertSee('516.000,00')
+                ->assertSee('516.000,00')
 
                 // capture the task
                 ->screenshot('UserViewCabangSearch[3]')
