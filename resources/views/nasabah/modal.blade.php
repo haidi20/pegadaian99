@@ -44,9 +44,9 @@
             <div class="modal-body">
                 <h3 class="sub-title">Pilih Cabang</h3>
             </div>
-            {{-- <div class="modal-footer">
+            <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-success waves-effect " data-dismiss="modal">Oke</button>
-            </div> --}}
+            </div>
         </div>
     </div>
 </div>
