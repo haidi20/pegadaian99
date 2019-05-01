@@ -4,37 +4,34 @@
     <script>
         function detail(id)
         {
-            $('#modal-coba').modal('show')
+            var url = $('#detail_'+id).attr('data-url')
+            // console.log(laravel.csrfToken);
 
-            // var url = $('#detail_'+id).attr('data-url')
-            // // console.log(laravel.csrfToken);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': laravel.csrfToken
+                }
+            });
 
-            // $.ajaxSetup({
-            //     headers: {
-            //         'X-CSRF-TOKEN': laravel.csrfToken
-            //     }
-            // });
-
-            // $.ajax({
-            //     url: url,
-            //     method: 'get',
-            //     beforeSend: function(){
-            //         $('#modal-detail').modal('show')
-            //         // view css loading show
-            //         $('#loader-block').css('display', '')
-            //     },
-            //     success: function(result){
-            //         // view css loading hide
-            //         $('#loader-block').css('display', 'none')
-            //         show_data(result)
-            //     }
-            // });
+            $.ajax({
+                url: url,
+                method: 'get',
+                beforeSend: function(){
+                    $('#modal-detail').modal('show')
+                    // view css loading show
+                    $('#loader-block').css('display', '')
+                },
+                success: function(result){
+                    var modal = $('#modal-detail').modal('show')
+                    // view css loading hide
+                    $('#loader-block').css('display', 'none')
+                    show_data(result)
+                }
+            });
         }
 
         function show_data(data)
         {
-            var modal = $('#modal-detail').modal('show')
-
             var rowsOne = '';
             var rowsTwo = '';
             rowsOne = rowsOne + '<tr>';
