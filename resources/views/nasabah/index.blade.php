@@ -4,29 +4,31 @@
     <script>
         function detail(id)
         {
-            var url = $('#detail_'+id).attr('data-url')
-            // console.log(laravel.csrfToken);
+            $('#modal-coba').modal('show')
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': laravel.csrfToken
-                }
-            });
+            // var url = $('#detail_'+id).attr('data-url')
+            // // console.log(laravel.csrfToken);
 
-            $.ajax({
-                url: url,
-                method: 'get',
-                beforeSend: function(){
-                    $('#modal-detail').modal('show')
-                    // view css loading show
-                    $('#loader-block').css('display', '')
-                },
-                success: function(result){
-                    // view css loading hide
-                    $('#loader-block').css('display', 'none')
-                    show_data(result)
-                }
-            });
+            // $.ajaxSetup({
+            //     headers: {
+            //         'X-CSRF-TOKEN': laravel.csrfToken
+            //     }
+            // });
+
+            // $.ajax({
+            //     url: url,
+            //     method: 'get',
+            //     beforeSend: function(){
+            //         $('#modal-detail').modal('show')
+            //         // view css loading show
+            //         $('#loader-block').css('display', '')
+            //     },
+            //     success: function(result){
+            //         // view css loading hide
+            //         $('#loader-block').css('display', 'none')
+            //         show_data(result)
+            //     }
+            // });
         }
 
         function show_data(data)
