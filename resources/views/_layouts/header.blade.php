@@ -61,10 +61,17 @@
                         </div>
                         <ul class="show-notification notification-view dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                             <li>
-                                <h6>Notifications</h6>
-                                <label class="label label-danger">New</label>
+                                <h6>Notifikasi</h6>
+                                {{-- <label class="label label-danger">New</label> --}}
                             </li>
                             <li>
+                                <div class="media">
+                                    <div class="media-body">
+                                        <p>Tidak Ada</p>
+                                    </div>
+                                </div>
+                            </li>
+                            {{-- <li>
                                 <div class="media">
                                     <img class="d-flex align-self-center img-radius" src="https://vignette.wikia.nocookie.net/naruto/images/7/7b/Kurama2.png/revision/latest?cb=20140818171718" alt="Generic placeholder image">
                                     <div class="media-body">
@@ -73,7 +80,7 @@
                                         <span class="notification-time">30 minutes ago</span>
                                     </div>
                                 </div>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </li>
