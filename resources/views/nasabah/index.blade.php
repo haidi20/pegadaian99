@@ -17,7 +17,7 @@
                 url: url,
                 method: 'get',
                 beforeSend: function(){
-                    $('#modal-coba').modal('show')
+                    $('#modal-detail').modal('show')
                     // view css loading show
                     $('#loader-block').css('display', '')
                 },
