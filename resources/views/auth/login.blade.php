@@ -1,11 +1,30 @@
 @extends('_layouts.basic')
 
-@section('script-bottom')
+@section('script-top')
     <style>
         .login-block{
             background: url({{url('images/login-bg.jpg')}})
         }
+        .zmdi-lg{
+            font-size:40px;
+            cursor: pointer;
+        }
     </style>
+@endsection
+
+@section('script-bottom')
+    <script>
+        function refresh()
+        {
+            $.ajax({
+                type: 'GET',
+                url: '{{url('/refresh-captcha')}}',
+                success: function(data){
+                    $('.captcha span').html(data);
+                }
+            });
+        }
+    </script>
 @endsection
 
 @section('basic-content')
@@ -30,10 +49,13 @@
                                                 <i class="icofont icofont-close-line-circled text-white"></i>
                                             </button>
                                             <strong>Warning!</strong>
+                                            <ul>
                                             @foreach ($errors->all() as $error)
-                                                {{ $error }}
+                                               
+                                                   <li> {{ $error }}</li>
+                                               
                                             @endforeach
-                                            
+                                            </ul>
                                         </div>
                                     @endif
                                     <div class="row m-b-20">
@@ -43,12 +65,21 @@
                                     </div>
                                     <hr/>
                                     <div class="form-group form-primary">
-                                        <input type="text" name="username" class="form-control" required="" placeholder="Your Username">
+                                        <input type="text" name="username" class="form-control" placeholder="Your Username">
                                         <span class="form-bar"></span>
                                     </div>
                                     <div class="form-group form-primary">
-                                        <input type="password" name="password" class="form-control" required="" placeholder="Password">
+                                        <input type="password" name="password" class="form-control" placeholder="Password">
                                         <span class="form-bar"></span>
+                                    </div>
+                                    <div class="form-group form-primary" align="center">
+                                        <div class="captcha">
+                                            <span align="center">{!! captcha_img() !!}</span>
+                                        </div>
+                                        <br>
+                                        <i class="zmdi zmdi-refresh-alt zmdi-lg" onClick="refresh()"></i>
+                                        <br>
+                                        <input type="text" name="captcha" id="captcha" class="form-control" placeholder="Captcha" >
                                     </div>
                                     <div class="row m-t-25 text-left">
                                         <div class="col-12">

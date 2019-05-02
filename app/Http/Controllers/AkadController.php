@@ -47,7 +47,8 @@ class AkadController extends Controller
 
         // list table per tab
     	$nasabahAkad    = $this->nasabahAkad();
-        $akadJatuhTempo = $this->akadJatuhTempo();              // akadJatuhTempo data array tables base on sum 'jatuh tempo hari'
+        // akadJatuhTempo data array tables base on sum 'jatuh tempo hari'
+        $akadJatuhTempo = $this->akadJatuhTempo();
         $pelunasanLelang= $this->pelunasanLelang();
 
         // list column per TAB :
@@ -86,6 +87,7 @@ class AkadController extends Controller
             // for default date in form filter date range
             $end        = Carbon::now()->day(30);
             $start      = Carbon::now()->day(1);
+
             // format dateRange base on template
             $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
         }
@@ -128,11 +130,13 @@ class AkadController extends Controller
 
         // list name tables on TAB 'pelunasan dan lelang' example list 'nasabah lunas, lelang, dan refund'.
         $nameTables     = config('library.name_tables.akad_nasabah.pelunasan_dan_lelang');
+
         // data of list nasabah lunas, lelang, refund
         $lunas          = $this->akad->nasabah()->lunas()->sorted('akad.tanggal_jatuh_tempo', 'desc');
         $refund         = $this->akad->nasabah()->refund()->sorted('akad.tanggal_jatuh_tempo', 'desc');
         $lelang         = $this->akad->nasabah()->lelang()->sorted('akad.tanggal_jatuh_tempo', 'desc');
 
+        //proccess insert data array into variable nameTables
         $nameTables[0]['data'] = $this->filter($lunas, $code.'lunas')->akad->paginate(request($perpage.$code.'lunas', 10));
         $nameTables[1]['data'] = $this->filter($lelang, $code.'lelang')->akad->paginate(request($perpage.$code.'lelang', 10));
         $nameTables[2]['data'] = $this->filter($refund, $code.'refund')->akad->paginate(request($perpage.$code.'refund', 10));
@@ -179,6 +183,7 @@ class AkadController extends Controller
 
         // get value 'persenan' & 'biaya titip yang dibayar'
         $setting    = $this->setting->first();
+        // set default nuber for 'persenan' and 'biaya_titip'
         $persenan   = is_null($setting) ? 1 : $setting->persenan;
         $biaya_titip= is_null($setting) ? 1 : $setting->biaya_titip;
 

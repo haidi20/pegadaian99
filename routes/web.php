@@ -81,3 +81,9 @@ Route::get('/api', 'CabangController@api');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/refresh-captcha', 'CaptchaController@refresh_captcha');
+Route::get('/coba', function(){
+	return 'coba captcha';
+});
+
