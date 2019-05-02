@@ -20,11 +20,13 @@
                     $('#modal-detail').modal('show')
                     // view css loading show
                     $('#loader-block').css('display', '')
+                    $('#data-detail').css('display', 'none')
                 },
                 success: function(result){
                     // var modal = $('#modal-coba').modal('show')
                     // view css loading hide
                     $('#loader-block').css('display', 'none')
+                    $('#data-detail').css('display', '')
                     show_data(result)
                 }
             });
