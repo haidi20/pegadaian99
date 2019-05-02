@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
+    // 'failed' => 'These credentials do not match our records.',
+    'failed'   => 'Username atau Password anda salah.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    'captcha' => 'tidak ada captcha',
 
 ];
