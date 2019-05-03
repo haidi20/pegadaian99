@@ -17,20 +17,39 @@
         $(function(){
             $('#username').val($.cookie('username'));
             $('#password').val($.cookie('password'));
-            $('#remember').attr('checked', true);
+            // $('#remember').attr('checked', false);
+
+            console.log($.cookie('remember'))
+
+            if($.cookie('remember') == false){
+                $('#remember').attr('checked', false);
+                console.log('false')
+            }else{
+                $('#remember').attr('checked', true);
+                console.log('true')
+            }
+            
         });
 
         function remind()
         {
             var username      = $('#username').val();
             var password      = $('#password').val();
-            var attr_remember = $('#remember')
-            // set cookies to expire in 14 days
-            $.cookie('username', username, { expires: 14 });
-            $.cookie('password', password, { expires: 14 });
-            $.cookie('remember', true, { expires: 14 });
+            var attr_remember = $('#remember');
 
-            console.log($('#remember').attr('checked'));
+            // true false checked
+            $('#remember').attr('checked', !$('#remember').attr('checked'));
+
+            if(attr_remember.attr('checked')){
+                // set cookies to expire in 14 days
+                $.cookie('username', username, { expires: 14 });
+                $.cookie('password', password, { expires: 14 });
+                $.cookie('remember', true, { expires: 14 });
+            }else{
+                $.cookie('username', '');
+                $.cookie('password', '');
+                $.cookie('remember', '');
+            }
         }
 
         function refresh()
