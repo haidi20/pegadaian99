@@ -103,8 +103,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#!">
-                                    <i class="feather icon-user"></i> Profile
+                                <a href="{{route('user.index')}}">
+                                    <i class="feather icon-user"></i> Pengguna
                                 </a>
                             </li>
                             {{-- <li>

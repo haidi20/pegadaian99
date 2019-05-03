@@ -73,10 +73,18 @@ Route::middleware('auth')->group(function() {
 		Route::post('/store', 'SettingController@store')->name('setting.store');
 		Route::post('/cabang/store', 'SettingController@pilih_cabang_store')->name('setting.pilih-cabang.store');
 	});
+	Route::group(['prefix' => 'user'], function(){
+		Route::get('/', 'UserController@index')->name('user.index');
+		Route::get('/create', 'UserController@create')->name('user.create');
+		Route::get('/edit/{id}', 'UserController@edit')->name('user.edit');
+
+		Route::post('/store', 'UserController@store')->name('user.store');
+		Route::post('/update/{id}', 'UserController@update')->name('user.update');
+		Route::get('/destroy/{id}', 'UserController@destroy')->name('user.destroy');
+	});
 });
 
 Route::get('/api', 'CabangController@api');
-
 
 Auth::routes();
 

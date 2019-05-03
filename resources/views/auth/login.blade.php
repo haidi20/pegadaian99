@@ -22,14 +22,15 @@
 
         function remind()
         {
-            var username = $('#username').val();
-            var password = $('#password').val();
+            var username      = $('#username').val();
+            var password      = $('#password').val();
+            var attr_remember = $('#remember')
             // set cookies to expire in 14 days
             $.cookie('username', username, { expires: 14 });
             $.cookie('password', password, { expires: 14 });
             $.cookie('remember', true, { expires: 14 });
 
-            console.log($.cookie('username'));
+            console.log($('#remember').attr('checked'));
         }
 
         function refresh()
