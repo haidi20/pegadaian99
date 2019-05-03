@@ -14,6 +14,24 @@
 
 @section('script-bottom')
     <script>
+        $(function(){
+            $('#username').val($.cookie('username'));
+            $('#password').val($.cookie('password'));
+            $('#remember').attr('checked', true);
+        });
+
+        function remind()
+        {
+            var username = $('#username').val();
+            var password = $('#password').val();
+            // set cookies to expire in 14 days
+            $.cookie('username', username, { expires: 14 });
+            $.cookie('password', password, { expires: 14 });
+            $.cookie('remember', true, { expires: 14 });
+
+            console.log($.cookie('username'));
+        }
+
         function refresh()
         {
             $.ajax({
@@ -65,11 +83,11 @@
                                     </div>
                                     <hr/>
                                     <div class="form-group form-primary">
-                                        <input type="text" name="username" class="form-control" placeholder="Your Username">
+                                        <input type="text" name="username" id="username" class="form-control" placeholder="Your Username">
                                         <span class="form-bar"></span>
                                     </div>
                                     <div class="form-group form-primary">
-                                        <input type="password" name="password" class="form-control" placeholder="Password">
+                                        <input type="password" name="password" id="password" class="form-control" placeholder="Password">
                                         <span class="form-bar"></span>
                                     </div>
                                     <div class="form-group form-primary" align="center">
@@ -85,7 +103,7 @@
                                         <div class="col-12">
                                             <div class="checkbox-fade fade-in-primary d-">
                                                 <label>
-                                                    <input type="checkbox" value="">
+                                                    <input type="checkbox" value="" id="remember" name="remember" onClick="remind()">
                                                     <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
                                                     <span class="text-inverse">Remember me</span>
                                                 </label>

@@ -82,8 +82,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/refresh-captcha', 'CaptchaController@refresh_captcha');
-Route::get('/coba', function(){
-	return 'coba captcha';
+Route::namespace('auth')->group(function(){
+	Route::get('/refresh-captcha', 'LoginController@refresh_captcha');
 });
 

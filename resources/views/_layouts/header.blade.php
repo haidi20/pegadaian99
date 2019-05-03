@@ -67,7 +67,7 @@
                             <li>
                                 <div class="media">
                                     <div class="media-body">
-                                        <p>Tidak Ada</p>
+                                        <p>Belum Ada</p>
                                     </div>
                                 </div>
                             </li>
