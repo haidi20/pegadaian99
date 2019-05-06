@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
+use Auth;
+use Captcha;
 
 class LoginController extends Controller
 {
@@ -19,6 +23,15 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
+
+    protected function validateLogin(Request $request)
+    {
+        $this->validate($request, [
+            'username'  => 'required|string',
+            'password'  => 'required|string',
+            // 'captcha'   => 'required|captcha'
+        ]);
+    }
 
     /**
      * Where to redirect users after login.
@@ -39,5 +52,10 @@ class LoginController extends Controller
 
     public function username(){
         return 'username';
+    }
+
+    public function refresh_captcha()
+    {
+        return captcha_img();
     }
 }

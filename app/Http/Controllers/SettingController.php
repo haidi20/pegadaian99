@@ -82,4 +82,11 @@ class SettingController extends Controller
 
         return redirect()->route('setting.pilih-cabang');
     }
+
+    public function login()
+    {
+        $column = config('library.column.login');
+
+        return $this->template('setting.login', compact('column'));
+    }
 }

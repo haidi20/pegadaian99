@@ -1,11 +1,68 @@
 @extends('_layouts.basic')
 
-@section('script-bottom')
+@section('script-top')
     <style>
         .login-block{
             background: url({{url('images/login-bg.jpg')}})
         }
+        .zmdi-lg{
+            font-size:40px;
+            cursor: pointer;
+        }
     </style>
+@endsection
+
+@section('script-bottom')
+    <script>
+        $(function(){
+            $('#username').val($.cookie('username'));
+            $('#password').val($.cookie('password'));
+            // $('#remember').attr('checked', false);
+
+            console.log($.cookie('remember'))
+
+            if($.cookie('remember') == false){
+                $('#remember').attr('checked', false);
+                console.log('false')
+            }else{
+                $('#remember').attr('checked', true);
+                console.log('true')
+            }
+            
+        });
+
+        function remind()
+        {
+            var username      = $('#username').val();
+            var password      = $('#password').val();
+            var attr_remember = $('#remember');
+
+            // true false checked
+            $('#remember').attr('checked', !$('#remember').attr('checked'));
+
+            if(attr_remember.attr('checked')){
+                // set cookies to expire in 14 days
+                $.cookie('username', username, { expires: 14 });
+                $.cookie('password', password, { expires: 14 });
+                $.cookie('remember', true, { expires: 14 });
+            }else{
+                $.cookie('username', '');
+                $.cookie('password', '');
+                $.cookie('remember', '');
+            }
+        }
+
+        function refresh()
+        {
+            $.ajax({
+                type: 'GET',
+                url: '{{url('/refresh-captcha')}}',
+                success: function(data){
+                    $('.captcha span').html(data);
+                }
+            });
+        }
+    </script>
 @endsection
 
 @section('basic-content')
@@ -30,10 +87,13 @@
                                                 <i class="icofont icofont-close-line-circled text-white"></i>
                                             </button>
                                             <strong>Warning!</strong>
+                                            <ul>
                                             @foreach ($errors->all() as $error)
-                                                {{ $error }}
+                                               
+                                                   <li> {{ $error }}</li>
+                                               
                                             @endforeach
-                                            
+                                            </ul>
                                         </div>
                                     @endif
                                     <div class="row m-b-20">
@@ -43,18 +103,27 @@
                                     </div>
                                     <hr/>
                                     <div class="form-group form-primary">
-                                        <input type="text" name="username" class="form-control" required="" placeholder="Your Username">
+                                        <input type="text" name="username" id="username" class="form-control" placeholder="Your Username">
                                         <span class="form-bar"></span>
                                     </div>
                                     <div class="form-group form-primary">
-                                        <input type="password" name="password" class="form-control" required="" placeholder="Password">
+                                        <input type="password" name="password" id="password" class="form-control" placeholder="Password">
                                         <span class="form-bar"></span>
+                                    </div>
+                                    <div class="form-group form-primary" align="center">
+                                        <div class="captcha">
+                                            <span align="center">{!! captcha_img() !!}</span>
+                                        </div>
+                                        <br>
+                                        <i class="zmdi zmdi-refresh-alt zmdi-lg" onClick="refresh()"></i>
+                                        <br>
+                                        <input type="text" name="captcha" id="captcha" class="form-control" placeholder="Captcha" >
                                     </div>
                                     <div class="row m-t-25 text-left">
                                         <div class="col-12">
                                             <div class="checkbox-fade fade-in-primary d-">
                                                 <label>
-                                                    <input type="checkbox" value="">
+                                                    <input type="checkbox" value="" id="remember" name="remember" onClick="remind()">
                                                     <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
                                                     <span class="text-inverse">Remember me</span>
                                                 </label>

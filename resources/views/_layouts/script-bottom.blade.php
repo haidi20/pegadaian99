@@ -33,6 +33,7 @@
 <script type="text/javascript" src="{{asset('js/terbilang.min.js')}}"></script>
 <script src="{{asset('js/moment.js')}}"></script>
 <script src="{{asset('js/bootbox.js')}}"></script>
+<script src="{{asset('js/jquery.cookie.min.js')}}"></script>
 <!-- /build-->
 <!-- END adminty JS-->
 

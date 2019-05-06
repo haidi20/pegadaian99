@@ -69,15 +69,29 @@ Route::middleware('auth')->group(function() {
 	Route::group(['prefix' => 'setting'], function(){
 		Route::get('/', 'SettingController@index')->name('setting.index');
 		Route::get('/cabang', 'SettingController@pilih_cabang')->name('setting.pilih-cabang');
+		Route::get('/data-login', 'SettingController@login')->name('setting.login');
 
 		Route::post('/store', 'SettingController@store')->name('setting.store');
 		Route::post('/cabang/store', 'SettingController@pilih_cabang_store')->name('setting.pilih-cabang.store');
+	});
+	Route::group(['prefix' => 'user'], function(){
+		Route::get('/', 'UserController@index')->name('user.index');
+		Route::get('/create', 'UserController@create')->name('user.create');
+		Route::get('/edit/{id}', 'UserController@edit')->name('user.edit');
+
+		Route::post('/store', 'UserController@store')->name('user.store');
+		Route::post('/update/{id}', 'UserController@update')->name('user.update');
+		Route::get('/destroy/{id}', 'UserController@destroy')->name('user.destroy');
 	});
 });
 
 Route::get('/api', 'CabangController@api');
 
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::namespace('auth')->group(function(){
+	Route::get('/refresh-captcha', 'LoginController@refresh_captcha');
+});
+

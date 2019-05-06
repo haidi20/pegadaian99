@@ -60,6 +60,11 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 
+        // for handle expired token redirect to login
+        if ($exception instanceof \Illuminate\Session\TokenMismatchException) {            
+            return redirect('/login')->withErrors(['token_error' => 'Sorry, your session seems to have expired. Please try again.']);
+        }
+
         return redirect()->guest(route('login'));
     }
 }
