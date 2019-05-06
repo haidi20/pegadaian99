@@ -69,6 +69,7 @@ Route::middleware('auth')->group(function() {
 	Route::group(['prefix' => 'setting'], function(){
 		Route::get('/', 'SettingController@index')->name('setting.index');
 		Route::get('/cabang', 'SettingController@pilih_cabang')->name('setting.pilih-cabang');
+		Route::get('/data-login', 'SettingController@login')->name('setting.login');
 
 		Route::post('/store', 'SettingController@store')->name('setting.store');
 		Route::post('/cabang/store', 'SettingController@pilih_cabang_store')->name('setting.pilih-cabang.store');

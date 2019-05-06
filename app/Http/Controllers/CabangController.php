@@ -60,7 +60,7 @@ class CabangController extends Controller
         }else{
             // for default date in form filter date range
             $end        = Carbon::now()->subYear(1);
-            $start      = $end;
+            $start          = $end;
         }
 
         if(request('q')){

@@ -107,6 +107,11 @@
                                     <i class="feather icon-user"></i> Pengguna
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{route('setting.login')}}">
+                                    <i class="icofont icofont-warning"></i> Data Login
+                                </a>
+                            </li>
                             {{-- <li>
                                 <a href="auth-normal-sign-in.html">
                                     <i class="feather icon-log-out"></i> Logout

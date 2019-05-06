@@ -278,6 +278,14 @@ return [
 			'tanggal_hutang'=> 'Tanggal',
 			'status_hutang'	=> 'Status',
 		],
+		'login' 		=> [
+			'username_login'=> 'Username',
+			'ip_addr' 		=> 'Alamat IP',
+			'waktu_login'	=> 'Cek IN',
+			'waktu_logout'	=> 'Cek OUT',
+			'total'			=> 'Total',
+			'status' 		=> 'Status',
+		],
 	],
 	// LIST NAME TABLE IN FEATURE DATA AKAD NASABAH
 	'name_tables' => [
