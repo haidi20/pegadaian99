@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Carbon\Carbon;
+
 class Login extends Model
 {
     protected $table        = "login";
@@ -28,5 +30,16 @@ class Login extends Model
     public function scopeSorted($query, $by = 'waktu_login', $sort = 'desc')
     {
         return $query->orderBy($by, $sort);
+    }
+
+    public function getShowLogOutAttribute()
+    {
+        $logOut = Carbon::parse($this->waktu_logout);
+
+        if($logOut->format('Y') == '2000'){
+            return '0000-00-00 00:00:00';
+        }else{
+            return $this->waktu_logout;
+        }
     }
 }

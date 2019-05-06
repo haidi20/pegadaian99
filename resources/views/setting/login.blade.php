@@ -84,7 +84,7 @@
                                                 <td>{{$item->username_login}}</td>
                                                 <td>{{$item->ip_addr}}</td>
                                                 <td>{{$item->waktu_login}}</td>
-                                                <td>{{$item->waktu_logout}}</td>
+                                                <td>{{$item->show_logout}}</td>
                                                 <td></td>
                                                 <td> {{$item->status}} </td>
                                             </tr>
