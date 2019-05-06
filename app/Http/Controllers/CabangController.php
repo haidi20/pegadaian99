@@ -33,8 +33,6 @@ class CabangController extends Controller
 
     public function index()
     {
-        return $this->request->ip();
-
         // kasCabang is function scope
         $cabang = $this->cabang->kasCabang()->sorted();
 
