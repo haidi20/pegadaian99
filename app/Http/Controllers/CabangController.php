@@ -33,6 +33,8 @@ class CabangController extends Controller
 
     public function index()
     {
+        return $this->request->ip();
+
         // kasCabang is function scope
         $cabang = $this->cabang->kasCabang()->sorted();
 
@@ -59,8 +61,8 @@ class CabangController extends Controller
             $start  = carbon::parse(substr(request('daterange'), 1, 9));
         }else{
             // for default date in form filter date range
-            $end        = Carbon::now()->subYear(1);
-            $start          = $end;
+            $end    = Carbon::now()->subYear(1);
+            $start  = $end;
         }
 
         if(request('q')){

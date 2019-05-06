@@ -55,7 +55,6 @@ class PermodalanController extends Controller
     public function store()
     {
         $input = $this->request->except('_token');
-
         // return $input;
 
         if(request('jenis_modal') == 'hutang_cabang'){
