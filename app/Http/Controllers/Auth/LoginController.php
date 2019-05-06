@@ -54,6 +54,26 @@ class LoginController extends Controller
                 ?: redirect()->intended($this->redirectPath());
     }
 
+    public function logout(Request $request, Login $login)
+    {
+        $dataLogin = $login->where('username_login', Auth::user()->username)->first();
+
+        $login = new Login;
+        $login->username_login  = Auth::user()->username;
+        $login->sesi_login      = $dataLogin->sesi_login;
+        $login->waktu_login     = $dataLogin->waktu_login;
+        $login->waktu_logout    = Carbon::now();
+        $login->ip_addr         = $dataLogin->ip_addr;
+        $login->status          = 'OUT';
+        $login->save(); 
+
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return redirect('/');
+    }
+
     /**
      * Where to redirect users after login.
      *
