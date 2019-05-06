@@ -27,7 +27,7 @@ class Login extends Model
         return $query->where($by, 'LIKE', '%'.$q.'%');
     }
 
-    public function scopeSorted($query, $by = 'waktu_login', $sort = 'desc')
+    public function scopeSorted($query, $by = 'id_login', $sort = 'desc')
     {
         return $query->orderBy($by, $sort);
     }
