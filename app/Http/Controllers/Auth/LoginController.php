@@ -6,8 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+use App\Models\Login;
+
 use Auth;
 use Captcha;
+use DateTime;
+use Carbon\Carbon;
 
 class LoginController extends Controller
 {
@@ -30,7 +34,24 @@ class LoginController extends Controller
             'username'  => 'required|string',
             'password'  => 'required|string',
             // 'captcha'   => 'required|captcha'
-        ]);
+        ]); 
+    }
+
+    // insert data to table login
+    public function sendLoginResponse(Request $request)
+    {
+        $login = new Login;
+        $login->username_login  = Auth::user()->username;
+        $login->sesi_login      = rand(100000, 999999) + time()+28800;
+        $login->waktu_login     = Carbon::now();
+        $login->waktu_logout    = new DateTime('2000-01-01 00:00:00');
+        $login->ip_addr         = $request->ip();
+        $login->status          = 'IN';
+        $login->save();
+
+        // for redirect
+        return $this->authenticated($request, $this->guard()->user())
+                ?: redirect()->intended($this->redirectPath());
     }
 
     /**

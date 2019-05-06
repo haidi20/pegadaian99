@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Login;
 use App\Models\Cabang;
 use App\Models\Setting;
 use App\Models\User_cabang;
@@ -13,12 +14,14 @@ use auth;
 class SettingController extends Controller
 {
     public function __construct(
+                                Login $login,
                                 Cabang $cabang,
                                 Setting $setting,
                                 Request $request,
                                 User_cabang $user_cabang
                             )
     {
+        $this->login            = $login;
         $this->cabang           = $cabang;
         $this->setting          = $setting;
         $this->request          = $request;
@@ -85,8 +88,16 @@ class SettingController extends Controller
 
     public function login()
     {
+        $login = $this->login->sorted();
+
+        if(request('by')){
+            $login = $login->search(request('by'), request('q'));
+        }
+
+        $login = $login->paginate(request('perpage', 10));
+
         $column = config('library.column.login');
 
-        return $this->template('setting.login', compact('column'));
+        return $this->template('setting.login', compact('column', 'login'));
     }
 }

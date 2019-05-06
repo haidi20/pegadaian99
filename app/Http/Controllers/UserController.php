@@ -32,8 +32,6 @@ class UserController extends Controller
     {
     	$user = $this->user->get();
 
-    	// $sesi_login = rand(100000,999999) + time()+28800;
-
     	// proccess get value 'nomor cabang'
     	foreach ($user as $index => $item) {
     		$id_cabang 	= $this->user_cabang->where('username', $item->username)->value('id_cabang');
