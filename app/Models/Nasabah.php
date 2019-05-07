@@ -31,17 +31,17 @@ class Nasabah extends Model
         return $this->hasOne('App\Models\Akad', 'key_nasabah');
     }
 
-    public function scopeBaseBranch($query)
-    {
-        // get data id_cabang from table 'user_cabang' base on this user
-        $user_cabang    = User_cabang::baseUsername()->first();
+    // public function scopeBaseBranch($query)
+    // {
+    //     // get data id_cabang from table 'user_cabang' base on this user
+    //     $user_cabang    = User_cabang::baseUsername()->first();
 
-        $query = $query->whereHas('akad', function($akad) use ($user_cabang){
-            $akad->where('id_cabang', $user_cabang->id_cabang);
-        });
+    //     $query = $query->whereHas('akad', function($akad) use ($user_cabang){
+    //         $akad->where('id_cabang', $user_cabang->id_cabang);
+    //     });
 
-        return $query;
-    }
+    //     return $query;
+    // }
 
     public function scopeSearch($query, $by, $q)
     {

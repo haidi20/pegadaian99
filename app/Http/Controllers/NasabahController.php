@@ -28,7 +28,7 @@ class NasabahController extends Controller
     public function index()
     {
     	$menu 		= 'database';
-        $nasabah 	= $this->nasabah->sorted()->baseBranch();
+        $nasabah 	= $this->nasabah->sorted();
 
         $column		= config('library.column.nasabah');
 
