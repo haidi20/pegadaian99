@@ -71,7 +71,7 @@ class AkadController extends Controller
         // name field 'tanggal jatuh tempo' for sorted
         $nameFieldSorted= 'akad.tanggal_jatuh_tempo';
 
-        $nasabahAkad    = $this->akad->nasabah()->sorted($nameFieldSorted, 'desc');
+        $nasabahAkad    = $this->akad->nasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
 
         if(request('perpage_na')){
             // if get data from range date
