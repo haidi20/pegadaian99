@@ -24,6 +24,10 @@
 <!-- Material Icon -->
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/icon/material-design/css/material-design-iconic-font.min.css')}}">
 
+ <!-- ion icon css -->
+ <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/icon/ion-icon/css/ionicons.min.css')}}">
+
+
 <!-- Style.css  very important --> 
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/css/style.css')}}">
 

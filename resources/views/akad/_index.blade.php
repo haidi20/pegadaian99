@@ -55,6 +55,12 @@
             akad_jatuh_tempo.removeClass('active')
         }
      }
+
+     //na = 'nasabah akad'
+     function biaya_titip_na()
+     {
+        $('#modal-bt-na').modal('show');
+     }
 </script>
 @endsection
 

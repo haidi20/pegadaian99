@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\User_cabang;
+
 class Nasabah extends Model
 {
     protected $table        = "nasabah";
@@ -23,6 +25,23 @@ class Nasabah extends Model
         'tanggal_daftar',
         'alamat',
     ];
+
+    public function akad()
+    {
+        return $this->hasOne('App\Models\Akad', 'key_nasabah');
+    }
+
+    // public function scopeBaseBranch($query)
+    // {
+    //     // get data id_cabang from table 'user_cabang' base on this user
+    //     $user_cabang    = User_cabang::baseUsername()->first();
+
+    //     $query = $query->whereHas('akad', function($akad) use ($user_cabang){
+    //         $akad->where('id_cabang', $user_cabang->id_cabang);
+    //     });
+
+    //     return $query;
+    // }
 
     public function scopeSearch($query, $by, $q)
     {

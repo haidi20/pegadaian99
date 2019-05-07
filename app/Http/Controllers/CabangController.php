@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Cabang;
 use App\Models\Kas_cabang;
 use App\Models\User_cabang;
+use App\Models\Saldo_cabang;
 
 use Auth;
 use Carbon\Carbon;
@@ -17,13 +18,15 @@ class CabangController extends Controller
                                 Cabang $cabang,
                                 Request $request,
                                 Kas_cabang $kas_cabang,
-                                User_cabang $user_cabang
+                                User_cabang $user_cabang,
+                                Saldo_cabang $saldo_cabang
                             )
     {
         $this->cabang           = $cabang;
         $this->request          = $request;
         $this->kas_cabang       = $kas_cabang;
         $this->user_cabang      = $user_cabang;
+        $this->saldo_cabang     = $saldo_cabang;
 
         view()->share([
             'menu'         => 'cabang',
@@ -121,10 +124,10 @@ class CabangController extends Controller
         }else{
             $type                   = 'tambah';
             $cabang                 = $this->cabang;
-            $saldo_cabang           = $this->saldo_cabang;
             $cabang->id_cabang      = uniqid();
 
-            // for input value 'modal_awal' to table saldo_cabang
+             // for input value 'modal_awal' to table saldo_cabang
+            $saldo_cabang             = $this->saldo_cabang;
             $saldo_cabang->id_cabang  = $cabang->id_cabang;
             $saldo_cabang->total_saldo= remove_dot(request('modal_awal'));
             $saldo_cabang->save();

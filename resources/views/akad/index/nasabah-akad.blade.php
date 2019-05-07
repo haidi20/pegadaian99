@@ -1,3 +1,4 @@
+@include('akad.modal.nasabah-akad')
 <div class="sub-title">
     <h6>List Nasabah Akad</h6>
 </div> 
@@ -57,7 +58,7 @@
                      @foreach($columnListNasabahAkad as $index => $item)
                         <th>{{$item}}</th>
                      @endforeach
-                    {{-- <th>action</th> --}}
+                    <th>action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -69,10 +70,28 @@
                             <td>{{$item->no_id}}</td>
                             <td>{{$item->nama_barang}}</td>
                             <td>{{$item->nominal_nilai_tafsir}}</td>
-                            <td></td>
+                            <td>statis Rp. 0 (0 minggu)</td>
                             <td>{{$item->tanggal_akad}}</td>
                             <td>{{$item->tanggal_jatuh_tempo}}</td>
-                            <td></td>
+                            <td>
+                                <a href="#" class="btn btn-mini btn-info" onClick="biaya_titip_na()">
+                                    Bayar B. Titip
+                                </a>
+                                <a href="#" class="btn btn-mini btn-success">
+                                    Pelunasan
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#" class="btn btn-mini btn-info">
+                                    <i class="zmdi zmdi-search"></i>
+                                </a>
+                                <a href="#" class="btn btn-mini btn-success">
+                                    <i class="zmdi zmdi-print"></i>
+                                </a>
+                                <a href="#" class="btn btn-mini btn-danger">
+                                    <i class="icofont icofont-ui-delete icofont-mini"></i>
+                                </a>
+                            </td>
                             {{-- <td>
                                 <a href="{{route('akad.edit', $item->id)}}" class="btn btn-sm btn-info">
                                     <i class="icon-pencil3"></i> Edit
