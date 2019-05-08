@@ -184,7 +184,7 @@ class AkadController extends Controller
         // get value 'persenan' & 'biaya titip yang dibayar'
         $setting    = $this->setting->first();
         // set default nuber for 'persenan' and 'biaya_titip'
-        $persenan   = is_null($setting) ? 1 : $setting->persenan;
+        $persenan   = is_null($setting) ? 10 : $setting->persenan;
         $biaya_titip= is_null($setting) ? 1 : $setting->biaya_titip;
 
     	return $this->template('akad._form', compact(

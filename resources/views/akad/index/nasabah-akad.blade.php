@@ -82,7 +82,7 @@
                                 </a>
                             </td>
                             <td>
-                                <a href="#" class="btn btn-mini btn-info">
+                                <a href="#" class="btn btn-mini btn-info" onClick="review_na()">
                                     <i class="zmdi zmdi-search"></i>
                                 </a>
                                 <a href="#" class="btn btn-mini btn-success">

@@ -77,9 +77,10 @@
                 var result = marhun_bih * persenan - (10000 / 2)
             }
 
-            var biaya_titip = result * bt_yang_dibayar
+            // var biaya_titip = result * bt_yang_dibayar
+            var biaya_titip = result
 
-            // condition for negatif number
+            // condition for negatif number of 'biaya titip'
             biaya_titip = biaya_titip <= 0 ? 0 : biaya_titip
         }else{
             var biaya_titip = marhun_bih
@@ -89,11 +90,18 @@
         nominal_biaya_titip     = nominal_biaya_titip.replace("Rp", "")
         $('.biaya_titip').val(nominal_biaya_titip)
 
-         // condition for negatif number
-        nominal_biaya_titip = nominal_biaya_titip <= 0 ? 0 : nominal_biaya_titip
+        var jml_bt_yang_dibayar = biaya_titip * bt_yang_dibayar
+        jml_bt_yang_dibayar = jml_bt_yang_dibayar.toString().replace(",","")
+        jml_bt_yang_dibayar = format_nominal(jml_bt_yang_dibayar)
+        jml_bt_yang_dibayar = jml_bt_yang_dibayar.replace("Rp", "")
+        $('#jml_bt_yang_dibayar').val(jml_bt_yang_dibayar)
+        // console.log(jml_bt_yang_dibayar)
 
-        var jml_bt_yang_dibayar = nominal_biaya_titip.toString().replace(",","").replace(".","").replace(".","").replace(".","")
-        $('#jml_bt_yang_dibayar').val(terbilang(jml_bt_yang_dibayar))
+        //  // condition for negatif number
+        // nominal_biaya_titip = nominal_biaya_titip <= 0 ? 0 : nominal_biaya_titip
+
+        // var jml_bt_yang_dibayar = nominal_biaya_titip.toString().replace(",","").replace(".","").replace(".","").replace(".","")
+        // $('#jml_bt_yang_dibayar').val(terbilang(jml_bt_yang_dibayar))
     }
 
     // determine 'tanggal jatuh tempo' base on 'tanggal akad'
@@ -191,6 +199,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="no_id">No. ID</label>
                         <div class="col-sm-10">
+                            {{-- FYI: c99-no_cabang-tanggal_bulan_tahun-data_ke --}}
                             <input type="text" class="form-control" name="no_id" id="no_id" value="C99-01-030417-001" disabled>
                             <input type="hidden" class="form-control" name="no_id" id="no_id" value="C99-01-030417-001">
                         </div>
