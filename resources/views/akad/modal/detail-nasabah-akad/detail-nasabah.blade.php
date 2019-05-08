@@ -8,23 +8,23 @@
                             <table class="table m-0">
                                 <tbody id="table-detail-one">
                                     <tr>
-                                        <td>Nama </td>
+                                        <th>Nama </th>
                                         <td>: data</td>
                                     </tr>
                                     <tr>
-                                        <td>Jenis Kelamin </td>
+                                        <th>Jenis Kelamin </th>
                                         <td>: data</td>
                                     </tr>
                                     <tr>
-                                        <td>Kota </td>
+                                        <th>Kota </th>
                                         <td>: data</td>
                                     </tr>
                                     <tr>
-                                        <td>No. Telp </td>
+                                        <th>No. Telp </th>
                                         <td>: data</td>
                                     </tr>
                                     <tr>
-                                        <td>Jenis Id </td>
+                                        <th>Jenis Id </th>
                                         <td>: data</td>
                                     </tr>
                                 </tbody>
@@ -36,19 +36,19 @@
                             <table class="table m-0" >
                                 <tbody id="table-detail-two">
                                     <tr>
-                                        <td>No Identitas </td>
+                                        <th>No Identitas </th>
                                         <td>: data</td>
                                     </tr>
                                     <tr>
-                                        <td>Tanggal Lahir </td>
+                                        <th>Tanggal Lahir </th>
                                         <td>: data</td>
                                     </tr>
                                     <tr>
-                                        <td>Tanggal Daftar </td>
+                                        <th>Tanggal Daftar </th>
                                         <td>: data</td>
                                     </tr>
                                     <tr>
-                                        <td>Alamat </td>
+                                        <th>Alamat </th>
                                         <td>: data</td>
                                     </tr>
                                 </tbody>
