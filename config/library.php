@@ -357,25 +357,41 @@ return [
 	// LIST 'JATUH TEMPO' in AKAD FORM
 	'form' => [
 		'akad' => [
-			0 => [
-				'text'	=> 'Harian',
-				'value' => 1,	
+			'list_time' => [
+				0 => [
+					'text'	=> 'Harian',
+					'value' => 1,	
+				],
+				1 => [
+					'text'	=> '7 Hari',
+					'value' => 7,	
+				],
+				2 => [
+					'text'	=> '15 Hari',
+					'value' => 15,	
+				],
+				3 => [
+					'text'	=> '30 Hari',
+					'value' => 30,	
+				],
+				4 => [
+					'text'	=> '60 Hari',
+					'value' => 60,	
+				],
 			],
-			1 => [
-				'text'	=> '7 Hari',
-				'value' => 7,	
-			],
-			2 => [
-				'text'	=> '15 Hari',
-				'value' => 15,	
-			],
-			3 => [
-				'text'	=> '30 Hari',
-				'value' => 30,	
-			],
-			4 => [
-				'text'	=> '60 Hari',
-				'value' => 60,	
+			'payment_option' => [
+				0 => [
+					'text'	=> 'Harian',
+					'value' => 1,	
+				],
+				1 => [
+					'text'	=> '7 Hari',
+					'value' => 7,	
+				],
+				2 => [
+					'text'	=> '15 Hari',
+					'value' => 15,	
+				],
 			],
 		],
 	],

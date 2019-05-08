@@ -100,7 +100,7 @@
                         <div class="col-sm-10">
                             <div class="form-radio">
                                 {{-- setting show / hide use jquery  --}}
-                                @foreach($listTime as $index => $item)
+                                @foreach($paymentOption as $index => $item)
                                     <div class="radio radio-inline" id="op_{{$item['value']}}" style="display: none">
                                         <label>
                                             <input type="radio" name="opsi_pembayaran" onClick="valueOptionPayment('{{$item['value']}}')" value="{{$item['value']}}" {{checked($item['value'], 'opsi_pembayaran', 1)}}>
