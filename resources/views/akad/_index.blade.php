@@ -34,6 +34,21 @@
     * pl    = 'Pelunasan dan Lelang'
     */
 
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    $(document).ready(function() {
+        $('[data-toggle="popover"]').popover({
+            html: true,
+            content: function() {
+                var content = $(this).attr("data-popover-content");
+                return $(content).children(".popover-body").html();
+                // return $('#primary-popover-content').html();
+            }
+        });
+    });
+
      $(function(){
         // for if page choose can change count data
         $('.perpage').change(function(){
@@ -77,6 +92,9 @@
      function review_na()
      {
          $('#modal-review-na').modal('show');
+         
+         // for close popover on button "kwitansi biaya titip"
+         $('[data-toggle="popover"]').popover('hide');
      }
 </script>
 @endsection

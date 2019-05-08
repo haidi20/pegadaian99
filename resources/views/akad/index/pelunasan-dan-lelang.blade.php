@@ -66,6 +66,9 @@
                     @elseif($item['key'] == 'lelang')
                         <td></td>
                         <td>{{$value->tanggal_akad}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     @elseif($item['key'] == 'refund')
                         <td></td>
                         <td></td>
