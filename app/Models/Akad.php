@@ -105,6 +105,6 @@ class Akad extends Model
 
     public function getNominalNilaiTafsirAttribute()
     {
-        return nominal($this->nilai_tafsir);
+        return 'Rp '. nominal($this->nilai_tafsir);
     }
 }

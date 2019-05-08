@@ -1,4 +1,3 @@
-@include('akad.modal.nasabah-akad')
 <div class="sub-title">
     <h6>List Nasabah Akad</h6>
 </div> 
@@ -74,35 +73,44 @@
                             <td>{{$item->tanggal_akad}}</td>
                             <td>{{$item->tanggal_jatuh_tempo}}</td>
                             <td>
-                                <a href="#" class="btn btn-mini btn-info" onClick="biaya_titip_na()">
+                                <a href="#" class="btn btn-mini btn-primary" onClick="prosedur_na('bt')">
                                     Bayar B. Titip
                                 </a>
-                                <a href="#" class="btn btn-mini btn-success">
+                                <a href="#" class="btn btn-mini btn-success" onClick="prosedur_na('pelunasan')">
                                     Pelunasan
                                 </a>
                             </td>
                             <td>
-                                <a href="#" class="btn btn-mini btn-info" onClick="review_na()">
+                                <a href="javascript:void(0)" class="btn btn-mini btn-info" onClick="review_na()">
                                     <i class="zmdi zmdi-search"></i>
                                 </a>
-                                <a href="#" class="btn btn-mini btn-success">
+                                <button 
+                                    type="button" 
+                                    class="btn btn-success btn-mini waves-effect waves-light" 
+                                    data-toggle="popover" 
+                                    data-placement="left" 
+                                    title="Print Menu"
+                                    data-popover-content="#a2">
                                     <i class="zmdi zmdi-print"></i>
-                                </a>
-                                <a href="#" class="btn btn-mini btn-danger">
+                                </button>
+                                <div id="a2" style="display:none">
+                                    <div class="popover-heading"></div>
+                                    <div class="popover-body">
+                                        <a href="javascript:void(0)" class="btn btn-mini btn-success mb-1">
+                                            <i class="zmdi zmdi-print"></i> Surat Akad
+                                        </a>
+                                        <a href="javascript:void(0)" class="btn btn-mini btn-success mb-1">
+                                            <i class="zmdi zmdi-print"></i> Kwitansi Akad
+                                        </a>
+                                        <a href="javascript:void(0)" class="btn btn-mini btn-success" onClick="review_na()">
+                                            <i class="zmdi zmdi-search"></i> Kwitansi Biaya Titip
+                                        </a>
+                                    </div>
+                                </div>
+                                <a href="javascript:void(0)" class="btn btn-mini btn-danger">
                                     <i class="icofont icofont-ui-delete icofont-mini"></i>
                                 </a>
                             </td>
-                            {{-- <td>
-                                <a href="{{route('akad.edit', $item->id)}}" class="btn btn-sm btn-info">
-                                    <i class="icon-pencil3"></i> Edit
-                                </a>
-                                <a href="{{ route('akad.destroy', $item->id)}}"
-                                    data-method="delete" data-confirm="Anda yakin akan menghapus data ini ?"
-                                    class="btn btn-sm btn-danger" title="Hapus Data">
-                                    <i class="icon-trash3"></i>
-                                    Delete
-                                </a>
-                            </td> --}}
                         </tr>
                     @empty
                     <tr>

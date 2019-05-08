@@ -34,6 +34,21 @@
     * pl    = 'Pelunasan dan Lelang'
     */
 
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    $(document).ready(function() {
+        $('[data-toggle="popover"]').popover({
+            html: true,
+            content: function() {
+                var content = $(this).attr("data-popover-content");
+                return $(content).children(".popover-body").html();
+                // return $('#primary-popover-content').html();
+            }
+        });
+    });
+
      $(function(){
         // for if page choose can change count data
         $('.perpage').change(function(){
@@ -63,19 +78,30 @@
         }
      }
 
-     function biaya_titip_na()
+     function prosedur_na(type)
      {
-        $('#modal-bt-na').modal('show');
+        if(type == 'pelunasan'){
+            $('#pelunasan').css('display', '')
+        }else{
+            $('#pelunasan').css('display', 'none')
+        }
+
+        $('#modal-prosedur-na').modal('show');
      }
 
      function review_na()
      {
          $('#modal-review-na').modal('show');
+         
+         // for close popover on button "kwitansi biaya titip"
+         $('[data-toggle="popover"]').popover('hide');
      }
 </script>
 @endsection
 
 @section('content')
+{{-- include file modal  --}}
+@include('akad.modal.prosedur')
 <div class="page-header">
     <div class="row align-items-end">
         <div class="col-lg-8">
@@ -137,7 +163,6 @@
                                 <div class="tab-pane {{active_tab('nasabah_akad', request('name_tab'))}}" id="nasabah_akad" role="tabpanel">
                                     {{-- table list nasabah akad  --}}
                                     @include('akad.index.nasabah-akad')
-
                                 </div>
                                 <div class="tab-pane {{active_tab('akad_jatuh_tempo', request('name_tab'))}}" id="akad_jatuh_tempo" role="tabpanel">
                                     @foreach($akadJatuhTempo as $index => $item)
