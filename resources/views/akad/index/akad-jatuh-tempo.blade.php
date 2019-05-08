@@ -49,7 +49,8 @@
             @foreach($columnAkadJatuhTempo as $key => $value)
                 <th>{{$value}}</th>
             @endforeach
-            {{-- <th>action</th> --}}
+            <th>Prosedur</th>
+            <th>action</th>
         </tr>
         </thead>
         <tbody id="akad_jatuh_tempo_{{$item['key']}}">
@@ -60,11 +61,30 @@
                     <td>{{$value->no_telp}}</td>
                     <td>{{$value->no_id}}</td>
                     <td>{{$value->nama_barang}}</td>
-                    <td>{{$value->nilai_tafsir}}</td>
+                    <td>{{$value->nominal_nilai_tafsir}}</td>
                     <td></td>
                     <td></td>
                     <td>{{$value->tanggal_akad}}</td>
                     <td>{{$value->tanggal_jatuh_tempo}}</td>
+                    <td>
+                        <a href="#" class="btn btn-mini btn-info" onClick="biaya_titip_na()">
+                            Bayar B. Titip
+                        </a>
+                        <a href="#" class="btn btn-mini btn-success">
+                            Pelunasan
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-mini btn-info" onClick="review_na()">
+                            <i class="zmdi zmdi-search"></i>
+                        </a>
+                        <a href="#" class="btn btn-mini btn-success">
+                            <i class="zmdi zmdi-print"></i>
+                        </a>
+                        <a href="#" class="btn btn-mini btn-danger">
+                            <i class="icofont icofont-ui-delete icofont-mini"></i>
+                        </a>
+                    </td>
                 </tr>
             @empty
             <tr>

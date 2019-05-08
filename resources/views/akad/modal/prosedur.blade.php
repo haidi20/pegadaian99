@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-bt-na"  tabindex="-1" role="dialog">
+<div class="modal fade" id="modal-prosedur-na"  tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -41,6 +41,10 @@
                                                     <tr>
                                                         <td>Biaya Titip Tertunggak </td>
                                                         <td>: data</td>
+                                                    </tr>
+                                                    <tr id="pelunasan">
+                                                        <td>Total </td>
+                                                        <td>: Data</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -108,9 +112,9 @@
                 </div>
             </div>
             
-            {{-- <div class="modal-footer">
+            <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-success waves-effect " data-dismiss="modal">Oke</button>
-            </div> --}}
+            </div>
         </div>
     </div>
 </div>
@@ -140,19 +144,19 @@
                 <div class="tab-content modal-body">
                     <div class="tab-pane active" id="tab-home" role="tabpanel">
                         {{-- <h6>Detail Nasabah</h6> --}}
-                        @include('akad.modal.detail-nasabah-akad.detail-nasabah')
+                        @include('akad.modal.detail-prosedur.detail-nasabah')
                     </div>
                     <div class="tab-pane" id="tab-profile" role="tabpanel">
                         {{-- <h6>Data Akad</h6> --}}
-                        @include('akad.modal.detail-nasabah-akad.data-akad')
+                        @include('akad.modal.detail-prosedur.data-akad')
                     </div>
                     <div class="tab-pane" id="tab-messages" role="tabpanel">
                         {{-- <h6>Bea Titip</h6> --}}
-                        @include('akad.modal.detail-nasabah-akad.biaya-titip')
+                        @include('akad.modal.detail-prosedur.biaya-titip')
                     </div>
                     <div class="tab-pane" id="tab-settings" role="tabpanel">
                         {{-- <h6>Rincian Akad</h6> --}}
-                        @include('akad.modal.detail-nasabah-akad.rincian-akad')
+                        @include('akad.modal.detail-prosedur.rincian-akad')
                     </div>
                 </div>
             </div>
