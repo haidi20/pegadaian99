@@ -27,6 +27,13 @@
 <script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/custom-picker.js')}}"></script>
 
 <script>
+    /*
+    * FYI :
+    * na    = 'nasabah akad'
+    * ajt   = 'akad jatuh tempo'
+    * pl    = 'Pelunasan dan Lelang'
+    */
+
      $(function(){
         // for if page choose can change count data
         $('.perpage').change(function(){
@@ -56,10 +63,14 @@
         }
      }
 
-     //na = 'nasabah akad'
      function biaya_titip_na()
      {
         $('#modal-bt-na').modal('show');
+     }
+
+     function review_na()
+     {
+         $('#modal-review-na').modal('show');
      }
 </script>
 @endsection
