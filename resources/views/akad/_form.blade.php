@@ -42,7 +42,9 @@
         var persenan  = $('#persenan').val()
         var biaya_admin = marhun_bih * (persenan/100)
         
+        // for show on view
         $('#biaya_admin1').val(format_nominal(biaya_admin))
+        // for send to database
         $('#biaya_admin2').val(biaya_admin)
     }
 
@@ -69,12 +71,13 @@
         }
 
         if(jenis_barang == 'elektronik'){
+            // formula 'opsi_pembayaran'
             if(opsi_pembayaran == 1){
-                var result = marhun_bih * persenan - (10000 / 2) / 7
+                var result = marhun_bih * persenan - ({{$opsi_pembayaran}} / 2) / 7
             }else if (opsi_pembayaran == 15){
                 var result = marhun_bih * persenan 
             }else{
-                var result = marhun_bih * persenan - (10000 / 2)
+                var result = marhun_bih * persenan - ({{$opsi_pembayaran}} / 2)
             }
 
             // var biaya_titip = result * bt_yang_dibayar
@@ -88,6 +91,7 @@
 
         var nominal_biaya_titip = format_nominal(biaya_titip)
         nominal_biaya_titip     = nominal_biaya_titip.replace("Rp", "")
+        nominal_biaya_titip     = Math.round(nominal_biaya_titip)+'000'
         $('.biaya_titip').val(nominal_biaya_titip)
 
         var jml_bt_yang_dibayar = biaya_titip * bt_yang_dibayar

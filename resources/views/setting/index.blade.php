@@ -60,8 +60,8 @@
                                     <tbody>
                                         <tr>
                                             @if(!is_null($setting))
-                                                <td>{{$setting->persenan}}</td>
-                                                <td>{{$setting->biaya_titip}}</td>
+                                                <td>{{$setting->persenan}}%</td>
+                                                <td>{{$setting->nominal_opsi_pembayaran}}</td>
                                                 <td align="center">
                                                     <a href="javascript:void(0)" onClick="edit({{$setting->id}})" title="Detail Data" class="btn btn-sm btn-info">
                                                         <i class="icofont icofont-external icofont-lg"></i>

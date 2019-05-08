@@ -35,7 +35,7 @@ class SettingController extends Controller
 
     public function index()
     {
-    	$setting = $this->setting->first();
+    	$setting = $this->setting->baseBranch()->first();
 
     	return $this->template('setting.index', compact('setting'));
     }

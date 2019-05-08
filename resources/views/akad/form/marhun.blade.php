@@ -124,11 +124,12 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="bt_yang_dibayar">Biaya Titip yang Dibayar</label>
-                        <div class="col-sm-12 col-md-2">
-                            {{-- <select name="bt_yang_dibayar" id="bt_yang_dibayar" class="form-control">
-                                <option {{ selected(1, 'bt_yang_dibayar', 'old')}}>1</option>
-                            </select>  --}}
-                            <input type="number" class="form-control" id="bt_yang_dibayar" value="{{old('bt_yang_dibayar', $biaya_titip)}}"  disabled>
+                        <div class="col-sm-12 col-md-1">
+                            <select name="bt_yang_dibayar" id="bt_yang_dibayar" class="form-control">
+                                @for($i = 0; $i <= 9; $i++)
+                                    <option {{ selected($i, 'bt_yang_dibayar', 'old')}}>{{$i}}</option>
+                                @endfor
+                            </select> 
                         </div>
                     </div>
                     <div class="form-group row">

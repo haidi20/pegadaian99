@@ -15,8 +15,9 @@ class CreateSettingTable extends Migration
     {
         Schema::create('setting', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('persenan')->default(0);
-            $table->integer('biaya_titip')->default(0);
+            $table->string('id_cabang')->nullable();
+            $table->integer('persenan')->default(10);
+            $table->double('opsi_pembayaran')->default(10000);
             $table->timestamps();
         });
     }
