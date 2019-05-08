@@ -117,7 +117,7 @@
 
 <!-- Modal -->
 <div class="modal fade modal-flex" id="modal-review-na" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -140,7 +140,7 @@
                 <div class="tab-content modal-body">
                     <div class="tab-pane active" id="tab-home" role="tabpanel">
                         <h6>Detail Nasabah</h6>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing lorem impus dolorsit.onsectetur adipiscing</p>
+                        @include('akad.modal.detail-nasabah-akad.detail-nasabah')
                     </div>
                     <div class="tab-pane" id="tab-profile" role="tabpanel">
                         <h6>Data Akad</h6>
