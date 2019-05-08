@@ -139,20 +139,20 @@
                 </ul>
                 <div class="tab-content modal-body">
                     <div class="tab-pane active" id="tab-home" role="tabpanel">
-                        <h6>Detail Nasabah</h6>
+                        {{-- <h6>Detail Nasabah</h6> --}}
                         @include('akad.modal.detail-nasabah-akad.detail-nasabah')
                     </div>
                     <div class="tab-pane" id="tab-profile" role="tabpanel">
-                        <h6>Data Akad</h6>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing lorem impus dolorsit.onsectetur adipiscing</p>
+                        {{-- <h6>Data Akad</h6> --}}
+                        @include('akad.modal.detail-nasabah-akad.data-akad')
                     </div>
                     <div class="tab-pane" id="tab-messages" role="tabpanel">
-                        <h6>Bea Titip</h6>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing lorem impus dolorsit.onsectetur adipiscing</p>
+                        {{-- <h6>Bea Titip</h6> --}}
+                        @include('akad.modal.detail-nasabah-akad.biaya-titip')
                     </div>
                     <div class="tab-pane" id="tab-settings" role="tabpanel">
-                        <h6>Rincian Akad</h6>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing lorem impus dolorsit.onsectetur adipiscing</p>
+                        {{-- <h6>Rincian Akad</h6> --}}
+                        @include('akad.modal.detail-nasabah-akad.rincian-akad')
                     </div>
                 </div>
             </div>
