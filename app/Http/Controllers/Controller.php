@@ -8,7 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 use App\Models\Cabang;
-use App\Models\Kas_cabang;
+use App\Models\Saldo_cabang;
 use App\Models\User_cabang;
 
 use Auth;
@@ -33,11 +33,12 @@ class Controller extends BaseController
         if($user_cabang){
             // get data cabang from table 'user_cabang' base on this user
             $cabang         = Cabang::find($user_cabang->id_cabang);
+            $nomorCabang    = $cabang ? $cabang->no_cabang : 0;
             // and then get total 'kas cabang' base on id_cabang
-            $saldo_cabang   = Kas_cabang::idCabang()->first();
+            $saldo_cabang   = Saldo_cabang::baseBranch()->first();
+            $total_kas      = $saldo_cabang ? $saldo_cabang->total_saldo : 0; 
             // 'total kas' base on cabang
-            $total_kas      = nominal($saldo_cabang->total_kas);
-            $nomorCabang    = $cabang->no_cabang;       
+            $total_kas      = nominal($total_kas);     
         }else{
             $total_kas      = 'Tidak Ditemukan';
             $nomorCabang    = 'Tidak Ditemukan';

@@ -29,6 +29,7 @@ class NasabahController extends Controller
     {
     	$menu 		= 'database';
         $nasabah 	= $this->nasabah->sorted();
+
         $column		= config('library.column.nasabah');
 
         if(request('by')){

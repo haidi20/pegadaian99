@@ -99,7 +99,7 @@ class OperasionalController extends Controller
 
         $column = config('library.column.hutang');
 
-        $saldo_cabang = $this->saldo_cabang->idCabang()->first();
+        $saldo_cabang = $this->saldo_cabang->baseBranch()->first();
 
         return $this->template('operasional.hutang', compact('column', 'hutang_kas', 'saldo_cabang'));
     }

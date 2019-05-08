@@ -71,6 +71,14 @@ class Akad extends Model
     }
     //end query status 'lunas, belum lunas, lelang dan refund'
 
+    public function scopeBaseBranch($query)
+    {   
+        // get data id_cabang from table 'user_cabang' base on this user
+        $user_cabang    = User_cabang::baseUsername()->first();
+
+        return $query->where('id_cabang', $user_cabang->id_cabang);
+    }
+
     // for can fetch data nasabah use left join
     public function scopeNasabah($query)
     {
@@ -97,6 +105,6 @@ class Akad extends Model
 
     public function getNominalNilaiTafsirAttribute()
     {
-        return nominal($this->nilai_tafsir);
+        return 'Rp '. nominal($this->nilai_tafsir);
     }
 }

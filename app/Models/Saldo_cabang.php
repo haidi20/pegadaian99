@@ -19,7 +19,7 @@ class Saldo_cabang extends Model
     ];
 
    // how to fetch data by username of user
-    public function scopeIdCabang($query)
+    public function scopeBaseBranch($query)
     {
         // get data id_cabang from table 'user_cabang' base on this user
         $user_cabang    = User_cabang::baseUsername()->first();

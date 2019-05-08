@@ -307,6 +307,22 @@ return [
 					'key' 	=> '60',
 					'name' 	=>'List Jatuh Tempo 60 Hari',
 				],
+				4 => [
+					'key' 	=> 'tertunggak',
+					'name' 	=>'List Nasabah Tertunggak',
+				],
+				5 => [
+					'key' 	=> 'mendekati_tempo_lelang',
+					'name' 	=>'List Nasabah Mendekati Jatuh Tempo Lelang',
+				],
+				6 => [
+					'key' 	=> 'tempo_lelang',
+					'name' 	=>'List Nasabah Jatuh Tempo Lelang',
+				],
+				7 => [
+					'key' 	=> 'tunda_lelang',
+					'name' 	=>'List Nasabah Tunda Lelang',
+				],
 			],
 			'pelunasan_dan_lelang' => [
 				0 => [
