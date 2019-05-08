@@ -73,7 +73,7 @@
                             <td>{{$item->tanggal_akad}}</td>
                             <td>{{$item->tanggal_jatuh_tempo}}</td>
                             <td>
-                                <a href="#" class="btn btn-mini btn-info" onClick="prosedur_na('bt')">
+                                <a href="#" class="btn btn-mini btn-primary" onClick="prosedur_na('bt')">
                                     Bayar B. Titip
                                 </a>
                                 <a href="#" class="btn btn-mini btn-success" onClick="prosedur_na('pelunasan')">
