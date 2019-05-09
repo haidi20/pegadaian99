@@ -145,8 +145,12 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="biaya_admin">Biaya Administrasi</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control autonumber" id="biaya_admin1"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," id="biaya_admin" name="biaya_admin" disabled>
-                            <input type="hidden" class="form-control" id="biaya_admin2" name="biaya_admin" >
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Rp.</span>
+                                <input type="text" class="form-control autonumber biaya_admin" value="10000"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," id="biaya_admin" name="biaya_admin" disabled>
+                                <input type="hidden" class="form-control biaya_admin" name="biaya_admin" value="10000" >
+                                
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
