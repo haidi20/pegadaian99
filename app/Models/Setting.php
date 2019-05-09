@@ -9,9 +9,10 @@ class Setting extends Model
     protected $table        = "setting";
     // protected $guarded   = [];
     protected $fillable     = [
-    	'id',
-        'persenan',
-        'biaya_titip',
+        'id',
+        'potongan',
+        'margin_kendaraan',
+        'margin_elektronik'
     ];
 
     // how to fetch data by username of user
@@ -23,12 +24,8 @@ class Setting extends Model
         return $query->where('id_cabang', $user_cabang->id_cabang);
     }
 
-    public function getNominalOpElektronikAttribute()
+    public function getNominalPotonganAttribute()
     {
-        return 'Rp '. nominal($this->op_elektronik);
-    }
-    public function getNominalOpKendaraanAttribute()
-    {
-        return 'Rp '. nominal($this->op_kendaraan);
+        return 'Rp '. nominal($this->potongan);
     }
 }

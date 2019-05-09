@@ -75,19 +75,19 @@
 
         // set nominal 'potongan biaya titip'
         if(jenis_barang == 'elektronik'){
-            var potongan = {{$op_elektronik}}
+            var potongan = {{$potongan}}
+            var persenan = {{$margin_elektronik}} / 100
         }else{
-            var potongan = {{$op_kendaraan}}
+            var potongan = null
+            var persenan = {{$margin_kendaraan}} / 100
         }
 
         // formula 'opsi_pembayaran'
         if(opsi_pembayaran == 1){
-            // var biaya_titip = marhun_bih * persenan - ({{$op_elektronik}} / 2) / 7
             var biaya_titip = (marhun_bih * persenan - potongan) / 2 / 7
         }else if (opsi_pembayaran == 15){
             var biaya_titip = marhun_bih * persenan 
         }else{
-            // var biaya_titip = marhun_bih * persenan - ({{$op_elektronik}} / 2)
             var biaya_titip = (marhun_bih * persenan - potongan) / 2
         }
 
@@ -153,6 +153,8 @@
             var biaya_admin = format_nominal(10000)
             biaya_admin = biaya_admin.replace("Rp", "")
             $('.biaya_admin').val(biaya_admin)
+            // condition 'persenan'
+            $('.persenan').val({{$margin_elektronik}})
             // for condition 'biaya titip'
             biaya_titip('elektronik', 'jenis_barang')
         }else{
@@ -167,6 +169,8 @@
             var biaya_admin = format_nominal(50000)
             biaya_admin = biaya_admin.replace("Rp", "")
             $('.biaya_admin').val(biaya_admin)
+            // condition 'persenan' base on 'jenis barang'
+            $('.persenan').val({{$margin_kendaraan}})
             // for condition 'biaya titip'
             biaya_titip('kendaraan', 'jenis_barang')
         }

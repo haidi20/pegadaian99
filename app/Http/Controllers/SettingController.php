@@ -42,16 +42,22 @@ class SettingController extends Controller
 
     public function store()
     {
-    	$input = $this->request->except('_token');
-    	
+        $input = $this->request->except('_token');
+        // return $input;
+        // return (double) remove_dot($input['potongan']);
+        // return remove_dot(request('potongan'));
+        
     	if(request('id')){
     		$setting 			= $this->setting->find(request('id'));
     	}else{
     		$setting 			= $this->setting;
     	}
 
-    	$setting->persenan 		= request('persenan');
-    	$setting->biaya_titip	= request('biaya_titip');
+        $user_cabang                = User_cabang::baseUsername()->first();
+    	$setting->id_cabang         = $user_cabang->id_cabang;
+    	$setting->potongan          = remove_dot($input['potongan']);
+    	$setting->margin_kendaraan  = request('margin_kendaraan');
+    	$setting->margin_elektronik = request('margin_elektronik');
     	$setting->save();
 
     	return redirect()->route('setting.index');

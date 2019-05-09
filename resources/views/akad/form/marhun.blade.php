@@ -88,10 +88,8 @@
                         <div class="col-sm-2 col-xs-2">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">%</span>
-                                <input type="text" class="form-control persenan" id="persenan" value="{{$persenan}}"  disabled>
-                                <input type="hidden" class="persenan" name="persenan" value="{{$persenan}}">
-                                {{-- for helping jquery keep get value 'persenan' from database --}}
-                                <input type="hidden" id="persenan-real" value="{{$persenan}}">
+                                <input type="text" class="form-control persenan" id="persenan" value="{{$margin_elektronik}}" disabled>
+                                <input type="hidden" class="persenan" name="persenan" value="{{$margin_elektronik}}">
                             </div>
                         </div>
                     </div>
