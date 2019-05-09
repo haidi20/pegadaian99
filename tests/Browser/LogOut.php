@@ -34,7 +34,7 @@ class LogOut extends Login
                 ->assertPathIs('/login')
                 ->assertSee('Form Login')
                 // fill some field , for the toast end of execute
-                ->value('#id_username', 'berhasil logout')
+                ->value('#username', 'berhasil logout')
                 // ->type('username', 'berhasil Logout')
                 // capture the task
                 ->screenshot('UserAuthLogout')

@@ -25,6 +25,8 @@ class CabangEdit extends CabangView
                  */
                 ->assertPathIs($this->cabang_path())
                 ->assertSee('Data Cabang')
+                // going to cabang->edit cabang
+                ->clickLink('Cabang')
                 /**
                  * ?clickLink('param')
                  * the function for this
@@ -36,9 +38,36 @@ class CabangEdit extends CabangView
                 ->assertSee('DATA CABANG')
                 // capture the task
                 ->screenshot('UserView[EDIT](1)Cabang')
-                // user change No Cabang
-                ->value('#no_cabang', '99')
-                ->screenshot('UserView[EDIT_FIELD](2)Cabang')
+
+                // before edit cabang , choose the cabang from drop down menu admin
+                ->clickLink('Pilih Cabang')
+                ->assertPathIs('/setting/cabang')
+                ->assertSee('PILIH CABANG')
+                ->assertSee('Nomor Cabang')
+                /**
+                 * DROP DOWN MENU PILIH CABANG
+                 * select('name', 'value')
+                 * 03
+                 */
+                ->select('id_cabang', '5a49d1e6d31fb')
+                ->screenshot('UserView[EDIT_PILIH](2)Cabang')
+                ->press('Proses')
+                ->assertSee('Sukses')
+                ->screenshot('UserView[EDIT_PILIH](3)Cabang')
+
+                // back to edit cabang, against
+                ->clickLink('Cabang')
+                ->clickLink('Edit Cabang')
+                // measure against , the bot seen page
+                ->assertSee('DATA CABANG')
+                // capture task view edit cabang
+                ->screenshot('UserViewCabang[EDIT](4)Cabang')
+                // user change value of field data list cabang from select cabang
+                ->value('#investor', 'Yogi Arif Widodo')
+                ->value('#nama_cabang', 'Bhayangan')
+                ->value('#telp_cabang', '021791021791')
+                ->value('#alamat_cabang', 'Dubai Emirat Arab')
+                ->screenshot('UserViewCabang[EDIT_FIELD](5)')
                 ->press('Proses')
                 /**
                  * #path_url-02 cabang_path() from CabangView.php
@@ -47,7 +76,7 @@ class CabangEdit extends CabangView
                  */
                 ->assertPathIs($this->cabang_path())
                 ->assertSee('Sukses')
-                ->screenshot('UserView[EDIT_SUBMIT](2)Cabang')
+                ->screenshot('UserView[EDIT_SUBMIT](6)Cabang')
                 // end
             ;
         });

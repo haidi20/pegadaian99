@@ -43,16 +43,23 @@ class CabangView extends Login
                 // capture the task
                 ->screenshot('UserViewCabang[1]')
                 /**
+                 * DROP DOWN MENU PILIH CABANG
+                 * select('name', 'value')
+                 * 03
+                 */
+                ->select('perpage', '50')
+                ->screenshot('UserViewCabang[2]')
+                /**
                  * ?clickLink('param')
                  * the function for this
                  * <a href='x'> param </a>
                  * pagination move -> |2|
                  */
-                ->clickLink('2')
+                // ->clickLink('2')
                 // measure againts browser assert
-                ->assertSee('OKA - SUTOMO')
+                // ->assertSee('OKA - SUTOMO')
                 // capture the task
-                ->screenshot('UserViewCabangPagination[2]')
+                // ->screenshot('UserViewCabangPagination[2]')
                 /**
                  * sorting
                  * modal setiap cabang
@@ -63,10 +70,10 @@ class CabangView extends Login
                 ->select('by', 'nama_cabang')
                 // button OKE search
                 ->click('#btn-search')
-                // ->clickLink('Oke')
+                // // ->clickLink('Oke')
                 ->assertSee('516.000,00')
 
-                // capture the task
+                // // capture the task
                 ->screenshot('UserViewCabangSearch[3]')
                 // end
             ;
