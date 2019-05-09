@@ -17,7 +17,9 @@ class CreateSettingTable extends Migration
             $table->increments('id');
             $table->string('id_cabang')->nullable();
             $table->integer('persenan')->default(10);
-            $table->double('opsi_pembayaran')->default(10000);
+            // op = 'opsi pembayaran'
+            $table->double('op_elektronik')->default(10000);
+            $table->double('op_kendaraan')->default(10000);
             $table->timestamps();
         });
     }

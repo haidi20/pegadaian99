@@ -53,7 +53,8 @@
                                     <thead>
                                         <tr>
                                             <th>Jumlah Persenan</th>
-                                            <th>Jumlah Biaya Titip yang Dibayar</th>
+                                            <th>Jumlah Biaya Titip yang Dibayar Elektronik</th>
+                                            <th>Jumlah Biaya Titip yang Dibayar Kendaraan</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -61,7 +62,8 @@
                                         <tr>
                                             @if(!is_null($setting))
                                                 <td>{{$setting->persenan}}%</td>
-                                                <td>{{$setting->nominal_opsi_pembayaran}}</td>
+                                                <td>{{$setting->nominal_op_elektronik}}</td>
+                                                <td>{{$setting->nominal_op_kendaraan}}</td>
                                                 <td align="center">
                                                     <a href="javascript:void(0)" onClick="edit({{$setting->id}})" title="Detail Data" class="btn btn-sm btn-info">
                                                         <i class="icofont icofont-external icofont-lg"></i>

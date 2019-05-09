@@ -190,11 +190,13 @@ class AkadController extends Controller
         $setting        = $this->setting->baseBranch()->first();
         // set default nuber for 'persenan' and 'biaya_titip'
         $persenan       = is_null($setting) ? 10 : $setting->persenan;
-        $opsi_pembayaran= is_null($setting) ? 1 : $setting->opsi_pembayaran;
+        //op = 'opsi pembayaran'
+        $op_elektronik  = is_null($setting) ? 10000 : $setting->op_elektronik;
+        $op_kendaraan   = is_null($setting) ? 20000 : $setting->op_kendaraan;
 
     	return $this->template('akad._form', compact(
             'action', 'method', 'tanggal_akad', 'tanggal_jatuh_tempo', 
-            'listTime', 'paymentOption', 'persenan', 'opsi_pembayaran'
+            'listTime', 'paymentOption', 'persenan', 'op_elektronik', 'op_kendaraan'
         ));
     }
 

@@ -23,8 +23,12 @@ class Setting extends Model
         return $query->where('id_cabang', $user_cabang->id_cabang);
     }
 
-    public function getNominalOpsiPembayaranAttribute()
+    public function getNominalOpElektronikAttribute()
     {
-        return 'Rp '. nominal($this->opsi_pembayaran);
+        return 'Rp '. nominal($this->op_elektronik);
+    }
+    public function getNominalOpKendaraanAttribute()
+    {
+        return 'Rp '. nominal($this->op_kendaraan);
     }
 }
