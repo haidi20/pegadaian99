@@ -52,9 +52,9 @@
                                 <table class="table table table-striped table-bordered nowrap table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Jumlah Persenan</th>
-                                            <th>Jumlah Biaya Titip yang Dibayar Elektronik</th>
-                                            <th>Jumlah Biaya Titip yang Dibayar Kendaraan</th>
+                                            <th>Margin</th>
+                                            <th>Potongan Elektronik</th>
+                                            <th>Potongan Kendaraan</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
