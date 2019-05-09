@@ -17,9 +17,6 @@
             $('.terbilang').val(terbilang(marhun_bih));
             $('.terbilang').val(terbilang(marhun_bih));
 
-            // determine 'biaya admin' from 'marhun_bih'
-            biaya_admin(marhun_bih)
-
             // determine 'biaya titip'
             biaya_titip(marhun_bih, 'marhun_bih')
         });
@@ -42,18 +39,6 @@
         $('#nilai_opsi_pembayaran').val(value)
 
         biaya_titip(value, 'opsi_pembayaran')
-    }
-
-    // determine 'biaya admin'
-    function biaya_admin(marhun_bih)
-    {
-        var persenan  = $('#persenan').val()
-        var biaya_admin = marhun_bih * (persenan/100)
-        
-        // for show on view
-        $('#biaya_admin1').val(format_nominal(biaya_admin))
-        // for send to database
-        $('#biaya_admin2').val(biaya_admin)
     }
 
     // determine 'biaya titp'
@@ -109,17 +94,17 @@
         // condition for negatif number of 'biaya titip'
         biaya_titip = biaya_titip <= 0 ? 0 : biaya_titip
 
-        var thousand_bt = biaya_titip == 0 ? null : '.000'
+        var thousand_bt         = biaya_titip == 0 ? null : '.000'
         var nominal_biaya_titip = format_nominal(biaya_titip)
         nominal_biaya_titip     = nominal_biaya_titip.replace("Rp", "")
-        nominal_biaya_titip     = Math.round(nominal_biaya_titip)+thousand_bt
+        nominal_biaya_titip     = Math.ceil(nominal_biaya_titip)+thousand_bt
         $('.biaya_titip').val(nominal_biaya_titip)
 
         var jml_bt_yang_dibayar = biaya_titip * bt_yang_dibayar
-        var thousand_jml_bt = jml_bt_yang_dibayar == 0 ? null : '.000'
-        jml_bt_yang_dibayar = format_nominal(jml_bt_yang_dibayar)
-        jml_bt_yang_dibayar = jml_bt_yang_dibayar.replace("Rp", "")
-        jml_bt_yang_dibayar = Math.round(jml_bt_yang_dibayar)+thousand_jml_bt
+        var thousand_jml_bt     = jml_bt_yang_dibayar == 0 ? null : '.000'
+        jml_bt_yang_dibayar     = format_nominal(jml_bt_yang_dibayar)
+        jml_bt_yang_dibayar     = jml_bt_yang_dibayar.replace("Rp", "")
+        jml_bt_yang_dibayar     = Math.ceil(jml_bt_yang_dibayar)+thousand_jml_bt
         $('.jml_bt_yang_dibayar').val(jml_bt_yang_dibayar)
     }
 
