@@ -109,7 +109,7 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <input type="hidden" id="nilai_opsi_pembayaran" value="0">
+                            <input type="hidden" id="nilai_opsi_pembayaran" value="1">
                         </div>
                     </div>
                     <div class="form-group row">
