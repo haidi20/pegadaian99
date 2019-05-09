@@ -14,20 +14,29 @@
                     {{csrf_field()}}
                     <input type="hidden" name="id" id="id" value=""> 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Jumlah Persenan</label>
-                        <div class="col-sm-8 col-lg-10">
+                        <label class="col-sm-12 col-md-3 col-form-label">Margin Elektronik</label>
+                        <div class="col-sm-12 col-md-9">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">%</span>
-                                <input type="text" class="form-control autonumber" data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="persenan" id="persenan" placeholder="Jumlah" required>
+                                <input type="text" class="form-control autonumber" data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="margin_elektronik" id="margin_elektronik" placeholder="Jumlah" required>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Jumlah Biaya Titip yang Dibayar</label>
-                        <div class="col-sm-8 col-lg-10">
+                            <label class="col-sm-12 col-md-3 col-form-label">Margin Kendaraan</label>
+                            <div class="col-sm-12 col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1">%</span>
+                                    <input type="text" class="form-control autonumber" data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="margin_kendaraan" id="margin_kendaraan" placeholder="Jumlah" required>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-3 col-form-label">Jumlah Potongan</label>
+                        <div class="col-sm-12 col-md-9">
                             <div class="input-group">
-                                {{-- <span class="input-group-addon" id="basic-addon1"></span> --}}
-                                <input type="text" class="form-control autonumber" data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="biaya_titip" id="biaya_titip" value="{{old('jumlah')}}" placeholder="Jumlah" required>
+                                <span class="input-group-addon" id="basic-addon1">Rp. </span>
+                                <input type="text" class="form-control autonumber" data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="potongan" id="potongan" placeholder="Jumlah" required>
                             </div>
                         </div>
                     </div>

@@ -15,12 +15,15 @@
         {
             // get value 
             var id = $('#table_id').val()
-            var persenan = $('#table_persenan').val()
-            var biaya_titip = $('#table_biaya_titip').val()
+            var margin_elektronik = $('#table_margin_elektronik').val()
+            var margin_kendaraan = $('#table_margin_kendaraan').val()
+            var potongan = $('#table_potongan').val()
+            console.log(potongan)
 
             $('#id').val(id)
-            $('#persenan').val(persenan)
-            $('#biaya_titip').val(biaya_titip)
+            $('#margin_elektronik').val(margin_elektronik)
+            $('#margin_kendaraan').val(margin_kendaraan)
+            $('#potongan').val(potongan)
 
             $('#modal-setting').modal('show')
         }
@@ -43,6 +46,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
                             <a href="javascript:void(0)" onClick="create()" class="btn btn-success {{$setting ? 'disabled' : ''}}">Buat</a>
+                            {{-- <a href="javascript:void(0)" onClick="create()" class="btn btn-success ">Buat</a> --}}
                         </div>
                     </div>
                     <br>
@@ -52,18 +56,18 @@
                                 <table class="table table table-striped table-bordered nowrap table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Margin</th>
-                                            <th>Potongan Elektronik</th>
-                                            <th>Potongan Kendaraan</th>
+                                            <th>Potongan</th>
+                                            <th>Margin Elektronik</th>
+                                            <th>Margin Kendaraan</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             @if(!is_null($setting))
-                                                <td>{{$setting->persenan}}%</td>
-                                                <td>{{$setting->nominal_op_elektronik}}</td>
-                                                <td>{{$setting->nominal_op_kendaraan}}</td>
+                                                <td>{{$setting->nominal_potongan}}</td>
+                                                <td>{{$setting->margin_elektronik}}%</td>
+                                                <td>{{$setting->margin_kendaraan}}%</td>
                                                 <td align="center">
                                                     <a href="javascript:void(0)" onClick="edit({{$setting->id}})" title="Detail Data" class="btn btn-sm btn-info">
                                                         <i class="icofont icofont-external icofont-lg"></i>
@@ -71,8 +75,9 @@
                                                 </td>
 
                                                 <input type="hidden" id="table_id" value="{{$setting->id}}">
-                                                <input type="hidden" id="table_persenan" value="{{$setting->persenan}}">
-                                                <input type="hidden" id="table_biaya_titip" value="{{$setting->biaya_titip}}">
+                                                <input type="hidden" id="table_margin_elektronik" value="{{$setting->margin_elektronik}}">
+                                                <input type="hidden" id="table_margin_kendaraan" value="{{$setting->margin_kendaraan}}">
+                                                <input type="hidden" id="table_potongan" value="{{$setting->potongan}}">
                                             @else
                                                 <tr>
                                                     <td colspan="3" align="center">No data available in table</td>
