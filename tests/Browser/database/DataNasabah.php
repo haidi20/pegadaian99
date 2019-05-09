@@ -5,8 +5,9 @@ namespace Tests\Browser\database;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\Browser\Login;
 
-class DataNasabah extends DuskTestCase
+class DataNasabah extends Login
 {
     /**
      * declare
@@ -51,18 +52,18 @@ class DataNasabah extends DuskTestCase
                  */
                 ->clickLink('Data Nasabah')
                 ->assertSee('DATA TABLE NASABAH')
-                ->screenshot('UserViewDataCabang[1]view')
+                ->screenshot('UserViewDataNasabah[1]view')
                 // user want show 50 data per page
                 ->select('perpage', '50')
-                ->screenshot('UserViewDataCabang[2]viewPerPage')
+                ->screenshot('UserViewDataNasabah[2]viewPerPage')
                 // user search ( filter : ['No Telp', '082250256655']) + FIELD VALUE
                 ->select('by', 'no_telp')
                 // some case value more prefered use ID not CLASS , sometime make anError
                 ->value('#q', '082250256655')
-                ->screenshot('UserViewDataCabang[3]FilterView')
+                ->screenshot('UserViewDataNasabah[3]FilterView')
                 ->press('Oke')
                 ->assertSee('DEVI YULISTIA ANGGRENI')
-                ->screenshot('UserViewDataCabang[4]FilterSubmit')
+                ->screenshot('UserViewDataNasabah[4]FilterSubmit')
                 // ->click('#detail_957')
                 // ->clickLink('Detail Data')
                 // ->assertSee('Detail Data Nasabah')
