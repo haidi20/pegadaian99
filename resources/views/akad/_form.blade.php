@@ -62,14 +62,18 @@
     function biaya_titip(value, option)
     {
         var persenan        = $('#persenan').val() / 100
-        var opsi_pembayaran = $('#nilai_opsi_pembayaran').val()
 
         // override base on condition form 'opsi_pembayaran'
         if(option == 'marhun_bih'){
             marhun_bih = value
-        }else if(option == 'opsi_pembayaran'){
-            opsi_pembayaran = value
+        }else{
             marhun_bih = $('#marhun_bih').val().replace(".","").replace(".","").replace(".","")
+        }
+
+        if(option == 'opsi_pembayaran'){
+            var opsi_pembayaran = value
+        }else{
+            var opsi_pembayaran = $('#nilai_opsi_pembayaran').val()
         }
 
         if(option == 'jenis_barang'){
@@ -84,41 +88,39 @@
             var bt_yang_dibayar = $('#bt_yang_dibayar').val()
         }
 
+        // set nominal 'potongan biaya titip'
         if(jenis_barang == 'elektronik'){
-            // formula 'opsi_pembayaran'
-            if(opsi_pembayaran == 1){
-                var biaya_titip = marhun_bih * persenan - ({{$op_elektronik}} / 2) / 7
-            }else if (opsi_pembayaran == 15){
-                var biaya_titip = marhun_bih * persenan 
-            }else{
-                var biaya_titip = marhun_bih * persenan - ({{$op_elektronik}} / 2)
-            }
-
-            // condition for negatif number of 'biaya titip'
-            biaya_titip = biaya_titip <= 0 ? 0 : biaya_titip
+            var potongan = {{$op_elektronik}}
         }else{
-            var biaya_titip = marhun_bih
+            var potongan = {{$op_kendaraan}}
         }
 
-        var zero = biaya_titip == 0 ? null : '.000'
+        // formula 'opsi_pembayaran'
+        if(opsi_pembayaran == 1){
+            // var biaya_titip = marhun_bih * persenan - ({{$op_elektronik}} / 2) / 7
+            var biaya_titip = (marhun_bih * persenan - potongan) / 2 / 7
+        }else if (opsi_pembayaran == 15){
+            var biaya_titip = marhun_bih * persenan 
+        }else{
+            // var biaya_titip = marhun_bih * persenan - ({{$op_elektronik}} / 2)
+            var biaya_titip = (marhun_bih * persenan - potongan) / 2
+        }
 
+        // condition for negatif number of 'biaya titip'
+        biaya_titip = biaya_titip <= 0 ? 0 : biaya_titip
+
+        var thousand_bt = biaya_titip == 0 ? null : '.000'
         var nominal_biaya_titip = format_nominal(biaya_titip)
         nominal_biaya_titip     = nominal_biaya_titip.replace("Rp", "")
-        nominal_biaya_titip     = Math.round(nominal_biaya_titip)+zero
+        nominal_biaya_titip     = Math.round(nominal_biaya_titip)+thousand_bt
         $('.biaya_titip').val(nominal_biaya_titip)
 
         var jml_bt_yang_dibayar = biaya_titip * bt_yang_dibayar
-        // jml_bt_yang_dibayar = jml_bt_yang_dibayar.toString().replace(",","")
+        var thousand_jml_bt = jml_bt_yang_dibayar == 0 ? null : '.000'
         jml_bt_yang_dibayar = format_nominal(jml_bt_yang_dibayar)
         jml_bt_yang_dibayar = jml_bt_yang_dibayar.replace("Rp", "")
+        jml_bt_yang_dibayar = Math.round(jml_bt_yang_dibayar)+thousand_jml_bt
         $('.jml_bt_yang_dibayar').val(jml_bt_yang_dibayar)
-        // console.log(jml_bt_yang_dibayar)
-
-        //  // condition for negatif number
-        // nominal_biaya_titip = nominal_biaya_titip <= 0 ? 0 : nominal_biaya_titip
-
-        // var jml_bt_yang_dibayar = nominal_biaya_titip.toString().replace(",","").replace(".","").replace(".","").replace(".","")
-        // $('#jml_bt_yang_dibayar').val(terbilang(jml_bt_yang_dibayar))
     }
 
     // determine 'tanggal jatuh tempo' base on 'tanggal akad'
@@ -161,7 +163,11 @@
             //get value 'jenis_kendaraan'
             $('#nilai_jenis_barang').val('elektronik')
             // for condition if type == 'elektronik'. 'persenan' = 10% or etc
-            $('.persenan').val(persenan_real)
+            // $('.persenan').val(persenan_real)
+            // set 'biaya admin'
+            var biaya_admin = format_nominal(10000)
+            biaya_admin = biaya_admin.replace("Rp", "")
+            $('.biaya_admin').val(biaya_admin)
             // for condition 'biaya titip'
             biaya_titip('elektronik', 'jenis_barang')
         }else{
@@ -171,7 +177,11 @@
             //get value 'jenis_kendaraan'
             $('#nilai_jenis_barang').val('kendaraan')
             // for condition if type == 'kendaraan'. 'persenan' = 0
-            $('.persenan').val(0)
+            // $('.persenan').val(0)
+            // set 'biaya admin'
+            var biaya_admin = format_nominal(50000)
+            biaya_admin = biaya_admin.replace("Rp", "")
+            $('.biaya_admin').val(biaya_admin)
             // for condition 'biaya titip'
             biaya_titip('kendaraan', 'jenis_barang')
         }

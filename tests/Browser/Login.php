@@ -27,6 +27,11 @@ class Login extends DuskTestCase
     {
         // open browser
         $this->browse(function (Browser $browser) {
+            // $input = [
+            //     "username" => "admin"
+            //     // ,
+            //     // "sex" => "Male"
+            // ];
             // #path_url-01 login_path()
             $browser->visit($this->login_path())
                 // used to maximize the browser window:
