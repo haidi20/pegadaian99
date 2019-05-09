@@ -100,7 +100,7 @@
                         <div class="col-sm-10">
                             <div class="form-radio">
                                 {{-- setting show / hide use jquery  --}}
-                                @foreach($listTime as $index => $item)
+                                @foreach($paymentOption as $index => $item)
                                     <div class="radio radio-inline" id="op_{{$item['value']}}" style="display: none">
                                         <label>
                                             <input type="radio" name="opsi_pembayaran" onClick="valueOptionPayment('{{$item['value']}}')" value="{{$item['value']}}" {{checked($item['value'], 'opsi_pembayaran', 1)}}>
@@ -124,11 +124,12 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="bt_yang_dibayar">Biaya Titip yang Dibayar</label>
-                        <div class="col-sm-12 col-md-2">
-                            {{-- <select name="bt_yang_dibayar" id="bt_yang_dibayar" class="form-control">
-                                <option {{ selected(1, 'bt_yang_dibayar', 'old')}}>1</option>
-                            </select>  --}}
-                            <input type="number" class="form-control" id="bt_yang_dibayar" value="{{old('bt_yang_dibayar', $biaya_titip)}}"  disabled>
+                        <div class="col-sm-12 col-md-1">
+                            <select name="bt_yang_dibayar" id="bt_yang_dibayar" class="form-control">
+                                @for($i = 0; $i <= 9; $i++)
+                                    <option {{ selected($i, 'bt_yang_dibayar', 'old')}} value="{{$i}}">{{$i}}</option>
+                                @endfor
+                            </select> 
                         </div>
                     </div>
                     <div class="form-group row">
@@ -137,7 +138,8 @@
                             {{-- <select name="bt_yang_dibayar" id="bt_yang_dibayar" class="form-control">
                                 <option {{ selected(1, 'bt_yang_dibayar', 'old')}}>1</option>
                             </select>  --}}
-                            <input type="text" class="form-control" id="jml_bt_yang_dibayar" disabled>
+                            <input type="text" class="form-control jml_bt_yang_dibayar" disabled>
+                            <input type="hidden" class="form-control jml_bt_yang_dibayar" name="jml_bt_yang_dibayar">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -150,8 +152,8 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="terbilang">Terbilang</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="terbilang" value="{{old('terbilang')}}" disabled>
-                            <input type="hidden" class="form-control" name="terbilang" id="terbilang2" value="{{old('terbilang')}}">
+                            <input type="text" class="form-control terbilang" value="{{old('terbilang')}}" disabled>
+                            <input type="hidden" class="form-control terbilang" name="terbilang">
                         </div>
                     </div>
                 </div>

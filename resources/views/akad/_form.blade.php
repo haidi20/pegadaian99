@@ -11,11 +11,11 @@
         $('#marhun_bih').on('keyup' ,function(){
             var marhun_bih = this.value.replace(",","").replace(".","").replace(".","").replace(".","")
 
-            if(marhun_bih == 0){ marhun_bih = 0 }
+            marhun_bih = marhun_bih == 0 ? 0 : marhun_bih
 
             // process 'terbilang' of 'marhub_bih'
-            $('#terbilang').val(terbilang(marhun_bih));
-            $('#terbilang2').val(terbilang(marhun_bih));
+            $('.terbilang').val(terbilang(marhun_bih));
+            $('.terbilang').val(terbilang(marhun_bih));
 
             // determine 'biaya admin' from 'marhun_bih'
             biaya_admin(marhun_bih)
@@ -26,6 +26,14 @@
 
         // for default checked 'OPSI PEMBAYARAN HARIAN / 1'
         $('#op_1,#op_7').css('display', '') 
+
+        // condition option of form 'biaya titip yang dibayar'
+        $('#bt_yang_dibayar').change(function(){
+            var value = $(this).children("option:selected").val();
+
+            // determine 'biaya titip'
+            biaya_titip(value, 'bt_yang_dibayar')
+        });
     });
 
     // setting value 'opsi pembayaran'
@@ -42,7 +50,9 @@
         var persenan  = $('#persenan').val()
         var biaya_admin = marhun_bih * (persenan/100)
         
+        // for show on view
         $('#biaya_admin1').val(format_nominal(biaya_admin))
+        // for send to database
         $('#biaya_admin2').val(biaya_admin)
     }
 
@@ -52,9 +62,7 @@
     function biaya_titip(value, option)
     {
         var persenan        = $('#persenan').val() / 100
-        var jenis_barang    = $('#nilai_jenis_barang').val()
         var opsi_pembayaran = $('#nilai_opsi_pembayaran').val()
-        var bt_yang_dibayar = $('#bt_yang_dibayar').val()
 
         // override base on condition form 'opsi_pembayaran'
         if(option == 'marhun_bih'){
@@ -65,20 +73,26 @@
         }
 
         if(option == 'jenis_barang'){
-            jenis_barang = value
+            var jenis_barang = value
+        }else{
+            var jenis_barang = $('#nilai_jenis_barang').val()
+        }
+
+        if(option == 'bt_yang_dibayar'){
+            var bt_yang_dibayar = value
+        }else{
+            var bt_yang_dibayar = $('#bt_yang_dibayar').val()
         }
 
         if(jenis_barang == 'elektronik'){
+            // formula 'opsi_pembayaran'
             if(opsi_pembayaran == 1){
-                var result = marhun_bih * persenan - (10000 / 2) / 7
+                var biaya_titip = marhun_bih * persenan - ({{$op_elektronik}} / 2) / 7
             }else if (opsi_pembayaran == 15){
-                var result = marhun_bih * persenan 
+                var biaya_titip = marhun_bih * persenan 
             }else{
-                var result = marhun_bih * persenan - (10000 / 2)
+                var biaya_titip = marhun_bih * persenan - ({{$op_elektronik}} / 2)
             }
-
-            // var biaya_titip = result * bt_yang_dibayar
-            var biaya_titip = result
 
             // condition for negatif number of 'biaya titip'
             biaya_titip = biaya_titip <= 0 ? 0 : biaya_titip
@@ -86,15 +100,18 @@
             var biaya_titip = marhun_bih
         }
 
+        var zero = biaya_titip == 0 ? null : '.000'
+
         var nominal_biaya_titip = format_nominal(biaya_titip)
         nominal_biaya_titip     = nominal_biaya_titip.replace("Rp", "")
+        nominal_biaya_titip     = Math.round(nominal_biaya_titip)+zero
         $('.biaya_titip').val(nominal_biaya_titip)
 
         var jml_bt_yang_dibayar = biaya_titip * bt_yang_dibayar
-        jml_bt_yang_dibayar = jml_bt_yang_dibayar.toString().replace(",","")
+        // jml_bt_yang_dibayar = jml_bt_yang_dibayar.toString().replace(",","")
         jml_bt_yang_dibayar = format_nominal(jml_bt_yang_dibayar)
         jml_bt_yang_dibayar = jml_bt_yang_dibayar.replace("Rp", "")
-        $('#jml_bt_yang_dibayar').val(jml_bt_yang_dibayar)
+        $('.jml_bt_yang_dibayar').val(jml_bt_yang_dibayar)
         // console.log(jml_bt_yang_dibayar)
 
         //  // condition for negatif number

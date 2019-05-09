@@ -183,17 +183,20 @@ class AkadController extends Controller
     	$tanggal_jatuh_tempo = Carbon::now()->addDay('7')->format('Y-m-d');
 
         // list time example : 1, 7, 15, 30, 60 days. for 'jangka_waktu_akad' and 'opsi_pembayaran'
-        $listTime            = config('library.form.akad');
+        $listTime            = config('library.form.akad.list_time');
+        $paymentOption       = config('library.form.akad.payment_option');
 
         // get value 'persenan' & 'biaya titip yang dibayar'
-        $setting    = $this->setting->first();
+        $setting        = $this->setting->baseBranch()->first();
         // set default nuber for 'persenan' and 'biaya_titip'
-        $persenan   = is_null($setting) ? 10 : $setting->persenan;
-        $biaya_titip= is_null($setting) ? 1 : $setting->biaya_titip;
+        $persenan       = is_null($setting) ? 10 : $setting->persenan;
+        //op = 'opsi pembayaran'
+        $op_elektronik  = is_null($setting) ? 10000 : $setting->op_elektronik;
+        $op_kendaraan   = is_null($setting) ? 20000 : $setting->op_kendaraan;
 
     	return $this->template('akad._form', compact(
             'action', 'method', 'tanggal_akad', 'tanggal_jatuh_tempo', 
-            'listTime', 'persenan', 'biaya_titip'
+            'listTime', 'paymentOption', 'persenan', 'op_elektronik', 'op_kendaraan'
         ));
     }
 
