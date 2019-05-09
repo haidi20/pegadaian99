@@ -94,15 +94,27 @@
         // condition for negatif number of 'biaya titip'
         biaya_titip = biaya_titip <= 0 ? 0 : biaya_titip
 
-        var thousand_bt         = biaya_titip == 0 ? null : '.000'
+        if(biaya_titip >= 1000 && biaya_titip != 0){
+            thousand_bt             = '.000'
+        }else{
+            thousand_bt             = null
+        }
+
         var nominal_biaya_titip = format_nominal(biaya_titip)
         nominal_biaya_titip     = nominal_biaya_titip.replace("Rp", "")
         nominal_biaya_titip     = Math.ceil(nominal_biaya_titip)+thousand_bt
         $('.biaya_titip').val(nominal_biaya_titip)
 
         var jml_bt_yang_dibayar = biaya_titip * bt_yang_dibayar
-        var thousand_jml_bt     = jml_bt_yang_dibayar == 0 ? null : '.000'
+
+        if(jml_bt_yang_dibayar >= 1000 & jml_bt_yang_dibayar != 0){
+            var thousand_jml_bt = '.000'
+        }else{
+            var thousand_jml_bt = null
+        }
+
         jml_bt_yang_dibayar     = format_nominal(jml_bt_yang_dibayar)
+        
         jml_bt_yang_dibayar     = jml_bt_yang_dibayar.replace("Rp", "")
         jml_bt_yang_dibayar     = Math.ceil(jml_bt_yang_dibayar)+thousand_jml_bt
         $('.jml_bt_yang_dibayar').val(jml_bt_yang_dibayar)
