@@ -19,7 +19,7 @@ class CreateSettingTable extends Migration
             $table->integer('margin_elektronik')->default(10);
             $table->integer('margin_kendaraan')->default(10);
             // op = 'opsi pembayaran'
-            $table->string('potongan')->nullable();
+            $table->double('potongan')->default(10000);
             $table->timestamps();
         });
     }
