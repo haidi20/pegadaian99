@@ -13,4 +13,22 @@ class Setting extends Model
         'persenan',
         'biaya_titip',
     ];
+
+    // how to fetch data by username of user
+    public function scopebaseBranch($query)
+    {
+        // get data id_cabang from table 'user_cabang' base on this user
+        $user_cabang    = User_cabang::baseUsername()->first();
+
+        return $query->where('id_cabang', $user_cabang->id_cabang);
+    }
+
+    public function getNominalOpElektronikAttribute()
+    {
+        return 'Rp '. nominal($this->op_elektronik);
+    }
+    public function getNominalOpKendaraanAttribute()
+    {
+        return 'Rp '. nominal($this->op_kendaraan);
+    }
 }
