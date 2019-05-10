@@ -19,14 +19,14 @@
             $('#password').val($.cookie('password'));
             // $('#remember').attr('checked', false);
 
-            console.log($.cookie('remember'))
+            // console.log($.cookie('remember'))
 
             if($.cookie('remember') == false){
                 $('#remember').attr('checked', false);
-                console.log('false')
+                // console.log('false')
             }else{
                 $('#remember').attr('checked', true);
-                console.log('true')
+                // console.log('true')
             }
             
         });
@@ -61,6 +61,25 @@
                     $('.captcha span').html(data);
                 }
             });
+        }
+
+        function fetchLatLong()
+        {
+            var x = document.getElementById("demo");
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else { 
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            var info = "Latitude: " + position.coords.latitude + 
+            "<br>Longitude: " + position.coords.longitude;
+
+            console.log(info)
+            sessionStorage.setItem("loc", position.coords.latitude);
         }
     </script>
 @endsection
@@ -119,6 +138,7 @@
                                         <br>
                                         <input type="text" name="captcha" id="captcha" class="form-control" placeholder="Captcha" >
                                     </div> --}}
+                                    <button type="button" class="btn btn-info btn-sm" onClick="fetchLatLong()">lok</button>
                                     <div class="row m-t-25 text-left">
                                         <div class="col-12">
                                             <div class="checkbox-fade fade-in-primary d-">
@@ -135,7 +155,7 @@
                                     </div>
                                     <div class="row m-t-30">
                                         <div class="col-md-12">
-                                            <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Sign in</button>
+                                            <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20" >Sign in</button>
                                         </div>
                                     </div>
                                     {{-- <hr/> --}}
