@@ -10,7 +10,6 @@
         "laravel/tinker": "~1.0",
         "mews/captcha": "^2.2",
         "ramsey/uuid": "^3.8",
-        "torann/geoip": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
