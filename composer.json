@@ -9,7 +9,7 @@
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "mews/captcha": "^2.2",
-        "ramsey/uuid": "^3.8",
+        "ramsey/uuid": "^3.8"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
