@@ -110,7 +110,7 @@
                                         <input type="password" name="password" id="password" class="form-control" placeholder="Password">
                                         <span class="form-bar"></span>
                                     </div>
-                                    <div class="form-group form-primary" align="center">
+                                    {{-- <div class="form-group form-primary" align="center">
                                         <div class="captcha">
                                             <span align="center">{!! captcha_img() !!}</span>
                                         </div>
@@ -118,7 +118,7 @@
                                         <i class="zmdi zmdi-refresh-alt zmdi-lg" onClick="refresh()"></i>
                                         <br>
                                         <input type="text" name="captcha" id="captcha" class="form-control" placeholder="Captcha" >
-                                    </div>
+                                    </div> --}}
                                     <div class="row m-t-25 text-left">
                                         <div class="col-12">
                                             <div class="checkbox-fade fade-in-primary d-">
