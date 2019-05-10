@@ -1,196 +1,200 @@
 @extends('_layouts.default')
 
+@section('script-top')
+<!--forms-wizard css-->
+<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/jquery.steps/css/jquery.steps.css')}}">
+@endsection
+
 @section('script-bottom')
 <!-- Masking js for form format number --> 
 <script src="{{asset('adminty/files/assets/pages/form-masking/inputmask.js')}}"></script>
 <script src="{{asset('adminty/files/assets/pages/form-masking/jquery.inputmask.js')}}"></script>
 <script src="{{asset('adminty/files/assets/pages/form-masking/autoNumeric.js')}}"></script>
 <script src="{{asset('adminty/files/assets/pages/form-masking/form-mask.js')}}"></script>
-<script>
-    $(function(){
-        $('#marhun_bih').on('keyup' ,function(){
-            var marhun_bih = this.value.replace(",","").replace(".","").replace(".","").replace(".","")
 
-            marhun_bih = marhun_bih == 0 ? 0 : marhun_bih
+<!--Forms - Wizard js-->
+<script src="{{asset('adminty/files/bower_components/jquery.cookie/js/jquery.cookie.js')}}"></script>
+<script src="{{asset('adminty/files/bower_components/jquery.steps/js/jquery.steps.js')}}"></script>
+<script src="{{asset('adminty/files/bower_components/jquery-validation/js/jquery.validate.js')}}"></script>
 
-            // process 'terbilang' of 'marhub_bih'
-            $('.terbilang').val(terbilang(marhun_bih));
-            $('.terbilang').val(terbilang(marhun_bih));
-
-            // determine 'biaya titip'
-            biaya_titip(marhun_bih, 'marhun_bih')
-        });
-
-        // for default checked 'OPSI PEMBAYARAN HARIAN / 1'
-        $('#op_1,#op_7').css('display', '') 
-
-        // condition option of form 'biaya titip yang dibayar'
-        $('#bt_yang_dibayar').change(function(){
-            var value = $(this).children("option:selected").val();
-
-            // determine 'biaya titip'
-            biaya_titip(value, 'bt_yang_dibayar')
-        });
-    });
-
-    // setting value 'opsi pembayaran'
-    function valueOptionPayment(value)
-    {
-        $('#nilai_opsi_pembayaran').val(value)
-
-        biaya_titip(value, 'opsi_pembayaran')
-    }
-
-    // determine 'biaya titp'
-    // value is nilai from 'marhun_bih', 'opsi_pembayaran', or 'jenis_barang'
-    // option for condition between marhun bih, 'opsi_pembayaran' and 'jenis_barang'
-    function biaya_titip(value, option)
-    {
-        var persenan        = $('#persenan').val() / 100
-
-        // override base on condition form 'opsi_pembayaran'
-        if(option == 'marhun_bih'){
-            marhun_bih = value
-        }else{
-            marhun_bih = $('#marhun_bih').val().replace(".","").replace(".","").replace(".","")
-        }
-
-        if(option == 'opsi_pembayaran'){
-            var opsi_pembayaran = value
-        }else{
-            var opsi_pembayaran = $('#nilai_opsi_pembayaran').val()
-        }
-
-        if(option == 'jenis_barang'){
-            var jenis_barang = value
-        }else{
-            var jenis_barang = $('#nilai_jenis_barang').val()
-        }
-
-        if(option == 'bt_yang_dibayar'){
-            var bt_yang_dibayar = value
-        }else{
-            var bt_yang_dibayar = $('#bt_yang_dibayar').val()
-        }
-
-        // set nominal 'potongan biaya titip'
-        if(jenis_barang == 'elektronik'){
-            var potongan = {{$potongan}}
-            var persenan = {{$margin_elektronik}} / 100
-        }else{
-            var potongan = null
-            var persenan = {{$margin_kendaraan}} / 100
-        }
-
-        // formula 'opsi_pembayaran'
-        if(opsi_pembayaran == 1){
-            var biaya_titip = (marhun_bih * persenan - potongan) / 2 / 7
-        }else if (opsi_pembayaran == 15){
-            var biaya_titip = marhun_bih * persenan 
-        }else{
-            var biaya_titip = (marhun_bih * persenan - potongan) / 2
-        }
-
-        // condition for negatif number of 'biaya titip'
-        biaya_titip = biaya_titip <= 0 ? 0 : biaya_titip
-
-        if(biaya_titip >= 1000 && biaya_titip != 0){
-            thousand_bt             = '.000'
-        }else{
-            thousand_bt             = null
-        }
-
-        var nominal_biaya_titip = format_nominal(biaya_titip)
-        nominal_biaya_titip     = nominal_biaya_titip.replace("Rp", "")
-        nominal_biaya_titip     = Math.ceil(nominal_biaya_titip)+thousand_bt
-        $('.biaya_titip').val(nominal_biaya_titip)
-
-        var jml_bt_yang_dibayar = biaya_titip * bt_yang_dibayar
-
-        if(jml_bt_yang_dibayar >= 1000 & jml_bt_yang_dibayar != 0){
-            var thousand_jml_bt = '.000'
-        }else{
-            var thousand_jml_bt = null
-        }
-
-        jml_bt_yang_dibayar     = format_nominal(jml_bt_yang_dibayar)
-        
-        jml_bt_yang_dibayar     = jml_bt_yang_dibayar.replace("Rp", "")
-        jml_bt_yang_dibayar     = Math.ceil(jml_bt_yang_dibayar)+thousand_jml_bt
-        $('.jml_bt_yang_dibayar').val(jml_bt_yang_dibayar)
-    }
-
-    // determine 'tanggal jatuh tempo' base on 'tanggal akad'
-    function timePeriod(time)
-    {
-        var tanggal_jatuh_tempo = moment().add(time, 'days').format('Y-MM-DD');
-        $('#tanggal_jatuh_tempo').val(tanggal_jatuh_tempo)
-
-        // function local
-        paymentOption(time)
-    }
-
-    // setting show / hide 'opsi pembayaran' base on 'jangka waktu akad'
-    function paymentOption(time)
-    {
-        var opsi_pembayaran = $('input[name="opsi_pembayaran"]')
-
-        $.each(opsi_pembayaran, function(){
-            var value = $(this).val()
-
-            // condition value of 'opsi_pembayaran' with value time of 'jangka_waktu_akad' 
-            if(value <= time){
-                $('#op_'+value).css('display', '')
-            }else{
-                $('#op_'+value).css('display', 'none')
-            } 
-        })
-    }
-
-    // determine detail item base on 'jenis barang'
-    function itemType(type)
-    {   
-        // value real 'persenan' from database
-        var persenan_real = $('#persenan-real').val()
-
-        if(type == 'elektronik'){
-            $('.kelengkapan_barang_satu').html('Type')
-            $('.kelengkapan_barang_dua').html('Merk')
-            $('.kelengkapan_barang_tiga').html('Imei / Nomor Serial')
-            //get value 'jenis_kendaraan'
-            $('#nilai_jenis_barang').val('elektronik')
-            // for condition if type == 'elektronik'. 'persenan' = 10% or etc
-            // $('.persenan').val(persenan_real)
-            // set 'biaya admin'
-            var biaya_admin = format_nominal(10000)
-            biaya_admin = biaya_admin.replace("Rp", "")
-            $('.biaya_admin').val(biaya_admin)
-            // condition 'persenan'
-            $('.persenan').val({{$margin_elektronik}})
-            // for condition 'biaya titip'
-            biaya_titip('elektronik', 'jenis_barang')
-        }else{
-            $('.kelengkapan_barang_satu').html('KT')
-            $('.kelengkapan_barang_dua').html('Warna')
-            $('.kelengkapan_barang_tiga').html('Nomor Rangka')
-            //get value 'jenis_kendaraan'
-            $('#nilai_jenis_barang').val('kendaraan')
-            // for condition if type == 'kendaraan'. 'persenan' = 0
-            // $('.persenan').val(0)
-            // set 'biaya admin'
-            var biaya_admin = format_nominal(50000)
-            biaya_admin = biaya_admin.replace("Rp", "")
-            $('.biaya_admin').val(biaya_admin)
-            // condition 'persenan' base on 'jenis barang'
-            $('.persenan').val({{$margin_kendaraan}})
-            // for condition 'biaya titip'
-            biaya_titip('kendaraan', 'jenis_barang')
-        }
-    }
-</script>
+<script type="text/javascript" src="{{asset('adminty/files/assets/pages/form-validation/validate.js')}}"></script>
+<!-- Custom js -->
+<script src="{{asset('adminty/files/assets/pages/forms-wizard-validation/form-wizard.js')}}"></script>
+<script src="{{asset('adminty/files/assets/js/pcoded.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('adminty/files/assets/js/script.js')}}"></script>
+@include('akad.akad-js')
 @endsection
 
 @section('content')
+<!-- Form wizard with validation card start -->
+<div class="card">
+    <div class="card-header">
+        <h5>Form Wizard With Validation</h5>
+        <span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>
+
+    </div>
+    <div class="card-block">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="wizard">
+                    <section>
+                        <form class="wizard-form" id="example-advanced-form" action="#">
+                            <h3> Registration </h3>
+                            <fieldset>
+                                <div class="form-group row">
+                                    <div class="col-md-4 col-lg-2">
+                                        <label for="userName-2" class="block">User name *</label>
+                                    </div>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input id="userName-2" name="userName" type="text" class="required form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4 col-lg-2">
+                                        <label for="email-2" class="block">Email *</label>
+                                    </div>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input id="email-2" name="email" type="email" class="required form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4 col-lg-2">
+                                        <label for="password-2" class="block">Password *</label>
+                                    </div>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input id="password-2" name="password" type="password" class="form-control required">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4 col-lg-2">
+                                        <label for="confirm-2" class="block">Confirm Password *</label>
+                                    </div>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input id="confirm-2" name="confirm" type="password" class="form-control required">
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <h3> General information </h3>
+                            <fieldset>
+                                <div class="form-group row">
+                                    <div class="col-md-4 col-lg-2">
+                                        <label for="name-2" class="block">First name *</label>
+                                    </div>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input id="name-2" name="name" type="text" class="form-control required">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4 col-lg-2">
+                                        <label for="surname-2" class="block">Last name *</label>
+                                    </div>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input id="surname-2" name="surname" type="text" class="form-control required">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4 col-lg-2">
+                                        <label for="phone-2" class="block">Phone #</label>
+                                    </div>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input id="phone-2" name="phone" type="number" class="form-control required phone">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4 col-lg-2">
+                                        <label for="date" class="block">Date Of Birth</label>
+                                    </div>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input id="date" name="Date Of Birth" type="text" class="form-control required date-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4 col-lg-2">Select Country</div>
+                                    <div class="col-md-8 col-lg-10">
+                                        <select class="form-control required">
+                                            <option>Select State</option>
+                                            <option>Gujarat</option>
+                                            <option>Kerala</option>
+                                            <option>Manipur</option>
+                                            <option>Tripura</option>
+                                            <option>Sikkim</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <h3> Education </h3>
+                            <fieldset>
+                                <div class="form-group row">
+                                    <div class="col-md-4 col-lg-2">
+                                        <label for="University-2" class="block">University</label>
+                                    </div>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input id="University-2" name="University" type="text" class="form-control required">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4 col-lg-2">
+                                        <label for="Country-2" class="block">Country</label>
+                                    </div>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input id="Country-2" name="Country" type="text" class="form-control required">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4 col-lg-2">
+                                        <label for="Degreelevel-2" class="block">Degree level #</label>
+                                    </div>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input id="Degreelevel-2" name="Degree level" type="text" class="form-control required phone">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4 col-lg-2">
+                                        <label for="datejoin" class="block">Date Join</label>
+                                    </div>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input id="datejoin" name="Date Of Birth" type="text" class="form-control required">
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <h3> Work experience </h3>
+                            <fieldset>
+                                <div class="form-group row">
+                                    <div class="col-md-4 col-lg-2">
+                                        <label for="Company-2" class="block">Company:</label>
+                                    </div>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input id="Company-2" name="Company:" type="text" class="form-control required">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4 col-lg-2">
+                                        <label for="CountryW-2" class="block">Country</label>
+                                    </div>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input id="CountryW-2" name="Country" type="text" class="form-control required">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4 col-lg-2">
+                                        <label for="Position-2" class="block">Position</label>
+                                    </div>
+                                    <div class="col-md-8 col-lg-10">
+                                        <input id="Position-2" name="Position" type="text" class="form-control required">
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Form wizard with validation card end -->
+@endsection
+
+@section('contentt')
 <div class="page-header">
     <div class="row align-items-end">
         <div class="col-lg-8">

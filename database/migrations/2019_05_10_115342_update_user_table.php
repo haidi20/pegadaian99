@@ -14,7 +14,7 @@ class UpdateUserTable extends Migration
     public function up()
     {
         Schema::table('user', function (Blueprint $table) {
-            //
+            $table->rememberToken();
         });
     }
 
@@ -26,7 +26,7 @@ class UpdateUserTable extends Migration
     public function down()
     {
         Schema::table('user', function (Blueprint $table) {
-            //
+            Schema::dropColumn('remember_token');
         });
     }
 }

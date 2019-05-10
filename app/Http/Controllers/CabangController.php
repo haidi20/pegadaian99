@@ -22,11 +22,11 @@ class CabangController extends Controller
                                 Saldo_cabang $saldo_cabang
                             )
     {
-        $this->cabang           = $cabang;
-        $this->request          = $request;
-        $this->kas_cabang       = $kas_cabang;
-        $this->user_cabang      = $user_cabang;
-        $this->saldo_cabang     = $saldo_cabang;
+        $this->cabang       = $cabang      ;
+        $this->request      = $request     ;
+        $this->kas_cabang   = $kas_cabang  ;
+        $this->user_cabang  = $user_cabang ;
+        $this->saldo_cabang = $saldo_cabang;
 
         view()->share([
             'menu'         => 'cabang',
