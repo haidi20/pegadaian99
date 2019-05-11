@@ -6,7 +6,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="nama_barang">Nama Barang</label>
                         <div class="col-sm-10">
-                            <input type="text" class="required form-control" name="nama_barang" id="nama_barang" value="{{old('nama_barang')}}" required>
+                            <input type="text" class="form-control" name="nama_barang" id="nama_barang" value="{{old('nama_barang')}}" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -32,27 +32,27 @@
                     <div class="form-group row" id="item_elektronik" style="display:">
                         <label class="col-sm-2 col-form-label kelengkapan_barang_satu" for="kelengkapan_barang_satu">Type</label>
                         <div class="col-sm-12 col-md-2">
-                            <input type="text" class="form-control" name="kelengkapan_barang_satu" id="kelengkapan_barang_satu" value="{{old('kelengkapan_barang_satu')}}" required>
+                            <input type="text" class="form-control" name="kelengkapan_barang_satu" id="kelengkapan_barang_satu" value="{{old('kelengkapan_barang_satu')}}" >
                         </div>
                         <label class="col-sm-1 col-form-label kelengkapan_barang_dua" for="kelengkapan_barang_dua">Merk</label>
                         <div class="col-sm-12 col-md-2">
-                            <input type="text" class="form-control" name="kelengkapan_barang_dua" id="kelengkapan_barang_dua" value="{{old('kelengkapan_barang_dua')}}" required>
+                            <input type="text" class="form-control" name="kelengkapan_barang_dua" id="kelengkapan_barang_dua" value="{{old('kelengkapan_barang_dua')}}" >
                         </div>
                         <label class="col-sm-2 col-form-label kelengkapan_barang_tiga" for="kelengkapan_barang_tiga">Imei / Nomor Serial</label>
                         <div class="col-sm-12 col-md-3">
-                            <input type="text" class="form-control" name="kelengkapan_barang_tiga" id="kelengkapan_barang_tiga" value="{{old('kelengkapan_barang_tiga')}}" required>
+                            <input type="text" class="form-control" name="kelengkapan_barang_tiga" id="kelengkapan_barang_tiga" value="{{old('kelengkapan_barang_tiga')}}" >
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" >Kelengkapan barang</label>
                         <div class="col-sm-10">
-                            <textarea rows="5" cols="5" class="form-control" id="kelengkapan" name="kelengkapan" required>{{old('kelengkapan')}}</textarea>
+                            <textarea rows="5" cols="5" class="form-control" id="kelengkapan" name="kelengkapan" >{{old('kelengkapan')}}</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" >Kekurangan / Kerusakan Barang</label>
                         <div class="col-sm-10">
-                            <textarea rows="5" cols="5" class="form-control" id="kekurangan" name="kekurangan" required>{{old('kekurangan')}}</textarea>
+                            <textarea rows="5" cols="5" class="form-control" id="kekurangan" name="kekurangan" >{{old('kekurangan')}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                                 name="taksiran_marhun" 
                                 id="taksiran_marhun" 
                                 value="{{old('taksiran_marhun')}}"
-                                required>
+                                >
                         </div>
                     </div>
                     <div class="form-group row">
@@ -86,26 +86,7 @@
                                 name="marhun_bih" 
                                 id="marhun_bih" 
                                 value="{{old('marhun_bih')}}"
-                                required>
-                        </div>
-                    </div>
-                    {{-- <div class="form-group row">
-                        <div class="col-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">Rp.</span>
-                                <input type="text" class="required form-control" name="marhun_bih" id="marhun_bih" value="{{old('marhun_bih')}}">
-                                <input type="text" class="required form-control autonumber"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," id="marhun_bih" name="marhun_bih" value="{{old('marhun_bih')}}">
-                            </div>
-                        </div>
-                    </div> --}}
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-xs-2 col-form-label" for="persenan">Persenan</label>
-                        <div class="col-sm-2 col-xs-2">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">%</span>
-                                <input type="text" class="form-control persenan" id="persenan" value="{{$margin_elektronik}}" disabled>
-                                <input type="hidden" class="persenan" name="persenan" value="{{$margin_elektronik}}">
-                            </div>
+                                >
                         </div>
                     </div>
                     <div class="form-group row">
@@ -160,7 +141,7 @@
                         <div class="col-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">Rp.</span>
-                                <input type="text" class="form-control autonumber biaya_admin" value="10000"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," id="biaya_admin" name="biaya_admin" disabled>
+                                <input type="text" class="form-control biaya_admin" value="10000" id="biaya_admin" name="biaya_admin" disabled>
                                 <input type="hidden" class="form-control biaya_admin" name="biaya_admin" value="10000" >
                                 
                             </div>

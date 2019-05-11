@@ -31,14 +31,16 @@
 
 <script type="text/javascript" src="{{asset('adminty/files/assets/pages/form-validation/validate.js')}}"></script>
 <!-- Custom js -->
-<script src="{{asset('adminty/files/assets/pages/forms-wizard-validation/form-wizard.js')}}"></script>
 <script src="{{asset('adminty/files/assets/js/pcoded.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('adminty/files/assets/js/script.js')}}"></script>
+
+<script src="{{asset('js/form-wizard.js')}}"></script>
 @include('akad.form.form-akad-js')
 @endsection
 
 @section('content')
 <!-- Form wizard with validation card start -->
+@include('akad.modal.akad-baru')
 <div class="card">
     <div class="card-header">
         <h3>Akad Baru</h3>
@@ -51,21 +53,14 @@
                         <form class="wizard-form" id="example-advanced-form" action="#">
                             <h3> Langkah Pertama </h3>
                             <fieldset>
+                                {{-- <button type="button" class="btn btn-primary sweet-1 m-b-10" onclick="_gaq.push(['_trackEvent', 'example', 'try', 'sweet-1']);">Basic</button> --}}
                                 @include('akad.form.time')
 
                                 @include('akad.form.marhun')
                             </fieldset>
                             <h3> General information </h3>
                             <fieldset>
-                                <div class="form-group row">
-                                    <div class="col-md-4 col-lg-2">
-                                        <label for="name-2" class="block">First name *</label>
-                                    </div>
-                                    <div class="col-md-8 col-lg-10">
-                                        <input id="name-2" name="name" type="text" class="form-control required">
-                                    </div>
-                                </div>
-                                
+                                @include('akad.form.rahin')
                             </fieldset>
                         </form>
                     </section>
@@ -75,58 +70,4 @@
     </div>
 </div>
 <!-- Form wizard with validation card end -->
-@endsection
-
-@section('contentt')
-<div class="page-header">
-    <div class="row align-items-end">
-        <div class="col-lg-8">
-            <div class="page-header-title">
-                <div class="d-inline">
-                    <h4 class="">Akad Baru</h4>
-                    {{-- <span>Rincian Dana</span> --}}
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            {{-- <div class="page-header-breadcrumb">
-                <ul class="breadcrumb-title">
-                    <li class="breadcrumb-item">
-                        <a href="index.html"> <i class="feather icon-home"></i> </a>
-                    </li>
-                    <li class="breadcrumb-item"><a href="#!">Form Picker</a></li>
-                </ul>
-            </div> --}}
-        </div>
-    </div>
-</div>
-<form action="{{$action}}" method="post">
-<input type="hidden" name="_method" value="post">
-{{csrf_field()}}
-<div class="page-body">
-    @include('akad.form.time')
-
-    <div class="row">
-        <div class="col-sm-12">
-             <div class="card">
-                <div class="card-block">
-                    <h3 class="sub-title">No. ID</h3>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label" for="no_id">No. ID</label>
-                        <div class="col-sm-10">
-                            {{-- FYI: c99-no_cabang-tanggal_bulan_tahun-data_ke --}}
-                            <input type="text" class="form-control" name="no_id" id="no_id" value="C99-01-030417-001" disabled>
-                            <input type="hidden" class="form-control" name="no_id" id="no_id" value="C99-01-030417-001">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @include('akad.form.marhun')
-
-    @include('akad.form.rahin')
-    </form>
-</div>
 @endsection

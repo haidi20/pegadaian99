@@ -60,7 +60,7 @@
         $('#jangka_waktu_akad').change(function(){
             var waktu = $(this).children("option:selected").val();
 
-            var tanggal_jatuh_tempo = moment().add(waktu, 'days').format('Y-MM-DD');
+            var tanggal_jatuh_tempo = moment().add(waktu, 'days').format('DD-MM-Y');
             $('#tanggal_jatuh_tempo').val(tanggal_jatuh_tempo)
 
             // console.log(time)
@@ -213,5 +213,7 @@
                 $iframe.height($body.height());
             }
         }
+
+        
     }
 </script>

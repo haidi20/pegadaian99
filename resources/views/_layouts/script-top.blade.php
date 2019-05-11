@@ -4,6 +4,8 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
 <!-- Required Fremwork -->
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/bootstrap/css/bootstrap.min.css')}}">
+<!-- sweet alert framework -->
+<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/sweetalert/css/sweetalert.css')}}">
 <!-- themify-icons line icon -->
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/icon/themify-icons/themify-icons.css')}}">
 <!-- ico font -->
