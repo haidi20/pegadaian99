@@ -23,6 +23,8 @@
 
             marhun_bih = marhun_bih == 0 ? 0 : marhun_bih
 
+            console.log(this.value)
+
             // process 'terbilang' of 'marhub_bih'
             $('.terbilang').val(terbilang(marhun_bih));
             $('.terbilang').val(terbilang(marhun_bih));
@@ -153,16 +155,6 @@
         $('.jml_bt_yang_dibayar').val(jml_bt_yang_dibayar)
     }
 
-    // determine 'tanggal jatuh tempo' base on 'tanggal akad'
-    // function timePeriod(time)
-    // {
-    //     var tanggal_jatuh_tempo = moment().add(time, 'days').format('Y-MM-DD');
-    //     $('#tanggal_jatuh_tempo').val(tanggal_jatuh_tempo)
-
-    //     // function local
-    //     paymentOption(time)
-    // }
-
     // determine detail item base on 'jenis barang'
     function itemType(type)
     {   
@@ -175,8 +167,6 @@
             $('.kelengkapan_barang_tiga').html('Imei / Nomor Serial')
             //get value 'jenis_kendaraan'
             $('#nilai_jenis_barang').val('elektronik')
-            // for condition if type == 'elektronik'. 'persenan' = 10% or etc
-            // $('.persenan').val(persenan_real)
             // set 'biaya admin'
             var biaya_admin = format_nominal(10000)
             biaya_admin = biaya_admin.replace("Rp", "")
@@ -191,8 +181,6 @@
             $('.kelengkapan_barang_tiga').html('Nomor Rangka')
             //get value 'jenis_kendaraan'
             $('#nilai_jenis_barang').val('kendaraan')
-            // for condition if type == 'kendaraan'. 'persenan' = 0
-            // $('.persenan').val(0)
             // set 'biaya admin'
             var biaya_admin = format_nominal(50000)
             biaya_admin = biaya_admin.replace("Rp", "")

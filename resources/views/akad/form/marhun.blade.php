@@ -6,7 +6,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="nama_barang">Nama Barang</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nama_barang" id="nama_barang" value="{{old('nama_barang')}}" required>
+                            <input type="text" class="required form-control" name="nama_barang" id="nama_barang" value="{{old('nama_barang')}}" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -32,15 +32,15 @@
                     <div class="form-group row" id="item_elektronik" style="display:">
                         <label class="col-sm-2 col-form-label kelengkapan_barang_satu" for="kelengkapan_barang_satu">Type</label>
                         <div class="col-sm-12 col-md-2">
-                            <input type="text" class="form-control" name="kelengkapan_barang_satu" id="kelengkapan_barang_satu" value="{{old('kelengkapan_barang_satu')}}">
+                            <input type="text" class="form-control" name="kelengkapan_barang_satu" id="kelengkapan_barang_satu" value="{{old('kelengkapan_barang_satu')}}" required>
                         </div>
                         <label class="col-sm-1 col-form-label kelengkapan_barang_dua" for="kelengkapan_barang_dua">Merk</label>
                         <div class="col-sm-12 col-md-2">
-                            <input type="text" class="form-control" name="kelengkapan_barang_dua" id="kelengkapan_barang_dua" value="{{old('kelengkapan_barang_dua')}}">
+                            <input type="text" class="form-control" name="kelengkapan_barang_dua" id="kelengkapan_barang_dua" value="{{old('kelengkapan_barang_dua')}}" required>
                         </div>
                         <label class="col-sm-2 col-form-label kelengkapan_barang_tiga" for="kelengkapan_barang_tiga">Imei / Nomor Serial</label>
                         <div class="col-sm-12 col-md-3">
-                            <input type="text" class="form-control" name="kelengkapan_barang_tiga" id="kelengkapan_barang_tiga" value="{{old('kelengkapan_barang_tiga')}}">
+                            <input type="text" class="form-control" name="kelengkapan_barang_tiga" id="kelengkapan_barang_tiga" value="{{old('kelengkapan_barang_tiga')}}" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -69,20 +69,36 @@
                         <label class="col-sm-2 col-form-label" for="taksiran_marhun">Taksiran Marhun</label>
                         <div class="col-sm-8 col-lg-10">
                             <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">Rp.</span>
-                                <input type="text" class="form-control autonumber" data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="taksiran_marhun" id="taksiran_marhun" value="{{old('taksiran_marhun')}}" required>
+                                {{-- <span class="input-group-addon" id="basic-addon1">Rp.</span> --}}
+                                <input type="text" class="form-control autonumber" data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="taksiran_marhun" id="taksiran_marhun" value="{{old('taksiran_marhun')}}">
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="marhun_bih">Marhun Bih</label>
                         <div class="col-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">Rp.</span>
-                                <input type="text" class="form-control autonumber"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," id="marhun_bih" name="marhun_bih" value="{{old('marhun_bih')}}" required>
-                            </div>
+                            <input 
+                                type="text" 
+                                class="form-control autonumber" 
+                                name="marhun_bih" 
+                                id="marhun_bih" 
+                                value="{{old('marhun_bih')}}" 
+                                data-v-min="0" 
+                                data-v-max="9999999999" 
+                                data-a-sep="." 
+                                data-a-dec=","
+                                required>
                         </div>
                     </div>
+                    {{-- <div class="form-group row">
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Rp.</span>
+                                <input type="text" class="required form-control" name="marhun_bih" id="marhun_bih" value="{{old('marhun_bih')}}">
+                                <input type="text" class="required form-control autonumber"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," id="marhun_bih" name="marhun_bih" value="{{old('marhun_bih')}}">
+                            </div>
+                        </div>
+                    </div> --}}
                     <div class="form-group row">
                         <label class="col-sm-2 col-xs-2 col-form-label" for="persenan">Persenan</label>
                         <div class="col-sm-2 col-xs-2">
@@ -122,7 +138,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="bt_yang_dibayar">Biaya Titip yang Dibayar</label>
-                        <div class="col-sm-12 col-md-1">
+                        <div class="col-sm-12 col-md-2">
                             <select name="bt_yang_dibayar" id="bt_yang_dibayar" class="form-control">
                                 @for($i = 0; $i <= 9; $i++)
                                     <option {{ selected($i, 'bt_yang_dibayar', 'old')}} value="{{$i}}">{{$i}}</option>

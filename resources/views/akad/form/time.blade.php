@@ -20,26 +20,13 @@
                                 <select name="jangka_waktu_akad" id="jangka_waktu_akad" class="form-control">
                                     @foreach($listTime as $index => $item)
                                         <option {{ selected($item['value'], 'jangka_waktu_akad', 'old')}} 
-                                            value="{{$item['value']}}"
-                                            id="jangka_waktu_akad">
+                                            value="{{$item['value']}}">
                                                 {{$item['text']}}
                                         </option>
                                     @endforeach
                                 </select> 
                             </div>
                         </div>
-                        {{-- <div class="form-radio">
-                            @foreach($listTime as $index => $item)
-                                @if($item['value'] != 1)
-                                    <div class="radio radio-inline">
-                                        <label>
-                                        <input type="radio" name="jangka_waktu_akad"  value="{{$item['value']}}" id="id_{{ $item['value'] }}" onClick="timePeriod({{$item['value']}})" {{checked($item['value'], 'jangka_waktu_akad', 7)}}>
-                                            <i class="helper"></i>{{$item['text']}}
-                                        </label>
-                                    </div>
-                                @endif
-                            @endforeach
-                        </div> --}}
                     </div>
                     <div class="col-sm-12 col-md-3">
                         <h3 class="sub-title">Tanggal Akad</h3>

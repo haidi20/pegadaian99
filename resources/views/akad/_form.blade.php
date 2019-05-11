@@ -34,7 +34,7 @@
 <script src="{{asset('adminty/files/assets/pages/forms-wizard-validation/form-wizard.js')}}"></script>
 <script src="{{asset('adminty/files/assets/js/pcoded.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('adminty/files/assets/js/script.js')}}"></script>
-@include('akad.akad-js')
+@include('akad.form.form-akad-js')
 @endsection
 
 @section('content')
