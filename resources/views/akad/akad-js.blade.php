@@ -1,5 +1,23 @@
 <script>
     $(function(){
+
+        marhun_bih_keyup()
+
+        // for default checked 'OPSI PEMBAYARAN HARIAN / 1'
+        $('#op_1,#op_7').css('display', '') 
+
+        // condition option of form 'biaya titip yang dibayar'
+        bt_yang_dibayar()
+
+        // setting show / hide 'opsi pembayaran' base on 'jangka waktu akad'
+        jangka_waktu_akad()
+
+        // for custom height form wizard
+        custom_form_wizard()
+    });
+
+    function marhun_bih_keyup()
+    {
         $('#marhun_bih').on('keyup' ,function(){
             var marhun_bih = this.value.replace(",","").replace(".","").replace(".","").replace(".","")
 
@@ -12,18 +30,41 @@
             // determine 'biaya titip'
             biaya_titip(marhun_bih, 'marhun_bih')
         });
+    }
 
-        // for default checked 'OPSI PEMBAYARAN HARIAN / 1'
-        $('#op_1,#op_7').css('display', '') 
-
-        // condition option of form 'biaya titip yang dibayar'
+    function bt_yang_dibayar()
+    {
         $('#bt_yang_dibayar').change(function(){
             var value = $(this).children("option:selected").val();
 
             // determine 'biaya titip'
             biaya_titip(value, 'bt_yang_dibayar')
         });
-    });
+    }
+
+    function jangka_waktu_akad()
+    {
+        $('#jangka_waktu_akad').change(function(){
+            var waktu = $(this).children("option:selected").val();
+
+            var tanggal_jatuh_tempo = moment().add(waktu, 'days').format('Y-MM-DD');
+            $('#tanggal_jatuh_tempo').val(tanggal_jatuh_tempo)
+
+            // console.log(time)
+            // function local
+            paymentOption(waktu)
+        });
+    }
+
+    // setting show / hide 'opsi pembayaran' base on 'jangka waktu akad'
+    function paymentOption(time)
+    {
+        if(time == 7){
+            $('#op_15').css('display', 'none')
+        }else{
+            $('#op_15').css('display', '')
+        }
+    }
 
     // setting value 'opsi pembayaran'
     function valueOptionPayment(value)
@@ -113,31 +154,14 @@
     }
 
     // determine 'tanggal jatuh tempo' base on 'tanggal akad'
-    function timePeriod(time)
-    {
-        var tanggal_jatuh_tempo = moment().add(time, 'days').format('Y-MM-DD');
-        $('#tanggal_jatuh_tempo').val(tanggal_jatuh_tempo)
+    // function timePeriod(time)
+    // {
+    //     var tanggal_jatuh_tempo = moment().add(time, 'days').format('Y-MM-DD');
+    //     $('#tanggal_jatuh_tempo').val(tanggal_jatuh_tempo)
 
-        // function local
-        paymentOption(time)
-    }
-
-    // setting show / hide 'opsi pembayaran' base on 'jangka waktu akad'
-    function paymentOption(time)
-    {
-        var opsi_pembayaran = $('input[name="opsi_pembayaran"]')
-
-        $.each(opsi_pembayaran, function(){
-            var value = $(this).val()
-
-            // condition value of 'opsi_pembayaran' with value time of 'jangka_waktu_akad' 
-            if(value <= time){
-                $('#op_'+value).css('display', '')
-            }else{
-                $('#op_'+value).css('display', 'none')
-            } 
-        })
-    }
+    //     // function local
+    //     paymentOption(time)
+    // }
 
     // determine detail item base on 'jenis barang'
     function itemType(type)
@@ -177,6 +201,18 @@
             $('.persenan').val({{$margin_kendaraan}})
             // for condition 'biaya titip'
             biaya_titip('kendaraan', 'jenis_barang')
+        }
+    }
+
+    function custom_form_wizard()
+    {
+        function adjustIframeHeight() {
+            var $body   = $('body'),
+                $iframe = $body.data('iframe.fv');
+            if ($iframe) {
+                // Adjust the height of iframe
+                $iframe.height($body.height());
+            }
         }
     }
 </script>
