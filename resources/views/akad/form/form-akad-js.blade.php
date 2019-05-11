@@ -1,6 +1,13 @@
 <script>
     $(function(){
 
+        // setting show / hide 'opsi pembayaran' base on 'jangka waktu akad'
+        jangka_waktu_akad()
+
+        // set number when typing form 'taksiran marhun'
+        taksiran_marhun_keyup()
+
+        // for fetch nominal marhun_bih
         marhun_bih_keyup()
 
         // for default checked 'OPSI PEMBAYARAN HARIAN / 1'
@@ -9,21 +16,25 @@
         // condition option of form 'biaya titip yang dibayar'
         bt_yang_dibayar()
 
-        // setting show / hide 'opsi pembayaran' base on 'jangka waktu akad'
-        jangka_waktu_akad()
-
         // for custom height form wizard
         custom_form_wizard()
     });
 
+    function taksiran_marhun_keyup()
+    {
+        $('#taksiran_marhun').on('keyup' ,function(){
+            this.value = formatRupiah(this.value)
+        });
+    }
+
     function marhun_bih_keyup()
     {
         $('#marhun_bih').on('keyup' ,function(){
+            this.value = formatRupiah(this.value)
+
             var marhun_bih = this.value.replace(",","").replace(".","").replace(".","").replace(".","")
 
             marhun_bih = marhun_bih == 0 ? 0 : marhun_bih
-
-            console.log(this.value)
 
             // process 'terbilang' of 'marhub_bih'
             $('.terbilang').val(terbilang(marhun_bih));

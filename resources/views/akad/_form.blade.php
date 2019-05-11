@@ -19,10 +19,10 @@
 
 @section('script-bottom')
 <!-- Masking js for form format number --> 
-<script src="{{asset('adminty/files/assets/pages/form-masking/inputmask.js')}}"></script>
+{{-- <script src="{{asset('adminty/files/assets/pages/form-masking/inputmask.js')}}"></script>
 <script src="{{asset('adminty/files/assets/pages/form-masking/jquery.inputmask.js')}}"></script>
 <script src="{{asset('adminty/files/assets/pages/form-masking/autoNumeric.js')}}"></script>
-<script src="{{asset('adminty/files/assets/pages/form-masking/form-mask.js')}}"></script>
+<script src="{{asset('adminty/files/assets/pages/form-masking/form-mask.js')}}"></script> --}}
 
 <!--Forms - Wizard js-->
 <script src="{{asset('adminty/files/bower_components/jquery.cookie/js/jquery.cookie.js')}}"></script>

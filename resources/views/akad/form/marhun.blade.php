@@ -67,11 +67,14 @@
                     {{-- <h3 class="sub-title">Keterangan Marhun Barang Jaminan</h3> --}}
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="taksiran_marhun">Taksiran Marhun</label>
-                        <div class="col-sm-8 col-lg-10">
-                            <div class="input-group">
-                                {{-- <span class="input-group-addon" id="basic-addon1">Rp.</span> --}}
-                                <input type="text" class="form-control autonumber" data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," name="taksiran_marhun" id="taksiran_marhun" value="{{old('taksiran_marhun')}}">
-                            </div>
+                        <div class="col-sm-10">
+                            <input 
+                                type="text" 
+                                class="form-control " 
+                                name="taksiran_marhun" 
+                                id="taksiran_marhun" 
+                                value="{{old('taksiran_marhun')}}"
+                                required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -79,14 +82,10 @@
                         <div class="col-sm-10">
                             <input 
                                 type="text" 
-                                class="form-control autonumber" 
+                                class="form-control" 
                                 name="marhun_bih" 
                                 id="marhun_bih" 
-                                value="{{old('marhun_bih')}}" 
-                                data-v-min="0" 
-                                data-v-max="9999999999" 
-                                data-a-sep="." 
-                                data-a-dec=","
+                                value="{{old('marhun_bih')}}"
                                 required>
                         </div>
                     </div>
