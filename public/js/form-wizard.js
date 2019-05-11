@@ -41,7 +41,7 @@ form.steps({
         // Needed in some cases if the user went back (clean up)
         if (currentIndex < newIndex) {
 
-            // can show if all form not null
+            // conditon if all form not null modal show
             if(form.valid()){
                 $('#modal-akad-notif').modal('show')
             }

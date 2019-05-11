@@ -14,6 +14,9 @@
     padding: 15px;
     position: relative;
 }
+.modal-lg {
+    max-width: 80% !important;
+}
 </style>
 @endsection
 

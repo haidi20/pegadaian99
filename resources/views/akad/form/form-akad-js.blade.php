@@ -212,9 +212,19 @@
             array[item.name] = item.value;
         });
 
+       insert_data(array)
+
         // console.log(array.biaya_admin);
 
-        // $('#modal-akad-confirm').modal('show')
+        $('#modal-akad-confirm').modal('show')
+    }
+
+    function insert_data(array)
+    {
+        $('#data-no_id').html(': '+array.no_id);
+        $('#data-jangka_waktu_akad').html(': '+array.jangka_waktu_akad+' hari');
+        $('#data-tanggal_akad').html(': '+array.tanggal_akad);
+        $('#data-tanggal_jatuh_tempo').html(': '+array.tanggal_jatuh_tempo);
     }
 
     function custom_form_wizard()
