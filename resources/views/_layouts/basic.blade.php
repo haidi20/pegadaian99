@@ -38,6 +38,7 @@
     var laravel = {
       csrfToken: '{{ csrf_token() }}'
     }
+    var url = '{{ url("/") }}'
   </script>
   @yield('script-bottom')
 

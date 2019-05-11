@@ -75,14 +75,22 @@ form.steps({
     // },
     onFinishing: function(event, currentIndex) {
         // console.log(currentIndex)
+        $('#iya').on('click', function(){
+            // window.location.href = url + '/cabang';
+            console.log(url)
+            console.log(laravel.csrfToken)
+            console.log('iya bisa')
+        });
         form.validate().settings.ignore = ":disabled";
         return form.valid();
     },
     onFinished: function(event, currentIndex) {
-        alert("Submitted!");
-        $('.content input[type="text"]').val('');
-        $('.content input[type="email"]').val('');
-        $('.content input[type="password"]').val('');
+        // alert("Submitted!");
+        // $('.content input[type="text"]').val('');
+        // $('.content input[type="email"]').val('');
+        // $('.content input[type="password"]').val('');
+        $('#modal-akad').modal('show')
+       
     }
 }).validate({
     errorPlacement: function errorPlacement(error, element) {

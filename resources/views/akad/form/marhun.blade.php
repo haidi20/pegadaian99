@@ -6,7 +6,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="nama_barang">Nama Barang</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nama_barang" id="nama_barang" value="{{old('nama_barang')}}" required>
+                            <input type="text" class="form-control" name="nama_barang" id="nama_barang" value="{{old('nama_barang')}}" >
                         </div>
                     </div>
                     <div class="form-group row">

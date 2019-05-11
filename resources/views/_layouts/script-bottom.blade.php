@@ -38,7 +38,7 @@
 <!-- END adminty JS-->
 
 <script>
-
+    
     function remove(id, action='delete', message='Anda yakin akan menghapus data ini?')
     {
         bootbox.confirm({
