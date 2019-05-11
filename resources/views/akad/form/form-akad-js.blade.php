@@ -203,6 +203,20 @@
         }
     }
 
+    function akad_confirm()
+    {
+        var data = $('#example-advanced-form').serializeArray();
+        var array = [];
+
+        $.each(data, function(index, item){
+            array[item.name] = item.value;
+        });
+
+        // console.log(array.biaya_admin);
+
+        // $('#modal-akad-confirm').modal('show')
+    }
+
     function custom_form_wizard()
     {
         function adjustIframeHeight() {

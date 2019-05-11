@@ -40,7 +40,7 @@
 
 @section('content')
 <!-- Form wizard with validation card start -->
-@include('akad.modal.akad-baru')
+@include('akad.modal.form.confirm')
 <div class="card">
     <div class="card-header">
         <h3>Akad Baru</h3>

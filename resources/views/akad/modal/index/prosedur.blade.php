@@ -144,19 +144,19 @@
                 <div class="tab-content modal-body">
                     <div class="tab-pane active" id="tab-home" role="tabpanel">
                         {{-- <h6>Detail Nasabah</h6> --}}
-                        @include('akad.modal.detail-prosedur.detail-nasabah')
+                        @include('akad.modal.index.detail-prosedur.detail-nasabah')
                     </div>
                     <div class="tab-pane" id="tab-profile" role="tabpanel">
                         {{-- <h6>Data Akad</h6> --}}
-                        @include('akad.modal.detail-prosedur.data-akad')
+                        @include('akad.modal.index.detail-prosedur.data-akad')
                     </div>
                     <div class="tab-pane" id="tab-messages" role="tabpanel">
                         {{-- <h6>Bea Titip</h6> --}}
-                        @include('akad.modal.detail-prosedur.biaya-titip')
+                        @include('akad.modal.index.detail-prosedur.biaya-titip')
                     </div>
                     <div class="tab-pane" id="tab-settings" role="tabpanel">
                         {{-- <h6>Rincian Akad</h6> --}}
-                        @include('akad.modal.detail-prosedur.rincian-akad')
+                        @include('akad.modal.index.detail-prosedur.rincian-akad')
                     </div>
                 </div>
             </div>
