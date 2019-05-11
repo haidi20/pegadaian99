@@ -26,7 +26,6 @@ class DataNasabah extends Login
      */
     public function user_view_data_nasabah()
     {
-
         /**
          * first todo
          * todo auth|login|middleware
@@ -48,14 +47,21 @@ class DataNasabah extends Login
                  * ?clickLink('param')
                  * the function for this
                  * <a href='x'> param </a>
-                 * move to CabangCreate | Tambah Cabang
+                 * move to Database -> Data Nasabah
                  */
                 ->clickLink('Data Nasabah')
                 ->assertSee('DATA TABLE NASABAH')
                 ->screenshot('UserViewDataNasabah[1]view')
+                /**
+                 * ?clickLink('param')
+                 * the function for this
+                 * <a href='x'> param </a>
+                 * pagination move -> |2|
+                 */
+                ->clickLink('6')
                 // user want show 50 data per page
                 ->select('perpage', '50')
-                ->screenshot('UserViewDataNasabah[2]viewPerPage')
+                ->screenshot('UserViewDataNasabah[2]view-page-6-and-view-perpage-50')
                 // user search ( filter : ['No Telp', '082250256655']) + FIELD VALUE
                 ->select('by', 'no_telp')
                 // some case value more prefered use ID not CLASS , sometime make anError

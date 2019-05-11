@@ -50,9 +50,9 @@ class CabangCreate extends CabangView
                 ->value('#nama_cabang', 'PEG99')
                 ->value('#telp_cabang', '081545778612')
                 ->value('#alamat_cabang', 'Loa Janan Loa Duri')
-                ->screenshot('UserView[TAMBAH_FIELD](2)Cabang')
+                ->screenshot('UserView[TAMBAH](2)Cabang_FIELD')
                 ->press('Proses')
-                ->screenshot('UserView[TAMBAH_SUBMIT](3)Cabang')
+                ->screenshot('UserView[TAMBAH](3)Cabang_SUBMIT')
                 // end
             ;
         });

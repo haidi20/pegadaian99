@@ -74,7 +74,7 @@ class CabangView extends Login
                 ->assertSee('516.000,00')
 
                 // // capture the task
-                ->screenshot('UserViewCabangSearch[3]')
+                ->screenshot('UserViewCabang[3]Search')
                 // end
             ;
         });

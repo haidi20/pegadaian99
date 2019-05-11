@@ -31,7 +31,7 @@ class CabangEdit extends CabangView
                  * ?clickLink('param')
                  * the function for this
                  * <a href='x'> param </a>
-                 * move to CabangCreate | Tambah Cabang
+                 * move to CabangCreate | Edit Cabang
                  */
                 ->clickLink('Edit Cabang')
                 // measure against , the bot seen page
@@ -50,10 +50,10 @@ class CabangEdit extends CabangView
                  * 03
                  */
                 ->select('id_cabang', '5a49d1e6d31fb')
-                ->screenshot('UserView[EDIT_PILIH](2)Cabang')
+                ->screenshot('UserView[EDIT](2)Cabang_PILIH')
                 ->press('Proses')
                 ->assertSee('Sukses')
-                ->screenshot('UserView[EDIT_PILIH](3)Cabang')
+                ->screenshot('UserView[EDIT](3)Cabang_PILIH')
 
                 // back to edit cabang, against
                 ->clickLink('Cabang')
@@ -61,13 +61,13 @@ class CabangEdit extends CabangView
                 // measure against , the bot seen page
                 ->assertSee('DATA CABANG')
                 // capture task view edit cabang
-                ->screenshot('UserViewCabang[EDIT](4)Cabang')
+                ->screenshot('UserView[EDIT](4)Cabang')
                 // user change value of field data list cabang from select cabang
                 ->value('#investor', 'Yogi Arif Widodo')
                 ->value('#nama_cabang', 'Bhayangan')
                 ->value('#telp_cabang', '021791021791')
                 ->value('#alamat_cabang', 'Dubai Emirat Arab')
-                ->screenshot('UserViewCabang[EDIT_FIELD](5)')
+                ->screenshot('UserView[EDIT](5)_FIELD')
                 ->press('Proses')
                 /**
                  * #path_url-02 cabang_path() from CabangView.php
@@ -76,7 +76,7 @@ class CabangEdit extends CabangView
                  */
                 ->assertPathIs($this->cabang_path())
                 ->assertSee('Sukses')
-                ->screenshot('UserView[EDIT_SUBMIT](6)Cabang')
+                ->screenshot('UserView[EDIT](6)Cabang_SUBMIT')
                 // end
             ;
         });
