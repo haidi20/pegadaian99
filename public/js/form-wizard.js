@@ -59,8 +59,9 @@ form.steps({
     },
     onFinishing: function(event, currentIndex) {
         // console.log(currentIndex)
-        $('#iya').on('click', function(){
+        $('#proses').on('click', function(){
             // window.location.href = url + '/cabang';
+            console.log('proses')
         });
         
         form.validate().settings.ignore = ":disabled";
