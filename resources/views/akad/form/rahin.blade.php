@@ -6,7 +6,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="nama_lengkap">Nama Lengkap</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap" value="{{old('nama_lengkap')}}">
+                            <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap" value="{{old('nama_lengkap')}}" >
                         </div>
                     </div>
                     <div class="form-group row">
@@ -37,13 +37,13 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="kota">Kota</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="kota" id="kota" value="{{old('kota')}}">
+                            <input type="text" class="form-control" name="kota" id="kota" value="{{old('kota')}}" >
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="no_telp">No. Telp</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="no_telp" id="no_telp" value="{{old('no_telp')}}">
+                            <input type="text" class="form-control" name="no_telp" id="no_telp" value="{{old('no_telp')}}" >
                         </div>
                     </div>
                     <div class="form-group row">
@@ -74,7 +74,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="no_identitas">No. Identitas</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="no_identitas" id="no_identitas" value="{{old('no_identitas')}}">
+                            <input type="text" class="form-control" name="no_identitas" id="no_identitas" value="{{old('no_identitas')}}" >
                         </div>
                     </div>
                     <div class="form-group row">

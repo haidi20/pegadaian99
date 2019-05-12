@@ -179,8 +179,8 @@ class AkadController extends Controller
             $method = 'POST';
     	}
 
-    	$tanggal_akad	     = Carbon::now()->format('Y-m-d');
-    	$tanggal_jatuh_tempo = Carbon::now()->addDay('7')->format('Y-m-d');
+    	$tanggal_akad	     = Carbon::now()->format('d-m-Y');
+    	$tanggal_jatuh_tempo = Carbon::now()->addDay('7')->format('d-m-Y');
 
         // list time example : 1, 7, 15, 30, 60 days. for 'jangka_waktu_akad' and 'opsi_pembayaran'
         $listTime            = config('library.form.akad.list_time');

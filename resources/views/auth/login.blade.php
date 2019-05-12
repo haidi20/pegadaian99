@@ -62,25 +62,6 @@
                 }
             });
         }
-
-        function fetchLatLong()
-        {
-            var x = document.getElementById("demo");
-
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else { 
-                x.innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
-
-        function showPosition(position) {
-            var info = "Latitude: " + position.coords.latitude + 
-            "<br>Longitude: " + position.coords.longitude;
-
-            console.log(info)
-            sessionStorage.setItem("loc", position.coords.latitude);
-        }
     </script>
 @endsection
 
@@ -138,7 +119,6 @@
                                         <br>
                                         <input type="text" name="captcha" id="captcha" class="form-control" placeholder="Captcha" >
                                     </div> --}}
-                                    <button type="button" class="btn btn-info btn-sm" onClick="fetchLatLong()">lok</button>
                                     <div class="row m-t-25 text-left">
                                         <div class="col-12">
                                             <div class="checkbox-fade fade-in-primary d-">
