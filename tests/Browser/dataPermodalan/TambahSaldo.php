@@ -23,6 +23,7 @@ class TambahSaldo extends Login
          */
         $this->user_login();
         $this->browse(function (Browser $browser) {
+            $myMoney = '1000000';
             $browser
                 // path direct link after log in is www.url.com/cabang
                 ->assertPathIs('/cabang')
@@ -43,7 +44,52 @@ class TambahSaldo extends Login
                  */
                 ->assertSee('JENIS MODAL')
                 ->screenshot('UserViewDataPermodalan[1]view')
-                // end ✗
+                /**
+                 * select('name', 'value-option')
+                 * ?Hutang Cabang
+                 * ?Hutang Peresonal
+                 * ?Penambahan Kas Saldo
+                 */
+                ->select('jenis_modal', 'hutang_cabang')
+                /**
+                 * Hutang Cabang
+                 * cabang select
+                 */
+                ->select('cabang', '58e13893dc44a') //suhartik-sutomo
+                ->value('#jumlah', $myMoney)
+                ->value('#keterangan', 'hutang cabang')
+                ->screenshot('UserViewDataPermodalan[2.1]hutang-cabang-fill-value')
+                // button Prosess ['submit|type']
+                ->press('Proses')
+                ->assertSee('Sukses! Data hutang cabang berhasil di tambah')
+                ->screenshot('UserViewDataPermodalan[2.2]hutang-cabang-submit')
+
+                /**
+                 * Hutang Personal
+                 * fill-value-onProcess
+                 */
+                ->select('jenis_modal', 'hutang_personal')
+                ->value('#jumlah', $myMoney)
+                ->value('#keterangan', 'Hutang Personal')
+                ->screenshot('UserViewDataPermodalan[3.1]hutang-personal-fill-value')
+                // button Prosess ['submit|type']
+                ->press('Proses')
+                ->assertSee('Sukses! Data hutang personal berhasil di tambah')
+                ->screenshot('UserViewDataPermodalan[3.2]hutang-personal-submit')
+
+                /**
+                 * Hutang Penambahan Kas Saldo
+                 * fill-value-onProcess
+                 */
+                ->select('jenis_modal', 'penambahan_kas_saldo')
+                ->value('#jumlah', $myMoney)
+                ->value('#keterangan', 'Penambahan Kas Saldo')
+                ->screenshot('UserViewDataPermodalan[4.1]penambahan-kas-saldo-fill-value')
+                // button Prosess ['submit|type']
+                ->press('Proses')
+                ->assertSee('Sukses! Data penambahan kas saldo berhasil di tambah')
+                ->screenshot('UserViewDataPermodalan[4.2]penambahan-kas-saldo-submit')
+                // end ✓ almost done
             ;
         });
     }
