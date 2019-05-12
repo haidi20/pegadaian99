@@ -24,17 +24,19 @@ class CabangEdit extends CabangView
                  * in this case we have move from user_login
                  */
                 ->assertPathIs($this->cabang_path())
+                // after that , make the bot seen a page
                 ->assertSee('Data Cabang')
-                // going to cabang->edit cabang
-                ->clickLink('Cabang')
                 /**
                  * ?clickLink('param')
                  * the function for this
                  * <a href='x'> param </a>
-                 * move to CabangCreate | Edit Cabang
+                 * going to cabang->edit cabang
                  */
+                ->clickLink('Cabang')
+                // move to CabangCreate | Edit Cabang
                 ->clickLink('Edit Cabang')
-                // measure against , the bot seen page
+                // measure against , the bot seen a page ,
+                // for capture laters -> finalize js loading screen
                 ->assertSee('DATA CABANG')
                 // capture the task
                 ->screenshot('UserView[EDIT](1)Cabang')
@@ -46,11 +48,12 @@ class CabangEdit extends CabangView
                 ->assertSee('Nomor Cabang')
                 /**
                  * DROP DOWN MENU PILIH CABANG
-                 * select('name', 'value')
+                 * select('name', 'value-option')
                  * 03
                  */
                 ->select('id_cabang', '5a49d1e6d31fb')
                 ->screenshot('UserView[EDIT](2)Cabang_PILIH')
+                // press ('value-of-button')
                 ->press('Proses')
                 ->assertSee('Sukses')
                 ->screenshot('UserView[EDIT](3)Cabang_PILIH')
@@ -68,6 +71,7 @@ class CabangEdit extends CabangView
                 ->value('#telp_cabang', '021791021791')
                 ->value('#alamat_cabang', 'Dubai Emirat Arab')
                 ->screenshot('UserView[EDIT](5)_FIELD')
+                // press ('value-of-button')
                 ->press('Proses')
                 /**
                  * #path_url-02 cabang_path() from CabangView.php
