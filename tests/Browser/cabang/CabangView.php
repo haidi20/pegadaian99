@@ -39,6 +39,8 @@ class CabangView extends Login
                  * in this case we have move from user_login
                  */
                 ->assertPathIs($this->cabang_path())
+                // measure against , the bot seen a page ,
+                // for capture laters -> finalize js loading screen
                 ->assertSee('Data Cabang')
                 // capture the task
                 ->screenshot('UserViewCabang[1]')
@@ -72,7 +74,6 @@ class CabangView extends Login
                 ->click('#btn-search')
                 // // ->clickLink('Oke')
                 ->assertSee('516.000,00')
-
                 // // capture the task
                 ->screenshot('UserViewCabang[3]Search')
                 // end ✗waktu rentang laporan duplicate UX Button Oke search
