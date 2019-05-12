@@ -29,10 +29,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="view-info">
+                <div class="">
                     <div class="row">
                         <div class="col-lg-12 col-sm-12">
-                            <div class="general-info">
+                            <div class="">
                                 <div class="row" id="data-detail">
                                     <div class="col-sm-12 col-md-12">
                                         <div class="table-responsive">
@@ -47,6 +47,20 @@
                                                         <td id="data-tanggal_akad"></td>
                                                         <td>Tanggal Jatuh Tempo</td>
                                                         <td id="data-tanggal_jatuh_tempo"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Nama Barang</td>
+                                                        <td id="data-nama_barang"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Jenis Barang</td>
+                                                        <td id="data-jenis_barang"></td>
+                                                        <td class="name-kelengkapan_barang_satu"></td>
+                                                        <td id="data-kelengkapan_barang_satu"></td>
+                                                        <td class="name-kelengkapan_barang_dua"></td>
+                                                        <td id="data-kelengkapan_barang_dua"></td>
+                                                        <td class="name-kelengkapan_barang_tiga"></td>
+                                                        <td id="data-kelengkapan_barang_tiga"></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

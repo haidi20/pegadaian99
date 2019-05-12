@@ -208,23 +208,41 @@
         var data = $('#example-advanced-form').serializeArray();
         var array = [];
 
-        $.each(data, function(index, item){
-            array[item.name] = item.value;
-        });
-
-       insert_data(array)
-
-        // console.log(array.biaya_admin);
+        // manipulation html in model confirm
+        insert_data(data)
 
         $('#modal-akad-confirm').modal('show')
     }
 
-    function insert_data(array)
+    function insert_data(data)
     {
-        $('#data-no_id').html(': '+array.no_id);
-        $('#data-jangka_waktu_akad').html(': '+array.jangka_waktu_akad+' hari');
-        $('#data-tanggal_akad').html(': '+array.tanggal_akad);
-        $('#data-tanggal_jatuh_tempo').html(': '+array.tanggal_jatuh_tempo);
+        $.each(data, function(index, item){
+            condition_jenis_barang(item);
+
+            $('#data-'+item.name).html(': '+item.value);
+        });
+
+        // $('#data-no_id').html(': '+array.no_id);
+        // $('#data-jangka_waktu_akad').html(': '+array.jangka_waktu_akad+' hari');
+        // $('#data-tanggal_akad').html(': '+array.tanggal_akad);
+        // $('#data-tanggal_jatuh_tempo').html(': '+array.tanggal_jatuh_tempo);
+    }
+
+    function condition_jenis_barang(item)
+    {
+        if(item.value == 'kendaraan'){
+            var barang_satu = 'KT';
+            var barang_dua = 'Warna';
+            var barang_tiga = 'Nomor Rangka';
+        }else if(item.value == 'elektronik'){
+            var barang_satu = 'Type';
+            var barang_dua = 'Merk';
+            var barang_tiga = 'Imei / Nomor Serial';
+        }
+
+        $('.name-kelengkapan_barang_satu').html(barang_satu);
+        $('.name-kelengkapan_barang_dua').html(barang_dua);
+        $('.name-kelengkapan_barang_tiga').html(barang_tiga);
     }
 
     function custom_form_wizard()
