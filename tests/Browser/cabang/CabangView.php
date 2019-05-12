@@ -76,7 +76,7 @@ class CabangView extends Login
                 ->assertSee('516.000,00')
                 // // capture the task
                 ->screenshot('UserViewCabang[3]Search')
-                // end ✗waktu rentang laporan duplicate UX Button Oke search
+                // end ✗ waktu rentang laporan duplicate UX Button Oke search
             ;
         });
     }
