@@ -50,11 +50,12 @@ class DataAkad extends DataNasabah
                  * <a href='x'> param </a>
                  * pagination move -> |2|
                  */
-                ->clickLink('8')
+                ->clickLink('45')
+                ->screenshot('UserViewDataAkadNasabah[2]pagination-45')
                 /**
-             * 1. TAB [Nasabah Akad]
-             * 2. TAB [Akad Jatuh Tempo]
-             * 3. TAB [Pelunasan & Lelang]
+             * 1. TAB [Nasabah Akad] ✗
+             * 2. TAB [Akad Jatuh Tempo] ✗
+             * 3. TAB [Pelunasan & Lelang] ✗
              */
 
                 // end

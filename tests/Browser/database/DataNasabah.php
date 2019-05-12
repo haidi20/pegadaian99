@@ -74,7 +74,7 @@ class DataNasabah extends Login
                 // ->clickLink('Detail Data')
                 // ->assertSee('Detail Data Nasabah')
                 // ->screenshot('UserViewDataCabang[5]DetailViewNasabah')
-                // end
+                // end ✗
             ;
         });
     }

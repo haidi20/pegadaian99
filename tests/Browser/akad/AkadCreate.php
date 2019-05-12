@@ -45,7 +45,7 @@ class AkadCreate extends Login
                  */
                 // ->click('button[type="submit"]')
                 ->screenshot('UserCreateAkad[FILL_FIELD]')
-                // end
+                // end ✗ radio not group
             ;
         });
     }

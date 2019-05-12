@@ -53,7 +53,7 @@ class CabangCreate extends CabangView
                 ->screenshot('UserView[TAMBAH](2)Cabang_FIELD')
                 ->press('Proses')
                 ->screenshot('UserView[TAMBAH](3)Cabang_SUBMIT')
-                // end
+                // end ✓ almost done
             ;
         });
     }

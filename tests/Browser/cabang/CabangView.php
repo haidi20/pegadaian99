@@ -75,7 +75,7 @@ class CabangView extends Login
 
                 // // capture the task
                 ->screenshot('UserViewCabang[3]Search')
-                // end
+                // end ✗waktu rentang laporan duplicate UX Button Oke search
             ;
         });
     }
