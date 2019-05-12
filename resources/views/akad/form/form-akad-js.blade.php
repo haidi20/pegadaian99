@@ -221,11 +221,6 @@
 
             $('#data-'+item.name).html(': '+item.value);
         });
-
-        // $('#data-no_id').html(': '+array.no_id);
-        // $('#data-jangka_waktu_akad').html(': '+array.jangka_waktu_akad+' hari');
-        // $('#data-tanggal_akad').html(': '+array.tanggal_akad);
-        // $('#data-tanggal_jatuh_tempo').html(': '+array.tanggal_jatuh_tempo);
     }
 
     function condition_jenis_barang(item)
