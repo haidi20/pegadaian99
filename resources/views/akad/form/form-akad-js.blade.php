@@ -36,9 +36,10 @@
 
             marhun_bih = marhun_bih == 0 ? 0 : marhun_bih
 
+            rupiah = marhun_bih == 0 ? '' : ' Rupiah'
+
             // process 'terbilang' of 'marhub_bih'
-            $('.terbilang').val(terbilang(marhun_bih));
-            $('.terbilang').val(terbilang(marhun_bih));
+            $('.terbilang').val(terbilang(marhun_bih)+rupiah);
 
             // determine 'biaya titip'
             biaya_titip(marhun_bih, 'marhun_bih')
@@ -140,31 +141,29 @@
         // condition for negatif number of 'biaya titip'
         biaya_titip = biaya_titip <= 0 ? 0 : biaya_titip
 
-        console.log(biaya_titip)
-
         if(biaya_titip >= 1000 && biaya_titip != 0){
-            thousand_bt             = '.000'
+            thousand_bt             = 1000
         }else{
-            thousand_bt             = null
+            thousand_bt             = 1
         }
 
         var nominal_biaya_titip = format_nominal(biaya_titip)
         nominal_biaya_titip     = nominal_biaya_titip.replace("Rp", "")
-        nominal_biaya_titip     = Math.ceil(nominal_biaya_titip)+thousand_bt
+        nominal_biaya_titip     = Math.ceil(nominal_biaya_titip) * thousand_bt
+        nominal_biaya_titip     = formatRupiah(nominal_biaya_titip.toString())  
         $('.biaya_titip').val(nominal_biaya_titip)
 
-        var jml_bt_yang_dibayar = biaya_titip * bt_yang_dibayar
+        // 'rumus jumlah biaya titip yang dibayar'
+        var jml_bt_yang_dibayar = nominal_biaya_titip * bt_yang_dibayar
 
-        if(jml_bt_yang_dibayar >= 1000 & jml_bt_yang_dibayar != 0){
-            var thousand_jml_bt = '.000'
+        if(bt_yang_dibayar >= 1){
+            var thousand_jml_bt = 1000
         }else{
-            var thousand_jml_bt = null
+            var thousand_jml_bt = 1
         }
 
-        jml_bt_yang_dibayar     = format_nominal(jml_bt_yang_dibayar)
-        
-        jml_bt_yang_dibayar     = jml_bt_yang_dibayar.replace("Rp", "")
-        jml_bt_yang_dibayar     = Math.ceil(jml_bt_yang_dibayar)+thousand_jml_bt
+        jml_bt_yang_dibayar     = jml_bt_yang_dibayar * thousand_jml_bt
+        jml_bt_yang_dibayar     = formatRupiah(jml_bt_yang_dibayar.toString())
         $('.jml_bt_yang_dibayar').val(jml_bt_yang_dibayar)
     }
 
@@ -181,8 +180,8 @@
             //get value 'jenis_kendaraan'
             $('#nilai_jenis_barang').val('elektronik')
             // set 'biaya admin'
-            var biaya_admin = format_nominal(10000)
-            biaya_admin = biaya_admin.replace("Rp", "")
+            biaya_admin = 10000
+            biaya_admin = formatRupiah(biaya_admin.toString())
             $('.biaya_admin').val(biaya_admin)
             // condition 'persenan'
             $('.persenan').val({{$margin_elektronik}})
@@ -195,8 +194,8 @@
             //get value 'jenis_kendaraan'
             $('#nilai_jenis_barang').val('kendaraan')
             // set 'biaya admin'
-            var biaya_admin = format_nominal(50000)
-            biaya_admin = biaya_admin.replace("Rp", "")
+            biaya_admin = 50000
+            biaya_admin = formatRupiah(biaya_admin.toString())
             $('.biaya_admin').val(biaya_admin)
             // condition 'persenan' base on 'jenis barang'
             $('.persenan').val({{$margin_kendaraan}})
