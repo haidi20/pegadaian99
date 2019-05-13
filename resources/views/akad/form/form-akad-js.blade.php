@@ -140,6 +140,8 @@
         // condition for negatif number of 'biaya titip'
         biaya_titip = biaya_titip <= 0 ? 0 : biaya_titip
 
+        console.log(biaya_titip)
+
         if(biaya_titip >= 1000 && biaya_titip != 0){
             thousand_bt             = '.000'
         }else{
