@@ -100,10 +100,15 @@ class DataNasabah extends Login
                 ->press('Oke')
                 ->assertSee('NURMAHAYATI')
                 ->screenshot('UserViewDataNasabah[3.3]FilterSubmit-alamat')
-                // ->click('#detail_957')
-                // ->clickLink('Detail Data')
-                // ->assertSee('Detail Data Nasabah')
-                // ->screenshot('UserViewDataCabang[5]DetailViewNasabah')
+                /**
+                 * modal view [jquery]
+                 * click('id')
+                 */
+                ->click('#detail_955') //detail-view
+                ->assertSee('NURMAHAYATI')
+                ->assertSee('Wanita')
+                ->screenshot('UserViewDataNasabah[4]detail-info')
+                ->press('Oke')
                 // end ✗
             ;
         });
