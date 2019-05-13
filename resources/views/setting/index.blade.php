@@ -115,23 +115,19 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">Elektronik</th>
-                                    <td class="tabledit-view-mode">
-                                        <span class="tabledit-span">10%</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="elektronik_potongan" value="0">
+                                    <td class="tabledit-view-mode"><span class="tabledit-span">10%</span>
+                                        <input class="tabledit-input form-control input-sm" type="text" name="First" value="0">
                                     </td>
-                                    <td class="tabledit-view-mode">
-                                        <span class="tabledit-span">10.000</span>
+                                    <td class="tabledit-view-mode"><span class="tabledit-span">10.000</span>
                                         <input class="tabledit-input form-control input-sm" type="text" name="elektronik_margin" value="0">
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Kendaraan</th>
-                                    <td class="tabledit-view-mode">
-                                        <span class="tabledit-span">10%</span>
+                                    <td class="tabledit-view-mode"><span class="tabledit-span">10%</span>
                                         <input class="tabledit-input form-control input-sm" type="text" name="elektronik_potongan" value="0">
                                     </td>
-                                    <td class="tabledit-view-mode">
-                                        <span class="tabledit-span">10.000</span>
+                                    <td class="tabledit-view-mode"><span class="tabledit-span">10.000</span>
                                         <input class="tabledit-input form-control input-sm" type="text" name="elektronik_margin" value="0">
                                     </td>
                                     {{-- <td class="tabledit-view-mode"><span class="tabledit-span">@mdo</span>
