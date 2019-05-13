@@ -106,4 +106,11 @@ class SettingController extends Controller
 
         return $this->template('setting.login', compact('column', 'login'));
     }
+
+    public function coba()
+    {
+        $coba = 'pesan';
+
+        return response()->json(compact('coba'));
+    }
 }

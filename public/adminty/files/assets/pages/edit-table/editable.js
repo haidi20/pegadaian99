@@ -1,15 +1,15 @@
   'use strict';
  $(document).ready(function() {  
-$('#example-1').Tabledit({
+    $('#example-1').Tabledit({
 
-    editButton: false,
-    deleteButton: false,
-    hideIdentifier: true,
-    columns: {
-        identifier: [0, 'id'],
-        editable: [[1, 'First Name'], [2, 'Last Name']]
-    }
-});
+        editButton: false,
+        deleteButton: false,
+        hideIdentifier: true,
+        columns: {
+            identifier: [0, 'id'],
+            editable: [[1, 'First Name'], [2, 'Last Name']]
+        }
+    });
     $('#example-2').Tabledit({
 
         columns: {

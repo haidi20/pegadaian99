@@ -68,7 +68,7 @@ form.steps({
         return form.valid();
     },
     onFinished: function(event, currentIndex) {
-        // in file form-akad-js
+        // in file form-akad-js.blade.php
         akad_confirm()
     }
 }).validate({

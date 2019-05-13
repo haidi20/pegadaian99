@@ -1,11 +1,26 @@
 @extends('_layouts.default')
 
 @section('script-bottom')
+
+    <!-- Editable-table js -->
+    <script type="text/javascript" src="{{asset('adminty/files/assets/pages/edit-table/jquery.tabledit.js')}}"></script>
+
     <script src="{{asset('adminty/files/assets/pages/form-masking/inputmask.js')}}"></script>
     <script src="{{asset('adminty/files/assets/pages/form-masking/jquery.inputmask.js')}}"></script>
     <script src="{{asset('adminty/files/assets/pages/form-masking/autoNumeric.js')}}"></script>
     <script src="{{asset('adminty/files/assets/pages/form-masking/form-mask.js')}}"></script>
+
     <script>
+        $(document).ready(function() { 
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': laravel.csrfToken
+                }
+            });
+
+            custom_table_edit()
+        });
+
         function create()
         {
             $('#modal-setting').modal('show')
@@ -18,7 +33,6 @@
             var margin_elektronik = $('#table_margin_elektronik').val()
             var margin_kendaraan = $('#table_margin_kendaraan').val()
             var potongan = $('#table_potongan').val()
-            console.log(potongan)
 
             $('#id').val(id)
             $('#margin_elektronik').val(margin_elektronik)
@@ -27,10 +41,119 @@
 
             $('#modal-setting').modal('show')
         }
+
+        function custom_table_edit()
+        {
+            $('#example-2').Tabledit({
+                url: '{{url("setting/coba")}}',
+                deleteButton: false,
+                buttons:{
+                    edit: {
+                        class: 'btn btn-sm btn-info',
+                        html: '<span class="fa fa-pencil"></span>',
+                        action: 'edit'
+                    },
+                    save: {
+                        class: 'btn btn-sm btn-success',
+                        html: 'Save',
+                        action: 'save'
+                    },
+                },
+                columns: {
+                    identifier: [0, 'id'],
+                    editable: [[1, 'potongan'], [2, 'margin']]
+                },
+                ajaxOptions: {
+                    dataType: 'JSON',
+                    type: 'POST'
+                },
+                display: function(value, response) {
+                    console.log(response.coba);
+                    // new_value being the value that is returned via the json response...
+                    // this value can either be modified here in the javascript or in the controller which set the value...
+                },
+                error: function(response, newValue) {
+                    if(response.status === 500) {
+                        console.log('Service unavailable. Please try later.');
+                    } else {
+                        console.log(response.responseText);
+                    }
+                },
+                success: function(response, status, xhr) {
+                    console.log(response.coba,status, xhr);
+                },
+            });
+        }
     </script>
 @endsection
 
 @section('content')
+<div class="page-body">
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+             {!! session()->get('message') !!}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Edit With Click card end -->
+            <!-- Edit With Button card start -->
+            <div class="card">
+                <div class="card-header">
+                    <h5>Pengaturan Margin</h5>
+                </div>
+                <div class="card-block">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered" id="example-2">
+                            <thead>
+                                <tr>
+                                    <th>Jenis Barang</th>
+                                    <th>Potongan</th>
+                                    <th>Margin</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Elektronik</th>
+                                    <td class="tabledit-view-mode">
+                                        <span class="tabledit-span">10%</span>
+                                        <input class="tabledit-input form-control input-sm" type="text" name="elektronik_potongan" value="0">
+                                    </td>
+                                    <td class="tabledit-view-mode">
+                                        <span class="tabledit-span">10.000</span>
+                                        <input class="tabledit-input form-control input-sm" type="text" name="elektronik_margin" value="0">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Kendaraan</th>
+                                    <td class="tabledit-view-mode">
+                                        <span class="tabledit-span">10%</span>
+                                        <input class="tabledit-input form-control input-sm" type="text" name="elektronik_potongan" value="0">
+                                    </td>
+                                    <td class="tabledit-view-mode">
+                                        <span class="tabledit-span">10.000</span>
+                                        <input class="tabledit-input form-control input-sm" type="text" name="elektronik_margin" value="0">
+                                    </td>
+                                    {{-- <td class="tabledit-view-mode"><span class="tabledit-span">@mdo</span>
+                                        <select class="tabledit-input form-control input-sm" name="Nickname" disabled="" style="display:none;">
+                                            <option value="1">@mdo</option>
+                                            <option value="2">@fat</option>
+                                            <option value="3">@twitter</option>
+                                        </select>
+                                    </td> --}}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Edit With Button card end -->
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('contentt')
 @include('setting.modal')
 <div class="page-body">
     <div class="row">

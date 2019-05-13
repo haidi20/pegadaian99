@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="description" content="#">
   <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
-  <meta name="author:haidi nurhadinata" content="#">
+  <meta name="author:Haidi Nurhadinata" content="#">
   <title>PEGADAIAN99</title>
   {{-- 
   <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('robust/app-assets/images/ico/apple-icon-60.png') }}">
@@ -24,6 +24,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}" />
 
   @include('_layouts.script-top')
+ 
   @yield('script-top')
     
 </head>
