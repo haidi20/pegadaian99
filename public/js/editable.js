@@ -17,7 +17,7 @@ $(document).ready(function() {
 
       identifier: [0, 'id'],
 
-      editable: [[1, 'potongan'], [2, 'margin']]
+      editable: [[1, 'First Name'], [2, 'Last Name']]
 
     }
 

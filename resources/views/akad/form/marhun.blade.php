@@ -147,7 +147,7 @@
                         <div class="col-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">Rp.</span>
-                                <input type="text" class="form-control biaya_admin" value="10000" id="biaya_admin" disabled>
+                                <input type="text" class="form-control biaya_admin" value="10.000" id="biaya_admin" disabled>
                                 <input type="hidden" class="form-control biaya_admin" name="biaya_admin" value="10000" >
                             </div>
                         </div>

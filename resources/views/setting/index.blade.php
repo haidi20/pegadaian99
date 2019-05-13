@@ -5,12 +5,8 @@
     <!-- Editable-table js -->
     <script type="text/javascript" src="{{asset('adminty/files/assets/pages/edit-table/jquery.tabledit.js')}}"></script>
 
-    <script src="{{asset('adminty/files/assets/pages/form-masking/inputmask.js')}}"></script>
-    <script src="{{asset('adminty/files/assets/pages/form-masking/jquery.inputmask.js')}}"></script>
-    <script src="{{asset('adminty/files/assets/pages/form-masking/autoNumeric.js')}}"></script>
-    <script src="{{asset('adminty/files/assets/pages/form-masking/form-mask.js')}}"></script>
-
     <script>
+
         $(document).ready(function() { 
             $.ajaxSetup({
                 headers: {
@@ -18,7 +14,9 @@
                 }
             });
 
-            custom_table_edit()
+            potongan_keyup();
+
+            custom_table_edit();
         });
 
         function create()
@@ -42,6 +40,13 @@
             $('#modal-setting').modal('show')
         }
 
+        function potongan_keyup()
+        {
+            $('body').on("keyup", "input[name=potongan]", function() {
+                this.value = formatRupiah(this.value)
+            });
+        }
+
         function custom_table_edit()
         {
             $('#example-2').Tabledit({
@@ -53,11 +58,6 @@
                         html: '<span class="fa fa-pencil"></span>',
                         action: 'edit'
                     },
-                    confirm: {
-                        class: 'btn btn-sm btn-warning',
-                        html: '<span class="fa fa-plus"></span>',
-                        action: 'tambah'
-                    },
                     save: {
                         class: 'btn btn-sm btn-success',
                         html: 'Save',
@@ -66,7 +66,7 @@
                 },
                 columns: {
                     identifier: [0, 'id'],
-                    editable: [[1, 'potongan'], [2, 'margin']]
+                    editable: [[1, 'margin'], [2, 'potongan']]
                 },
                 ajaxOptions: {
                     dataType: 'JSON',
@@ -77,6 +77,20 @@
                 },
             });
         }
+        function add_row()
+        {
+            var table = document.getElementById("example-2");
+            var t1=(table.rows.length);
+            var row = table.insertRow(t1);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+
+            cell1.className='abc';
+
+            $('<th scope="row">1</th>').appendTo(cell1);
+            $('<th scope="row">inputan</th>').appendTo(cell2);
+
+        };
     </script>
 @endsection
 
@@ -96,40 +110,63 @@
                     <h5>Pengaturan Margin</h5>
                 </div>
                 <div class="card-block">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="add_row()">Add Row </button>
+                    <br><br>
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered" id="example-2">
                             <thead>
                                 <tr>
-                                    <th>Jenis Barang</th>
+                                    <th>#</th>
                                     <th>Margin</th>
                                     <th>Potongan</th>
+                                    <th>Jenis Barang</th>
+                                    <th>Nomor Cabang</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th scope="row">Elektronik</th>
+                                    <th scope="row">1</th>
                                     <td class="tabledit-view-mode"><span class="tabledit-span">10</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="eletronik_margin" value="0">
+                                        <input class="tabledit-input form-control input-sm" type="text" name="margin" value="0">
                                     </td>
                                     <td class="tabledit-view-mode"><span class="tabledit-span">10.000</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="elektronik_potongan" value="0">
+                                        {{-- <input class="tabledit-input form-control input-sm potongan" type="text" name="potongan" value="0"> --}}
+                                    </td>
+                                    <td class="tabledit-view-mode"><span class="tabledit-span">Elektronik</span>
+                                        <select class="tabledit-input form-control input-sm" name="jenis_barang" disabled="" style="display:none;">
+                                            <option value="elektronik" selected>Elektronik</option>
+                                            <option value="kendaraan">Kendaraan</option>
+                                        </select>
+                                    </td>
+                                    <td class="tabledit-view-mode"><span class="tabledit-span">01</span>
+                                        <select class="tabledit-input form-control input-sm" name="nomor_cabang" disabled="" style="display:none;">
+                                            <option value="01" selected>01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                        </select>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Kendaraan</th>
+                                    <th scope="row">2</th>
                                     <td class="tabledit-view-mode"><span class="tabledit-span">10</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="elektronik_margin" value="0">
+                                        <input class="tabledit-input form-control input-sm" type="text" name="margin" value="0">
                                     </td>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">10.000</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="elektronik_potongan" value="0">
+                                    <td class="tabledit-view-mode"><span class="tabledit-span">50.000</span>
+                                        <input class="tabledit-input form-control input-sm potongan" type="text" name="potongan" value="0">
                                     </td>
-                                    {{-- <td class="tabledit-view-mode"><span class="tabledit-span">@mdo</span>
-                                        <select class="tabledit-input form-control input-sm" name="Nickname" disabled="" style="display:none;">
-                                            <option value="1">@mdo</option>
-                                            <option value="2">@fat</option>
-                                            <option value="3">@twitter</option>
+                                    <td class="tabledit-view-mode"><span class="tabledit-span">Kendaraan</span>
+                                        <select class="tabledit-input form-control input-sm" name="jenis_barang" disabled="" style="display:none;">
+                                            <option value="elektronik">Elektronik</option>
+                                            <option value="kendaraan" selected>Kendaraan</option>
                                         </select>
-                                    </td> --}}
+                                    </td>
+                                    <td class="tabledit-view-mode"><span class="tabledit-span">02</span>
+                                        <select class="tabledit-input form-control input-sm" name="nomor_cabang" disabled="" style="display:none;">
+                                            <option value="01">01</option>
+                                            <option value="02" selected>02</option>
+                                            <option value="03">03</option>
+                                        </select>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
