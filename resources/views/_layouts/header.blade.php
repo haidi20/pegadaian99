@@ -50,7 +50,7 @@
             <ul class="nav-right">
                 <li class="header-notification">
                     <div class="dropdown-primary dropdown">
-                        {{-- <h6>Cabang {{$infoCabang->nomorCabang}} | Kas Saldo : Rp. <b>{{$infoCabang->total_kas}}</b> | Admin : Rp. 0</h6> --}}
+                        <h6>Cabang {{$infoCabang->nomorCabang}} | Kas Saldo : Rp. <b>{{$infoCabang->total_kas}}</b> | Admin : Rp. 0</h6>
                     </div>
                 </li>
                 <li class="header-notification">

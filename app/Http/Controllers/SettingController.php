@@ -109,8 +109,8 @@ class SettingController extends Controller
 
     public function coba()
     {
-        $coba = 'pesan';
+        $coba = $this->request->except('_token');
 
-        return json_encode($coba);
+        return response()->json(compact('coba'));
     }
 }
