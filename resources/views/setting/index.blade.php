@@ -67,20 +67,20 @@
                     dataType: 'JSON',
                     type: 'POST'
                 },
-                display: function(value, response) {
-                    console.log(response.coba);
-                    // new_value being the value that is returned via the json response...
-                    // this value can either be modified here in the javascript or in the controller which set the value...
-                },
-                error: function(response, newValue) {
-                    if(response.status === 500) {
-                        console.log('Service unavailable. Please try later.');
-                    } else {
-                        console.log(response.responseText);
-                    }
-                },
+                // display: function(value, response) {
+                //     console.log(response.coba);
+                //     // new_value being the value that is returned via the json response...
+                //     // this value can either be modified here in the javascript or in the controller which set the value...
+                // },
+                // error: function(response, newValue) {
+                //     if(response.status === 500) {
+                //         console.log('Service unavailable. Please try later.');
+                //     } else {
+                //         console.log(response.responseText);
+                //     }
+                // },
                 success: function(response, status, xhr) {
-                    console.log(response.coba,status, xhr);
+                    console.log(response, status, xhr);
                 },
             });
         }
