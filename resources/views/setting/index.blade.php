@@ -51,7 +51,7 @@
         {
             $('#example-2').Tabledit({
                 url: '{{url("setting/coba")}}',
-                deleteButton: false,
+                // deleteButton: false,
                 buttons:{
                     edit: {
                         class: 'btn btn-sm btn-info',
@@ -79,16 +79,25 @@
         }
         function add_row()
         {
+            var addRow = $('tbody tr.addRow');
             var table = document.getElementById("example-2");
-            var t1=(table.rows.length);
-            var row = table.insertRow(t1);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
+            var number=(table.rows.length);
+            $('.number').html(number-1);
 
-            cell1.className='abc';
+            var addRow = '<tr>'+addRow.html()+'</tr>';
 
-            $('<th scope="row">1</th>').appendTo(cell1);
-            $('<th scope="row">inputan</th>').appendTo(cell2);
+            $('tbody').append(addRow);
+
+            // var table = document.getElementById("example-2");
+            // var t1=(table.rows.length);
+            // var row = table.insertRow(t1);
+            // var cell1 = row.insertCell(0);
+            // var cell2 = row.insertCell(1);
+
+            // cell1.className='abc';
+
+            // $('<th scope="row">1</th>').appendTo(cell1);
+            // $('<th scope="row">inputan</th>').appendTo(cell2);
 
         };
     </script>
@@ -116,7 +125,7 @@
                         <table class="table table-striped table-bordered" id="example-2">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    {{-- <th>#</th> --}}
                                     <th>Margin</th>
                                     <th>Potongan</th>
                                     <th>Jenis Barang</th>
@@ -124,8 +133,30 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr style="display:none" class="addRow">
+                                    {{-- <th scope="row" class="number"></th> --}}
+                                    <td class="tabledit-view-mode"><span class="tabledit-span">0</span>
+                                        <input class="tabledit-input form-control input-sm" type="text" name="margin" value="0">
+                                    </td>
+                                    <td class="tabledit-view-mode"><span class="tabledit-span">0</span>
+                                        <input class="tabledit-input form-control input-sm potongan" type="text" name="potongan" value="0">
+                                    </td>
+                                    <td class="tabledit-view-mode"><span class="tabledit-span">Elektronik</span>
+                                        <select class="tabledit-input form-control input-sm" name="jenis_barang" disabled="" style="display:none;">
+                                            <option value="elektronik">Elektronik</option>
+                                            <option value="kendaraan" selected>Kendaraan</option>
+                                        </select>
+                                    </td>
+                                    <td class="tabledit-view-mode"><span class="tabledit-span">01</span>
+                                        <select class="tabledit-input form-control input-sm" name="nomor_cabang" disabled="" style="display:none;">
+                                            <option value="01" selected>01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                        </select>
+                                    </td>
+                                </tr>
                                 <tr>
-                                    <th scope="row">1</th>
+                                    {{-- <th scope="row">1</th> --}}
                                     <td class="tabledit-view-mode"><span class="tabledit-span">10</span>
                                         <input class="tabledit-input form-control input-sm" type="text" name="margin" value="0">
                                     </td>
@@ -147,7 +178,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">2</th>
+                                    {{-- <th scope="row">2</th> --}}
                                     <td class="tabledit-view-mode"><span class="tabledit-span">10</span>
                                         <input class="tabledit-input form-control input-sm" type="text" name="margin" value="0">
                                     </td>
