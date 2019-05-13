@@ -109,6 +109,21 @@ class DataNasabah extends Login
                 ->assertSee('Wanita')
                 ->screenshot('UserViewDataNasabah[4]detail-info')
                 ->press('Oke')
+                /**
+                 * i will refresh mean's back to the Data nasabah
+                 * todo edit
+                 */
+                ->clickLink('Data Nasabah')
+                ->assertSee('DATA TABLE NASABAH')
+                ->click('.btn-primary')
+                ->assertSee('Edit Data Nasabah')
+                ->screenshot('UserViewDataNasabah[5.1]edit-data-nasabah')
+                ->value('#alamat', 'JL. PANGERAN ANTASARI')
+                ->screenshot('UserViewDataNasabah[5.2]edit-data-nasabah-alamat')
+                ->press('Proses')
+                ->assertSee('Sukses! Data Nasabah telah di perbaharui dengan Atas Nama NUR INDA MARLIDANI')
+                ->screenshot('UserViewDataNasabah[5.3]edit-data-nasabah-alamat-submit')
+
                 // end ✗
             ;
         });
