@@ -11,14 +11,15 @@ $(document).ready(function() {
    //     }
    // });
    $('#example-2').Tabledit({
+    url: 'contact_table_edit.php',
+    deleteButton: false,
+    columns: {
 
-       columns: {
+      identifier: [0, 'id'],
 
-         identifier: [0, 'id'],
+      editable: [[1, 'potongan'], [2, 'margin']]
 
-         editable: [[1, 'First Name'], [2, 'Last Name']]
-
-     }
+    }
 
  });
 });

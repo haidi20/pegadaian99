@@ -4,7 +4,6 @@
 
     <!-- Editable-table js -->
     <script type="text/javascript" src="{{asset('adminty/files/assets/pages/edit-table/jquery.tabledit.js')}}"></script>
-    <script type="text/javascript" src="{{asset('js/editable.js')}}"></script>
 
     <script src="{{asset('adminty/files/assets/pages/form-masking/inputmask.js')}}"></script>
     <script src="{{asset('adminty/files/assets/pages/form-masking/jquery.inputmask.js')}}"></script>
@@ -12,6 +11,16 @@
     <script src="{{asset('adminty/files/assets/pages/form-masking/form-mask.js')}}"></script>
 
     <script>
+        $(document).ready(function() { 
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': laravel.csrfToken
+                }
+            });
+
+            custom_table_edit()
+        });
+
         function create()
         {
             $('#modal-setting').modal('show')
@@ -32,6 +41,49 @@
 
             $('#modal-setting').modal('show')
         }
+
+        function custom_table_edit()
+        {
+            $('#example-2').Tabledit({
+                url: '{{url("setting/coba")}}',
+                deleteButton: false,
+                buttons:{
+                    edit: {
+                        class: 'btn btn-sm btn-info',
+                        html: '<span class="fa fa-pencil"></span>',
+                        action: 'edit'
+                    },
+                    save: {
+                        class: 'btn btn-sm btn-success',
+                        html: 'Save',
+                        action: 'save'
+                    },
+                },
+                columns: {
+                    identifier: [0, 'id'],
+                    editable: [[1, 'potongan'], [2, 'margin']]
+                },
+                ajaxOptions: {
+                    dataType: 'JSON',
+                    type: 'POST'
+                },
+                display: function(value, response) {
+                    console.log(response.coba);
+                    // new_value being the value that is returned via the json response...
+                    // this value can either be modified here in the javascript or in the controller which set the value...
+                },
+                error: function(response, newValue) {
+                    if(response.status === 500) {
+                        console.log('Service unavailable. Please try later.');
+                    } else {
+                        console.log(response.responseText);
+                    }
+                },
+                success: function(response, status, xhr) {
+                    console.log(response.coba,status, xhr);
+                },
+            });
+        }
     </script>
 @endsection
 
@@ -48,69 +100,47 @@
             <!-- Edit With Button card start -->
             <div class="card">
                 <div class="card-header">
-                    <h5>Edit With Button</h5>
-                    <span>Click on buttons to perform actions</span>
-
+                    <h5>Pengaturan Margin</h5>
                 </div>
                 <div class="card-block">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered" id="example-2">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>First</th>
-                                    <th>Last</th>
-                                    <th>Nickname</th>
+                                    <th>Jenis Barang</th>
+                                    <th>Potongan</th>
+                                    <th>Margin</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">Mark</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="First" value="Mark">
+                                    <th scope="row">Elektronik</th>
+                                    <td class="tabledit-view-mode">
+                                        <span class="tabledit-span">10%</span>
+                                        <input class="tabledit-input form-control input-sm" type="text" name="elektronik_potongan" value="0">
                                     </td>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">Otto</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="Last" value="Otto">
-                                    </td>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">@mdo</span>
-                                        <select class="tabledit-input form-control input-sm" name="Nickname" disabled="" style="display:none;">
-                    <option value="1">@mdo</option>
-                    <option value="2">@fat</option>
-                    <option value="3">@twitter</option>
-                </select>
+                                    <td class="tabledit-view-mode">
+                                        <span class="tabledit-span">10.000</span>
+                                        <input class="tabledit-input form-control input-sm" type="text" name="elektronik_margin" value="0">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">2</th>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">Jacob</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="First" value="Jacob" disabled="">
+                                    <th scope="row">Kendaraan</th>
+                                    <td class="tabledit-view-mode">
+                                        <span class="tabledit-span">10%</span>
+                                        <input class="tabledit-input form-control input-sm" type="text" name="elektronik_potongan" value="0">
                                     </td>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">Thorntonkk</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="Last" value="Thornton" disabled="">
+                                    <td class="tabledit-view-mode">
+                                        <span class="tabledit-span">10.000</span>
+                                        <input class="tabledit-input form-control input-sm" type="text" name="elektronik_margin" value="0">
                                     </td>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">@mdo</span>
+                                    {{-- <td class="tabledit-view-mode"><span class="tabledit-span">@mdo</span>
                                         <select class="tabledit-input form-control input-sm" name="Nickname" disabled="" style="display:none;">
-                    <option value="1">@mdo</option>
-                    <option value="2">@fat</option>
-                    <option value="3">@twitter</option>
-                </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">Larry</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="First" value="Larry" disabled="">
-                                    </td>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">the Bird</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="Last" value="the Bird" disabled="">
-                                    </td>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">@mdo</span>
-                                        <select class="tabledit-input form-control input-sm" name="Nickname" disabled="" style="display:none;">
-                    <option value="1">@mdo</option>
-                    <option value="2">@fat</option>
-                    <option value="3">@twitter</option>
-                </select>
-                                    </td>
+                                            <option value="1">@mdo</option>
+                                            <option value="2">@fat</option>
+                                            <option value="3">@twitter</option>
+                                        </select>
+                                    </td> --}}
                                 </tr>
                             </tbody>
                         </table>
