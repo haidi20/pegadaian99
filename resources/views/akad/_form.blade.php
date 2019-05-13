@@ -32,10 +32,6 @@
 <script src="{{asset('adminty/files/bower_components/jquery.steps/js/jquery.steps.js')}}"></script>
 <script src="{{asset('adminty/files/bower_components/jquery-validation/js/jquery.validate.js')}}"></script>
 
-<script type="text/javascript" src="{{asset('adminty/files/assets/pages/form-validation/validate.js')}}"></script>
-<!-- Custom js -->
-<script src="{{asset('adminty/files/assets/js/pcoded.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('adminty/files/assets/js/script.js')}}"></script>
 
 <script src="{{asset('js/form-wizard.js')}}"></script>
 @include('akad.form.form-akad-js')
