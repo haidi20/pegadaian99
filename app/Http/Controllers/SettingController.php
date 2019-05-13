@@ -111,6 +111,6 @@ class SettingController extends Controller
     {
         $coba = 'pesan';
 
-        return response()->json(compact('coba'));
+        return json_encode($coba);
     }
 }
