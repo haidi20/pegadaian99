@@ -11,7 +11,7 @@
         marhun_bih_keyup()
 
         // for default checked 'OPSI PEMBAYARAN HARIAN / 1'
-        $('#op_1,#op_7').css('display', '') 
+        $('#op_1, #op_7').css('display', '') 
 
         // condition option of form 'biaya titip yang dibayar'
         bt_yang_dibayar()
