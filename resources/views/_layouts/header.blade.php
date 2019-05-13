@@ -35,7 +35,7 @@
                 {{-- <img class="img-fluid" src="../files/assets/images/logo.png" alt="Theme-Logo" /> --}}
             </a>
             <a class="mobile-options">
-                {{-- <i class="feather icon-more-horizontal"></i> --}}
+                <i class="feather icon-more-horizontal"></i>
             </a>
         </div>
 
