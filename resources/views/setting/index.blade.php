@@ -53,6 +53,11 @@
                         html: '<span class="fa fa-pencil"></span>',
                         action: 'edit'
                     },
+                    confirm: {
+                        class: 'btn btn-sm btn-warning',
+                        html: '<span class="fa fa-plus"></span>',
+                        action: 'tambah'
+                    },
                     save: {
                         class: 'btn btn-sm btn-success',
                         html: 'Save',
@@ -67,20 +72,8 @@
                     dataType: 'JSON',
                     type: 'POST'
                 },
-                // display: function(value, response) {
-                //     console.log(response.coba);
-                //     // new_value being the value that is returned via the json response...
-                //     // this value can either be modified here in the javascript or in the controller which set the value...
-                // },
-                // error: function(response, newValue) {
-                //     if(response.status === 500) {
-                //         console.log('Service unavailable. Please try later.');
-                //     } else {
-                //         console.log(response.responseText);
-                //     }
-                // },
-                success: function(response, status, xhr) {
-                    console.log(response, status, xhr);
+                onSuccess: function(data) {
+                    console.log(data)
                 },
             });
         }
@@ -116,19 +109,19 @@
                                 <tr>
                                     <th scope="row">Elektronik</th>
                                     <td class="tabledit-view-mode"><span class="tabledit-span">10</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="First" value="0">
+                                        <input class="tabledit-input form-control input-sm" type="text" name="eletronik_margin" value="0">
                                     </td>
                                     <td class="tabledit-view-mode"><span class="tabledit-span">10.000</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="elektronik_margin" value="0">
+                                        <input class="tabledit-input form-control input-sm" type="text" name="elektronik_potongan" value="0">
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Kendaraan</th>
                                     <td class="tabledit-view-mode"><span class="tabledit-span">10</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="elektronik_potongan" value="0">
+                                        <input class="tabledit-input form-control input-sm" type="text" name="elektronik_margin" value="0">
                                     </td>
                                     <td class="tabledit-view-mode"><span class="tabledit-span">10.000</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="elektronik_margin" value="0">
+                                        <input class="tabledit-input form-control input-sm" type="text" name="elektronik_potongan" value="0">
                                     </td>
                                     {{-- <td class="tabledit-view-mode"><span class="tabledit-span">@mdo</span>
                                         <select class="tabledit-input form-control input-sm" name="Nickname" disabled="" style="display:none;">
