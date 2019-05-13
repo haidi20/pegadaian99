@@ -134,7 +134,7 @@
                             </thead>
                             <tbody>
                                 <tr style="display:none" class="addRow">
-                                    {{-- <th scope="row" class="number"></th> --}}
+                                    <th scope="row" class="number" style="display:none"></th>
                                     <td class="tabledit-view-mode"><span class="tabledit-span">0</span>
                                         <input class="tabledit-input form-control input-sm" type="text" name="margin" value="0">
                                     </td>
@@ -156,7 +156,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    {{-- <th scope="row">1</th> --}}
+                                    <th scope="row" style="display:none">1</th>
                                     <td class="tabledit-view-mode"><span class="tabledit-span">10</span>
                                         <input class="tabledit-input form-control input-sm" type="text" name="margin" value="0">
                                     </td>
@@ -178,7 +178,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    {{-- <th scope="row">2</th> --}}
+                                    <th scope="row" style="display:none">2</th>
                                     <td class="tabledit-view-mode"><span class="tabledit-span">10</span>
                                         <input class="tabledit-input form-control input-sm" type="text" name="margin" value="0">
                                     </td>
