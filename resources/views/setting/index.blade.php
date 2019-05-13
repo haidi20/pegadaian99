@@ -65,7 +65,7 @@
                 },
                 ajaxOptions: {
                     dataType: 'JSON',
-                    type: 'GET'
+                    type: 'POST'
                 },
                 // display: function(value, response) {
                 //     console.log(response.coba);
