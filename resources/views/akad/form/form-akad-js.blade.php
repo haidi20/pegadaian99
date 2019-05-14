@@ -147,22 +147,18 @@
             thousand_bt             = 1
         }
 
-        var nominal_biaya_titip = format_nominal(biaya_titip)
-        nominal_biaya_titip     = nominal_biaya_titip.replace("Rp", "")
-        nominal_biaya_titip     = Math.ceil(nominal_biaya_titip) * thousand_bt
-        nominal_biaya_titip     = formatRupiah(nominal_biaya_titip.toString())  
+        biaya_titip     = format_nominal(biaya_titip)
+        biaya_titip     = biaya_titip.replace("Rp", "")
+        biaya_titip     = Math.ceil(biaya_titip) * thousand_bt
+        var nominal_biaya_titip     = formatRupiah(biaya_titip.toString())  
         $('.biaya_titip').val(nominal_biaya_titip)
 
         // 'rumus jumlah biaya titip yang dibayar'
-        var jml_bt_yang_dibayar = nominal_biaya_titip * bt_yang_dibayar
+        var jml_bt_yang_dibayar = biaya_titip * bt_yang_dibayar
 
-        if(bt_yang_dibayar >= 1){
-            var thousand_jml_bt = 1000
-        }else{
-            var thousand_jml_bt = 1
-        }
+        console.log(jml_bt_yang_dibayar)
 
-        jml_bt_yang_dibayar     = jml_bt_yang_dibayar * thousand_jml_bt
+        jml_bt_yang_dibayar     = jml_bt_yang_dibayar
         jml_bt_yang_dibayar     = formatRupiah(jml_bt_yang_dibayar.toString())
         $('.jml_bt_yang_dibayar').val(jml_bt_yang_dibayar)
     }
