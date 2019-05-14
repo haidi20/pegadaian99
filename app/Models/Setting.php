@@ -27,7 +27,13 @@ class Setting extends Model
         // get data id_cabang from table 'user_cabang' base on this user
         $user_cabang    = User_cabang::baseUsername()->first();
 
-        return $query->where('id_cabang', $user_cabang->id_cabang);
+        $validasi = $this->where('id_cabang', $user_cabang->id_cabang)->first();
+
+        if($validasi){
+            return $query->where('id_cabang', $user_cabang->id_cabang);
+        }else{
+            return $query->where('id_cabang', 0);
+        }
     }
 
     public function scopeJenisBarang($query, $itemType = null)
