@@ -187,7 +187,7 @@ class AkadController extends Controller
         $paymentOption       = config('library.form.akad.payment_option');
 
         // 'margin dan potongan elektronik'
-        return $margin_elektronik      = $this->setting->baseBranch()->jenisBarang('elektronik')->value('margin');
+        $margin_elektronik      = $this->setting->baseBranch()->jenisBarang('elektronik')->value('margin');
         $potongan_elektronik    = $this->setting->baseBranch()->jenisBarang('elektronik')->value('potongan');
 
         // 'margin dan potongan kendaraan'
