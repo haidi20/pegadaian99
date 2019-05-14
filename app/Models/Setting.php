@@ -22,12 +22,17 @@ class Setting extends Model
     }
 
     // how to fetch data by username of user
-    public function scopebaseBranch($query)
+    public function scopeBaseBranch($query)
     {
         // get data id_cabang from table 'user_cabang' base on this user
         $user_cabang    = User_cabang::baseUsername()->first();
 
         return $query->where('id_cabang', $user_cabang->id_cabang);
+    }
+
+    public function scopeJenisBarang($query, $itemType = null)
+    {
+        return $query->where('jenis_barang', $itemType);
     }
 
     public function getNominalPotonganAttribute()
