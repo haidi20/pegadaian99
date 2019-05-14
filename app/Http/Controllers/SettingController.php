@@ -35,9 +35,34 @@ class SettingController extends Controller
 
     public function index()
     {
-    	$setting = $this->setting->baseBranch()->first();
+        $cabang     = $this->cabang->get();
+        $setting    = $this->setting->get();
+        $userCabang = $this->user_cabang->first();  
 
-    	return $this->template('setting.index', compact('setting'));
+    	return $this->template('setting.index', compact('setting', 'cabang', 'userCabang'));
+    }
+
+    public function data()
+    {
+        $inputan = $this->request->except('_token');
+
+       if(request('id')){
+            $setting    = $this->setting->find(request('id'));
+       }else{
+           $setting     = $this->setting;
+       }
+
+        if(request('action')  == 'edit'){
+            $setting->margin        = request('margin');
+            $setting->potongan      = request('potongan');
+            $setting->id_cabang     = request('id_cabang');
+            $setting->jenis_barang  = request('jenis_barang');
+            $setting->save();
+        }else{
+            $setting->delete();
+        }
+
+        return response()->json(compact('setting'));
     }
 
     public function store()
@@ -105,12 +130,5 @@ class SettingController extends Controller
         $column = config('library.column.login');
 
         return $this->template('setting.login', compact('column', 'login'));
-    }
-
-    public function coba()
-    {
-        $coba = $this->request->except('_token');
-
-        return response()->json(compact('coba'));
     }
 }

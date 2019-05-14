@@ -10,10 +10,16 @@ class Setting extends Model
     // protected $guarded   = [];
     protected $fillable     = [
         'id',
+        'id_cabang',
+        'jenis_barang',
         'potongan',
-        'margin_kendaraan',
-        'margin_elektronik'
+        'margin',
     ];
+
+    public function cabang()
+    {
+        return $this->hasOne('App\Models\Cabang', 'id_cabang', 'id_cabang');
+    }
 
     // how to fetch data by username of user
     public function scopebaseBranch($query)
@@ -27,5 +33,12 @@ class Setting extends Model
     public function getNominalPotonganAttribute()
     {
         return 'Rp '. nominal($this->potongan);
+    }
+
+    public function getNomorCabangAttribute()
+    {
+        if($this->cabang){
+            return $this->cabang->no_cabang;
+        }
     }
 }
