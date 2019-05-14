@@ -39,6 +39,8 @@ class Setting extends Model
     {
         if($this->cabang){
             return $this->cabang->no_cabang;
+        }else{
+            return 'Semua';
         }
     }
 }
