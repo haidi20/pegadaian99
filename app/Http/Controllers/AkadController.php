@@ -194,8 +194,6 @@ class AkadController extends Controller
         $margin_kendaraan       = $this->setting->baseBranch()->jenisBarang('kendaraan')->value('margin');
         $potongan_kendaraan     = $this->setting->baseBranch()->jenisBarang('kendaraan')->value('potongan');
 
-        
-
     	return $this->template('akad._form', compact(
             'action', 'method', 'tanggal_akad', 'tanggal_jatuh_tempo', 
             'listTime', 'paymentOption', 'potongan_kendaraan', 'potongan_elektronik', 'margin_kendaraan', 'margin_elektronik'
