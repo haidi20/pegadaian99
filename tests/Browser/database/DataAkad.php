@@ -38,12 +38,26 @@ class DataAkad extends DataNasabah
                  * ?clickLink('param')
                  * the function for this
                  * <a href='x'> param </a>
-                 * move to CabangCreate | Tambah Cabang
+                 * move to Database -> Data Akad Nasabah
                  */
                 ->clickLink('Data Akad Nasabah')
                 ->assertSee('Data Akad')
                 ->assertSee('DEFAULT')
                 ->screenshot('UserViewDataAkadNasabah[1]')
+                /**
+                 * ?clickLink('param')
+                 * the function for this
+                 * <a href='x'> param </a>
+                 * pagination move -> |2|
+                 */
+                ->clickLink('45')
+                ->screenshot('UserViewDataAkadNasabah[2]pagination-45')
+                /**
+             * 1. TAB [Nasabah Akad] ✗
+             * 2. TAB [Akad Jatuh Tempo] ✗
+             * 3. TAB [Pelunasan & Lelang] ✗
+             */
+
                 // end
             ;
         });
