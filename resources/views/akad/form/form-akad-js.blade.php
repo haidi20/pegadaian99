@@ -122,10 +122,10 @@
 
         // set nominal 'potongan biaya titip'
         if(jenis_barang == 'elektronik'){
-            var potongan = {{$potongan}}
+            var potongan = {{$potongan_elektronik}}
             var persenan = {{$margin_elektronik}} / 100
         }else{
-            var potongan = null
+            var potongan = {{$potongan_kendaraan}}
             var persenan = {{$margin_kendaraan}} / 100
         }
 
