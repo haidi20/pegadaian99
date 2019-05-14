@@ -6,8 +6,9 @@
     <script type="text/javascript" src="{{asset('adminty/files/assets/pages/edit-table/jquery.tabledit.js')}}"></script>
 
     <script>
+        var number = 1;
+        $(document).ready(function() {
 
-        $(document).ready(function() { 
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': laravel.csrfToken
@@ -50,7 +51,7 @@
         function custom_table_edit()
         {
             $('#example-2').Tabledit({
-                url: '{{url("setting/coba")}}',
+                url: '{{url("setting/data")}}',
                 // deleteButton: false,
                 buttons:{
                     edit: {
@@ -72,38 +73,48 @@
                     dataType: 'JSON',
                     type: 'POST'
                 },
-                onSuccess: function(data) {
+                onSuccess: function(data){
+                    $('.name_status').val('edit');
+
+                    // if after insert data. can get id and then insert form id
+                    if(data.inputan.action == 'edit'){
+                        // $('#data_'+(number - 1)+' td #value_id').val(data.id)
+                        $('#data_'+(number - 1)+' td #value_id').val(data.id)
+                    }
+
                     console.log(data)
                 },
             });
         }
+
         function add_row()
         {
             var addRow = $('tbody tr.addRow');
-            var table = document.getElementById("example-2");
-            var number=(table.rows.length);
-            $('.number').html(number-1);
-
-            var addRow = '<tr>'+addRow.html()+'</tr>';
+            var addRow = '<tr id="data_'+number+'">'+addRow.html()+'</tr>';
 
             $('tbody').append(addRow);
+            number++;
 
-            // var table = document.getElementById("example-2");
-            // var t1=(table.rows.length);
-            // var row = table.insertRow(t1);
-            // var cell1 = row.insertCell(0);
-            // var cell2 = row.insertCell(1);
+            // var id = $('#data_'+number+' td #value_id').val(number)
 
-            // cell1.className='abc';
-
-            // $('<th scope="row">1</th>').appendTo(cell1);
-            // $('<th scope="row">inputan</th>').appendTo(cell2);
-
+            // $.ajax({
+            //     url: '{{url("setting/data")}}',
+            //     type: 'POST',
+            //     data: {id_cabang:'0', jenis_barang:'elektronik', potongan:0, margin:0, action:'add'},
+            //     cache: false,
+            //     success:function(result){		
+            //         console.log(result)
+            //     },
+            //     error:function(xhr, ajaxOptions, thrownError){
+            //         console.log(thrownError)
+            //     }
+            // });
         };
     </script>
 @endsection
 
 @section('content')
+@include('setting.modal')
 <div class="page-body">
     <div class="row">
         <div class="col-sm-12 col-md-12">
@@ -119,7 +130,7 @@
                     <h5>Pengaturan Margin</h5>
                 </div>
                 <div class="card-block">
-                    <button type="button" class="btn btn-primary btn-sm" onclick="add_row()">Add Row </button>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="add_row()">Tambah</button>
                     <br><br>
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered" id="example-2">
@@ -134,34 +145,12 @@
                             </thead>
                             <tbody>
                                 <tr style="display:none" class="addRow">
-                                    <th scope="row" class="number" style="display:none"></th>
+                                    <th scope="row" style="display:none"></th>
                                     <td class="tabledit-view-mode"><span class="tabledit-span">0</span>
                                         <input class="tabledit-input form-control input-sm" type="text" name="margin" value="0">
                                     </td>
                                     <td class="tabledit-view-mode"><span class="tabledit-span">0</span>
                                         <input class="tabledit-input form-control input-sm potongan" type="text" name="potongan" value="0">
-                                    </td>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">Elektronik</span>
-                                        <select class="tabledit-input form-control input-sm" name="jenis_barang" disabled="" style="display:none;">
-                                            <option value="elektronik">Elektronik</option>
-                                            <option value="kendaraan" selected>Kendaraan</option>
-                                        </select>
-                                    </td>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">01</span>
-                                        <select class="tabledit-input form-control input-sm" name="nomor_cabang" disabled="" style="display:none;">
-                                            <option value="01" selected>01</option>
-                                            <option value="02">02</option>
-                                            <option value="03">03</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" style="display:none">1</th>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">10</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="margin" value="0">
-                                    </td>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">10.000</span>
-                                        {{-- <input class="tabledit-input form-control input-sm potongan" type="text" name="potongan" value="0"> --}}
                                     </td>
                                     <td class="tabledit-view-mode"><span class="tabledit-span">Elektronik</span>
                                         <select class="tabledit-input form-control input-sm" name="jenis_barang" disabled="" style="display:none;">
@@ -169,36 +158,77 @@
                                             <option value="kendaraan">Kendaraan</option>
                                         </select>
                                     </td>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">01</span>
-                                        <select class="tabledit-input form-control input-sm" name="nomor_cabang" disabled="" style="display:none;">
-                                            <option value="01" selected>01</option>
-                                            <option value="02">02</option>
-                                            <option value="03">03</option>
+                                    <td class="tabledit-view-mode"><span class="tabledit-span">Semua</span>
+                                        <select class="tabledit-input form-control input-sm" name="id_cabang" disabled="" style="display:none;">
+                                            <option value="0" selected>Semua</option>
+                                            @foreach ($cabang as $key => $value)
+                                                <option value="{{$value->id_cabang}}"> {{$value->no_cabang}} </option>
+                                            @endforeach
                                         </select>
+                                    </td>
+                                    <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span"></span>
+                                        <input class="tabledit-input form-control input-sm" id="value_id" type="text" name="id" value="">
+                                    </td>
+                                    <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span name_status">tambah</span>
+                                        <input class="tabledit-input form-control input-sm name_status" type="text" name="status" value="edit">
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th scope="row" style="display:none">2</th>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">10</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="margin" value="0">
-                                    </td>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">50.000</span>
-                                        <input class="tabledit-input form-control input-sm potongan" type="text" name="potongan" value="0">
-                                    </td>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">Kendaraan</span>
-                                        <select class="tabledit-input form-control input-sm" name="jenis_barang" disabled="" style="display:none;">
-                                            <option value="elektronik">Elektronik</option>
-                                            <option value="kendaraan" selected>Kendaraan</option>
-                                        </select>
-                                    </td>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">02</span>
-                                        <select class="tabledit-input form-control input-sm" name="nomor_cabang" disabled="" style="display:none;">
-                                            <option value="01">01</option>
-                                            <option value="02" selected>02</option>
-                                            <option value="03">03</option>
-                                        </select>
-                                    </td>
-                                </tr>
+                                @forelse ($setting as $index => $item)
+                                    <tr>
+                                        <th scope="row" style="display:none"></th>
+                                        <td class="tabledit-view-mode"><span class="tabledit-span">{{$item->margin}}</span>
+                                            {{-- <input class="tabledit-input form-control input-sm" type="text" name="margin" value="0"> --}}
+                                        </td>
+                                        <td class="tabledit-view-mode"><span class="tabledit-span"> {{$item->potongan}} </span>
+                                            {{-- <input class="tabledit-input form-control input-sm potongan" type="text" name="potongan" value="0"> --}}
+                                        </td>
+                                        <td class="tabledit-view-mode"><span class="tabledit-span"> {{$item->jenis_barang}} </span>
+                                            <select class="tabledit-input form-control input-sm" name="jenis_barang" disabled="" style="display:none;">
+                                                <option value="elektronik" {{$item->jenis_barang == "elektronik" ? 'selected' : ''}}>Elektronik</option>
+                                                <option value="kendaraan" {{$item->jenis_barang == "kendaraan" ? 'selected' : ''}}>Kendaraan</option>
+                                            </select>
+                                        </td>
+                                        <td class="tabledit-view-mode"><span class="tabledit-span">{{$item->nomor_cabang}}</span>
+                                            <select class="tabledit-input form-control input-sm" name="id_cabang" disabled="" style="display:none;">
+                                                <option value="0" {{$item->id_cabang == 0 ? 'selected' : ''}}>Semua</option>
+                                                @foreach ($cabang as $key => $value)
+                                                    <option value="{{$value->id_cabang}}" {{$value->id_cabang == $item->id_cabang ? 'selected' : ''}} > {{$value->no_cabang}} </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span"></span>
+                                            <input class="tabledit-input form-control input-sm" type="text" name="id" value=" {{$item->id}} ">
+                                        </td>
+                                        <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span name_status">edit</span>
+                                            <input class="tabledit-input form-control input-sm name_status" type="text" name="status" value="edit">
+                                        </td>
+                                    </tr>
+                                @empty
+                                    {{-- <tr>
+                                        <th scope="row" style="display:none"></th>
+                                        <td class="tabledit-view-mode"><span class="tabledit-span">0</span>
+                                        </td>
+                                        <td class="tabledit-view-mode"><span class="tabledit-span">0</span>
+                                        </td>
+                                        <td class="tabledit-view-mode"><span class="tabledit-span">Elektronik</span>
+                                            <select class="tabledit-input form-control input-sm" name="jenis_barang" disabled="" style="display:none;">
+                                                <option value="elektronik" selected>Elektronik</option>
+                                                <option value="kendaraan">Kendaraan</option>
+                                            </select>
+                                        </td>
+                                        <td class="tabledit-view-mode"><span class="tabledit-span">Semua</span>
+                                            <select class="tabledit-input form-control input-sm" name="nomor_cabang" disabled="" style="display:none;">
+                                                <option value="0" selected>Semua</option>
+                                                @foreach ($cabang as $index => $item)
+                                                    <option value="{{$item->id_cabang}}" > {{$item->no_cabang}} </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span"></span>
+                                            <input class="tabledit-input form-control input-sm" type="text" name="id" value="">
+                                        </td>
+                                    </tr> --}}
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -210,72 +240,3 @@
 </div>
 @endsection
 
-@section('contentt')
-@include('setting.modal')
-<div class="page-body">
-    <div class="row">
-        <div class="col-sm-12 col-md-12">
-             {!! session()->get('message') !!}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-             <div class="card">
-                <div class="card-block">
-                    <h3 class="sub-title">Pengaturan Persenan & Jumlah Biaya Titip yang di bayar</h3>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-6">
-                            <a href="javascript:void(0)" onClick="create()" class="btn btn-success {{$setting ? 'disabled' : ''}}">Buat</a>
-                            {{-- <a href="javascript:void(0)" onClick="create()" class="btn btn-success ">Buat</a> --}}
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table table-striped table-bordered nowrap table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Potongan</th>
-                                            <th>Margin Elektronik</th>
-                                            <th>Margin Kendaraan</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            @if(!is_null($setting))
-                                                <td>{{$setting->nominal_potongan}}</td>
-                                                <td>{{$setting->margin_elektronik}}%</td>
-                                                <td>{{$setting->margin_kendaraan}}%</td>
-                                                <td align="center">
-                                                    <a href="javascript:void(0)" onClick="edit({{$setting->id}})" title="Detail Data" class="btn btn-sm btn-info">
-                                                        <i class="icofont icofont-external icofont-lg"></i>
-                                                    </a>
-                                                </td>
-
-                                                <input type="hidden" id="table_id" value="{{$setting->id}}">
-                                                <input type="hidden" id="table_margin_elektronik" value="{{$setting->margin_elektronik}}">
-                                                <input type="hidden" id="table_margin_kendaraan" value="{{$setting->margin_kendaraan}}">
-                                                <input type="hidden" id="table_potongan" value="{{$setting->potongan}}">
-                                            @else
-                                                <tr>
-                                                    <td colspan="3" align="center">No data available in table</td>
-                                                </tr>
-                                            @endif
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="text-right  m-r-20">
-                                {{-- <a href="#!" class="b-b-primary text-primary">View all Sales Locations </a> --}}
-                            </div>
-                        </div>
-                    </div>   
-                </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection

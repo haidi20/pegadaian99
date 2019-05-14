@@ -35,9 +35,107 @@ class SettingController extends Controller
 
     public function index()
     {
-    	$setting = $this->setting->baseBranch()->first();
+        $cabang     = $this->cabang->get();
+        $setting    = $this->setting->get();
+        $userCabang = $this->user_cabang->first();  
 
-    	return $this->template('setting.index', compact('setting'));
+    	return $this->template('setting.index', compact('setting', 'cabang', 'userCabang'));
+    }
+
+    // public function data()
+    // {
+    //     $inputan = $this->request->except('_token');
+
+    //     $validasiData = $this->validasi_data();
+        
+    //     if($validasiData->condition){
+    //         $message = $validasiData->message;
+    //     }else{
+    //         if(request('id')){
+    //             $setting    = $this->setting->find(request('id'));
+    //         }else{
+    //             $setting    = $this->setting;
+    //         }
+
+    //         if(request('action') == 'edit'){
+    //             $setting->margin        = request('margin');
+    //             $setting->potongan      = remove_dot(request('potongan'));
+    //             $setting->id_cabang     = request('id_cabang');
+    //             $setting->jenis_barang  = request('jenis_barang');
+    //             $setting->save();
+
+    //             $id = $setting->id;
+    //             $message = 'Pengaturan Margin Telah Ditambahkan';
+    //         }
+
+    //         if(request('action') == 'delete'){
+    //             $setting->delete();
+    
+    //             $id = '';
+    //             $message = 'Pengaturan Margin Telah Dihapus';
+    //         }
+    //     }
+
+    //     return response()->json(compact('inputan', 'setting', 'id', 'message'));
+    //     // return response()->json(compact('inputan'));
+    // }
+
+    public function data()
+    {
+        $inputan = $this->request->except('_token');
+
+        if(request('id')){
+            $setting    = $this->setting->find(request('id'));
+        }else{
+            $setting    = $this->setting;
+        }
+
+        if(request('action') == 'edit'){
+            $validasiData = $this->validasi_data();
+
+            if($validasiData->condition){
+                $id = '';
+                $message = $validasiData->message;
+            }else{
+                $setting->margin        = request('margin');
+                $setting->potongan      = remove_dot(request('potongan'));
+                $setting->id_cabang     = request('id_cabang');
+                $setting->jenis_barang  = request('jenis_barang');
+                $setting->save();
+
+                $id = $setting->id;
+                $message = 'Pengaturan Margin Telah Ditambahkan';
+            }
+        }
+
+        if(request('action') == 'delete'){
+            $setting->delete();
+
+            $id = '';
+            $message = 'Pengaturan Margin Telah Dihapus';
+        }
+
+        return response()->json(compact('inputan', 'setting', 'id', 'message'));
+    }
+
+    public function validasi_data()
+    {
+        $validasiData   = $this->setting->where(['jenis_barang' => request('jenis_barang'), 'id_cabang' => request('id_cabang')])->first();
+
+        if($validasiData){
+            if($validasiData->id != request('id')){
+                $message    = 'Maaf, Data Cabang dan Jenis Barang Sudah Terbuat';
+                $condition  = true;
+            }else{
+                $message = '';
+                $condition  = false;
+            }
+        }else{
+            $message = '';
+            $condition  = false;
+        }
+
+        return (object) compact('message', 'condition');
     }
 
     public function store()
@@ -105,12 +203,5 @@ class SettingController extends Controller
         $column = config('library.column.login');
 
         return $this->template('setting.login', compact('column', 'login'));
-    }
-
-    public function coba()
-    {
-        $coba = $this->request->except('_token');
-
-        return response()->json(compact('coba'));
     }
 }
