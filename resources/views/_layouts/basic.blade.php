@@ -41,6 +41,15 @@
     }
     var url = '{{ url("/") }}'
   </script>
+  <script>
+    $(document).ready(function() {
+      $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': laravel.csrfToken
+          }
+      });
+    });    
+  </script>
   @yield('script-bottom')
 
 </body>

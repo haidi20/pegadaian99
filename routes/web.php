@@ -71,6 +71,7 @@ Route::middleware('auth')->group(function() {
 		Route::get('/cabang', 'SettingController@pilih_cabang')->name('setting.pilih-cabang');
 		Route::get('/data-login', 'SettingController@login')->name('setting.login');
 		Route::get('/delete/{id}', 'SettingController@delete')->name('setting.delete');
+		Route::get('/validate-data', 'SettingController@validate_data')->name('setting.validate_data');
 		
 		Route::post('/store', 'SettingController@store')->name('setting.store');
 		Route::post('/data', 'SettingController@data')->name('setting.data');

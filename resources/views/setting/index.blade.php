@@ -10,10 +10,12 @@
 
             $('tbody').append(addRow);
 
-            $('#row_'+number).find('td:nth-child(6) a:nth-child(1)').attr('onClick', 'action("tambah", "'+number+'")');
+            $('#row_'+number).find('td:nth-child(6) a:nth-child(1)').attr('onClick', 'action("add", "'+number+'")');
             $('#row_'+number).find('td:nth-child(6) a:nth-child(2)').attr('onClick', 'action("delete", "'+number+'")');
-            $('#row_'+number).find('td:nth-child(6) a:nth-child(3)').attr('onClick', 'send("tambah", "'+number+'")');
+            $('#row_'+number).find('td:nth-child(6) a:nth-child(3)').attr('onClick', 'send("add", "'+number+'")');
             $('#row_'+number).find('td:nth-child(6) a:nth-child(4)').attr('onClick', 'send("delete", "'+number+'")');
+
+            // console.log($('#row_'+number).find('td:nth-child(6)').html())
 
             number++;
         }
@@ -25,7 +27,7 @@
             $('#row_'+id+' td input').toggle();
             $('#row_'+id+' td select').toggle();
 
-            if(status == 'edit' || status == 'tambah'){
+            if(status == 'edit' || status == 'add'){
                 $('#row_'+id+' td:nth-child(6) a:nth-child(3)').toggle();
                 $('#row_'+id+' td:nth-child(6) a:nth-child(4)').hide();
             }else{
@@ -36,7 +38,38 @@
 
         function send(status, id = null, url = null)
         {
+            var margin          = $('#row_'+id+' td:nth-child(1) input').val();
+            var potongan        = $('#row_'+id+' td:nth-child(2) input').val();
+            var value_id              = $('#row_'+id+' td:nth-child(5) input').val();
+            var id_cabang       = $('#row_'+id+' td:nth-child(4) select').val();
+            var jenis_barang    = $('#row_'+id+' td:nth-child(3) select').val();
 
+            // console.log(id)
+
+            $.ajax({
+                url: '{{url("setting/validate-data")}}',
+                type: 'GET',
+                data: {
+                        margin:margin, 
+                        status: status,
+                        value_id:value_id, 
+                        potongan:potongan, 
+                        id_cabang:id_cabang, 
+                        jenis_barang:jenis_barang, 
+                    },
+                cache: false,
+                success:function(result){		
+                    console.log(result)
+
+                    if(result.message){
+                        $('#modal-setting').modal('show')
+                        $('#message').html(result.message)
+                    }
+                },
+                error:function(xhr, ajaxOptions, thrownError){
+                    console.log(thrownError)
+                }
+            });
         }
     </script>
 @endsection
@@ -74,7 +107,6 @@
                             </thead>
                             <tbody>
                                 <tr style="display:none" class="addRow">
-                                    <th scope="row" style="display:none"></th>
                                     <td><span class="tabledit-span">0</span>
                                         <input class="tabledit-input form-control input-sm" type="text" name="margin" style="display:none;" value="0">
                                     </td>
@@ -95,6 +127,9 @@
                                             @endforeach
                                         </select>
                                     </td>
+                                    <td style="display:none"><span class="tabledit-span" ></span>
+                                        <input class="tabledit-input form-control input-sm" type="text" name="id" style="display:none;" value="0">
+                                    </td>
                                     <td align="center">
                                         <a href="javascript:void(0)" class="btn btn-sm btn-primary" title="Edit Data">
                                             <i class="icofont icofont-edit icofont-sm"></i>
@@ -112,7 +147,6 @@
                                 </tr>
                                 @forelse ($setting as $index => $item)
                                     <tr id="row_{{$item->id}}">
-                                        <th scope="row" style="display:none"></th>
                                         <td><span class="tabledit-span">{{$item->margin}}</span>
                                             <input class="tabledit-input form-control input-sm" type="text" name="margin" style="display:none;" value="{{$item->margin}}">
                                         </td>
@@ -132,6 +166,9 @@
                                                     <option value="{{$value->id_cabang}}" {{$value->id_cabang == $item->id_cabang ? 'selected' : ''}} > {{$value->no_cabang}} </option>
                                                 @endforeach
                                             </select>
+                                        </td>
+                                        <td style="display:none"><span class="tabledit-span" style="display:none"></span>
+                                            <input class="tabledit-input form-control input-sm" type="text" name="id" style="display:none;" value="{{$item->id}}">
                                         </td>
                                         <td align="center">
                                             <a href="javascript:void(0)" class="btn btn-sm btn-primary" onClick="action('edit', {{$item->id}}, '{{route('setting.update', $item->id)}}')" title="Edit Data">

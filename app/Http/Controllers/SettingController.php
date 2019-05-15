@@ -42,6 +42,26 @@ class SettingController extends Controller
     	return $this->template('setting.index', compact('setting', 'cabang', 'userCabang'));
     }
 
+    public function validate_data()
+    {
+        $inputan        = $this->request->except('_token');
+        $validateData   = $this->setting->validateData()->first();
+
+        if(request('status') == 'add'){
+            if($validateData){
+                $message = 'Maaf, data cabang dan jenis barang sudah ada'; 
+            }
+        }else if(request('status') == 'edit'){
+            if($validateData->id != request('value_id')){
+                $message = 'Maaf, data cabang dan jenis barang sudah ada'; 
+            }
+        }
+
+        
+
+        return response()->json(compact('inputan', 'validateData', 'message'));
+    }
+
     public function update($id)
     {
         return $this->save($id);
