@@ -29,6 +29,7 @@ class CabangCreate extends CabangView
                  * in this case we have move from user_login
                  */
                 ->assertPathIs($this->cabang_path())
+                // after that , make the bot seen a page
                 ->assertSee('Data Cabang')
                 /**
                  * ?clickLink('param')
@@ -37,12 +38,14 @@ class CabangCreate extends CabangView
                  * move to CabangCreate | Tambah Cabang
                  */
                 ->clickLink('Tambah Cabang')
-                // measure against , the bot seen page
+                // measure against , the bot seen a page ,
+                // for capture laters -> finalize js loading screen
                 ->assertSee('DATA CABANG')
                 // capture the task
                 ->screenshot('UserView[TAMBAH](1)Cabang')
                 /**
                  * user field form data
+                 * value ('name|id|class', 'value')
                  */
                 ->value('#investor', 'Yogi Arif Widodo')
                 ->value('#modal_awal', '200000000')
@@ -50,10 +53,11 @@ class CabangCreate extends CabangView
                 ->value('#nama_cabang', 'PEG99')
                 ->value('#telp_cabang', '081545778612')
                 ->value('#alamat_cabang', 'Loa Janan Loa Duri')
-                ->screenshot('UserView[TAMBAH_FIELD](2)Cabang')
+                ->screenshot('UserView[TAMBAH](2)Cabang_FIELD')
+                // press ('value-of-button')
                 ->press('Proses')
-                ->screenshot('UserView[TAMBAH_SUBMIT](3)Cabang')
-                // end
+                ->screenshot('UserView[TAMBAH](3)Cabang_SUBMIT')
+                // end ✓ almost done
             ;
         });
     }

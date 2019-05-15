@@ -151,7 +151,7 @@ class CabangController extends Controller
 
     public function api()
     {
-        $cabang = $this->cabang->get();
+        $cabang = $this->cabang->sorted()->get();
 
         return json_decode($cabang);
     }
