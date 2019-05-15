@@ -70,9 +70,12 @@ Route::middleware('auth')->group(function() {
 		Route::get('/', 'SettingController@index')->name('setting.index');
 		Route::get('/cabang', 'SettingController@pilih_cabang')->name('setting.pilih-cabang');
 		Route::get('/data-login', 'SettingController@login')->name('setting.login');
-
+		Route::get('/delete/{id}', 'SettingController@delete')->name('setting.delete');
+		
+		Route::post('/store', 'SettingController@store')->name('setting.store');
 		Route::post('/data', 'SettingController@data')->name('setting.data');
 		Route::post('/store', 'SettingController@store')->name('setting.store');
+		Route::post('/update/{id}', 'SettingController@update')->name('setting.update');
 		Route::post('/cabang/store', 'SettingController@pilih_cabang_store')->name('setting.pilih-cabang.store');
 	});
 	Route::group(['prefix' => 'user'], function(){
