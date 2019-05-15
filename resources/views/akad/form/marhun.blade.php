@@ -73,7 +73,7 @@
                                 class="form-control " 
                                 name="taksiran_marhun" 
                                 id="taksiran_marhun" 
-                                value="{{old('taksiran_marhun')}}"
+                                value=""
                                 required>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                                 class="form-control" 
                                 name="marhun_bih" 
                                 id="marhun_bih" 
-                                value="{{old('marhun_bih')}}"
+                                value=""
                                 required>
                         </div>
                     </div>

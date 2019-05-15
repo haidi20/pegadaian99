@@ -1,7 +1,44 @@
 @extends('_layouts.default')
 
 @section('script-bottom')
+    <script>
+        var number = 1;
+        function add_row()
+        {
+            var addRow = $('tbody tr.addRow');
+            var addRow = '<tr id="row_'+number+'">'+addRow.html()+'</tr>';
 
+            $('tbody').append(addRow);
+
+            $('#row_'+number).find('td:nth-child(6) a:nth-child(1)').attr('onClick', 'action("tambah", "'+number+'")');
+            $('#row_'+number).find('td:nth-child(6) a:nth-child(2)').attr('onClick', 'action("delete", "'+number+'")');
+            $('#row_'+number).find('td:nth-child(6) a:nth-child(3)').attr('onClick', 'send("tambah", "'+number+'")');
+            $('#row_'+number).find('td:nth-child(6) a:nth-child(4)').attr('onClick', 'send("delete", "'+number+'")');
+
+            number++;
+        }
+
+        function action(status, id = null, url = null)
+        {
+            // show / hide span, input, select
+            $('#row_'+id+' td span').toggle();
+            $('#row_'+id+' td input').toggle();
+            $('#row_'+id+' td select').toggle();
+
+            if(status == 'edit' || status == 'tambah'){
+                $('#row_'+id+' td:nth-child(6) a:nth-child(3)').toggle();
+                $('#row_'+id+' td:nth-child(6) a:nth-child(4)').hide();
+            }else{
+                $('#row_'+id+' td:nth-child(6) a:nth-child(3)').hide();
+                $('#row_'+id+' td:nth-child(6) a:nth-child(4)').toggle();
+            }
+        }
+
+        function send(status, id = null, url = null)
+        {
+
+        }
+    </script>
 @endsection
 
 @section('content')
@@ -39,69 +76,78 @@
                                 <tr style="display:none" class="addRow">
                                     <th scope="row" style="display:none"></th>
                                     <td><span class="tabledit-span">0</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="margin" value="0">
+                                        <input class="tabledit-input form-control input-sm" type="text" name="margin" style="display:none;" value="0">
                                     </td>
                                     <td><span class="tabledit-span">0</span>
-                                        <input class="tabledit-input form-control input-sm potongan" type="text" name="potongan" value="0">
+                                        <input class="tabledit-input form-control input-sm potongan" type="text" name="potongan" style="display:none;" value="0">
                                     </td>
                                     <td><span class="tabledit-span">elektronik</span>
                                         <select class="tabledit-input form-control input-sm" name="jenis_barang" style="display:none;">
-                                            {{-- <option value="elektronik" selected>elektronik</option>
-                                            <option value="kendaraan">kendaraan</option> --}}
+                                            <option value="elektronik">elektronik</option>
+                                            <option value="kendaraan">kendaraan</option>
                                         </select>
                                     </td>
-                                    <td><span class="tabledit-span">Semua</span>
+                                    <td><span class="tabledit-span">semua</span>
                                         <select class="tabledit-input form-control input-sm" name="id_cabang" style="display:none;">
-                                            {{-- <option value="0" selected>Semua</option> --}}
-                                            {{-- @foreach ($cabang as $key => $value)
+                                            <option value="0">Semua</option>
+                                            @foreach ($cabang as $key => $value)
                                                 <option value="{{$value->id_cabang}}"> {{$value->no_cabang}} </option>
-                                            @endforeach --}}
+                                            @endforeach
                                         </select>
                                     </td>
-                                    <td style="display:none"><span class="tabledit-span"></span>
-                                        <input class="tabledit-input form-control input-sm" id="value_id" type="text" name="value_id" value="">
-                                    </td>
-                                    <td style="display:none"><span class="tabledit-span"></span><input class="tabledit-input form-control input-sm" type="text" id="clone_id" name="clone_id" value="clone">
-                                    </td>
-                                    <td style="display:none"><span class="tabledit-span name_status">tambah</span>
-                                        <input class="tabledit-input form-control input-sm name_status" type="text" name="status" value="edit">
+                                    <td align="center">
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary" title="Edit Data">
+                                            <i class="icofont icofont-edit icofont-sm"></i>
+                                        </a>
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-danger" title="Delete Data">
+                                            <i class="icofont icofont-ui-delete icofont-sm"></i>
+                                        </a>
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-success" style="display:none" title="Delete Data">
+                                            Save
+                                        </a>
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-danger" style="display:none" title="Delete Data">
+                                            Confirm
+                                        </a>
                                     </td>
                                 </tr>
                                 @forelse ($setting as $index => $item)
-                                    <form id="form_{{$item->id}}">
-                                        <tr>
-                                            <th scope="row" style="display:none"></th>
-                                            <td><span class="tabledit-span">{{$item->margin}}</span>
-                                                <input class="tabledit-input form-control input-sm" type="text" name="margin" style="display:none;" value="{{$item->margin}}">
-                                            </td>
-                                            <td><span class="tabledit-span"> {{$item->potongan}} </span>
-                                                <input class="tabledit-input form-control input-sm potongan" type="text" name="potongan" style="display:none;" value="{{$item->potongan}}">
-                                            </td>
-                                            <td><span class="tabledit-span"> {{$item->jenis_barang}} </span>
-                                                <select class="tabledit-input form-control input-sm" name="jenis_barang" style="display:none;">
-                                                    <option value="elektronik" {{$item->jenis_barang == "elektronik" ? 'selected' : ''}}>Elektronik</option>
-                                                    <option value="kendaraan" {{$item->jenis_barang == "kendaraan" ? 'selected' : ''}}>Kendaraan</option>
-                                                </select>
-                                            </td>
-                                            <td><span class="tabledit-span">{{$item->nomor_cabang}}</span>
-                                                <select class="tabledit-input form-control input-sm" name="id_cabang" style="display:none;">
-                                                    <option value="0" {{$item->id_cabang == 0 ? 'selected' : ''}}>Semua</option>
-                                                    @foreach ($cabang as $key => $value)
-                                                        <option value="{{$value->id_cabang}}" {{$value->id_cabang == $item->id_cabang ? 'selected' : ''}} > {{$value->no_cabang}} </option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                            <td align="center">
-                                                <a href="javascript:void(0)" class="btn btn-sm btn-primary" onClick="edit('{{route('setting.update', $item->id)}}', {{$item->id}})" title="Edit Data">
-                                                    {{-- <i class="icofont icofont-ui-delete icofont-lg"></i> --}}
-                                                    <i class="icofont icofont-edit icofont-sm"></i>
-                                                </a>
-                                                <a href="javascript:void(0)" class="btn btn-sm btn-danger" onClick="delete('{{route('setting.delete', $item->id)}}', {{$item->id}})" title="Delete Data">
-                                                    <i class="icofont icofont-ui-delete icofont-sm"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </form>
+                                    <tr id="row_{{$item->id}}">
+                                        <th scope="row" style="display:none"></th>
+                                        <td><span class="tabledit-span">{{$item->margin}}</span>
+                                            <input class="tabledit-input form-control input-sm" type="text" name="margin" style="display:none;" value="{{$item->margin}}">
+                                        </td>
+                                        <td><span class="tabledit-span"> {{$item->potongan}} </span>
+                                            <input class="tabledit-input form-control input-sm potongan" type="text" name="potongan" style="display:none;" value="{{$item->potongan}}">
+                                        </td>
+                                        <td><span class="tabledit-span"> {{$item->jenis_barang}} </span>
+                                            <select class="tabledit-input form-control input-sm" name="jenis_barang" style="display:none;">
+                                                <option value="elektronik" {{$item->jenis_barang == "elektronik" ? 'selected' : ''}}>elektronik</option>
+                                                <option value="kendaraan" {{$item->jenis_barang == "kendaraan" ? 'selected' : ''}}>kendaraan</option>
+                                            </select>
+                                        </td>
+                                        <td><span class="tabledit-span">{{$item->nomor_cabang}}</span>
+                                            <select class="tabledit-input form-control input-sm" name="id_cabang" style="display:none;">
+                                                <option value="0" {{$item->id_cabang == 0 ? 'selected' : ''}}>Semua</option>
+                                                @foreach ($cabang as $key => $value)
+                                                    <option value="{{$value->id_cabang}}" {{$value->id_cabang == $item->id_cabang ? 'selected' : ''}} > {{$value->no_cabang}} </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td align="center">
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-primary" onClick="action('edit', {{$item->id}}, '{{route('setting.update', $item->id)}}')" title="Edit Data">
+                                                <i class="icofont icofont-edit icofont-sm"></i>
+                                            </a>
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onClick="action('delete', {{$item->id}}, '{{route('setting.delete', $item->id)}}')" title="Delete Data">
+                                                <i class="icofont icofont-ui-delete icofont-sm"></i>
+                                            </a>
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-success" style="display:none" onClick="send('edit', {{$item->id}}, '{{route('setting.delete', $item->id)}}')" title="Delete Data">
+                                                Save
+                                            </a>
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" style="display:none" onClick="send('delete', {{$item->id}}, '{{route('setting.delete', $item->id)}}')" title="Delete Data">
+                                                Confirm
+                                            </a>
+                                        </td>
+                                    </tr>
                                 @empty
                                     <tr>
                                         <td colspan="4" align="center">No data available in table</td>

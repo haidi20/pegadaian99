@@ -216,7 +216,21 @@
         $.each(data, function(index, item){
             condition_jenis_barang(item);
 
-            $('#data-'+item.name).html(': '+item.value);
+            if(item.name == 'taksiran_marhun'){
+                $('#data-'+item.name).html(': Rp.'+item.value);
+            }else if(item.name == 'marhun_bih'){
+                $('#data-'+item.name).html(': Rp.'+item.value);
+            }else if(item.name == 'biaya_titip'){
+                $('#data-'+item.name).html(': Rp.'+item.value);
+            }else if(item.name == 'jml_bt_yang_dibayar'){
+                $('#data-'+item.name).html(': Rp.'+item.value);
+            }else if(item.name == 'biaya_admin'){
+                $('#data-'+item.name).html(': Rp.'+item.value);
+            }else if(item.name == 'tanggal_lahir'){
+                $('#data-'+item.name).html(': '+moment().add(item.value, 'days').format('DD-MM-Y'));
+            }else{
+                $('#data-'+item.name).html(': '+item.value);
+            }
         });
     }
 
