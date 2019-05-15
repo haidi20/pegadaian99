@@ -42,59 +42,21 @@ class SettingController extends Controller
     	return $this->template('setting.index', compact('setting', 'cabang', 'userCabang'));
     }
 
-    // public function data()
-    // {
-    //     $inputan = $this->request->except('_token');
-
-    //     $validasiData = $this->validasi_data();
-        
-    //     if($validasiData->condition){
-    //         $message = $validasiData->message;
-    //     }else{
-    //         if(request('id')){
-    //             $setting    = $this->setting->find(request('id'));
-    //         }else{
-    //             $setting    = $this->setting;
-    //         }
-
-    //         if(request('action') == 'edit'){
-    //             $setting->margin        = request('margin');
-    //             $setting->potongan      = remove_dot(request('potongan'));
-    //             $setting->id_cabang     = request('id_cabang');
-    //             $setting->jenis_barang  = request('jenis_barang');
-    //             $setting->save();
-
-    //             $id = $setting->id;
-    //             $message = 'Pengaturan Margin Telah Ditambahkan';
-    //         }
-
-    //         if(request('action') == 'delete'){
-    //             $setting->delete();
-    
-    //             $id = '';
-    //             $message = 'Pengaturan Margin Telah Dihapus';
-    //         }
-    //     }
-
-    //     return response()->json(compact('inputan', 'setting', 'id', 'message'));
-    //     // return response()->json(compact('inputan'));
-    // }
-
     public function data()
     {
         $inputan = $this->request->except('_token');
 
-        if(request('id')){
-            $setting    = $this->setting->find(request('id'));
-        }else{
-            $setting    = $this->setting;
-        }
-
         if(request('action') == 'edit'){
+            if(request('value_id')){
+                $setting    = $this->setting->find(request('value_id'));
+            }else{
+                $setting    = $this->setting;
+            }
+
             $validasiData = $this->validasi_data();
 
             if($validasiData->condition){
-                $id = '';
+                $value_id = '';
                 $message = $validasiData->message;
             }else{
                 $setting->margin        = request('margin');
@@ -103,19 +65,20 @@ class SettingController extends Controller
                 $setting->jenis_barang  = request('jenis_barang');
                 $setting->save();
 
-                $id = $setting->id;
-                $message = 'Pengaturan Margin Telah Ditambahkan';
+                $value_id = $setting->id;
+                $message = 'Pengaturan Margin Telah Diperbaharui';
             }
         }
 
         if(request('action') == 'delete'){
+            $setting = $this->setting->find(request('clone_id'));
             $setting->delete();
 
-            $id = '';
+            $value_id = request('clone_id');
             $message = 'Pengaturan Margin Telah Dihapus';
         }
 
-        return response()->json(compact('inputan', 'setting', 'id', 'message'));
+        return response()->json(compact('inputan', 'setting', 'value_id', 'message'));
     }
 
     public function validasi_data()
@@ -123,8 +86,8 @@ class SettingController extends Controller
         $validasiData   = $this->setting->where(['jenis_barang' => request('jenis_barang'), 'id_cabang' => request('id_cabang')])->first();
 
         if($validasiData){
-            if($validasiData->id != request('id')){
-                $message    = 'Maaf, Data Cabang dan Jenis Barang Sudah Terbuat';
+            if($validasiData->id != request('value_id')){
+                $message    = 'Maaf, data cabang dan jenis barang sudah ada';
                 $condition  = true;
             }else{
                 $message = '';

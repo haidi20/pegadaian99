@@ -50,41 +50,80 @@
 
         function custom_table_edit()
         {
-            $('#example-2').Tabledit({
-                url: '{{url("setting/data")}}',
-                // deleteButton: false,
-                buttons:{
-                    edit: {
-                        class: 'btn btn-sm btn-info',
-                        html: '<span class="fa fa-pencil"></span>',
-                        action: 'edit'
-                    },
-                    save: {
-                        class: 'btn btn-sm btn-success',
-                        html: 'Save',
-                        action: 'save'
-                    },
-                },
-                columns: {
-                    identifier: [0, 'id'],
-                    editable: [[1, 'margin'], [2, 'potongan']]
-                },
-                ajaxOptions: {
-                    dataType: 'JSON',
-                    type: 'POST'
-                },
-                onSuccess: function(data){
-                    $('.name_status').val('edit');
+            var branch = {};
+            var jenis_barang = '{"elektronik": "elektronik", "kendaraan": "kendaraan"}';
+            $.ajax({
+                url: '{{url("api")}}',
+                type: 'get',
+                cache: false,
+                success:function(result){		
+                    $.each(result, function(index, item){
+                        // console.log(item.id_cabang);
+                        var id_cabang = item.id_cabang;
+                        var no_cabang = item.no_cabang;
+                        branch[id_cabang] = no_cabang; 
+                    });
+                    branch[0] = 'semua';
+                    // branch = '{"semua":"semua"}';
+                    branch = JSON.stringify(branch);
+                    // branch =  JSON.parse(branch);
+                    // branch =  branch.toString();
+                    // console.log(branch)
+                    // console.log(jenis_barang)
 
-                    // if after insert data. can get id and then insert form id
-                    if(data.inputan.action == 'edit'){
-                        // $('#data_'+(number - 1)+' td #value_id').val(data.id)
-                        $('#data_'+(number - 1)+' td #value_id').val(data.id)
-                    }
+                    $('#example-2').Tabledit({
+                        url: '{{url("setting/data")}}',
+                        // deleteButton: false,
+                        buttons:{
+                            edit: {
+                                class: 'btn btn-sm btn-info',
+                                html: '<span class="fa fa-pencil"></span>',
+                                action: 'edit'
+                            },
+                            save: {
+                                class: 'btn btn-sm btn-success',
+                                html: 'Save',
+                                action: 'save'
+                            },
+                        },
+                        columns: {
+                            identifier: [0, 'value_id'],
+                            editable: [
+                                [1, 'margin'], 
+                                [2, 'potongan'], 
+                                [3, 'jenis_barang', jenis_barang], 
+                                [4, 'id_cabang', branch],
+                                [5, 'value_id']
+                            ]
+                        },
+                        ajaxOptions: {
+                            dataType: 'JSON',
+                            type: 'POST'
+                        },
+                        onSuccess: function(data){
+                            $('.name_status').val('edit');
 
-                    console.log(data)
+                            // if after insert data. can get id and then insert form id
+                            if(data.inputan.action == 'edit'){
+                                $('#data_'+(number - 1)).find('td:nth-child(7) input').val(data.value_id);
+                                $('#data_'+(number - 1)).find('td:nth-child(6) input').val(data.value_id);
+
+                                $('#message').html(data.message)
+                                $('#modal-setting').modal('show');
+                                // $('#data_'+(number - 1)+' td #clone_id').val(data.id)
+                                // console.log('berhasil efek kasih id = '+ data.value_id);
+                            }
+
+                            console.log(data)
+                        },
+                    });
                 },
+                error:function(xhr, ajaxOptions, thrownError){
+                    console.log(thrownError)
+                }
             });
+
+            
         }
 
         function add_row()
@@ -152,22 +191,24 @@
                                     <td class="tabledit-view-mode"><span class="tabledit-span">0</span>
                                         <input class="tabledit-input form-control input-sm potongan" type="text" name="potongan" value="0">
                                     </td>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">Elektronik</span>
+                                    <td class="tabledit-view-mode"><span class="tabledit-span">elektronik</span>
                                         <select class="tabledit-input form-control input-sm" name="jenis_barang" disabled="" style="display:none;">
-                                            <option value="elektronik" selected>Elektronik</option>
-                                            <option value="kendaraan">Kendaraan</option>
+                                            {{-- <option value="elektronik" selected>elektronik</option>
+                                            <option value="kendaraan">kendaraan</option> --}}
                                         </select>
                                     </td>
                                     <td class="tabledit-view-mode"><span class="tabledit-span">Semua</span>
                                         <select class="tabledit-input form-control input-sm" name="id_cabang" disabled="" style="display:none;">
-                                            <option value="0" selected>Semua</option>
-                                            @foreach ($cabang as $key => $value)
+                                            {{-- <option value="0" selected>Semua</option> --}}
+                                            {{-- @foreach ($cabang as $key => $value)
                                                 <option value="{{$value->id_cabang}}"> {{$value->no_cabang}} </option>
-                                            @endforeach
+                                            @endforeach --}}
                                         </select>
                                     </td>
                                     <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span"></span>
-                                        <input class="tabledit-input form-control input-sm" id="value_id" type="text" name="id" value="">
+                                        <input class="tabledit-input form-control input-sm" id="value_id" type="text" name="value_id" value="">
+                                    </td>
+                                    <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span"></span><input class="tabledit-input form-control input-sm" type="text" id="clone_id" name="clone_id" value="clone">
                                     </td>
                                     <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span name_status">tambah</span>
                                         <input class="tabledit-input form-control input-sm name_status" type="text" name="status" value="edit">
@@ -184,20 +225,22 @@
                                         </td>
                                         <td class="tabledit-view-mode"><span class="tabledit-span"> {{$item->jenis_barang}} </span>
                                             <select class="tabledit-input form-control input-sm" name="jenis_barang" disabled="" style="display:none;">
-                                                <option value="elektronik" {{$item->jenis_barang == "elektronik" ? 'selected' : ''}}>Elektronik</option>
-                                                <option value="kendaraan" {{$item->jenis_barang == "kendaraan" ? 'selected' : ''}}>Kendaraan</option>
+                                                {{-- <option value="elektronik" {{$item->jenis_barang == "elektronik" ? 'selected' : ''}}>Elektronik</option>
+                                                <option value="kendaraan" {{$item->jenis_barang == "kendaraan" ? 'selected' : ''}}>Kendaraan</option> --}}
                                             </select>
                                         </td>
                                         <td class="tabledit-view-mode"><span class="tabledit-span">{{$item->nomor_cabang}}</span>
                                             <select class="tabledit-input form-control input-sm" name="id_cabang" disabled="" style="display:none;">
-                                                <option value="0" {{$item->id_cabang == 0 ? 'selected' : ''}}>Semua</option>
-                                                @foreach ($cabang as $key => $value)
+                                                {{-- <option value="0" {{$item->id_cabang == 0 ? 'selected' : ''}}>Semua</option> --}}
+                                                {{-- @foreach ($cabang as $key => $value)
                                                     <option value="{{$value->id_cabang}}" {{$value->id_cabang == $item->id_cabang ? 'selected' : ''}} > {{$value->no_cabang}} </option>
-                                                @endforeach
+                                                @endforeach --}}
                                             </select>
                                         </td>
-                                        <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span"></span>
-                                            <input class="tabledit-input form-control input-sm" type="text" name="id" value=" {{$item->id}} ">
+                                        <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span">{{$item->id}}</span>
+                                            <input class="tabledit-input form-control input-sm" type="text" name="value_id" value="{{$item->id}}">
+                                        </td>
+                                        <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span">{{$item->id}}</span><input class="tabledit-input form-control input-sm" type="text" id="clone_id" name="clone_id" value="{{$item->id}}">
                                         </td>
                                         <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span name_status">edit</span>
                                             <input class="tabledit-input form-control input-sm name_status" type="text" name="status" value="edit">
