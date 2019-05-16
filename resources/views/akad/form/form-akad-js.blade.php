@@ -87,6 +87,9 @@
     {
         if(time == 7){
             $('#op_15').css('display', 'none')
+
+            $('#op_'+time+' label input').prop('checked', true)
+            $('#nilai_opsi_pembayaran').val(7)
         }else{
             $('#op_15').css('display', '')
         }
@@ -105,6 +108,10 @@
         bt_yang_dibayar(value, 'opsi_pembayaran')
     }
 
+    /* determine 'biaya titp yang dibayar'
+    * value is nilai from 'jangka waktu akad' and 'opsi pembayaran' 
+    * option for condition between 'jangka waktu akad' and 'opsi pembayaran'
+    */
     function bt_yang_dibayar(value = null, option = null)
     {   
         // set number maks base on 'jangka waktu akad' and 'opsi pembayaran'
@@ -136,8 +143,6 @@
         }else{
             var opsi_pembayaran = $('#nilai_opsi_pembayaran').val()
         }
-
-        // console.log(jangka_waktu_akad, opsi_pembayaran);
 
         if(jangka_waktu_akad == 7){
             if(opsi_pembayaran == 1){
@@ -192,9 +197,10 @@
         }, "GET");
     }
 
-    // determine 'biaya titp'
-    // value is nilai from 'marhun_bih', 'opsi_pembayaran', or 'jenis_barang'
-    // option for condition between marhun bih, 'opsi_pembayaran' and 'jenis_barang'
+    /* determine 'biaya titp'
+    * value is nilai from 'marhun_bih', 'opsi_pembayaran', or 'jenis_barang'
+    * option for condition between 'marhun bih', 'opsi_pembayaran' and 'jenis_barang'
+    */
     function biaya_titip(value, option)
     {
         var persenan        = $('#persenan').val() / 100
@@ -283,7 +289,7 @@
             biaya_admin = 10000
             biaya_admin = formatRupiah(biaya_admin.toString())
             $('.biaya_admin').val(biaya_admin)
-            // condition 'persenan'
+            // insert value 'persenan'
             $('.persenan').val({{$margin_elektronik}})
             // for condition 'biaya titip'
             biaya_titip('elektronik', 'jenis_barang')
@@ -297,7 +303,7 @@
             biaya_admin = 50000
             biaya_admin = formatRupiah(biaya_admin.toString())
             $('.biaya_admin').val(biaya_admin)
-            // condition 'persenan' base on 'jenis barang'
+            // insert value 'persenan' base on 'jenis barang'
             $('.persenan').val({{$margin_kendaraan}})
             // for condition 'biaya titip'
             biaya_titip('kendaraan', 'jenis_barang')
@@ -307,7 +313,6 @@
     function akad_confirm()
     {
         var data = $('#example-advanced-form').serializeArray();
-        var array = [];
 
         // manipulation html in model confirm
         insert_data(data)
