@@ -110,6 +110,17 @@
         biaya_titip(value, 'opsi_pembayaran')
     }
 
+    function process()
+    {
+        var url     = '{{route("akad.send")}}';
+        var data    = $('form').serializeArray();
+        // console.log(data);
+
+        $.redirect(url, {
+            data: data
+        }, "GET");
+    }
+
     // determine 'biaya titp'
     // value is nilai from 'marhun_bih', 'opsi_pembayaran', or 'jenis_barang'
     // option for condition between marhun bih, 'opsi_pembayaran' and 'jenis_barang'
@@ -178,7 +189,7 @@
         // 'rumus jumlah biaya titip yang dibayar'
         var jml_bt_yang_dibayar = biaya_titip * bt_yang_dibayar
 
-        console.log(jml_bt_yang_dibayar)
+        // console.log(jml_bt_yang_dibayar)
 
         jml_bt_yang_dibayar     = jml_bt_yang_dibayar
         jml_bt_yang_dibayar     = formatRupiah(jml_bt_yang_dibayar.toString())

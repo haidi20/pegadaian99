@@ -171,14 +171,6 @@ class AkadController extends Controller
 
     public function form($id = null)
     {
-    	if($id){
-    		$action = route('akad.update', $id);
-            $method = 'PUT';
-    	}else{
-    		$action = route('akad.store');
-            $method = 'POST';
-    	}
-
     	$tanggal_akad	     = Carbon::now()->format('d-m-Y');
     	$tanggal_jatuh_tempo = Carbon::now()->addDay('7')->format('d-m-Y');
 
@@ -195,12 +187,12 @@ class AkadController extends Controller
         $potongan_kendaraan     = $this->setting->baseBranch()->jenisBarang('kendaraan')->value('potongan');
 
     	return $this->template('akad._form', compact(
-            'action', 'method', 'tanggal_akad', 'tanggal_jatuh_tempo', 
+             'tanggal_akad', 'tanggal_jatuh_tempo', 
             'listTime', 'paymentOption', 'potongan_kendaraan', 'potongan_elektronik', 'margin_kendaraan', 'margin_elektronik'
         ));
     }
 
-    public function store()
+    public function send()
     {
     	return $this->save();
     }
@@ -212,44 +204,51 @@ class AkadController extends Controller
 
     public function save($id = null)
     {
-
-    	$input 		= $this->request->except('_token');
+        $data       = [];
+        $input 		= $this->request->except('_token');
+        $input      = $input['data'];
     	$id_cabang	= $this->user_cabang->baseUsername()->value('id_cabang');
-        // return $input;
-    	$nasabah 				= $this->nasabah;
-    	$nasabah->key_nasabah 	= uniqid();
-    	$nasabah->nama_lengkap	= request('nama_lengkap');
-    	$nasabah->jenis_kelamin	= request('jenis_kelamin');
-    	$nasabah->kota			= request('kota');
-    	$nasabah->no_telp		= request('no_telp');
-    	$nasabah->jenis_id		= request('jenis_id');
-    	$nasabah->no_identitas	= request('no_identitas');
-    	$nasabah->tanggal_lahir	= request('tanggal_lahir');
-    	$nasabah->alamat		= request('alamat');
-    	$nasabah->tanggal_daftar= Carbon::now()->format('Y-m-d');
-    	$nasabah->save();
+        
+        foreach ($input as $index => $item) {
+            $data[$item['name']] = $item['value'];
+        }
 
-    	$akad 						  = $this->akad;
-    	$akad->id_cabang 			  = $id_cabang;
-    	$akad->no_id 				  = request('no_id');
-    	$akad->key_nasabah 			  = $nasabah->key_nasabah;
-    	$akad->nama_barang			  = request('nama_barang'); 
-    	$akad->jenis_barang			  = request('jenis_barang'); 
-    	$akad->kelengkapan			  = request('kelengkapan'); 
-        $akad->kelengkapan_barang_satu= request('kelengkapan_barang_satu'); 
-        $akad->kelengkapan_barang_dua = request('kelengkapan_barang_dua'); 
-        $akad->kelengkapan_barang_tiga= request('kelengkapan_barang_tiga'); 
-    	$akad->kekurangan			  = request('kekurangan'); 
-    	$akad->jangka_waktu_akad	  = number_format(request('jangka_waktu_akad')); 
-    	$akad->tanggal_akad			  = request('tanggal_akad'); 
-    	$akad->tanggal_jatuh_tempo	  = request('tanggal_jatuh_tempo'); 
-    	$akad->nilai_tafsir			  = remove_dot(request('taksiran_marhun')); 
-    	$akad->nilai_pencairan		  = remove_dot(request('marhun_bih')); 
-    	$akad->bt_7_hari			  = remove_dot(request('biaya_titip')); 
-    	$akad->biaya_admin			  = request('biaya_admin'); 
-    	$akad->terbilang			  = request('terbilang'); 
-    	$akad->status				  = 'Belum Lunas';
-    	$akad->save(); 
+        return $data;
+
+    	// $nasabah 				= $this->nasabah;
+    	// $nasabah->key_nasabah 	= uniqid();
+    	// $nasabah->nama_lengkap	= request('nama_lengkap');
+    	// $nasabah->jenis_kelamin	= request('jenis_kelamin');
+    	// $nasabah->kota			= request('kota');
+    	// $nasabah->no_telp		= request('no_telp');
+    	// $nasabah->jenis_id		= request('jenis_id');
+    	// $nasabah->no_identitas	= request('no_identitas');
+    	// $nasabah->tanggal_lahir	= request('tanggal_lahir');
+    	// $nasabah->alamat		= request('alamat');
+    	// $nasabah->tanggal_daftar= Carbon::now()->format('Y-m-d');
+    	// $nasabah->save();
+
+    	// $akad 						  = $this->akad;
+    	// $akad->id_cabang 			  = $id_cabang;
+    	// $akad->no_id 				  = request('no_id');
+    	// $akad->key_nasabah 			  = $nasabah->key_nasabah;
+    	// $akad->nama_barang			  = request('nama_barang'); 
+    	// $akad->jenis_barang			  = request('jenis_barang'); 
+    	// $akad->kelengkapan			  = request('kelengkapan'); 
+        // $akad->kelengkapan_barang_satu= request('kelengkapan_barang_satu'); 
+        // $akad->kelengkapan_barang_dua = request('kelengkapan_barang_dua'); 
+        // $akad->kelengkapan_barang_tiga= request('kelengkapan_barang_tiga'); 
+    	// $akad->kekurangan			  = request('kekurangan'); 
+    	// $akad->jangka_waktu_akad	  = number_format(request('jangka_waktu_akad')); 
+    	// $akad->tanggal_akad			  = request('tanggal_akad'); 
+    	// $akad->tanggal_jatuh_tempo	  = request('tanggal_jatuh_tempo'); 
+    	// $akad->nilai_tafsir			  = remove_dot(request('taksiran_marhun')); 
+    	// $akad->nilai_pencairan		  = remove_dot(request('marhun_bih')); 
+    	// $akad->bt_7_hari			  = remove_dot(request('biaya_titip')); 
+    	// $akad->biaya_admin			  = request('biaya_admin'); 
+    	// $akad->terbilang			  = request('terbilang'); 
+    	// $akad->status				  = 'Belum Lunas';
+    	// $akad->save(); 
 
         $message    = '<strong>Sukses!</strong> Data Akad Nasabah berhasil di tambahkan';
         flash_message('message', $message);

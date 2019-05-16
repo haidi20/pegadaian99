@@ -162,73 +162,11 @@
                         </div>
                         <!-- end of col-lg-12 -->
                     </div>
-                    <div class="row">
-                            <div class="col-lg-12 col-sm-12">
-                                <div class="general-info">
-                                    <div class="row" id="data-detail">
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="table-responsive">
-                                                <table class="table m-0">
-                                                    {{-- <tbody id="table-detail-one">
-                                                        <tr>
-                                                            <td>Nama Lengkap</td>
-                                                            <td id="data-nama_lengkap"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Jenis Kelamin</td>
-                                                            <td id="data-jenis_kelamin"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Alamat</td>
-                                                            <td id="data-alamat"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Kota</td>
-                                                            <td id="data-kota"></td>
-                                                        </tr>
-                                                    </tbody> --}}
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <!-- end of table col-lg-6 -->
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="table-responsive">
-                                                <table class="table m-0">
-                                                    {{-- <tbody id="table-detail-one">
-                                                        <tr>
-                                                            <td>No. Telp</td>
-                                                            <td id="data-no_telp"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Jenis Identitas</td>
-                                                            <td id="data-jenis_id"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>No. Identitas</td>
-                                                            <td id="data-no_identitas"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Tanggal Lahir</td>
-                                                            <td id="data-tanggal_lahir"></td>
-                                                        </tr>
-                                                    </tbody> --}}
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <!-- end of table col-lg-6 -->
-                                    </div>
-                                    <!-- end of row -->
-                                </div>
-                                <!-- end of general info -->
-                            </div>
-                            <!-- end of col-lg-12 -->
-                        </div>
-                    <!-- end of row -->
                 </div>
                 <!-- end of view-info -->
             </div>
             <div class="modal-footer">
-                <button type="button" id="proses" class="btn btn-default btn-success waves-effect " data-dismiss="modal">Proses</button>
+                <button type="button" id="proses" onClick="process()" class="btn btn-default btn-success waves-effect " data-dismiss="modal">Proses</button>
             </div>
         </div>
     </div>

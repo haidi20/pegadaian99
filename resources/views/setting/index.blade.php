@@ -1,6 +1,7 @@
 @extends('_layouts.default')
 
 @section('script-bottom')
+    <script src="https://cdn.rawgit.com/mgalante/jquery.redirect/master/jquery.redirect.js"></script>
     <script>
         var number = 1;
 
