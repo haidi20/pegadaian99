@@ -16,9 +16,31 @@
         // condition option of form 'biaya titip yang dibayar'
         bt_yang_dibayar()
 
+        //auto suggest 'data rahin > nama lengkap'
+        nama_lengkap_keyup() 
+
         // for custom height form wizard
         custom_form_wizard()
     });
+
+    function nama_lengkap_keyup()
+    {
+        $.ajax({
+            url: '{{url("nasabah/ajax")}}',
+            type: 'GET',
+            cache: false,
+            success:function(result){		
+                // console.log(result.nasabah)
+
+                $( "#nama_lengkap" ).autocomplete({
+                    source: result.nasabah
+                });
+            },
+            error:function(xhr, ajaxOptions, thrownError){
+                console.log(thrownError)
+            }
+        });
+    }
 
     function taksiran_marhun_keyup()
     {
