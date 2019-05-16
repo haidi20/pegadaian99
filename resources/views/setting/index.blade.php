@@ -1,44 +1,96 @@
 @extends('_layouts.default')
 
 @section('script-bottom')
-
-    <!-- Editable-table js -->
-    <script type="text/javascript" src="{{asset('adminty/files/assets/pages/edit-table/jquery.tabledit.js')}}"></script>
-
     <script>
         var number = 1;
-        $(document).ready(function() {
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': laravel.csrfToken
-                }
-            });
-
+        $(function(){
             potongan_keyup();
-
-            custom_table_edit();
         });
 
-        function create()
+        function add_row()
         {
-            $('#modal-setting').modal('show')
+            var addRow = $('tbody tr.addRow');
+            var addRow = '<tr id="row_'+number+'">'+addRow.html()+'</tr>';
+
+            $('tbody').append(addRow);
+
+            $('#row_'+number).find('td:nth-child(6) a:nth-child(1)').attr('onClick', 'action("add", "'+number+'")');
+            $('#row_'+number).find('td:nth-child(6) a:nth-child(2)').attr('onClick', 'action("delete", "'+number+'")');
+            $('#row_'+number).find('td:nth-child(6) a:nth-child(3)').attr('onClick', 'send("add", "'+number+'")');
+            $('#row_'+number).find('td:nth-child(6) a:nth-child(4)').attr('onClick', 'send("delete", "'+number+'")');
+
+            // console.log($('#row_'+number).find('td:nth-child(6)').html())
+
+            number++;
         }
 
-        function edit(id)
+        function action(status, id = null, url = null)
         {
-            // get value 
-            var id = $('#table_id').val()
-            var margin_elektronik = $('#table_margin_elektronik').val()
-            var margin_kendaraan = $('#table_margin_kendaraan').val()
-            var potongan = $('#table_potongan').val()
+            // show / hide span, input, select
+            $('#row_'+id+' td span').toggle();
+            $('#row_'+id+' td input').toggle();
+            $('#row_'+id+' td select').toggle();
 
-            $('#id').val(id)
-            $('#margin_elektronik').val(margin_elektronik)
-            $('#margin_kendaraan').val(margin_kendaraan)
-            $('#potongan').val(potongan)
+            if(status == 'edit' || status == 'add'){
+                $('#row_'+id+' td:nth-child(6) a:nth-child(3)').toggle();
+                $('#row_'+id+' td:nth-child(6) a:nth-child(4)').hide();
+            }else{
+                $('#row_'+id+' td:nth-child(6) a:nth-child(3)').hide();
+                $('#row_'+id+' td:nth-child(6) a:nth-child(4)').toggle();
+            }
+        }
 
-            $('#modal-setting').modal('show')
+        function send(status, id = null, url = null)
+        {
+            var margin          = $('#row_'+id+' td:nth-child(1) input').val();
+            var potongan        = $('#row_'+id+' td:nth-child(2) input').val();
+            var value_id        = $('#row_'+id+' td:nth-child(5) input').val();
+            var id_cabang       = $('#row_'+id+' td:nth-child(4) select').val();
+            var jenis_barang    = $('#row_'+id+' td:nth-child(3) select').val();
+
+            // console.log(id)
+
+            $.ajax({
+                url: '{{url("setting/validate-data")}}',
+                type: 'GET',
+                data: {
+                        margin:margin, 
+                        status: status,
+                        value_id:value_id, 
+                        potongan:potongan, 
+                        id_cabang:id_cabang, 
+                        jenis_barang:jenis_barang, 
+                    },
+                cache: false,
+                success:function(result){		
+                    console.log(result)
+
+                    if(result.message){
+                        $('#modal-setting').modal('show')
+                        $('#message').html(result.message)
+                    }else{
+                        if(result.inputan.status == 'add'){
+                            var url = '{{route("setting.store")}}';
+                        }else if(result.inputan.status == 'edit'){
+                            var value_id = result.inputan.value_id;
+                            var url = '{{route("setting.update", '+value_id+')}}';
+                        }else if(result.inputan.status == 'delete'){
+                            var value_id = result.inputan.value_id;
+                            var url = '{{route("setting.delete", '+value_id+')}}';
+                        }
+
+                        // console.log(result);
+
+                        $.redirect(url, {
+                            data: result.inputan
+                        }, "GET");
+                    }
+                },
+                error:function(xhr, ajaxOptions, thrownError){
+                    console.log(thrownError)
+                }
+            });
         }
 
         function potongan_keyup()
@@ -47,108 +99,6 @@
                 this.value = formatRupiah(this.value)
             });
         }
-
-        function custom_table_edit()
-        {
-            var branch = {};
-            var jenis_barang = '{"elektronik": "elektronik", "kendaraan": "kendaraan"}';
-            $.ajax({
-                url: '{{url("api")}}',
-                type: 'get',
-                cache: false,
-                success:function(result){		
-                    $.each(result, function(index, item){
-                        // console.log(item.id_cabang);
-                        var id_cabang = item.id_cabang;
-                        var no_cabang = item.no_cabang;
-                        branch[id_cabang] = no_cabang; 
-                    });
-                    branch[0] = 'semua';
-                    // branch = '{"semua":"semua"}';
-                    branch = JSON.stringify(branch);
-                    // branch =  JSON.parse(branch);
-                    // branch =  branch.toString();
-                    // console.log(branch)
-                    // console.log(jenis_barang)
-
-                    $('#example-2').Tabledit({
-                        url: '{{url("setting/data")}}',
-                        // deleteButton: false,
-                        buttons:{
-                            edit: {
-                                class: 'btn btn-sm btn-info',
-                                html: '<span class="fa fa-pencil"></span>',
-                                action: 'edit'
-                            },
-                            save: {
-                                class: 'btn btn-sm btn-success',
-                                html: 'Save',
-                                action: 'save'
-                            },
-                        },
-                        columns: {
-                            identifier: [0, 'value_id'],
-                            editable: [
-                                [1, 'margin'], 
-                                [2, 'potongan'], 
-                                [3, 'jenis_barang', jenis_barang], 
-                                [4, 'id_cabang', branch],
-                                [5, 'value_id']
-                            ]
-                        },
-                        ajaxOptions: {
-                            dataType: 'JSON',
-                            type: 'POST'
-                        },
-                        onSuccess: function(data){
-                            $('.name_status').val('edit');
-
-                            // if after insert data. can get id and then insert form id
-                            if(data.inputan.action == 'edit'){
-                                $('#data_'+(number - 1)).find('td:nth-child(7) input').val(data.value_id);
-                                $('#data_'+(number - 1)).find('td:nth-child(6) input').val(data.value_id);
-
-                                $('#message').html(data.message)
-                                $('#modal-setting').modal('show');
-                                // $('#data_'+(number - 1)+' td #clone_id').val(data.id)
-                                // console.log('berhasil efek kasih id = '+ data.value_id);
-                            }
-
-                            console.log(data)
-                        },
-                    });
-                },
-                error:function(xhr, ajaxOptions, thrownError){
-                    console.log(thrownError)
-                }
-            });
-
-            
-        }
-
-        function add_row()
-        {
-            var addRow = $('tbody tr.addRow');
-            var addRow = '<tr id="data_'+number+'">'+addRow.html()+'</tr>';
-
-            $('tbody').append(addRow);
-            number++;
-
-            // var id = $('#data_'+number+' td #value_id').val(number)
-
-            // $.ajax({
-            //     url: '{{url("setting/data")}}',
-            //     type: 'POST',
-            //     data: {id_cabang:'0', jenis_barang:'elektronik', potongan:0, margin:0, action:'add'},
-            //     cache: false,
-            //     success:function(result){		
-            //         console.log(result)
-            //     },
-            //     error:function(xhr, ajaxOptions, thrownError){
-            //         console.log(thrownError)
-            //     }
-            // });
-        };
     </script>
 @endsection
 
@@ -180,97 +130,93 @@
                                     <th>Potongan</th>
                                     <th>Jenis Barang</th>
                                     <th>Nomor Cabang</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr style="display:none" class="addRow">
-                                    <th scope="row" style="display:none"></th>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">0</span>
-                                        <input class="tabledit-input form-control input-sm" type="text" name="margin" value="0">
+                                    <td><span class="tabledit-span">0</span>
+                                        <input class="tabledit-input form-control input-sm" type="text" name="margin" style="display:none;" value="0">
                                     </td>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">0</span>
-                                        <input class="tabledit-input form-control input-sm potongan" type="text" name="potongan" value="0">
+                                    <td><span class="tabledit-span">0</span>
+                                        <input class="tabledit-input form-control input-sm potongan" type="text" name="potongan" style="display:none;" value="0">
                                     </td>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">elektronik</span>
-                                        <select class="tabledit-input form-control input-sm" name="jenis_barang" disabled="" style="display:none;">
-                                            {{-- <option value="elektronik" selected>elektronik</option>
-                                            <option value="kendaraan">kendaraan</option> --}}
+                                    <td><span class="tabledit-span">elektronik</span>
+                                        <select class="tabledit-input form-control input-sm" name="jenis_barang" style="display:none;">
+                                            <option value="elektronik">elektronik</option>
+                                            <option value="kendaraan">kendaraan</option>
                                         </select>
                                     </td>
-                                    <td class="tabledit-view-mode"><span class="tabledit-span">Semua</span>
-                                        <select class="tabledit-input form-control input-sm" name="id_cabang" disabled="" style="display:none;">
-                                            {{-- <option value="0" selected>Semua</option> --}}
-                                            {{-- @foreach ($cabang as $key => $value)
+                                    <td><span class="tabledit-span">semua</span>
+                                        <select class="tabledit-input form-control input-sm" name="id_cabang" style="display:none;">
+                                            <option value="0">Semua</option>
+                                            @foreach ($cabang as $key => $value)
                                                 <option value="{{$value->id_cabang}}"> {{$value->no_cabang}} </option>
-                                            @endforeach --}}
+                                            @endforeach
                                         </select>
                                     </td>
-                                    <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span"></span>
-                                        <input class="tabledit-input form-control input-sm" id="value_id" type="text" name="value_id" value="">
+                                    <td style="display:none"><span class="tabledit-span" ></span>
+                                        <input class="tabledit-input form-control input-sm" type="text" name="id" style="display:none;" value="0">
                                     </td>
-                                    <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span"></span><input class="tabledit-input form-control input-sm" type="text" id="clone_id" name="clone_id" value="clone">
-                                    </td>
-                                    <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span name_status">tambah</span>
-                                        <input class="tabledit-input form-control input-sm name_status" type="text" name="status" value="edit">
+                                    <td align="center">
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary" title="Edit Data">
+                                            <i class="icofont icofont-edit icofont-sm"></i>
+                                        </a>
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-danger" title="Delete Data">
+                                            <i class="icofont icofont-ui-delete icofont-sm"></i>
+                                        </a>
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-success" style="display:none" title="Delete Data">
+                                            Save
+                                        </a>
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-danger" style="display:none" title="Delete Data">
+                                            Confirm
+                                        </a>
                                     </td>
                                 </tr>
                                 @forelse ($setting as $index => $item)
-                                    <tr>
-                                        <th scope="row" style="display:none"></th>
-                                        <td class="tabledit-view-mode"><span class="tabledit-span">{{$item->margin}}</span>
-                                            {{-- <input class="tabledit-input form-control input-sm" type="text" name="margin" value="0"> --}}
+                                    <tr id="row_{{$item->id}}">
+                                        <td><span class="tabledit-span">{{$item->margin}}</span>
+                                            <input class="tabledit-input form-control input-sm" type="text" name="margin" style="display:none;" value="{{$item->margin}}">
                                         </td>
-                                        <td class="tabledit-view-mode"><span class="tabledit-span"> {{$item->potongan}} </span>
-                                            {{-- <input class="tabledit-input form-control input-sm potongan" type="text" name="potongan" value="0"> --}}
+                                        <td><span class="tabledit-span"> Rp. {{$item->nominal_potongan}} </span>
+                                            <input class="tabledit-input form-control input-sm potongan" type="text" name="potongan" style="display:none;" value="{{$item->potongan}}">
                                         </td>
-                                        <td class="tabledit-view-mode"><span class="tabledit-span"> {{$item->jenis_barang}} </span>
-                                            <select class="tabledit-input form-control input-sm" name="jenis_barang" disabled="" style="display:none;">
-                                                {{-- <option value="elektronik" {{$item->jenis_barang == "elektronik" ? 'selected' : ''}}>Elektronik</option>
-                                                <option value="kendaraan" {{$item->jenis_barang == "kendaraan" ? 'selected' : ''}}>Kendaraan</option> --}}
+                                        <td><span class="tabledit-span"> {{$item->jenis_barang}} </span>
+                                            <select class="tabledit-input form-control input-sm" name="jenis_barang" style="display:none;">
+                                                <option value="elektronik" {{$item->jenis_barang == "elektronik" ? 'selected' : ''}}>elektronik</option>
+                                                <option value="kendaraan" {{$item->jenis_barang == "kendaraan" ? 'selected' : ''}}>kendaraan</option>
                                             </select>
                                         </td>
-                                        <td class="tabledit-view-mode"><span class="tabledit-span">{{$item->nomor_cabang}}</span>
-                                            <select class="tabledit-input form-control input-sm" name="id_cabang" disabled="" style="display:none;">
-                                                {{-- <option value="0" {{$item->id_cabang == 0 ? 'selected' : ''}}>Semua</option> --}}
-                                                {{-- @foreach ($cabang as $key => $value)
+                                        <td><span class="tabledit-span">{{$item->nomor_cabang}}</span>
+                                            <select class="tabledit-input form-control input-sm" name="id_cabang" style="display:none;">
+                                                <option value="0" {{$item->id_cabang == 0 ? 'selected' : ''}}>Semua</option>
+                                                @foreach ($cabang as $key => $value)
                                                     <option value="{{$value->id_cabang}}" {{$value->id_cabang == $item->id_cabang ? 'selected' : ''}} > {{$value->no_cabang}} </option>
-                                                @endforeach --}}
-                                            </select>
-                                        </td>
-                                        <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span">{{$item->id}}</span>
-                                            <input class="tabledit-input form-control input-sm" type="text" name="value_id" value="{{$item->id}}">
-                                        </td>
-                                        <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span">{{$item->id}}</span><input class="tabledit-input form-control input-sm" type="text" id="clone_id" name="clone_id" value="{{$item->id}}">
-                                        </td>
-                                        <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span name_status">edit</span>
-                                            <input class="tabledit-input form-control input-sm name_status" type="text" name="status" value="edit">
-                                        </td>
-                                    </tr>
-                                @empty
-                                    {{-- <tr>
-                                        <th scope="row" style="display:none"></th>
-                                        <td class="tabledit-view-mode"><span class="tabledit-span">0</span>
-                                        </td>
-                                        <td class="tabledit-view-mode"><span class="tabledit-span">0</span>
-                                        </td>
-                                        <td class="tabledit-view-mode"><span class="tabledit-span">Elektronik</span>
-                                            <select class="tabledit-input form-control input-sm" name="jenis_barang" disabled="" style="display:none;">
-                                                <option value="elektronik" selected>Elektronik</option>
-                                                <option value="kendaraan">Kendaraan</option>
-                                            </select>
-                                        </td>
-                                        <td class="tabledit-view-mode"><span class="tabledit-span">Semua</span>
-                                            <select class="tabledit-input form-control input-sm" name="nomor_cabang" disabled="" style="display:none;">
-                                                <option value="0" selected>Semua</option>
-                                                @foreach ($cabang as $index => $item)
-                                                    <option value="{{$item->id_cabang}}" > {{$item->no_cabang}} </option>
                                                 @endforeach
                                             </select>
                                         </td>
-                                        <td class="tabledit-view-mode" style="display:none"><span class="tabledit-span"></span>
-                                            <input class="tabledit-input form-control input-sm" type="text" name="id" value="">
+                                        <td style="display:none"><span class="tabledit-span" style="display:none"></span>
+                                            <input class="tabledit-input form-control input-sm" type="text" name="id" style="display:none;" value="{{$item->id}}">
                                         </td>
-                                    </tr> --}}
+                                        <td align="center">
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-primary" onClick="action('edit', {{$item->id}}, '{{route('setting.update', $item->id)}}')" title="Edit Data">
+                                                <i class="icofont icofont-edit icofont-sm"></i>
+                                            </a>
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onClick="action('delete', {{$item->id}}, '{{route('setting.delete', $item->id)}}')" title="Delete Data">
+                                                <i class="icofont icofont-ui-delete icofont-sm"></i>
+                                            </a>
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-success" style="display:none" onClick="send('edit', {{$item->id}}, '{{route('setting.delete', $item->id)}}')" title="Delete Data">
+                                                Save
+                                            </a>
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" style="display:none" onClick="send('delete', {{$item->id}}, '{{route('setting.delete', $item->id)}}')" title="Delete Data">
+                                                Confirm
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4" align="center">No data available in table</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>

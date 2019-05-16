@@ -41,9 +41,15 @@ class Setting extends Model
         return $query->where('jenis_barang', $itemType);
     }
 
+    public function scopeValidateData($query)
+    {
+        return $query->where('jenis_barang', request('jenis_barang'))
+                     ->where('id_cabang', request('id_cabang'));
+    }
+
     public function getNominalPotonganAttribute()
     {
-        return 'Rp '. nominal($this->potongan);
+        return nominal($this->potongan);
     }
 
     public function getNomorCabangAttribute()
