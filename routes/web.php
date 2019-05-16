@@ -19,10 +19,10 @@ Route::get('/',function(){
 Route::middleware('auth')->group(function() {
 	Route::group(['prefix' => 'akad'], function(){
 		Route::get('/', 'AkadController@index')->name('akad.index');
+		Route::get('/send', 'AkadController@send')->name('akad.send');
 		Route::get('/create', 'AkadController@create')->name('akad.create');
 		Route::get('/edit/{id}', 'AkadController@edit')->name('akad.edit');
 
-		Route::post('/store', 'AkadController@store')->name('akad.store');
 		Route::post('/update/{id}', 'AkadController@update')->name('akad.update');
 		Route::post('/destroy/{id}', 'AkadController@destroy')->name('akad.destroy');
 	});

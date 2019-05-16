@@ -61,7 +61,7 @@ form.steps({
         // console.log(currentIndex)
         $('#proses').on('click', function(){
             // window.location.href = url + '/cabang';
-            console.log('proses')
+            // console.log('proses')
         });
         
         form.validate().settings.ignore = ":disabled";

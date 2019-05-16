@@ -4,10 +4,6 @@
 <!--forms-wizard css-->
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/jquery.steps/css/jquery.steps.css')}}">
 
-{{-- auto suggest --}}
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-
 <style>
 .wizard .content {
     min-height: 100px;
@@ -38,6 +34,7 @@
 
 
 <script src="{{asset('js/form-wizard.js')}}"></script>
+<script src="https://cdn.rawgit.com/mgalante/jquery.redirect/master/jquery.redirect.js"></script>
 @include('akad.form.form-akad-js')
 @endsection
 
@@ -53,7 +50,7 @@
             <div class="col-md-12">
                 <div id="wizard">
                     <section>
-                        <form class="wizard-form" id="example-advanced-form" action="#">
+                        <form class="wizard-form" id="example-advanced-form">
                             <h3> Penafsiran </h3>
                             <fieldset>
                                 {{-- <button type="button" class="btn btn-primary sweet-1 m-b-10" onclick="_gaq.push(['_trackEvent', 'example', 'try', 'sweet-1']);">Basic</button> --}}
