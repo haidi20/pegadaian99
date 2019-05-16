@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function() {
 	});
 	Route::group(['prefix' => 'nasabah'], function(){
 		Route::get('/', 'NasabahController@index')->name('nasabah.index');
+		Route::get('/ajax', 'NasabahController@ajax')->name('nasabah.ajax');
 		Route::get('/edit/{id}', 'NasabahController@edit')->name('nasabah.edit');
 		Route::get('/detail/{id}', 'NasabahController@detail')->name('nasabah.detail');
 

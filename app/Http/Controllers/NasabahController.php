@@ -78,4 +78,11 @@ class NasabahController extends Controller
 
         return redirect()->route('nasabah.index');
     }
+
+    public function ajax()
+    {
+        $nasabah = $this->nasabah->pluck('nama_lengkap');
+
+        return response()->json(compact('nasabah'));
+    }
 }

@@ -1,7 +1,7 @@
 @extends('_layouts.default')
 
 @section('script-top')
-    <!-- Range slider css -->
+<!-- Range slider css -->
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/seiyria-bootstrap-slider/css/bootstrap-slider.css')}}">
 
 <!-- Date-time picker css -->
@@ -12,7 +12,7 @@
 @endsection
 
 @section('script-bottom')
-    <!-- Bootstrap date-time-picker js -->
+<!-- Bootstrap date-time-picker js -->
 <script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/moment-with-locales.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/bootstrap-datetimepicker.min.js')}}"></script>
@@ -25,6 +25,9 @@
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/jscolor/js/jscolor.js')}}"></script>
 
 <script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/custom-picker.js')}}"></script>
+
+<!-- jquery redirect -->
+<script type="text/javascript" async src="https://cdn.rawgit.com/mgalante/jquery.redirect/master/jquery.redirect.js"></script>
 
 <script>
     /*
