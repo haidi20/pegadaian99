@@ -4,6 +4,9 @@
 <!--forms-wizard css-->
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/jquery.steps/css/jquery.steps.css')}}">
 
+{{-- important auto suggest jquery  --}}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
 <style>
 .wizard .content {
     min-height: 100px;
