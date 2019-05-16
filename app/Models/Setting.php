@@ -49,7 +49,7 @@ class Setting extends Model
 
     public function getNominalPotonganAttribute()
     {
-        return 'Rp '. nominal($this->potongan);
+        return nominal($this->potongan);
     }
 
     public function getNomorCabangAttribute()

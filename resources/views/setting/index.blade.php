@@ -3,6 +3,11 @@
 @section('script-bottom')
     <script>
         var number = 1;
+
+        $(function(){
+            potongan_keyup();
+        });
+
         function add_row()
         {
             var addRow = $('tbody tr.addRow');
@@ -40,7 +45,7 @@
         {
             var margin          = $('#row_'+id+' td:nth-child(1) input').val();
             var potongan        = $('#row_'+id+' td:nth-child(2) input').val();
-            var value_id              = $('#row_'+id+' td:nth-child(5) input').val();
+            var value_id        = $('#row_'+id+' td:nth-child(5) input').val();
             var id_cabang       = $('#row_'+id+' td:nth-child(4) select').val();
             var jenis_barang    = $('#row_'+id+' td:nth-child(3) select').val();
 
@@ -64,11 +69,34 @@
                     if(result.message){
                         $('#modal-setting').modal('show')
                         $('#message').html(result.message)
+                    }else{
+                        if(result.inputan.status == 'add'){
+                            var url = '{{route("setting.store")}}';
+                        }else if(result.inputan.status == 'edit'){
+                            var value_id = result.inputan.value_id;
+                            var url = '{{route("setting.update", '+value_id+')}}';
+                        }else if(result.inputan.status == 'delete'){
+                            var value_id = result.inputan.value_id;
+                            var url = '{{route("setting.delete", '+value_id+')}}';
+                        }
+
+                        // console.log(result);
+
+                        $.redirect(url, {
+                            data: result.inputan
+                        }, "GET");
                     }
                 },
                 error:function(xhr, ajaxOptions, thrownError){
                     console.log(thrownError)
                 }
+            });
+        }
+
+        function potongan_keyup()
+        {
+            $('body').on("keyup", "input[name=potongan]", function() {
+                this.value = formatRupiah(this.value)
             });
         }
     </script>
@@ -150,7 +178,7 @@
                                         <td><span class="tabledit-span">{{$item->margin}}</span>
                                             <input class="tabledit-input form-control input-sm" type="text" name="margin" style="display:none;" value="{{$item->margin}}">
                                         </td>
-                                        <td><span class="tabledit-span"> {{$item->potongan}} </span>
+                                        <td><span class="tabledit-span"> Rp. {{$item->nominal_potongan}} </span>
                                             <input class="tabledit-input form-control input-sm potongan" type="text" name="potongan" style="display:none;" value="{{$item->potongan}}">
                                         </td>
                                         <td><span class="tabledit-span"> {{$item->jenis_barang}} </span>

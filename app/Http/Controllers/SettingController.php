@@ -57,8 +57,6 @@ class SettingController extends Controller
             }
         }
 
-        
-
         return response()->json(compact('inputan', 'validateData', 'message'));
     }
 
@@ -74,18 +72,34 @@ class SettingController extends Controller
 
     public function save($id = null)
     {
-        $setting = $this->setting->find($id);
-        $status = 'edit';
+        $data = $this->request->except('_token');
+        $data = $data['data'];
 
-        return response()->json(compact('setting', 'status'));
+        if($data['value_id']){
+            $setting = $this->setting->find($data['value_id']);
+        }else{
+            $setting = $this->setting;
+        }
+
+        $setting->margin        = $data['margin'];
+        $setting->potongan      = remove_dot($data['potongan']);
+        $setting->id_cabang     = $data['id_cabang'];
+        $setting->jenis_barang  = $data['jenis_barang'];
+        $setting->save();
+
+        return redirect()->back();
+        // return response()->json(compact('data'));
     }
 
     public function delete($id)
     {
-        $setting = $this->setting->find($id);
-        $status = 'delete';
+        $data = $this->request->except('_token');
+        $data = $data['data'];
+        $setting = $this->setting->find($data['value_id']);
+        $setting->delete();
 
-        return response()->json(compact('setting', 'status'));
+        return redirect()->back();
+        // return response()->json(compact('setting', 'status'));
     }
 
     public function pilih_cabang()
