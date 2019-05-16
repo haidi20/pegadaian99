@@ -76,29 +76,27 @@
             $('#tanggal_jatuh_tempo').val(tanggal_jatuh_tempo)
 
             // function local
-            opsi_pembayaran(waktu)
+            paymentOption(waktu)
 
             bt_yang_dibayar(waktu, 'jangka_waktu_akad')
         });
     }
 
     // setting show / hide 'opsi pembayaran' base on 'jangka waktu akad'
-    function opsi_pembayaran(time)
+    function paymentOption(time)
     {
         if(time == 7){
             $('#op_15').css('display', 'none')
 
             $('#op_'+time+' label input').prop('checked', true)
-            nilai_opsi_pembayaran(7)
+            kondisi_nilai_opsi_pembayaran(time)
         }else{
             $('#op_15').css('display', '')
         }
-
-        console.log($('#nilai_opsi_pembayaran').val())
     }
 
     // setting value 'opsi pembayaran'
-    function nilai_opsi_pembayaran(value)
+    function kondisi_nilai_opsi_pembayaran(value)
     {
         // insert data tag input hidden for send data
         $('#nilai_opsi_pembayaran').val(value)
