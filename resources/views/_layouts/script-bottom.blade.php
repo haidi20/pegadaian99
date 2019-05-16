@@ -34,6 +34,7 @@
 <script type="text/javascript" src="{{asset('js/jquery.cookie.min.js')}}"></script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script async src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
