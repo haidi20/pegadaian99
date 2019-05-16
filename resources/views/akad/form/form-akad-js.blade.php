@@ -7,7 +7,7 @@
         // set number when typing form 'taksiran marhun'
         taksiran_marhun_keyup()
 
-        // for fetch nominal marhun_bih
+        // for fetch nominal 'marhun_bih'
         marhun_bih_keyup()
 
         // for default checked 'OPSI PEMBAYARAN HARIAN / 1'
@@ -31,7 +31,6 @@
             cache: false,
             success:function(result){		
                 // console.log(result.nasabah)
-
                 $( "#nama_lengkap" ).autocomplete({
                     source: result.nasabah
                 });
@@ -68,16 +67,6 @@
         });
     }
 
-    function bt_yang_dibayar()
-    {
-        $('#bt_yang_dibayar').change(function(){
-            var value = $(this).children("option:selected").val();
-
-            // determine 'biaya titip'
-            biaya_titip(value, 'bt_yang_dibayar')
-        });
-    }
-
     function jangka_waktu_akad()
     {
         $('#jangka_waktu_akad').change(function(){
@@ -86,9 +75,10 @@
             var tanggal_jatuh_tempo = moment().add(waktu, 'days').format('DD-MM-Y');
             $('#tanggal_jatuh_tempo').val(tanggal_jatuh_tempo)
 
-            // console.log(time)
             // function local
             paymentOption(waktu)
+
+            bt_yang_dibayar(waktu, 'jangka_waktu_akad')
         });
     }
 
@@ -105,9 +95,90 @@
     // setting value 'opsi pembayaran'
     function valueOptionPayment(value)
     {
+        // insert data tag input hidden for send data
         $('#nilai_opsi_pembayaran').val(value)
 
+        // set 'biaya titip' base on 'opsi pembayaran' one of 'rumus'
         biaya_titip(value, 'opsi_pembayaran')
+
+        // condition maks number looping 'biaya titip yang dibayar'
+        bt_yang_dibayar(value, 'opsi_pembayaran')
+    }
+
+    function bt_yang_dibayar(value = null, option = null)
+    {   
+        // set number maks base on 'jangka waktu akad' and 'opsi pembayaran'
+        kondisi_bt_yang_dibayar(value, option);
+        
+        // condition if 'biaya titip yang dibayar' choose value number
+        $('#bt_yang_dibayar').change(function(){
+            var value = $(this).children("option:selected").val();
+
+            // determine 'biaya titip'
+            biaya_titip(value, 'bt_yang_dibayar');
+        });
+    }
+
+    function kondisi_bt_yang_dibayar(value = null, option = null)
+    {
+        var maks    = '';
+        var tagOptions  = [];
+
+
+        if(option == 'jangka_waktu_akad'){
+            var jangka_waktu_akad = $('#jangka_waktu_akad').children("option:selected").val();
+        }else{
+            var jangka_waktu_akad = $('#jangka_waktu_akad').children("option:selected").val();
+        }
+
+        if(option == 'opsi_pembayaran'){
+            var opsi_pembayaran = value
+        }else{
+            var opsi_pembayaran = $('#nilai_opsi_pembayaran').val()
+        }
+
+        // console.log(jangka_waktu_akad, opsi_pembayaran);
+
+        if(jangka_waktu_akad == 7){
+            if(opsi_pembayaran == 1){
+                maks = 7;
+            }else if(opsi_pembayaran == 7){
+                maks = 1;
+            }
+        }else if(jangka_waktu_akad == 15){
+            if(opsi_pembayaran == 1){
+                maks = 15;
+            }else if(opsi_pembayaran == 7){
+                maks = 2;
+            }
+            else if(opsi_pembayaran == 15){
+                maks = 1;
+            }
+        }else if(jangka_waktu_akad == 30){
+            if(opsi_pembayaran == 1){
+                maks = 15;
+            }else if(opsi_pembayaran == 7){
+                maks = 4;
+            }
+            else if(opsi_pembayaran == 15){
+                maks = 2;
+            }
+        }else if(jangka_waktu_akad == 60){
+            if(opsi_pembayaran == 1){
+                maks = 15;
+            }else if(opsi_pembayaran == 7){
+                maks = 9;
+            }
+            else if(opsi_pembayaran == 15){
+                maks = 4;
+            }
+        }
+
+        for(var i = 0; i <= maks; i++){
+            tagOptions = tagOptions + '<option value="'+i+'">'+i+'</option>';
+        }
+
+        $('#bt_yang_dibayar').html(tagOptions);
     }
 
     function process()
@@ -206,7 +277,7 @@
             $('.kelengkapan_barang_satu').html('Type')
             $('.kelengkapan_barang_dua').html('Merk')
             $('.kelengkapan_barang_tiga').html('Imei / Nomor Serial')
-            //get value 'jenis_kendaraan'
+            //insert value 'jenis_kendaraan'
             $('#nilai_jenis_barang').val('elektronik')
             // set 'biaya admin'
             biaya_admin = 10000
@@ -220,7 +291,7 @@
             $('.kelengkapan_barang_satu').html('KT')
             $('.kelengkapan_barang_dua').html('Warna')
             $('.kelengkapan_barang_tiga').html('Nomor Rangka')
-            //get value 'jenis_kendaraan'
+            //insert value 'jenis_kendaraan'
             $('#nilai_jenis_barang').val('kendaraan')
             // set 'biaya admin'
             biaya_admin = 50000
