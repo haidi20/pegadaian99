@@ -28,10 +28,17 @@
         function action(status, id = null, url = null)
         {
             // show / hide span, input, select
-            $('#row_'+id+' td span').toggle();
-            $('#row_'+id+' td input').toggle();
-            $('#row_'+id+' td select').toggle();
+            if(status == 'edit' || status == 'add'){
+                $('#row_'+id+' td span').toggle();
+                $('#row_'+id+' td input').toggle();
+                $('#row_'+id+' td select').toggle();
+            }else if(status == 'delete'){
+                $('#row_'+id+' td span').show();
+                $('#row_'+id+' td input').hide();
+                $('#row_'+id+' td select').hide();
+            }
 
+            // show / hide button save and confirm
             if(status == 'edit' || status == 'add'){
                 $('#row_'+id+' td:nth-child(6) a:nth-child(3)').toggle();
                 $('#row_'+id+' td:nth-child(6) a:nth-child(4)').hide();

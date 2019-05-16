@@ -95,8 +95,11 @@ class SettingController extends Controller
     {
         $data = $this->request->except('_token');
         $data = $data['data'];
-        $setting = $this->setting->find($data['value_id']);
-        $setting->delete();
+        
+        if($data['value_id']){
+            $setting = $this->setting->find($data['value_id']);
+            $setting->delete();
+        }
 
         return redirect()->back();
         // return response()->json(compact('setting', 'status'));
