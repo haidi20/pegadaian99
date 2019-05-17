@@ -19,8 +19,7 @@
                             <div class="col-sm-12 col-md-8">
                                 <select name="jangka_waktu_akad" id="jangka_waktu_akad" class="form-control">
                                     @foreach($listTime as $index => $item)
-                                        <option {{ selected($item['value'], 'jangka_waktu_akad', 'old')}} 
-                                            value="{{$item['value']}}">
+                                        <option value="{{$item['value']}}">
                                                 {{$item['text']}}
                                         </option>
                                     @endforeach

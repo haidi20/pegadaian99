@@ -97,7 +97,7 @@
                                 @foreach($paymentOption as $index => $item)
                                     <div class="radio radio-inline" id="op_{{$item['value']}}" style="display: none">
                                         <label>
-                                            <input type="radio" name="opsi_pembayaran" onClick="valueOptionPayment('{{$item['value']}}')" value="{{$item['value']}}" {{checked($item['value'], 'opsi_pembayaran', 1)}}>
+                                            <input type="radio" name="opsi_pembayaran" onClick="kondisi_nilai_opsi_pembayaran('{{$item['value']}}')" value="{{$item['value']}}" {{checked($item['value'], 'opsi_pembayaran', 1)}}>
                                             <i class="helper"></i>{{$item['text']}}
                                         </label>
                                     </div>
@@ -120,9 +120,9 @@
                         <label class="col-sm-2 col-form-label" for="bt_yang_dibayar">Biaya Titip yang Dibayar</label>
                         <div class="col-sm-12 col-md-2">
                             <select name="bt_yang_dibayar" id="bt_yang_dibayar" class="form-control" required>
-                                @for($i = 0; $i <= 9; $i++)
-                                    <option {{ selected($i, 'bt_yang_dibayar', 'old')}} value="{{$i}}">{{$i}}</option>
-                                @endfor
+                                {{-- @for($i = 0; $i <= 7; $i++)
+                                    <option value="{{$i}}">{{$i}}</option>
+                                @endfor --}}
                             </select> 
                         </div>
                     </div>
@@ -142,14 +142,14 @@
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">Rp.</span>
                                 <input type="text" class="form-control biaya_admin" value="10.000" id="biaya_admin" disabled>
-                                <input type="hidden" class="form-control biaya_admin" name="biaya_admin" value="10000" >
+                                <input type="hidden" class="form-control biaya_admin" name="biaya_admin" value="10.000">
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label" for="terbilang">Terbilang</label>
+                        {{-- <label class="col-sm-2 col-form-label" for="terbilang">Terbilang</label> --}}
                         <div class="col-sm-10">
-                            <input type="text" class="form-control terbilang" value="{{old('terbilang')}}" disabled>
+                            {{-- <input type="text" class="form-control terbilang" value="{{old('terbilang')}}" disabled> --}}
                             <input type="hidden" class="form-control terbilang" name="terbilang">
                         </div>
                     </div>

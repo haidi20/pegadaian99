@@ -39,6 +39,46 @@
                                             <table class="table m-0">
                                                 <tbody id="table-detail-one">
                                                     <tr>
+                                                        <td>Nama Lengkap</td>
+                                                        <td id="data-nama_lengkap"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Jenis Kelamin</td>
+                                                        <td id="data-jenis_kelamin"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Alamat</td>
+                                                        <td id="data-alamat"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kota</td>
+                                                        <td id="data-kota"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>No. Telp</td>
+                                                        <td id="data-no_telp"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Jenis Identitas</td>
+                                                        <td id="data-jenis_id"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>No. Identitas</td>
+                                                        <td id="data-no_identitas"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tanggal Lahir</td>
+                                                        <td id="data-tanggal_lahir"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="table-responsive">
+                                            <table class="table m-0" >
+                                                <tbody id="table-detail-two">
+                                                    <tr>
                                                         <td>NO. ID</td>
                                                         <td id="data-no_id"></td>
                                                     </tr>
@@ -109,46 +149,6 @@
                                                     <tr>
                                                         <td>Biaya Administrasi</td>
                                                         <td id="data-biaya_admin"></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="table-responsive">
-                                            <table class="table m-0" >
-                                                <tbody id="table-detail-two">
-                                                    <tr>
-                                                        <td>Nama Lengkap</td>
-                                                        <td id="data-nama_lengkap"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Jenis Kelamin</td>
-                                                        <td id="data-jenis_kelamin"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Alamat</td>
-                                                        <td id="data-alamat"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Kota</td>
-                                                        <td id="data-kota"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>No. Telp</td>
-                                                        <td id="data-no_telp"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Jenis Identitas</td>
-                                                        <td id="data-jenis_id"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>No. Identitas</td>
-                                                        <td id="data-no_identitas"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Tanggal Lahir</td>
-                                                        <td id="data-tanggal_lahir"></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
