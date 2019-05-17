@@ -15,13 +15,13 @@
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_barang" onClick="itemType('elektronik')" value="elektronik" {{checked('elektronik', 'jenis_barang', 'elektronik')}}>
+                                        <input type="radio" name="jenis_barang" onClick="jenis_barang_pilih('elektronik')" value="elektronik" {{checked('elektronik', 'jenis_barang', 'elektronik')}}>
                                         <i class="helper"></i>Elektronik
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_barang" onClick="itemType('kendaraan')" value="kendaraan" {{checked('kendaran', 'jenis_barang', 'elektronik')}}>
+                                        <input type="radio" name="jenis_barang" onClick="jenis_barang_pilih('kendaraan')" value="kendaraan" {{checked('kendaran', 'jenis_barang', 'elektronik')}}>
                                         <i class="helper"></i>Kendaraan
                                     </label>
                                 </div>
@@ -124,6 +124,7 @@
                                     <option value="{{$i}}">{{$i}}</option>
                                 @endfor --}}
                             </select> 
+                            <input type="hidden" id="nilai_bt_yang_dibayar">
                         </div>
                     </div>
                     <div class="form-group row">
