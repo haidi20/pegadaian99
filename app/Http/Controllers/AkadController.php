@@ -68,6 +68,40 @@ class AkadController extends Controller
     }
 
     //SUB MENU
+    public function nasabah_akad()
+    {
+         // name menu for active menu header
+        $menu           = 'database';
+
+        // name field 'tanggal jatuh tempo' for sorted
+        $nameFieldSorted= 'akad.tanggal_jatuh_tempo';
+        
+        $nasabahAkad    = $this->akad->nasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
+
+        if(request('perpage_na')){
+            // if get data from range date
+            if(request('daterange')){
+                $end    = carbon::parse(substr(request('daterange'), 13, 20));
+                $start  = carbon::parse(substr(request('daterange'), 1, 9));
+            }
+
+            // scope function filterRange
+            $nasabahAkad= $nasabahAkad->filterRange($start, $end);
+            $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
+        }else{
+            // for default date in form filter date range
+            $end        = Carbon::now()->day(30);
+            $start      = Carbon::now()->day(1);
+
+            // format dateRange base on template
+            $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
+        }
+
+        $nasabahAkad           = $this->filter($nasabahAkad, 'na')->akad->paginate(request('perpage_na', 10));
+
+        return $this->template('akad.index.baru.nasabah-akad', compact('nasabahAkad', 'dateRange', 'menu'));
+    }
+
     public function akad_jatuh_tempo()
     {
         return 'akad jatuh tempo';
