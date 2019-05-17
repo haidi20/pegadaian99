@@ -144,6 +144,13 @@
             var opsi_pembayaran = $('#nilai_opsi_pembayaran').val()
         }
 
+        if(option == 'jenis_barang'){
+            // set 'opsi_pembayaran' = 1
+            var opsi_pembayaran = value
+        }else{
+            var opsi_pembayaran = $('#nilai_opsi_pembayaran').val()
+        }
+
         if(jangka_waktu_akad == 7){
             if(opsi_pembayaran == 1){
                 maks = 7;
@@ -180,7 +187,14 @@
         }
 
         for(var i = 0; i <= maks; i++){
-            tagOptions = tagOptions + '<option value="'+i+'">'+i+'</option>';
+            if(i == 0){
+                tagOptions = tagOptions + '<option value="'+i+'" selected>'+i+'</option>';
+
+                //set value 'nilai biaya titip yang dibayar' 0
+                $('#nilai_bt_yang_dibayar').val(0);
+            }else{
+                tagOptions = tagOptions + '<option value="'+i+'">'+i+'</option>';
+            }
         }
 
         $('#bt_yang_dibayar').html(tagOptions);
@@ -227,7 +241,7 @@
         if(option == 'bt_yang_dibayar'){
             var bt_yang_dibayar = value
         }else{
-            var bt_yang_dibayar = $('#bt_yang_dibayar').val()
+            var bt_yang_dibayar = $('#nilai_bt_yang_dibayar').val();
         }
 
         // set nominal 'potongan biaya titip'
@@ -274,7 +288,7 @@
     }
 
     // determine detail item base on 'jenis barang'
-    function itemType(type)
+    function jenis_barang_pilih(type)
     {   
         // value real 'persenan' from database
         var persenan_real = $('#persenan-real').val()
@@ -293,6 +307,8 @@
             $('.persenan').val({{$margin_elektronik}})
             // for condition 'biaya titip'
             biaya_titip('elektronik', 'jenis_barang')
+            // set value default 0
+            bt_yang_dibayar(1, 'jenis_barang')
         }else{
             $('.kelengkapan_barang_satu').html('KT')
             $('.kelengkapan_barang_dua').html('Warna')
@@ -307,6 +323,8 @@
             $('.persenan').val({{$margin_kendaraan}})
             // for condition 'biaya titip'
             biaya_titip('kendaraan', 'jenis_barang')
+            // set value default 0
+            bt_yang_dibayar(1, 'jenis_barang')
         }
     }
 
@@ -323,7 +341,7 @@
     function insert_data(data)
     {
         $.each(data, function(index, item){
-            condition_jenis_barang(item);
+            kondisi_jenis_barang(item);
 
             if(item.name == 'taksiran_marhun'){
                 $('#data-'+item.name).html(': Rp.'+item.value);
@@ -343,7 +361,7 @@
         });
     }
 
-    function condition_jenis_barang(item)
+    function kondisi_jenis_barang(item)
     {
         if(item.value == 'kendaraan'){
             var barang_satu = 'KT';
