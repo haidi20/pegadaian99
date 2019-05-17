@@ -307,8 +307,9 @@
             $('.persenan').val({{$margin_elektronik}})
             // for condition 'biaya titip'
             biaya_titip('elektronik', 'jenis_barang')
-            // set value default 0
-            bt_yang_dibayar(1, 'jenis_barang')
+            // set value default 1
+            var nilai_opsi_pembayaran = $('#nilai_opsi_pembayaran').val()
+            bt_yang_dibayar(nilai_opsi_pembayaran, 'jenis_barang')
         }else{
             $('.kelengkapan_barang_satu').html('KT')
             $('.kelengkapan_barang_dua').html('Warna')
@@ -324,7 +325,8 @@
             // for condition 'biaya titip'
             biaya_titip('kendaraan', 'jenis_barang')
             // set value default 0
-            bt_yang_dibayar(1, 'jenis_barang')
+            var nilai_opsi_pembayaran = $('#nilai_opsi_pembayaran').val()
+            bt_yang_dibayar(nilai_opsi_pembayaran, 'jenis_barang')
         }
     }
 
