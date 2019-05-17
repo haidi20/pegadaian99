@@ -42,6 +42,8 @@ class AkadController extends Controller
 
     public function index()
     {
+        // return config('menu.menu_header');
+
         // name menu for active menu header
         $menu           = 'database';
 
@@ -63,6 +65,27 @@ class AkadController extends Controller
             'nasabahAkad', 'akadJatuhTempo', 'pelunasanLelang', 'menu', 
             'columnAkadJatuhTempo', 'columnListNasabahAkad', 'columnPelunasanLelang'
         ));
+    }
+
+    //SUB MENU
+    public function akad_jatuh_tempo()
+    {
+        return 'akad jatuh tempo';
+    }
+
+    public function pelunasan_lelang()
+    {
+        return 'pelunasan lelang';
+    }
+
+    public function lokasi_distribusi()
+    {
+        return 'lokasi distribusi';
+    }
+
+    public function maintenance()
+    {
+        return 'maintenance';
     }
 
     // 'NASABAH AKAD'
