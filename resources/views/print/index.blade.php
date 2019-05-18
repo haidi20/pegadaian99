@@ -64,7 +64,7 @@ label
     </style>
 </head>
 
-<body>
+<body onload="window.print()">
     <h3 class="text-center" id="id_first_title">
         <strong>CITRA 99</strong>
     </h3>
