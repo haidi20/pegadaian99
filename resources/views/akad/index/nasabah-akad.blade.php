@@ -93,6 +93,7 @@
                                     data-popover-content="#a2">
                                     <i class="zmdi zmdi-print"></i>
                                 </button>
+                                {{-- for menu-mini button print --}}
                                 <div id="a2" style="display:none">
                                     <div class="popover-heading"></div>
                                     <div class="popover-body">

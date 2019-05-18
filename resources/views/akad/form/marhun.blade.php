@@ -68,25 +68,31 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="taksiran_marhun">Taksiran Marhun</label>
                         <div class="col-sm-10">
-                            <input 
-                                type="text" 
-                                class="form-control " 
-                                name="taksiran_marhun" 
-                                id="taksiran_marhun" 
-                                value="{{old('taksiran_marhun')}}"
-                                >
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Rp.</span>
+                                <input 
+                                    type="text" 
+                                    class="form-control " 
+                                    name="taksiran_marhun" 
+                                    id="taksiran_marhun" 
+                                    value="{{old('taksiran_marhun')}}"
+                                    >
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="marhun_bih">Marhun Bih</label>
                         <div class="col-sm-10">
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                name="marhun_bih" 
-                                id="marhun_bih" 
-                                value="{{old('marhun_bih')}}"
-                                >
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Rp.</span>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    name="marhun_bih" 
+                                    id="marhun_bih" 
+                                    value="{{old('marhun_bih')}}"
+                                    >
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -103,7 +109,7 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <input type="hidden" id="nilai_opsi_pembayaran" value="1">
+                            <input type="hidden" id="nilai_opsi_pembayaran" name="nilai_opsi_pembayaran" value="1">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -111,8 +117,8 @@
                         <div class="col-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">Rp.</span>
-                                <input type="text" class="form-control autonumber biaya_titip"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," disabled>
-                                <input type="hidden" name="biaya_titip" class="biaya_titip">
+                                <input type="text" class="form-control autonumber biaya_titip" value="0"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," disabled>
+                                <input type="hidden" name="biaya_titip" class="biaya_titip" value="0">
                             </div>                            
                         </div>
                     </div>
@@ -132,8 +138,8 @@
                             {{-- <select name="bt_yang_dibayar" id="bt_yang_dibayar" class="form-control">
                                 <option {{ selected(1, 'bt_yang_dibayar', 'old')}}>1</option>
                             </select>  --}}
-                            <input type="text" class="form-control jml_bt_yang_dibayar" disabled>
-                            <input type="hidden" class="form-control jml_bt_yang_dibayar" name="jml_bt_yang_dibayar">
+                            <input type="text" class="form-control jml_bt_yang_dibayar" value="0" disabled>
+                            <input type="hidden" class="form-control jml_bt_yang_dibayar" name="jml_bt_yang_dibayar" value="0">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -141,9 +147,8 @@
                         <div class="col-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">Rp.</span>
-                                <input type="text" class="form-control biaya_admin" value="10000" id="biaya_admin" name="biaya_admin" disabled>
+                                <input type="text" class="form-control biaya_admin" value="10.000" id="biaya_admin" disabled>
                                 <input type="hidden" class="form-control biaya_admin" name="biaya_admin" value="10000" >
-                                
                             </div>
                         </div>
                     </div>

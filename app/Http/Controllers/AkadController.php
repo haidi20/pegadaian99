@@ -186,17 +186,17 @@ class AkadController extends Controller
         $listTime            = config('library.form.akad.list_time');
         $paymentOption       = config('library.form.akad.payment_option');
 
-        // get value 'persenan' & 'biaya titip yang dibayar'
-        $setting            = $this->setting->baseBranch()->first();
-        //op = 'opsi pembayaran'
-        $potongan           = is_null($setting) ? 10000 : $setting->potongan;
-        // set default number for 'persenan' and 'biaya_titip'
-        $margin_kendaraan   = is_null($setting) ? 10 : $setting->margin_kendaraan;
-        $margin_elektronik  = is_null($setting) ? 10 : $setting->margin_elektronik;
+        // 'margin dan potongan elektronik'
+        $margin_elektronik      = $this->setting->baseBranch()->jenisBarang('elektronik')->value('margin');
+        $potongan_elektronik    = $this->setting->baseBranch()->jenisBarang('elektronik')->value('potongan');
+
+        // 'margin dan potongan kendaraan'
+        $margin_kendaraan       = $this->setting->baseBranch()->jenisBarang('kendaraan')->value('margin');
+        $potongan_kendaraan     = $this->setting->baseBranch()->jenisBarang('kendaraan')->value('potongan');
 
     	return $this->template('akad._form', compact(
             'action', 'method', 'tanggal_akad', 'tanggal_jatuh_tempo', 
-            'listTime', 'paymentOption', 'potongan', 'margin_kendaraan', 'margin_elektronik'
+            'listTime', 'paymentOption', 'potongan_kendaraan', 'potongan_elektronik', 'margin_kendaraan', 'margin_elektronik'
         ));
     }
 

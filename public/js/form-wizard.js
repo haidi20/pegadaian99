@@ -31,8 +31,8 @@ form.steps({
     transitionEffectSpeed: 600,
     transitionEffect: "slideLeft",
     onStepChanging: function(event, currentIndex, newIndex) {
-        var def = $.Deferred();
-        // console.log(event)
+        // var def = $.Deferred();
+
         // Allways allow previous action even if the current form is not valid!
         if (currentIndex > newIndex) {
             return true;
@@ -40,11 +40,10 @@ form.steps({
 
         // Needed in some cases if the user went back (clean up)
         if (currentIndex < newIndex) {
-            var modal = $('#modal-akad')
-           
-            // alert('muncul')
+
+            // conditon if all form not null modal show
             if(form.valid()){
-                modal.modal('show')
+                $('#modal-akad-notif').modal('show')
             }
 
             form.find(".body:eq(" + newIndex + ") label.error").remove();
@@ -52,53 +51,28 @@ form.steps({
         }
 
         $('#tidak').on('click', function(){
-            // def.resolve(true);
-            // console.log('iya terklik')
             form.steps("previous");
         });
 
-        // return def;
-
-        // form.validate().settings.ignore = ":disabled,:hidden";
+        form.validate().settings.ignore = ":disabled,:hidden";
         return form.valid();
     },
-    // onStepChanged: function(event, currentIndex, priorIndex) {
-
-    //     // Used to skip the "Warning" step if the user is old enough.
-    //     if (currentIndex === 2 && Number($("#age-2").val()) >= 18) {
-    //         form.steps("next");
-    //     }
-    //     // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
-    //     if (currentIndex === 2 && priorIndex === 3) {
-    //         form.steps("previous");
-    //     }
-    // },
     onFinishing: function(event, currentIndex) {
         // console.log(currentIndex)
-        $('#iya').on('click', function(){
+        $('#proses').on('click', function(){
             // window.location.href = url + '/cabang';
-            console.log(url)
-            console.log(laravel.csrfToken)
-            console.log('iya bisa')
+            console.log('proses')
         });
+        
         form.validate().settings.ignore = ":disabled";
         return form.valid();
     },
     onFinished: function(event, currentIndex) {
-        // alert("Submitted!");
-        // $('.content input[type="text"]').val('');
-        // $('.content input[type="email"]').val('');
-        // $('.content input[type="password"]').val('');
-        $('#modal-akad').modal('show')
-       
+        // in file form-akad-js.blade.php
+        akad_confirm()
     }
 }).validate({
     errorPlacement: function errorPlacement(error, element) {
         element.before(error);
     },
-    // rules: {
-    //     confirm: {
-    //         equalTo: "#password-2"
-    //     }
-    // }
 });

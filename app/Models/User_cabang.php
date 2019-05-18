@@ -20,9 +20,21 @@ class User_cabang extends Model
     	'username',
     ];
 
+    public function cabang()
+    {
+        return $this->hasOne('App\Models\Cabang', 'id_cabang', 'id_cabang');
+    }
+
     // how to fetch data by username of user
     public function scopeBaseUsername($query)
     {
         return $query->where('username', Auth::user()->username);
+    }
+
+    public function getNomorCabangAttribute()
+    {
+        if($this->cabang){
+            return $this->cabang->no_cabang;
+        }
     }
 }

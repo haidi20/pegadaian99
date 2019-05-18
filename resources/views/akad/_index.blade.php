@@ -101,7 +101,7 @@
 
 @section('content')
 {{-- include file modal  --}}
-@include('akad.modal.prosedur')
+@include('akad.modal.index.prosedur')
 <div class="page-header">
     <div class="row align-items-end">
         <div class="col-lg-8">

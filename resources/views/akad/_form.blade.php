@@ -14,6 +14,9 @@
     padding: 15px;
     position: relative;
 }
+.modal-lg {
+    max-width: 80% !important;
+}
 </style>
 @endsection
 
@@ -29,10 +32,6 @@
 <script src="{{asset('adminty/files/bower_components/jquery.steps/js/jquery.steps.js')}}"></script>
 <script src="{{asset('adminty/files/bower_components/jquery-validation/js/jquery.validate.js')}}"></script>
 
-<script type="text/javascript" src="{{asset('adminty/files/assets/pages/form-validation/validate.js')}}"></script>
-<!-- Custom js -->
-<script src="{{asset('adminty/files/assets/js/pcoded.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('adminty/files/assets/js/script.js')}}"></script>
 
 <script src="{{asset('js/form-wizard.js')}}"></script>
 @include('akad.form.form-akad-js')
@@ -40,7 +39,7 @@
 
 @section('content')
 <!-- Form wizard with validation card start -->
-@include('akad.modal.akad-baru')
+@include('akad.modal.form.confirm')
 <div class="card">
     <div class="card-header">
         <h3>Akad Baru</h3>
@@ -51,14 +50,14 @@
                 <div id="wizard">
                     <section>
                         <form class="wizard-form" id="example-advanced-form" action="#">
-                            <h3> Langkah Pertama </h3>
+                            <h3> Penafsiran </h3>
                             <fieldset>
                                 {{-- <button type="button" class="btn btn-primary sweet-1 m-b-10" onclick="_gaq.push(['_trackEvent', 'example', 'try', 'sweet-1']);">Basic</button> --}}
                                 @include('akad.form.time')
 
                                 @include('akad.form.marhun')
                             </fieldset>
-                            <h3> General information </h3>
+                            <h3> Data Nasabah </h3>
                             <fieldset>
                                 @include('akad.form.rahin')
                             </fieldset>
