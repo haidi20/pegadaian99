@@ -22,10 +22,10 @@ class CabangController extends Controller
                                 Saldo_cabang $saldo_cabang
                             )
     {
-        $this->cabang       = $cabang      ;
-        $this->request      = $request     ;
-        $this->kas_cabang   = $kas_cabang  ;
-        $this->user_cabang  = $user_cabang ;
+        $this->cabang       = $cabang;
+        $this->request      = $request;
+        $this->kas_cabang   = $kas_cabang;
+        $this->user_cabang  = $user_cabang;
         $this->saldo_cabang = $saldo_cabang;
 
         view()->share([
@@ -43,7 +43,7 @@ class CabangController extends Controller
         // local function filter
         $filter = $this->filter($cabang);
 
-        $cabang     = $filter->cabang->paginate(5);
+        $cabang     = $filter->cabang->paginate(request('perpage', 10));
         $dateRange  = $filter->dateRange;
 
         $totalKas   = $this->cabang->kasCabang()->sum('kas_cabang.total_kas');

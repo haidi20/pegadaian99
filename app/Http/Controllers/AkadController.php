@@ -98,10 +98,13 @@ class AkadController extends Controller
             $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
         }
 
-        $nasabahAkad           = $this->filter($nasabahAkad, 'na')->akad->paginate(request('perpage_na', 10));
+        $nasabahAkad    = $this->filter($nasabahAkad, 'na')->akad->paginate(request('perpage_na', 10));
+
+        // column for 'nasabah akad'
+        $columnListNasabahAkad  = config('library.column.akad_nasabah.list_akad_nasabah');
 
         return $this->template('akad.index.baru.nasabah-akad', compact(
-            'nasabahAkad', 'dateRange', 'menu', 'subMenu'
+            'nasabahAkad', 'dateRange', 'menu', 'subMenu', 'columnListNasabahAkad'
         ));
     }
 
