@@ -24,6 +24,7 @@ class PembayaranController extends Controller
 
         view()->share([
             'menu'          => 'pembayaran',
+            'subMenu'       => '',
             'menuHeader'    => config('library.menu_header'),
         ]);
     }

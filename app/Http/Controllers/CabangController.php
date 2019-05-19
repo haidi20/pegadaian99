@@ -30,6 +30,7 @@ class CabangController extends Controller
 
         view()->share([
             'menu'         => 'cabang',
+            'subMenu'      => '',
             'menuHeader'   => config('library.menu_header')
         ]);
     }

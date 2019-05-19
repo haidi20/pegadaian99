@@ -29,6 +29,7 @@ class SettingController extends Controller
 
         view()->share([
             'menu'         => 'setting',
+            'subMenu'      => '',
             'menuHeader'   => config('library.menu_header')
         ]);
     }

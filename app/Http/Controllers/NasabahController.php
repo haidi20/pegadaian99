@@ -21,6 +21,7 @@ class NasabahController extends Controller
 
         view()->share([
             'menu'          => 'akad',
+            'subMenu'       => '',
             'menuHeader'    => config('library.menu_header'),
         ]);
     }

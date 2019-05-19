@@ -12,7 +12,7 @@
                     @if($item['child'])
                        @foreach($item['child'] as $index => $child)
                             <ul class="pcoded-submenu">
-                                <li class="{{$child['subChild'] ? 'pcoded-hasmenu' : ''}} {{active_header($child['url'])}}">
+                                <li class="{{$child['subChild'] ? 'pcoded-hasmenu' : ''}} {{active_header($child['url'], $subMenu)}}">
                                     <a href="{{$child['route'] ? route($child['route']) : 'javascript:void(0)'}}">
                                         <span class="pcoded-mtext">{{$child['name']}}</span>
                                     </a>

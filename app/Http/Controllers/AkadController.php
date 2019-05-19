@@ -29,7 +29,8 @@ class AkadController extends Controller
         $this->user_cabang  = $user_cabang;
 
         view()->share([
-            'menu'          => 'akad',
+            'menu'          => 'database',
+            'subMenu'       => 'akad',
             'menuHeader'    => config('library.menu_header'),
         ]);
     }
@@ -71,8 +72,8 @@ class AkadController extends Controller
     public function nasabah_akad()
     {
          // name menu for active menu header
-        $menu           = 'database';
-
+        $menu    = 'database';
+        $subMenu = 'akad';
         // name field 'tanggal jatuh tempo' for sorted
         $nameFieldSorted= 'akad.tanggal_jatuh_tempo';
         
@@ -99,7 +100,9 @@ class AkadController extends Controller
 
         $nasabahAkad           = $this->filter($nasabahAkad, 'na')->akad->paginate(request('perpage_na', 10));
 
-        return $this->template('akad.index.baru.nasabah-akad', compact('nasabahAkad', 'dateRange', 'menu'));
+        return $this->template('akad.index.baru.nasabah-akad', compact(
+            'nasabahAkad', 'dateRange', 'menu', 'subMenu'
+        ));
     }
 
     public function akad_jatuh_tempo()
