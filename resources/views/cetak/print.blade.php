@@ -86,37 +86,37 @@ label
         <!-- No ID -->
         <span id="id_label_no_id">No. ID</span>
         <span class="pull-right " style="margin-left: 290px"> : </span>
-        <span class="pull-right" id="id_no_id">C99-03-030519-001</span>
+        <span class="pull-right" id="id_no_id">{{$data['no_id']}}</span>
         <!-- <br> should -->
         <!-- Nama -->
         <br />
         <span id="id_label_name">Nama</span>
         <span class="pull-right " style="margin-left: 296px">
-            : <span id="id_nama">IKRAM MUHITH</span>
+            : <span id="id_nama">{{$data['nama_lengkap']}}</span>
         </span>
 
         <br />
         <span id="id_label_no_telp">No. Telp</span>
         <span class="pull-right " style="margin-left: 279px">
-            : <span id="id_no_telp">081545778612</span>
+            : <span id="id_no_telp">{{$data['no_telp']}}</span>
         </span>
 
         <br />
         <span id="id_label_tempo">Tempo Gadai (Titip)</span>
         <span class="pull-right " style="margin-left: 204px">
-            : <span id="id_tempo">60</span> Hari
+            : <span id="id_tempo">{{$data['jangka_waktu_akad']}}</span> Hari
         </span>
 
         <br />
         <span id="id_label_uang">Uang Pinjaman</span>
         <span class="pull-right " style="margin-left: 237px">
-            : Rp. <span id="id_uang">1.800.000</span>
+            : Rp. <span id="id_uang">{{$data['marhun_bih']}}</span>
         </span>
 
         <br />
-        <span id="id_label_btitip">B. Titip Per 7 Hari</span>
-        <span class="pull-right " style="margin-left: 218px">
-            : Rp. <span id="id_btitip">85.000</span>
+        <span id="id_label_btitip">B. Titip Per {{$data['nilai_opsi_pembayaran']}} Hari</span>
+        <span class="pull-right " style="margin-left: {{$data['nilai_opsi_pembayaran'] == 7 ? '218px' : '210px'}}">
+            : Rp. <span id="id_btitip">{{$data['jml_bt_yang_dibayar']}}</span>
         </span>
     </p>
     <!-- pembayaran -->
@@ -125,7 +125,7 @@ label
         <!-- No ID -->
         <span id="id_label_tanggal">Tanggal Pembayaran</span>
         <span class="pull-right " style="margin-left: 202px"> : </span>
-        <span class="pull-right" id="id_tanggal_pembayaran">03-05-2019</span>
+        <span class="pull-right" id="id_tanggal_pembayaran">{{$data['tanggal_akad']}}</span>
         <!-- <br> should -->
         <!-- Nama -->
         <br />
@@ -137,19 +137,19 @@ label
         <br />
         <span id="id_label_btitip">Pembayaran B. Titip</span>
         <span class="pull-right " style="margin-left: 204px">
-            : Rp. <span id="id_btitip">170.000</span>
+            : Rp. <span id="id_btitip">{{$data['biaya_titip']}}</span>
         </span>
 
         <br />
         <span id="id_label_badmin">Pembayaran B. Admin</span>
         <span class="pull-right " style="margin-left: 190px">
-            : Rp. <span id="id_badmin">10.000</span> Hari
+            : Rp. <span id="id_badmin">{{$data['biaya_admin']}}</span> Hari
         </span>
     </p>
     <label for="TANGGALJATUHTEMPO">
         <strong>TANGGAL JATUH TEMPO</strong>
         <span class="pull-right " style="margin-left: 138px">
-            : <strong><span id="id_tempo">17-05-2019</span></strong>
+            : <strong><span id="id_tempo">{{$data['tanggal_jatuh_tempo']}}</span></strong>
         </span>
     </label>
 
