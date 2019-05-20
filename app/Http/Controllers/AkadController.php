@@ -105,6 +105,11 @@ class AkadController extends Controller
             $akadJatuhTempo = $akadJatuhTempo->addDay(request('jenis_ajt', '30'), request('interval', 7));
         // }
 
+        // if get data from input keyword 
+        if(request('q')){
+            $akadJatuhTempo   = $akadJatuhTempo->search(request('by'), request('q'));
+        }
+
         $data = $akadJatuhTempo->paginate(request('perpage', 10));
 
         return $this->template('akad.index.baru.akad-jatuh-tempo', compact(
@@ -114,12 +119,54 @@ class AkadController extends Controller
 
     public function pelunasan_lelang()
     {
-        return 'pelunasan lelang';
+        $column     = config('library.column.akad_nasabah.pelunasan_dan_lelang.'.request('jenis_pl', 'lunas'));
+
+        // list name tables on TAB 'pelunasan dan lelang' example list 'nasabah lunas, lelang, dan refund'.
+        $nameTables = config('library.name_tables.akad_nasabah.pelunasan_dan_lelang');
+
+        $pelunasanLelang    = $this->akad->nasabah();
+        $pelunasanLelang    = $pelunasanLelang->baseBranch();
+        $pelunasanLelang    = $pelunasanLelang->sorted('akad.tanggal_jatuh_tempo', 'desc');
+
+        // if(request('jenis_pl')){
+            $pelunasanLelang= $pelunasanLelang->lunas();
+        // }
+
+        // if get data from input keyword 
+        if(request('q')){
+            $pelunasanLelang   = $pelunasanLelang->search(request('by'), request('q'));
+        }
+
+        $data = $pelunasanLelang->paginate(request('perpage', 10));
+
+        return $this->template('akad.index.baru.pelunasan-lelang', compact(
+            'nameTables', 'data', 'column'
+        ));
     }
 
     public function lokasi_distribusi()
     {
-        return 'lokasi distribusi';
+        // list name tables on TAB 'pelunasan dan lelang' example list 'nasabah lunas, lelang, dan refund'.
+        $nameTables = config('library.name_tables.lokasi_distribusi');
+
+        $lokasiDistribusi    = $this->akad->nasabah();
+        $lokasiDistribusi    = $lokasiDistribusi->baseBranch();
+        $lokasiDistribusi    = $lokasiDistribusi->sorted('akad.tanggal_jatuh_tempo', 'desc');
+
+        // if(request('jenis_pl')){
+            $lokasiDistribusi= $lokasiDistribusi->kantor();
+        // }
+
+        // if get data from input keyword 
+        if(request('q')){
+            $lokasiDistribusi   = $lokasiDistribusi->search(request('by'), request('q'));
+        }
+
+        $data = $lokasiDistribusi->paginate(request('perpage', 10));
+
+        return $this->template('akad.index.baru.lokasi-distribusi', compact(
+            'nameTables', 'data'
+        ));
     }
 
     public function maintenance()

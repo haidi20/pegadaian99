@@ -394,7 +394,21 @@ return [
 				'key' 	=> 'pc',
 				'name' 	=> 'Piutang Cabang',
 			],
-		], 
+		],
+		'lokasi_distribusi' => [
+			0 => [
+				'key' 	=> 'kantor',
+				'name' 	=> 'Lokasi Kantor',
+			],
+			1 => [
+				'key' 	=> 'proses',
+				'name' 	=> 'Sedang Proses',
+			],
+			2 => [
+				'key' 	=> 'gudang',
+				'name' 	=> 'Lokasi Gudang',
+			],
+		] 
 	],
 	// LIST 'JATUH TEMPO' in AKAD FORM
 	'form' => [

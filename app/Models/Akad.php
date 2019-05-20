@@ -71,6 +71,23 @@ class Akad extends Model
     }
     //end query status 'lunas, belum lunas, lelang dan refund'
 
+    //start query 'status lokasi kantor, proses, gudang'
+    public function scopeKantor($query)
+    {
+        return $query->whereStatus_lokasi('kantor');
+    }
+
+    public function scopeProses($query)
+    {
+        return $query->whereStatus_lokasi('proses');
+    }
+
+    public function scopeGudang($query)
+    {
+        return $query->whereStatus_lokasi('gudang');
+    }
+    //end query 'status lokasi kantor, proses, gudang'
+
     public function scopeBaseBranch($query)
     {   
         // get data id_cabang from table 'user_cabang' base on this user
