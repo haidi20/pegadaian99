@@ -16,10 +16,6 @@ Route::get('/', function () {
 	// return view('dashboard');
 });
 
-Route::get('print', function () {
-	return view('print.index');
-});
-
 Route::middleware('auth')->group(function () {
 	Route::group(['prefix' => 'akad'], function () {
 		Route::get('/', 'AkadController@index')->name('akad.index');
@@ -43,6 +39,9 @@ Route::middleware('auth')->group(function () {
 
 		Route::post('/store', 'CabangController@store')->name('cabang.store');
 		Route::post('/update/{id}', 'CabangController@update')->name('cabang.update');
+	});
+	Route::group(['prefix' => 'cetak'], function(){
+		Route::get('/print', 'CetakController@print')->name('print');
 	});
 	Route::group(['prefix' => 'nasabah'], function () {
 		Route::get('/', 'NasabahController@index')->name('nasabah.index');

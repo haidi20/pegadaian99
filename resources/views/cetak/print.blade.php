@@ -155,10 +155,10 @@ label
 
     <!-- notification -->
     <p class="text-center" style="padding: 2px 100px 2px 100px">
-        <label for="notification" id="id_middlnotif">
+        {{-- <label for="notification" id="id_middlnotif">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
             optio ullam id? Dolor quas tempora doloribus
-        </label>
+        </label> --}}
     </p>
     <p style="margin-top: 50px">
         &nbsp;
@@ -187,10 +187,10 @@ label
 
     <!-- notification bottom -->
     <p class="text-center" style="padding: 2px 120px 2px 120px">
-        <label for="notification" id="id_bottomnotif">
+        {{-- <label for="notification" id="id_bottomnotif">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
             optio ullam id? Dolor quas tempora doloribus
-        </label>
+        </label> --}}
     </p>
     {{-- </div> --}}
 </body>

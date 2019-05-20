@@ -214,13 +214,18 @@
                 dangerMode: true,
             });
         }else{
-            var url     = '{{route("akad.send")}}';
-            var data    = $('form').serializeArray();
+            var data        = $('form').serializeArray();
+            var url_akad    = '{{route("akad.send")}}';
+            var url_print   = '{{route("print")}}';
             // console.log(data);
 
-            $.redirect(url, {
+            $.redirect(url_print, {
                 data: data
-            }, "GET");
+            }, "GET", "_blank");
+
+            // $.redirect(url_akad, {
+            //     data: data_akad
+            // }, "GET");
         }
     }
 
@@ -402,8 +407,6 @@
                 // Adjust the height of iframe
                 $iframe.height($body.height());
             }
-        }
-
-        
+        }        
     }
 </script>
