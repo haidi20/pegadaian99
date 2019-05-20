@@ -217,11 +217,16 @@
             var data        = $('form').serializeArray();
             var url_akad    = '{{route("akad.send")}}';
             var url_print   = '{{route("print")}}';
+            var url_pdf     = '{{route("pdf")}}';
             // console.log(data);
 
-            $.redirect(url_print, {
+            $.redirect(url_pdf, {
                 data: data
             }, "GET", "_blank");
+
+            // $.redirect(url_print, {
+            //     data: data
+            // }, "GET", "_blank");
 
             // $.redirect(url_akad, {
             //     data: data_akad

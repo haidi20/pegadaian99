@@ -9,7 +9,9 @@
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "mews/captcha": "^2.2",
-        "ramsey/uuid": "^3.8"
+        "ramsey/uuid": "^3.8",
+        "setasign/fpdf": "^1.8",
+        "setasign/fpdi": "^2.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -47,8 +49,15 @@
         ]
     },
     "config": {
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "optimize-autoloader": true
+        "github-protocols": [
+            "https,ssh"
+        ]
+    },
+    "repositories": {
+        "packagist.org": {
+            "type": "composer",
+            "url": "https://packagist.org"
+        }
     }
+        
 }
