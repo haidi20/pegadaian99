@@ -150,8 +150,8 @@ class AkadController extends Controller
         $nameTables = config('library.name_tables.lokasi_distribusi');
 
         $lokasiDistribusi    = $this->akad->nasabah();
-        $lokasiDistribusi    = $lokasiDistribusi->baseBranch();
-        $lokasiDistribusi    = $lokasiDistribusi->sorted('akad.tanggal_jatuh_tempo', 'desc');
+        // $lokasiDistribusi    = $lokasiDistribusi->baseBranch();
+        $lokasiDistribusi    = $lokasiDistribusi->sorted();
 
         // if(request('jenis_pl')){
             $lokasiDistribusi= $lokasiDistribusi->kantor();
