@@ -173,23 +173,25 @@ class AkadController extends Controller
 
     public function maintenance()
     {
+        // return Carbon::parse('2019-05-05')->addDay(15)->format('Y-m-d');
+
         // list name tables on TAB 'pelunasan dan lelang' example list 'nasabah lunas, lelang, dan refund'.
         $nameTables = config('library.name_tables.lokasi_distribusi');
 
-        $lokasiDistribusi    = $this->akad->nasabah();
-        // $lokasiDistribusi    = $lokasiDistribusi->baseBranch();
-        $lokasiDistribusi    = $lokasiDistribusi->sorted();
+        $maintenance    = $this->akad->nasabah();
+        // $maintenance    = $maintenance->baseBranch();
+        $maintenance    = $maintenance->sorted();
 
         // if(request('jenis_m')){
-            $lokasiDistribusi= $lokasiDistribusi;
+            // $maintenance= $maintenance->maintenance();
         // }
 
         // if get data from input keyword 
         if(request('q')){
-            $lokasiDistribusi   = $lokasiDistribusi->search(request('by'), request('q'));
+            $maintenance   = $maintenance->search(request('by'), request('q'));
         }
 
-        $data = $lokasiDistribusi->paginate(request('perpage', 10));
+        $data = $maintenance->paginate(request('perpage', 10));
 
         return $this->template('akad.index.baru.maintenance', compact(
             'nameTables', 'data'

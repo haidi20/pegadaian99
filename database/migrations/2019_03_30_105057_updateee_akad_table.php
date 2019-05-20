@@ -24,6 +24,7 @@ class UpdateeeAkadTable extends Migration
         NOT NULL AFTER kekurangan;"); 
 
         Schema::table('akad', function (Blueprint $table) {
+            $table->string('status_lokasi')->nullable();
             $table->string('kelengkapan_barang_satu')->nullable();
             $table->string('kelengkapan_barang_dua')->nullable();
             $table->string('kelengkapan_barang_tiga')->nullable();
@@ -37,12 +38,12 @@ class UpdateeeAkadTable extends Migration
      */
     public function down()
     {
-         DB::statement("ALTER TABLE
-        akad MODIFY COLUMN
-            jangka_waktu_akad enum(
-                '60',
-                '30'
-            )
-        NOT NULL AFTER kekurangan;") ;    
+        //  DB::statement("ALTER TABLE
+        // akad MODIFY COLUMN
+        //     jangka_waktu_akad enum(
+        //         '60',
+        //         '30'
+        //     )
+        // NOT NULL AFTER kekurangan;") ;    
     }
 }

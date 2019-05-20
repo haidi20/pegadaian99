@@ -102,6 +102,14 @@ class Akad extends Model
         return $query->leftJoin('nasabah', 'akad.key_nasabah', '=', 'nasabah.key_nasabah');
     }
 
+    public function scopeMaintenance($query)
+    {
+        $end    = Carbon::parse($this->tanggal_akad)->addDay(30)->format('Y-m-d');
+        $start  = Carbon::parse($this->tanggal_akad)->addDay(15)->format('Y-m-d');
+
+        return $query->whereBetween('tanggal_akad', [$start, $end]);
+    }
+
     // search data by keyword form input
     public function scopeSearch($query, $by, $key)
     {

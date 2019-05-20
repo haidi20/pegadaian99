@@ -165,6 +165,8 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Barang</th>
+                                <th>Tanggal Akad</th>
+                                <th width="100px">Ceklis</th>
                                 <th width="100px">Print</th>
                             </tr>
                             </thead>
@@ -173,6 +175,15 @@
                                     <tr>
                                         <td>{{$index + 1}}</td>
                                         <td>{{$item->nama_barang}}</td>
+                                        <td>{{$item->tanggal_akad}}</td>
+                                        <td align="center">
+                                            <div class="border-checkbox-section">
+                                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                                    <input class="border-checkbox" type="checkbox" id="checkbox{{$index}}" value="1">
+                                                    <label class="border-checkbox-label" for="checkbox{{$index}}"></label>
+                                                </div>
+                                            </div>
+                                        </td>
                                         <td>
                                             <a href="javascript:void(0)" class="btn btn-sm btn-success mb-1">
                                                 <i class="zmdi zmdi-print"></i>
