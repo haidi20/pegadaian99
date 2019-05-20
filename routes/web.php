@@ -11,13 +11,17 @@
 |
 */
 
-Route::get('/',function(){
-  return redirect()->route('login');
-  // return view('dashboard');
+Route::get('/', function () {
+	return redirect()->route('login');
+	// return view('dashboard');
 });
 
-Route::middleware('auth')->group(function() {
-	Route::group(['prefix' => 'akad'], function(){
+Route::get('print', function () {
+	return view('print.index');
+});
+
+Route::middleware('auth')->group(function () {
+	Route::group(['prefix' => 'akad'], function () {
 		Route::get('/', 'AkadController@index')->name('akad.index');
 		Route::get('/send', 'AkadController@send')->name('akad.send');
 		Route::get('/create', 'AkadController@create')->name('akad.create');
@@ -32,7 +36,7 @@ Route::middleware('auth')->group(function() {
 		Route::post('/update/{id}', 'AkadController@update')->name('akad.update');
 		Route::post('/destroy/{id}', 'AkadController@destroy')->name('akad.destroy');
 	});
-	Route::group(['prefix' => 'cabang'], function(){
+	Route::group(['prefix' => 'cabang'], function () {
 		Route::get('/', 'CabangController@index')->name('cabang.index');
 		Route::get('/edit', 'CabangController@edit')->name('cabang.edit');
 		Route::get('/create', 'CabangController@create')->name('cabang.create');
@@ -40,7 +44,7 @@ Route::middleware('auth')->group(function() {
 		Route::post('/store', 'CabangController@store')->name('cabang.store');
 		Route::post('/update/{id}', 'CabangController@update')->name('cabang.update');
 	});
-	Route::group(['prefix' => 'nasabah'], function(){
+	Route::group(['prefix' => 'nasabah'], function () {
 		Route::get('/', 'NasabahController@index')->name('nasabah.index');
 		Route::get('/ajax', 'NasabahController@ajax')->name('nasabah.ajax');
 		Route::get('/edit/{id}', 'NasabahController@edit')->name('nasabah.edit');
@@ -48,7 +52,7 @@ Route::middleware('auth')->group(function() {
 
 		Route::post('/update/{id}', 'NasabahController@update')->name('nasabah.update');
 	});
-	Route::group(['prefix' => 'operasional'], function(){
+	Route::group(['prefix' => 'operasional'], function () {
 		Route::get('/create', 'OperasionalController@create')->name('operasional.create');
 		Route::get('/bku-admin', 'OperasionalController@bku')->name('operasional.bku');
 		Route::get('/data-pengeluaran', 'OperasionalController@pengeluaran')->name('operasional.pengeluaran');
@@ -58,11 +62,11 @@ Route::middleware('auth')->group(function() {
 		Route::post('/store', 'OperasionalController@store')->name('operasional.store');
 		Route::post('/hutang/store', 'OperasionalController@hutang_store')->name('operasional.hutang.store');
 	});
-	Route::group(['prefix' => 'pembayaran'], function(){
+	Route::group(['prefix' => 'pembayaran'], function () {
 		Route::get('/bku', 'PembayaranController@bku')->name('pembayaran.bku');
 		Route::get('/pendapatan', 'PembayaranController@pembayaran')->name('pembayaran.pendapatan');
 	});
-	Route::group(['prefix' => 'permodalan'], function(){
+	Route::group(['prefix' => 'permodalan'], function () {
 		// url create for 'tambah saldo' & 'refund saldo'
 		Route::get('/penambahan-saldo', 'PermodalanController@penambahan')->name('permodalan.penambahan');
 		Route::get('/hutang-dan-piutang', 'PermodalanController@hutang')->name('permodalan.hutang');
@@ -73,7 +77,7 @@ Route::middleware('auth')->group(function() {
 
 		Route::post('/store', 'PermodalanController@store')->name('permodalan.store');
 	});
-	Route::group(['prefix' => 'setting'], function(){
+	Route::group(['prefix' => 'setting'], function () {
 		Route::get('/', 'SettingController@index')->name('setting.index');
 		Route::get('/store', 'SettingController@store')->name('setting.store');
 		Route::get('/cabang', 'SettingController@pilih_cabang')->name('setting.pilih-cabang');
@@ -84,7 +88,7 @@ Route::middleware('auth')->group(function() {
 		
 		Route::post('/cabang/store', 'SettingController@pilih_cabang_store')->name('setting.pilih-cabang.store');
 	});
-	Route::group(['prefix' => 'user'], function(){
+	Route::group(['prefix' => 'user'], function () {
 		Route::get('/', 'UserController@index')->name('user.index');
 		Route::get('/create', 'UserController@create')->name('user.create');
 		Route::get('/edit/{id}', 'UserController@edit')->name('user.edit');
@@ -101,7 +105,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::namespace('auth')->group(function(){
+Route::namespace('auth')->group(function () {
 	Route::get('/refresh-captcha', 'LoginController@refresh_captcha');
 });
-
