@@ -35,38 +35,11 @@ class AkadController extends Controller
         ]);
     }
 
-    /* code tab-tab in data akad nasabah :
+    /* code-code on data akad nasabah :
     * na    = nasabah akad
     * ajt   = akad jatuh tempo
     * pl    = pelunasan dan lelang
     */
-
-    public function index()
-    {
-        // return config('menu.menu_header');
-
-        // name menu for active menu header
-        $menu           = 'database';
-
-        // list table per tab
-    	$nasabahAkad    = $this->nasabahAkad();
-        // akadJatuhTempo data array tables base on sum 'jatuh tempo hari'
-        $akadJatuhTempo = $this->akadJatuhTempo();
-        $pelunasanLelang= $this->pelunasanLelang();
-
-        // list column per TAB :
-        // column for 'akad jatuh tempo'
-        $columnAkadJatuhTempo   = config('library.column.akad_nasabah.akad_jatuh_tempo');
-        // column for 'nasabah akad'
-        $columnListNasabahAkad  = config('library.column.akad_nasabah.list_akad_nasabah');
-        // column for 'pelunasan & lelang'
-        $columnPelunasanLelang  = config('library.column.akad_nasabah.pelunasan_dan_lelang');
-
-    	return $this->template('akad._index', compact(
-            'nasabahAkad', 'akadJatuhTempo', 'pelunasanLelang', 'menu', 
-            'columnAkadJatuhTempo', 'columnListNasabahAkad', 'columnPelunasanLelang'
-        ));
-    }
 
     //SUB MENU
     public function nasabah_akad()
@@ -98,19 +71,45 @@ class AkadController extends Controller
             $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
         }
 
-        $nasabahAkad    = $this->filter($nasabahAkad, 'na')->akad->paginate(request('perpage_na', 10));
+        // if get data from input keyword 
+        if(request('q')){
+            $nasabahAkad   = $nasabahAkad->search(request('by'), request('q'));
+        }
+
+        $data    = $nasabahAkad->paginate(request('perpage', 10));
 
         // column for 'nasabah akad'
-        $columnListNasabahAkad  = config('library.column.akad_nasabah.list_akad_nasabah');
+        $column  = config('library.column.akad_nasabah.list_akad_nasabah');
 
         return $this->template('akad.index.baru.nasabah-akad', compact(
-            'nasabahAkad', 'dateRange', 'menu', 'subMenu', 'columnListNasabahAkad'
+            'data', 'dateRange', 'menu', 'subMenu', 'column'
         ));
     }
 
     public function akad_jatuh_tempo()
     {
-        return 'akad jatuh tempo';
+        // column for 'akad jatuh tempo'
+        $column     = config('library.column.akad_nasabah.akad_jatuh_tempo');
+        // list name tables on TAB 'akad jatuh tempo' example list 'jatuh tempo 7 hari', '15 hari' etc.
+        $nameTables = config('library.name_tables.akad_nasabah.akad_jatuh_tempo');
+
+        // name field 'tanggal jatuh tempo' for sorted
+        $nameFieldSorted= 'akad.tanggal_jatuh_tempo';
+
+        $akadJatuhTempo = $this->akad->nasabah();
+        $akadJatuhTempo = $akadJatuhTempo->baseBranch();
+        $akadJatuhTempo = $akadJatuhTempo->belumLunas();
+        $akadJatuhTempo = $akadJatuhTempo->sorted($nameFieldSorted, 'desc');
+
+        // if(request('jenis_ajt')){
+            $akadJatuhTempo = $akadJatuhTempo->addDay(request('jenis_ajt', '30'), request('interval', 7));
+        // }
+
+        $data = $akadJatuhTempo->paginate(request('perpage', 10));
+
+        return $this->template('akad.index.baru.akad-jatuh-tempo', compact(
+            'nameTables', 'column', 'data'
+        ));
     }
 
     public function pelunasan_lelang()
@@ -126,6 +125,33 @@ class AkadController extends Controller
     public function maintenance()
     {
         return 'maintenance';
+    }
+
+    public function index()
+    {
+        // return config('menu.menu_header');
+
+        // name menu for active menu header
+        $menu           = 'database';
+
+        // list table per tab
+    	$nasabahAkad    = $this->nasabahAkad();
+        // akadJatuhTempo data array tables base on sum 'jatuh tempo hari'
+        $akadJatuhTempo = $this->akadJatuhTempo();
+        $pelunasanLelang= $this->pelunasanLelang();
+
+        // list column per TAB :
+        // column for 'akad jatuh tempo'
+        $columnAkadJatuhTempo   = config('library.column.akad_nasabah.akad_jatuh_tempo');
+        // column for 'nasabah akad'
+        $columnListNasabahAkad  = config('library.column.akad_nasabah.list_akad_nasabah');
+        // column for 'pelunasan & lelang'
+        $columnPelunasanLelang  = config('library.column.akad_nasabah.pelunasan_dan_lelang');
+
+    	return $this->template('akad._index', compact(
+            'nasabahAkad', 'akadJatuhTempo', 'pelunasanLelang', 'menu', 
+            'columnAkadJatuhTempo', 'columnListNasabahAkad', 'columnPelunasanLelang'
+        ));
     }
 
     // 'NASABAH AKAD'
