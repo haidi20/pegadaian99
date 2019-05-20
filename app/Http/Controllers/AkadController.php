@@ -29,19 +29,179 @@ class AkadController extends Controller
         $this->user_cabang  = $user_cabang;
 
         view()->share([
-            'menu'          => 'akad',
+            'menu'          => 'database',
+            'subMenu'       => 'akad',
             'menuHeader'    => config('library.menu_header'),
         ]);
     }
 
-    /* code tab-tab in data akad nasabah :
+    /* code-code on data akad nasabah :
     * na    = nasabah akad
     * ajt   = akad jatuh tempo
     * pl    = pelunasan dan lelang
+    * ld    = lokasi atau distribusi
+    * m     = maintenance
     */
+
+    //SUB MENU
+    public function nasabah_akad()
+    {
+         // name menu for active menu header
+        $menu    = 'database';
+        $subMenu = 'akad';
+        // name field 'tanggal jatuh tempo' for sorted
+        $nameFieldSorted= 'akad.tanggal_jatuh_tempo';
+        
+        $nasabahAkad    = $this->akad->nasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
+
+        if(request('perpage_na')){
+            // if get data from range date
+            if(request('daterange')){
+                $end    = carbon::parse(substr(request('daterange'), 13, 20));
+                $start  = carbon::parse(substr(request('daterange'), 1, 9));
+            }
+
+            // scope function filterRange
+            $nasabahAkad= $nasabahAkad->filterRange($start, $end);
+            $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
+        }else{
+            // for default date in form filter date range
+            $end        = Carbon::now()->day(30);
+            $start      = Carbon::now()->day(1);
+
+            // format dateRange base on template
+            $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
+        }
+
+        // if get data from input keyword 
+        if(request('q')){
+            $nasabahAkad   = $nasabahAkad->search(request('by'), request('q'));
+        }
+
+        $data    = $nasabahAkad->paginate(request('perpage', 10));
+
+        // column for 'nasabah akad'
+        $column  = config('library.column.akad_nasabah.list_akad_nasabah');
+
+        return $this->template('akad.index.baru.nasabah-akad', compact(
+            'data', 'dateRange', 'menu', 'subMenu', 'column'
+        ));
+    }
+
+    public function akad_jatuh_tempo()
+    {
+        // column for 'akad jatuh tempo'
+        $column     = config('library.column.akad_nasabah.akad_jatuh_tempo');
+        // list name tables on TAB 'akad jatuh tempo' example list 'jatuh tempo 7 hari', '15 hari' etc.
+        $nameTables = config('library.name_tables.akad_nasabah.akad_jatuh_tempo');
+
+        // name field 'tanggal jatuh tempo' for sorted
+        $nameFieldSorted= 'akad.tanggal_jatuh_tempo';
+
+        $akadJatuhTempo = $this->akad->nasabah();
+        $akadJatuhTempo = $akadJatuhTempo->baseBranch();
+        $akadJatuhTempo = $akadJatuhTempo->belumLunas();
+        $akadJatuhTempo = $akadJatuhTempo->sorted($nameFieldSorted, 'desc');
+
+        // if(request('jenis_ajt')){
+            $akadJatuhTempo = $akadJatuhTempo->addDay(request('jenis_ajt', '30'), request('interval', 7));
+        // }
+
+        // if get data from input keyword 
+        if(request('q')){
+            $akadJatuhTempo   = $akadJatuhTempo->search(request('by'), request('q'));
+        }
+
+        $data = $akadJatuhTempo->paginate(request('perpage', 10));
+
+        return $this->template('akad.index.baru.akad-jatuh-tempo', compact(
+            'nameTables', 'column', 'data'
+        ));
+    }
+
+    public function pelunasan_lelang()
+    {
+        $column     = config('library.column.akad_nasabah.pelunasan_dan_lelang.'.request('jenis_pl', 'lunas'));
+
+        // list name tables on TAB 'pelunasan dan lelang' example list 'nasabah lunas, lelang, dan refund'.
+        $nameTables = config('library.name_tables.akad_nasabah.pelunasan_dan_lelang');
+
+        $pelunasanLelang    = $this->akad->nasabah();
+        $pelunasanLelang    = $pelunasanLelang->baseBranch();
+        $pelunasanLelang    = $pelunasanLelang->sorted('akad.tanggal_jatuh_tempo', 'desc');
+
+        // if(request('jenis_pl')){
+            $pelunasanLelang= $pelunasanLelang->lunas();
+        // }
+
+        // if get data from input keyword 
+        if(request('q')){
+            $pelunasanLelang   = $pelunasanLelang->search(request('by'), request('q'));
+        }
+
+        $data = $pelunasanLelang->paginate(request('perpage', 10));
+
+        return $this->template('akad.index.baru.pelunasan-lelang', compact(
+            'nameTables', 'data', 'column'
+        ));
+    }
+
+    public function lokasi_distribusi()
+    {
+        // list name tables on TAB 'pelunasan dan lelang' example list 'nasabah lunas, lelang, dan refund'.
+        $nameTables = config('library.name_tables.lokasi_distribusi');
+
+        $lokasiDistribusi    = $this->akad->nasabah();
+        // $lokasiDistribusi    = $lokasiDistribusi->baseBranch();
+        $lokasiDistribusi    = $lokasiDistribusi->sorted();
+
+        // if(request('jenis_ld')){
+            $lokasiDistribusi= $lokasiDistribusi->kantor();
+        // }
+
+        // if get data from input keyword 
+        if(request('q')){
+            $lokasiDistribusi   = $lokasiDistribusi->search(request('by'), request('q'));
+        }
+
+        $data = $lokasiDistribusi->paginate(request('perpage', 10));
+
+        return $this->template('akad.index.baru.lokasi-distribusi', compact(
+            'nameTables', 'data'
+        ));
+    }
+
+    public function maintenance()
+    {
+        // return Carbon::parse('2019-05-05')->addDay(15)->format('Y-m-d');
+
+        // list name tables on TAB 'pelunasan dan lelang' example list 'nasabah lunas, lelang, dan refund'.
+        $nameTables = config('library.name_tables.lokasi_distribusi');
+
+        $maintenance    = $this->akad->nasabah();
+        // $maintenance    = $maintenance->baseBranch();
+        $maintenance    = $maintenance->sorted();
+
+        // if(request('jenis_m')){
+            // $maintenance= $maintenance->maintenance();
+        // }
+
+        // if get data from input keyword 
+        if(request('q')){
+            $maintenance   = $maintenance->search(request('by'), request('q'));
+        }
+
+        $data = $maintenance->paginate(request('perpage', 10));
+
+        return $this->template('akad.index.baru.maintenance', compact(
+            'nameTables', 'data'
+        ));
+    }
 
     public function index()
     {
+        // return config('menu.menu_header');
+
         // name menu for active menu header
         $menu           = 'database';
 

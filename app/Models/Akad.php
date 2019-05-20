@@ -71,6 +71,23 @@ class Akad extends Model
     }
     //end query status 'lunas, belum lunas, lelang dan refund'
 
+    //start query 'status lokasi kantor, proses, gudang'
+    public function scopeKantor($query)
+    {
+        return $query->whereStatus_lokasi('kantor');
+    }
+
+    public function scopeProses($query)
+    {
+        return $query->whereStatus_lokasi('proses');
+    }
+
+    public function scopeGudang($query)
+    {
+        return $query->whereStatus_lokasi('gudang');
+    }
+    //end query 'status lokasi kantor, proses, gudang'
+
     public function scopeBaseBranch($query)
     {   
         // get data id_cabang from table 'user_cabang' base on this user
@@ -83,6 +100,14 @@ class Akad extends Model
     public function scopeNasabah($query)
     {
         return $query->leftJoin('nasabah', 'akad.key_nasabah', '=', 'nasabah.key_nasabah');
+    }
+
+    public function scopeMaintenance($query)
+    {
+        $end    = Carbon::parse($this->tanggal_akad)->addDay(30)->format('Y-m-d');
+        $start  = Carbon::parse($this->tanggal_akad)->addDay(15)->format('Y-m-d');
+
+        return $query->whereBetween('tanggal_akad', [$start, $end]);
     }
 
     // search data by keyword form input

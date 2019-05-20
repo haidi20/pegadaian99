@@ -30,6 +30,7 @@ class OperasionalController extends Controller
 
         view()->share([
             'menu'          => 'operasional',
+            'subMenu'       => '',
             'menuHeader'    => config('library.menu_header'),
         ]);
     }

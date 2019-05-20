@@ -23,6 +23,12 @@ Route::middleware('auth')->group(function() {
 		Route::get('/create', 'AkadController@create')->name('akad.create');
 		Route::get('/edit/{id}', 'AkadController@edit')->name('akad.edit');
 
+		Route::get('/nasabah-akad', 'AkadController@nasabah_akad')->name('akad.nasabah-akad');
+		Route::get('/akad-jatuh-tempo', 'AkadController@akad_jatuh_tempo')->name('akad.akad-jatuh-tempo');
+		Route::get('/pelunasan-lelang', 'AkadController@pelunasan_lelang')->name('akad.pelunasan-lelang');
+		Route::get('/lokasi-distribusi', 'AkadController@lokasi_distribusi')->name('akad.lokasi-distribusi');
+		Route::get('/maintenance', 'AkadController@maintenance')->name('akad.maintenance');
+
 		Route::post('/update/{id}', 'AkadController@update')->name('akad.update');
 		Route::post('/destroy/{id}', 'AkadController@destroy')->name('akad.destroy');
 	});

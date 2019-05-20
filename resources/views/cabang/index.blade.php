@@ -34,9 +34,9 @@
         });
 
         // for if page choose can change count data
-        $('#perpage').change(function(){
-            this.form.submit()
-        });
+        // $('#perpage').change(function(){
+        //     this.form.submit()
+        // });
     });
 </script>
 @endsection

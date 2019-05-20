@@ -43,6 +43,7 @@ if( ! function_exists('active_header') )
 		if($menu){
 			return $feature == $menu ? 'active pcoded-trigger' : '';
 		}else{
+			// return request()->is($feature) ? request()->is($feature) : '';
 			return request()->is($feature) ? 'active' : '';
 		}
 	}

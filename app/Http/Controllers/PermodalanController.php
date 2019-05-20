@@ -33,6 +33,7 @@ class PermodalanController extends Controller
 
         view()->share([
             'menu'          => 'permodalan',
+            'subMenu'       => '',
             'menuHeader'    => config('library.menu_header'),
         ]);
     }
