@@ -39,6 +39,8 @@ class AkadController extends Controller
     * na    = nasabah akad
     * ajt   = akad jatuh tempo
     * pl    = pelunasan dan lelang
+    * ld    = lokasi atau distribusi
+    * m     = maintenance
     */
 
     //SUB MENU
@@ -153,7 +155,7 @@ class AkadController extends Controller
         // $lokasiDistribusi    = $lokasiDistribusi->baseBranch();
         $lokasiDistribusi    = $lokasiDistribusi->sorted();
 
-        // if(request('jenis_pl')){
+        // if(request('jenis_ld')){
             $lokasiDistribusi= $lokasiDistribusi->kantor();
         // }
 
@@ -171,7 +173,27 @@ class AkadController extends Controller
 
     public function maintenance()
     {
-        return 'maintenance';
+        // list name tables on TAB 'pelunasan dan lelang' example list 'nasabah lunas, lelang, dan refund'.
+        $nameTables = config('library.name_tables.lokasi_distribusi');
+
+        $lokasiDistribusi    = $this->akad->nasabah();
+        // $lokasiDistribusi    = $lokasiDistribusi->baseBranch();
+        $lokasiDistribusi    = $lokasiDistribusi->sorted();
+
+        // if(request('jenis_m')){
+            $lokasiDistribusi= $lokasiDistribusi;
+        // }
+
+        // if get data from input keyword 
+        if(request('q')){
+            $lokasiDistribusi   = $lokasiDistribusi->search(request('by'), request('q'));
+        }
+
+        $data = $lokasiDistribusi->paginate(request('perpage', 10));
+
+        return $this->template('akad.index.baru.maintenance', compact(
+            'nameTables', 'data'
+        ));
     }
 
     public function index()
