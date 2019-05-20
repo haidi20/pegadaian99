@@ -38,13 +38,14 @@ class Controller extends BaseController
             $saldo_cabang   = Saldo_cabang::baseBranch()->first();
             $total_kas      = $saldo_cabang ? $saldo_cabang->total_saldo : 0; 
             // 'total kas' base on cabang
+            $total_kas_rumus= $total_kas;
             $total_kas      = nominal($total_kas);     
         }else{
             $total_kas      = 'Tidak Ditemukan';
             $nomorCabang    = 'Tidak Ditemukan';
         }
 
-        return (object) compact('total_kas', 'nomorCabang');
+        return (object) compact('total_kas', 'nomorCabang', 'total_kas_rumus');
     }
 
     // get data id_cabang from table 'user_cabang' base on this user

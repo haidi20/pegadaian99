@@ -6,7 +6,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="nama_lengkap">Nama Lengkap</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap" value="{{old('nama_lengkap')}}" required>
+                            <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap" value="{{old('nama_lengkap')}}" >
                         </div>
                     </div>
                     <div class="form-group row">
@@ -31,19 +31,19 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" >Alamat</label>
                         <div class="col-sm-10">
-                            <textarea rows="5" cols="5" class="form-control" id="alamat" name="alamat" required>{{old('alamat')}}</textarea>
+                            <textarea rows="5" cols="5" class="form-control" id="alamat" name="alamat" >{{old('alamat')}}</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="kota">Kota</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="kota" id="kota" value="{{old('kota')}}" required>
+                            <input type="text" class="form-control" name="kota" id="kota" value="{{old('kota')}}" >
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="no_telp">No. Telp</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="no_telp" id="no_telp" value="{{old('no_telp')}}" required>
+                            <input type="text" class="form-control" name="no_telp" id="no_telp" value="{{old('no_telp')}}" >
                         </div>
                     </div>
                     <div class="form-group row">
@@ -74,13 +74,13 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="no_identitas">No. Identitas</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="no_identitas" id="no_identitas" value="{{old('no_identitas')}}" required>
+                            <input type="text" class="form-control" name="no_identitas" id="no_identitas" value="{{old('no_identitas')}}" >
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="tanggal_lahir">Tanggal Lahir</label>
                         <div class="col-sm-3">
-                            <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" value="{{old('tanggal_lahir', '2000-01-01')}}" required>
+                            <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" value="{{old('tanggal_lahir', '2000-01-01')}}" >
                         </div>
                     </div>
                     {{-- <button type="submit" class="btn btn-primary btn-xs">Proses</button> --}}

@@ -202,13 +202,26 @@
 
     function process()
     {
-        var url     = '{{route("akad.send")}}';
-        var data    = $('form').serializeArray();
-        // console.log(data);
+        var saldo       = '{{$infoCabang->total_kas_rumus}}';
+        var marhun_bih  = $('#marhun_bih').val().replace(".","").replace(".","").replace(".","");
 
-        $.redirect(url, {
-            data: data
-        }, "GET");
+        if(saldo <= marhun_bih){
+            swal({
+                title: "Pemberitahuan!",
+                text: "Saldo Anda Tidak Cukup!",
+                icon: "error",
+                button: "Oke!",
+                dangerMode: true,
+            });
+        }else{
+            var url     = '{{route("akad.send")}}';
+            var data    = $('form').serializeArray();
+            // console.log(data);
+
+            $.redirect(url, {
+                data: data
+            }, "GET");
+        }
     }
 
     /* determine 'biaya titp'
