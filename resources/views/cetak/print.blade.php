@@ -114,10 +114,22 @@ label
         </span>
 
         <br />
-        <span id="id_label_btitip">B. Titip Per {{$data['nilai_opsi_pembayaran']}} Hari</span>
-        <span class="pull-right " style="margin-left: {{$data['nilai_opsi_pembayaran'] == 7 ? '218px' : '210px'}}">
-            : Rp. <span id="id_btitip">{{$data['jml_bt_yang_dibayar']}}</span>
-        </span>
+        @if($data['nilai_opsi_pembayaran'] == 1)
+            <span id="id_label_btitip">B. Titip Per harian</span>
+            <span class="pull-right " style="margin-left: 218px">
+                : Rp. <span id="id_btitip">{{$data['jml_bt_yang_dibayar']}}</span>
+            </span>
+        @elseif($data['nilai_opsi_pembayaran'] == 7)
+            <span id="id_label_btitip">B. Titip Per {{$data['nilai_opsi_pembayaran']}} Hari</span>
+            <span class="pull-right " style="margin-left: 218px">
+                : Rp. <span id="id_btitip">{{$data['jml_bt_yang_dibayar']}}</span>
+            </span>
+        @elseif($data['nilai_opsi_pembayaran'] == 15)
+            <span id="id_label_btitip">B. Titip Per {{$data['nilai_opsi_pembayaran']}} Hari</span>
+            <span class="pull-right " style="margin-left: 210px">
+                : Rp. <span id="id_btitip">{{$data['jml_bt_yang_dibayar']}}</span>
+            </span>
+        @endif
     </p>
     <!-- pembayaran -->
     <label for="PEMBAYARAN"> <strong>PEMBAYARAN</strong> </label>
