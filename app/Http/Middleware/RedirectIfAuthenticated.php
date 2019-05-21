@@ -22,5 +22,14 @@ class RedirectIfAuthenticated
         }
 
         return $next($request);
+
+        if($request->input('_token'))
+        {
+            if ( \Session::getToken() != $request->input('_token'))
+            {
+                return redirect()->guest('/')->with('global', 'Expired token found. Redirecting to /');
+            }
+        }
+        return parent::handle($request, $next);
     }
 }
