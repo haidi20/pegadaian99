@@ -331,6 +331,9 @@ class AkadController extends Controller
 
     public function form($id = null)
     {
+        $menu = 'akad';
+        $subMenu = '';
+
     	$tanggal_akad	     = Carbon::now()->format('d-m-Y');
     	$tanggal_jatuh_tempo = Carbon::now()->addDay('7')->format('d-m-Y');
 
@@ -347,7 +350,7 @@ class AkadController extends Controller
         $potongan_kendaraan     = $this->setting->baseBranch()->jenisBarang('kendaraan')->value('potongan');
 
     	return $this->template('akad._form', compact(
-             'tanggal_akad', 'tanggal_jatuh_tempo', 
+             'tanggal_akad', 'tanggal_jatuh_tempo', 'menu', 'subMenu',
             'listTime', 'paymentOption', 'potongan_kendaraan', 'potongan_elektronik', 'margin_kendaraan', 'margin_elektronik'
         ));
     }

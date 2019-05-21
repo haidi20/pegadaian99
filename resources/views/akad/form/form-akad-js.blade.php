@@ -202,13 +202,36 @@
 
     function process()
     {
-        var url     = '{{route("akad.send")}}';
-        var data    = $('form').serializeArray();
-        // console.log(data);
+        var saldo       = '{{$infoCabang->total_kas_rumus}}';
+        var marhun_bih  = $('#marhun_bih').val().replace(".","").replace(".","").replace(".","");
 
-        $.redirect(url, {
-            data: data
-        }, "GET");
+        if(saldo <= marhun_bih){
+            swal({
+                title: "Pemberitahuan!",
+                text: "Saldo Anda Tidak Cukup!",
+                icon: "error",
+                button: "Oke!",
+                dangerMode: true,
+            });
+        }else{
+            var data        = $('form').serializeArray();
+            var url_akad    = '{{route("akad.send")}}';
+            var url_print   = '{{route("print")}}';
+            var url_pdf     = '{{route("pdf")}}';
+            // console.log(data);
+
+            $.redirect(url_pdf, {
+                data: data
+            }, "GET", "_blank");
+
+            // $.redirect(url_print, {
+            //     data: data
+            // }, "GET", "_blank");
+
+            // $.redirect(url_akad, {
+            //     data: data_akad
+            // }, "GET");
+        }
     }
 
     /* determine 'biaya titp'
@@ -389,8 +412,6 @@
                 // Adjust the height of iframe
                 $iframe.height($body.height());
             }
-        }
-
-        
+        }        
     }
 </script>

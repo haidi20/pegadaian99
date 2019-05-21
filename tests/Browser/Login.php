@@ -17,6 +17,13 @@ class Login extends DuskTestCase
         return '/login';
     }
     /**
+     * all-of-path-admin-panel
+     */
+    public function akad_baru_path()
+    {
+        return 'Akad Baru';
+    }
+    /**
      * A Dusk login test.
      * !write (at/symbol)test for long_function
      * @test
@@ -25,7 +32,19 @@ class Login extends DuskTestCase
      */
     public function user_login()
     {
-        // open browser
+        /**
+         * Cabang path &
+         * Database path &
+         * Data Pembayaran &
+         * Data Permodalan &
+         * Biaya Operasional &
+         * later's will use
+         */
+        $cabang_path = 'Cabang';
+        $cabang_path_tambah = 'Tambah Cabang';
+        $cabang_path_edit = 'Edit Cabang';
+        $cabang_path_view = 'Data Cabang';
+
         $this->browse(function (Browser $browser) {
             // $input = [
             //     "username" => "admin"
