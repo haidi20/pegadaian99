@@ -41,6 +41,8 @@ class CetakController extends Controller
             $data[$item['name']] = $item['value'];
         }
 
+        return $data;
+
         $pdf = $this->pdf;
         $pdf->setAutoPageBreak(false);
 
