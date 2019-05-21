@@ -49,7 +49,7 @@ class CetakController extends Controller
         $pdf->AddPage('L');
         //Set the source PDF file
         // $pagecount = $pdf->setSourceFile('pdf/form-akad.pdf');
-        $pagecount = $pdf->setSourceFile(storage_path('pdf\form-akad.pdf'));
+        $pagecount = $pdf->setSourceFile(storage_path('pdf/form-akad.pdf'));
         $tpl = $pdf->importPage(1);
         $size = $pdf->getTemplateSize($tpl);
         
