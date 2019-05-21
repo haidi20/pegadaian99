@@ -53,7 +53,7 @@ class CetakController extends Controller
         $size = $pdf->getTemplateSize($tpl);
         
         //Use this page as template
-        return $pdf->useTemplate($tpl, null, null, null, null, true);
+        $pdf->useTemplate($tpl, null, null, null, null, true);
         
         //Alamat cabang
         $pdf->SetX(105);
