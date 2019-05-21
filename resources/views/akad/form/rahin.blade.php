@@ -9,19 +9,20 @@
                             <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap" value="{{old('nama_lengkap')}}" required>
                         </div>
                     </div>
+                    <input type="hidden" name="key_nasabah" value="{{uniqid()}}">
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" >Jenis Kelamin</label>
                         <div class="col-sm-10">
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_kelamin" value="pria" {{checked('pria', 'jenis_kelamin', 'pria')}}>
+                                        <input type="radio" name="jenis_kelamin" value="Pria" {{checked('Pria', 'jenis_kelamin', 'Pria')}}>
                                         <i class="helper"></i>Pria
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_kelamin" value="wanita" {{checked('wanita', 'jenis_kelamin', 'pria')}}>
+                                        <input type="radio" name="jenis_kelamin" value="Wanita" {{checked('Wanita', 'jenis_kelamin', 'Pria')}}>
                                         <i class="helper"></i>Wanita
                                     </label>
                                 </div>
