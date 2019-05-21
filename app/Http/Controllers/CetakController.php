@@ -256,7 +256,14 @@ class CetakController extends Controller
         //Print centered cell with a text in it
         $pdf->Cell(0, 0, $data['nama_lengkap'], 0, 0, 'L');
         
-        $pdf->Output("Surat-Akad-".$data['nama_lengkap']."-".$data['key_nasabah'].".pdf", "I");
-        $pdf->Close();
+        // $coba = $pdf->Output("Surat-Akad-".$data['nama_lengkap']."-".$data['key_nasabah'].".pdf", "I");
+        
+        if($pdf){
+            return 'bisa output';
+        }else{
+            return 'tidak bisa output';
+        }
+
+        // $pdf->Close();
     }
 }
