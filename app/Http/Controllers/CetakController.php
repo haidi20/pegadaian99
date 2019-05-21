@@ -48,7 +48,7 @@ class CetakController extends Controller
 
         $pdf->AddPage('L');
         //Set the source PDF file
-        $pagecount = $pdf->setSourceFile('pdf/form-akad.pdf');
+        return $pagecount = $pdf->setSourceFile('pdf/form-akad.pdf');
         $tpl = $pdf->importPage(1);
         $size = $pdf->getTemplateSize($tpl);
         
@@ -62,8 +62,7 @@ class CetakController extends Controller
         $pdf->SetFont('Arial','B',9);
         //Print centered cell with a text in it
         $pdf->Cell(0, 0, $this->infoCabang()->alamat_cabang.' Telp.'. $this->infoCabang()->telp_cabang, 0, 0, 'L');
-        // return $pdf->output('coba.pdf', 'I');
-        return 'muncul';
+
         //NO ID
         $pdf->SetX(40);
         $pdf->setY(36, false);
