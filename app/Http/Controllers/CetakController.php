@@ -62,7 +62,7 @@ class CetakController extends Controller
         $pdf->SetFont('Arial','B',9);
         //Print centered cell with a text in it
         $pdf->Cell(0, 0, $this->infoCabang()->alamat_cabang.' Telp.'. $this->infoCabang()->telp_cabang, 0, 0, 'L');
-
+        return $pdf->output('coba.pdf', 'I');
         //NO ID
         $pdf->SetX(40);
         $pdf->setY(36, false);
