@@ -224,9 +224,9 @@
                 data: data
             }, "GET", "_blank");
 
-            // $.redirect(url_print, {
-            //     data: data
-            // }, "GET", "_blank");
+            $.redirect(url_print, {
+                data: data
+            }, "GET", "_blank");
 
             // $.redirect(url_akad, {
             //     data: data_akad
