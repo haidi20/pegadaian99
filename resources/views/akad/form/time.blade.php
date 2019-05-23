@@ -8,8 +8,8 @@
                         <div class="form-group row">
                             <div class="col-sm-10">
                                 {{-- FYI: c99-no_cabang-tanggal_bulan_tahun-data_ke --}}
-                                <input type="text" class="form-control" name="no_id" id="no_id" value="C99-01-030417-001" disabled>
-                                <input type="hidden" class="form-control" name="no_id" id="no_id" value="C99-01-030417-001">
+                                <input type="text" class="form-control" name="no_id" id="no_id" value="{{$noId}}" disabled>
+                                <input type="hidden" class="form-control" name="no_id" id="no_id" value="{{$noId}}">
                             </div>
                         </div>
                     </div>
