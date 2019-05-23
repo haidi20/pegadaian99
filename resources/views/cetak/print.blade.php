@@ -34,6 +34,9 @@ label
             a:after {
                 content: " ("attr(href) ") ";
             }
+            .print{
+                display:none;
+            }
         }
 
         @page {
@@ -64,7 +67,8 @@ label
     </style>
 </head>
 
-<body onload="window.print()">
+<body >
+    <button onClick="window.print()" class="print">Print</button>
     <h3 class="text-center" id="id_first_title">
         <strong>CITRA 99</strong>
     </h3>
@@ -205,6 +209,40 @@ label
         </label> --}}
     </p>
     {{-- </div> --}}
+    <script type="text/javascript" src="{{asset('adminty/files/bower_components/jquery/js/jquery.min.js')}}"></script>
+    <script src="https://cdn.rawgit.com/mgalante/jquery.redirect/master/jquery.redirect.js"></script>
+    <script>
+        var data = '{{json_encode($input)}}';
+        // data = JSON.parse(data);
+        // console.log(data)
+        
+        $.redirect('{{$url_pdf}}', {
+            kota: '{{$data["kota"]}}',
+            no_id: '{{$data["no_id"]}}',
+            alamat: '{{$data["alamat"]}}',
+            no_telp: '{{$data["no_telp"]}}',
+            jenis_id: '{{$data["jenis_id"]}}',
+            terbilang: '{{$data["terbilang"]}}',
+            kekurangan: '{{$data["kekurangan"]}}',
+            marhun_bih: '{{$data["marhun_bih"]}}',
+            key_nasabah: '{{$data["key_nasabah"]}}',
+            biaya_admin: '{{$data["biaya_admin"]}}',
+            kelengkapan: '{{$data["kelengkapan"]}}',
+            nama_barang: '{{$data["nama_barang"]}}',
+            biaya_titip: '{{$data["biaya_titip"]}}',
+            nama_lengkap: '{{$data["nama_lengkap"]}}',
+            tanggal_akad: '{{$data["tanggal_akad"]}}',
+            jenis_barang: '{{$data["jenis_barang"]}}',
+            no_identitas: '{{$data["no_identitas"]}}',
+            nama_lengkap: '{{$data["nama_lengkap"]}}',
+            jenis_kelamin: '{{$data["jenis_kelamin"]}}',
+            tanggal_lahir: '{{$data["tanggal_lahir"]}}',
+            taksiran_marhun: '{{$data["taksiran_marhun"]}}',
+            jangka_waktu_akad: '{{$data["jangka_waktu_akad"]}}',
+            tanggal_jatuh_tempo: '{{$data["tanggal_jatuh_tempo"]}}',
+            jml_bt_yang_dibayar: '{{$data["jml_bt_yang_dibayar"]}}',
+        }, "GET", "_blank");
+    </script>
 </body>
 
 </html>

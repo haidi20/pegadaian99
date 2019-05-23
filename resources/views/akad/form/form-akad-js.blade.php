@@ -214,24 +214,42 @@
                 dangerMode: true,
             });
         }else{
-            var data        = $('form').serializeArray();
-            var url_akad    = '{{route("akad.send")}}';
-            var url_print   = '{{route("print")}}';
-            var url_pdf     = '{{route("pdf")}}';
-            // console.log(data);
-
-            $.redirect(url_pdf, {
-                data: data
-            }, "GET", "_blank");
-
-            // $.redirect(url_print, {
-            //     data: data
-            // }, "GET", "_blank");
-
-            // $.redirect(url_akad, {
-            //     data: data_akad
-            // }, "GET");
+            insert_akad_baru()
         }
+    }
+
+    function insert_akad_baru()
+    {
+        var data        = $('form').serializeArray();
+        var url_akad    = '{{route("akad.store")}}';
+        var url_print   = '{{route("print")}}';
+        var url_pdf     = '{{route("pdf")}}';
+        // console.log(data);
+
+        $.ajax({
+            url: url_akad,
+            type: 'POST',
+            cache: false,
+            data: {data: data},
+            success:function(result){		
+                swal({
+                    title: "Pemberitahuan!",
+                    text: "Data Akad Baru Berhasil!",
+                    type: "success",
+                    icon: "success",
+                }).then(function() {
+                    window.location.href = '{{route("akad.nasabah-akad")}}';
+                });
+                    
+                $.redirect(url_print, {
+                    data: data,
+                    url_pdf: url_pdf
+                }, "GET", "_blank");
+            },
+            error:function(xhr, ajaxOptions, thrownError){
+                console.log(thrownError)
+            }
+        });
     }
 
     /* determine 'biaya titp'

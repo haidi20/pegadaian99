@@ -355,7 +355,7 @@ class AkadController extends Controller
         ));
     }
 
-    public function send()
+    public function store()
     {
     	return $this->save();
     }
@@ -376,47 +376,62 @@ class AkadController extends Controller
             $data[$item['name']] = $item['value'];
         }
 
-        return $data;
+        $nasabah = $this->insert_nasabah($data);
 
-    	// $nasabah 				= $this->nasabah;
-    	// $nasabah->key_nasabah 	= uniqid();
-    	// $nasabah->nama_lengkap	= request('nama_lengkap');
-    	// $nasabah->jenis_kelamin	= request('jenis_kelamin');
-    	// $nasabah->kota			= request('kota');
-    	// $nasabah->no_telp		= request('no_telp');
-    	// $nasabah->jenis_id		= request('jenis_id');
-    	// $nasabah->no_identitas	= request('no_identitas');
-    	// $nasabah->tanggal_lahir	= request('tanggal_lahir');
-    	// $nasabah->alamat		= request('alamat');
-    	// $nasabah->tanggal_daftar= Carbon::now()->format('Y-m-d');
-    	// $nasabah->save();
+    	$akad 						  = $this->akad;
+    	$akad->id_cabang 			  = $id_cabang;
+    	$akad->no_id 				  = $data['no_id'];
+    	$akad->key_nasabah 			  = $nasabah->key_nasabah;
+    	$akad->nama_barang			  = $data['nama_barang']; 
+    	$akad->jenis_barang			  = $data['jenis_barang']; 
+    	$akad->kelengkapan			  = $data['kelengkapan']; 
+        $akad->kelengkapan_barang_satu= $data['kelengkapan_barang_satu']; 
+        $akad->kelengkapan_barang_dua = $data['kelengkapan_barang_dua']; 
+        $akad->kelengkapan_barang_tiga= $data['kelengkapan_barang_tiga']; 
+    	$akad->kekurangan			  = $data['kekurangan']; 
+    	$akad->jangka_waktu_akad	  = number_format($data['jangka_waktu_akad']); 
+    	$akad->tanggal_akad			  = Carbon::parse($data['tanggal_akad'])->format('Y-m-d'); 
+    	$akad->tanggal_jatuh_tempo	  = Carbon::parse($data['tanggal_jatuh_tempo'])->format('Y-m-d'); 
+    	$akad->nilai_tafsir			  = remove_dot($data['taksiran_marhun']); 
+    	$akad->nilai_pencairan		  = remove_dot($data['marhun_bih']); 
+    	$akad->bt_7_hari			  = remove_dot($data['biaya_titip']); 
+    	$akad->biaya_admin			  =  remove_dot($data['biaya_admin']); 
+    	$akad->terbilang			  = $data['terbilang']; 
+    	$akad->status				  = 'Belum Lunas';
+    	$akad->status_lokasi    	  = 'kantor';
+    	$akad->save(); 
 
-    	// $akad 						  = $this->akad;
-    	// $akad->id_cabang 			  = $id_cabang;
-    	// $akad->no_id 				  = request('no_id');
-    	// $akad->key_nasabah 			  = $nasabah->key_nasabah;
-    	// $akad->nama_barang			  = request('nama_barang'); 
-    	// $akad->jenis_barang			  = request('jenis_barang'); 
-    	// $akad->kelengkapan			  = request('kelengkapan'); 
-        // $akad->kelengkapan_barang_satu= request('kelengkapan_barang_satu'); 
-        // $akad->kelengkapan_barang_dua = request('kelengkapan_barang_dua'); 
-        // $akad->kelengkapan_barang_tiga= request('kelengkapan_barang_tiga'); 
-    	// $akad->kekurangan			  = request('kekurangan'); 
-    	// $akad->jangka_waktu_akad	  = number_format(request('jangka_waktu_akad')); 
-    	// $akad->tanggal_akad			  = request('tanggal_akad'); 
-    	// $akad->tanggal_jatuh_tempo	  = request('tanggal_jatuh_tempo'); 
-    	// $akad->nilai_tafsir			  = remove_dot(request('taksiran_marhun')); 
-    	// $akad->nilai_pencairan		  = remove_dot(request('marhun_bih')); 
-    	// $akad->bt_7_hari			  = remove_dot(request('biaya_titip')); 
-    	// $akad->biaya_admin			  = request('biaya_admin'); 
-    	// $akad->terbilang			  = request('terbilang'); 
-    	// $akad->status				  = 'Belum Lunas';
-    	// $akad->save(); 
+        if($akad){
+            return 'berhasil';
+        }else{
+            return 'tidak';
+        }
+    }
 
-        $message    = '<strong>Sukses!</strong> Data Akad Nasabah berhasil di tambahkan';
-        flash_message('message', $message);
+    public function insert_nasabah($data)
+    {
+        $findNasabah = $this->nasabah->where('nama_lengkap', $data['nama_lengkap'])->first();
 
-    	return redirect()->route('akad.index');
+        if(!$findNasabah){
+            $nasabah 				= $this->nasabah;
+            $nasabah->key_nasabah 	= uniqid();
+            $nasabah->nama_lengkap	= $data['nama_lengkap'];
+            $nasabah->jenis_kelamin	= $data['jenis_kelamin'];
+            $nasabah->kota			= $data['kota'];
+            $nasabah->no_telp		= $data['no_telp'];
+            $nasabah->jenis_id		= $data['jenis_id'];
+            $nasabah->no_identitas	= $data['no_identitas'];
+            $nasabah->tanggal_lahir	= $data['tanggal_lahir'];
+            $nasabah->alamat		= $data['alamat'];
+            $nasabah->tanggal_daftar= Carbon::now()->format('Y-m-d');
+            $nasabah->save();
+
+            $key_nasabah = $nasabah->key_nasabah;
+        }else{
+            $key_nasabah = $findNasabah->key_nasabah;
+        }
+
+        return (object) compact('key_nasabah');
     }
 
     public function destroy($id)
