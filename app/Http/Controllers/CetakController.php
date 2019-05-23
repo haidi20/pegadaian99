@@ -22,26 +22,19 @@ class CetakController extends Controller
     {
         $data       = [];
         $input 		= $this->request->except('_token');
-        $input      = $input['data'];
+        $url_pdf    = $input['url_pdf'];
+        $input      = $input['data'];        
         
         foreach ($input as $index => $item) {
             $data[$item['name']] = $item['value'];
         }
 
-        return view('cetak.print', compact('data'));
+        return view('cetak.print', compact('data', 'url_pdf', 'input'));
     }
 
     public function pdf()
     {
-        $data       = [];
-        $input 		= $this->request->except('_token');
-        $input      = $input['data'];
-        
-        foreach ($input as $index => $item) {
-            $data[$item['name']] = $item['value'];
-        }
-
-        // return $data;
+        $data 		= $this->request->except('_token');
 
         $pdf = $this->pdf;
         $pdf->setAutoPageBreak(false);
@@ -206,7 +199,7 @@ class CetakController extends Controller
         $pdf->SetX(41);
         $pdf->setY(180, false);
         //Print centered cell with a text in it
-        // $pdf->Cell(0, 0, nominal($data['nilai_tafsir']), 0, 0, 'L');
+        $pdf->Cell(0, 0, $data['taksiran_marhun'], 0, 0, 'L');
 
         //biaya titip
         $pdf->SetX(125);
@@ -258,6 +251,6 @@ class CetakController extends Controller
         
         $pdf->Output("Surat-Akad-".$data['nama_lengkap']."-".$data['key_nasabah'].".pdf", "I");
 
-        // $pdf->Close();
+        $pdf->Close();
     }
 }
