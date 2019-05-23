@@ -8,8 +8,8 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 use App\Models\Cabang;
-use App\Models\Saldo_cabang;
 use App\Models\User_cabang;
+use App\Models\Saldo_cabang;
 
 use Auth;
 

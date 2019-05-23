@@ -97,7 +97,7 @@ class Akad extends Model
     }
 
     // for can fetch data nasabah use left join
-    public function scopeNasabah($query)
+    public function scopeJoinNasabah($query)
     {
         return $query->leftJoin('nasabah', 'akad.key_nasabah', '=', 'nasabah.key_nasabah');
     }
@@ -119,13 +119,6 @@ class Akad extends Model
     public function scopeSorted($query, $by = 'akad.id_akad', $sort = 'asc')
     {
         return $query->orderBy($by, $sort);
-    }
-
-    public function getNamaNasabahAttribute()
-    {
-    	if($this->nasabah){
-    		return $this->nasabah->nama_lengkap;
-    	}
     }
 
     public function getNominalNilaiTafsirAttribute()
