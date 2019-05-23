@@ -378,39 +378,39 @@ class AkadController extends Controller
             $data[$item['name']] = $item['value'];
         }
 
-        // $nasabah = $this->insert_nasabah($data);
+        $nasabah = $this->insert_nasabah($data);
 
-    	// $akad 						  = $this->akad;
-    	// $akad->id_cabang 			  = $id_cabang;
-    	// $akad->no_id 				  = $data['no_id'];
-    	// $akad->key_nasabah 			  = $nasabah->key_nasabah;
-    	// $akad->nama_barang			  = $data['nama_barang']; 
-    	// $akad->jenis_barang			  = $data['jenis_barang']; 
-    	// $akad->kelengkapan			  = $data['kelengkapan']; 
-        // $akad->kelengkapan_barang_satu= $data['kelengkapan_barang_satu']; 
-        // $akad->kelengkapan_barang_dua = $data['kelengkapan_barang_dua']; 
-        // $akad->kelengkapan_barang_tiga= $data['kelengkapan_barang_tiga']; 
-    	// $akad->kekurangan			  = $data['kekurangan']; 
-    	// $akad->jangka_waktu_akad	  = number_format($data['jangka_waktu_akad']); 
-    	// $akad->tanggal_akad			  = Carbon::parse($data['tanggal_akad'])->format('Y-m-d'); 
-    	// $akad->tanggal_jatuh_tempo	  = Carbon::parse($data['tanggal_jatuh_tempo'])->format('Y-m-d'); 
-    	// $akad->nilai_tafsir			  = remove_dot($data['taksiran_marhun']); 
-    	// $akad->nilai_pencairan		  = remove_dot($data['marhun_bih']); 
-    	// $akad->bt_7_hari			  = remove_dot($data['biaya_titip']); 
-    	// $akad->biaya_admin			  =  remove_dot($data['biaya_admin']); 
-    	// $akad->terbilang			  = $data['terbilang']; 
-    	// $akad->status				  = 'Belum Lunas';
-    	// $akad->status_lokasi    	  = 'kantor';
-        // $akad->save(); 
+    	$akad 						  = $this->akad;
+    	$akad->id_cabang 			  = $id_cabang;
+    	$akad->no_id 				  = $data['no_id'];
+    	$akad->key_nasabah 			  = $nasabah->key_nasabah;
+    	$akad->nama_barang			  = $data['nama_barang']; 
+    	$akad->jenis_barang			  = $data['jenis_barang']; 
+    	$akad->kelengkapan			  = $data['kelengkapan']; 
+        $akad->kelengkapan_barang_satu= $data['kelengkapan_barang_satu']; 
+        $akad->kelengkapan_barang_dua = $data['kelengkapan_barang_dua']; 
+        $akad->kelengkapan_barang_tiga= $data['kelengkapan_barang_tiga']; 
+    	$akad->kekurangan			  = $data['kekurangan']; 
+    	$akad->jangka_waktu_akad	  = number_format($data['jangka_waktu_akad']); 
+    	$akad->tanggal_akad			  = Carbon::parse($data['tanggal_akad'])->format('Y-m-d'); 
+    	$akad->tanggal_jatuh_tempo	  = Carbon::parse($data['tanggal_jatuh_tempo'])->format('Y-m-d'); 
+    	$akad->nilai_tafsir			  = remove_dot($data['taksiran_marhun']); 
+    	$akad->nilai_pencairan		  = remove_dot($data['marhun_bih']); 
+    	$akad->bt_7_hari			  = remove_dot($data['biaya_titip']); 
+    	$akad->biaya_admin			  =  remove_dot($data['biaya_admin']); 
+    	$akad->terbilang			  = $data['terbilang']; 
+    	$akad->status				  = 'Belum Lunas';
+    	$akad->status_lokasi    	  = 'kantor';
+        $akad->save(); 
         
         //session for 'NO. ID'
         $this->sessionNoId('tambah');
 
-        // if($akad){
-        //     return 'berhasil';
-        // }else{
-        //     return 'tidak';
-        // }
+        if($akad){
+            return 'berhasil';
+        }else{
+            return 'tidak';
+        }
     }
 
     public function sessionNoId($condition = null)
