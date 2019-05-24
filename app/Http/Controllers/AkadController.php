@@ -189,7 +189,7 @@ class AkadController extends Controller
 
     public function maintenance()
     {
-        // return Carbon::parse('2019-05-05')->addDay(15)->format('Y-m-d');
+        // return Carbon::parse('2019-05-09')->addDay(15)->format('Y-m-d');
 
         // list name tables on TAB 'pelunasan dan lelang' example list 'nasabah lunas, lelang, dan refund'.
         $nameTables = config('library.name_tables.lokasi_distribusi');
@@ -199,7 +199,7 @@ class AkadController extends Controller
         $maintenance    = $maintenance->sorted();
 
         // if(request('jenis_m')){
-            // $maintenance= $maintenance->maintenance();
+            $maintenance= $maintenance->maintenance();
         // }
 
         // if get data from input keyword 
@@ -409,7 +409,7 @@ class AkadController extends Controller
             $data[$item['name']] = $item['value'];
         }
 
-        $nasabah = $this->insert_nasabah($data)->nasabah;
+        $nasabah = $this->insert_nasabah($data)->data;
 
     	$akad 						  = $this->akad;
     	$akad->id_cabang 			  = $id_cabang;
@@ -461,12 +461,12 @@ class AkadController extends Controller
             $nasabah->tanggal_daftar= Carbon::now()->format('Y-m-d');
             $nasabah->save();
 
-            $nasabah = $nasabah;
+            $data = $nasabah;
         }else{
-            $nasabah = $findNasabah;
+            $data = $findNasabah;
         }
 
-        return (object) compact('nasabah');
+        return (object) compact('data');
     }
 
     public function insert_kas_cabang($data)

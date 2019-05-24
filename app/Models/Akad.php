@@ -42,7 +42,7 @@ class Akad extends Model
     // variable interval for condition total day before 'tanggal jatuh tempo'
     public function scopeAddDay($query, $day, $interval)
     {
-        $end    = Carbon::now()->addDay($interval)->format('Y-m-d');
+        $end    = Carbon::now()->addDays($interval)->format('Y-m-d');
         $start  = Carbon::now()->format('Y-m-d');
 
         return $query->where('jangka_waktu_akad', $day)
@@ -104,10 +104,11 @@ class Akad extends Model
 
     public function scopeMaintenance($query)
     {
-        $end    = Carbon::parse($this->tanggal_akad)->addDay(30)->format('Y-m-d');
-        $start  = Carbon::parse($this->tanggal_akad)->addDay(15)->format('Y-m-d');
+        $end    = Carbon::now()->addDays(15)->format('Y-m-d');
+        $start  = Carbon::now()->subDays(15)->format('Y-m-d');
 
         return $query->whereBetween('tanggal_akad', [$start, $end]);
+        // return $query->where('tanggal_akad', $end);
     }
 
     // search data by keyword form input
