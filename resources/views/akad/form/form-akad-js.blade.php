@@ -202,7 +202,7 @@
 
     function process()
     {
-        var saldo       = '{{$infoCabang->total_kas_rumus}}';
+        var saldo       = {{$infoCabang->total_kas_rumus}};
         var marhun_bih  = $('#marhun_bih').val().replace(".","").replace(".","").replace(".","");
 
         if(saldo <= marhun_bih){

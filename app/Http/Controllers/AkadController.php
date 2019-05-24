@@ -9,6 +9,7 @@ use App\Models\Nasabah;
 use App\Models\Setting;
 use App\Models\Kas_cabang;
 use App\Models\User_cabang;
+use App\Models\Saldo_cabang;
 
 use App\Models\Log\Log_akad;
 use App\Models\Log\Log_saldo_cabang;
@@ -26,6 +27,7 @@ class AkadController extends Controller
                                 Log_akad $log_akad,
                                 Kas_cabang $kas_cabang,
                                 User_cabang $user_cabang,
+                                Saldo_cabang $saldo_cabang,
                                 Log_saldo_cabang $log_saldo_cabang
                             )
     {
@@ -36,6 +38,7 @@ class AkadController extends Controller
         $this->log_akad         = $log_akad;
         $this->kas_cabang       = $kas_cabang;
         $this->user_cabang      = $user_cabang;
+        $this->saldo_cabang     = $saldo_cabang;
         $this->log_saldo_cabang = $log_saldo_cabang;
 
         view()->share([
@@ -413,10 +416,11 @@ class AkadController extends Controller
     	$akad->status_lokasi    	  = 'kantor';
         $akad->save();
 
-        // $kas_cabang                   = $this->insert_kas_cabang($akad);
+        $kas_cabang                   = $this->insert_kas_cabang($akad);
+        $saldo_cabang                 = $this->insert_saldo_cabang($akad);
 
-        return $log_akad                     = $this->insert_log_akad($akad);
-        // $log_saldo_cabang             = $this->insert_log_saldo_cabang($akad, $nasabah);
+        $log_akad                     = $this->insert_log_akad($akad);
+        $log_saldo_cabang             = $this->insert_log_saldo_cabang($akad, $nasabah);
 
         // if($log){
         //     return 'berhasil';
@@ -438,30 +442,6 @@ class AkadController extends Controller
 
         return (object) compact('value');
     }
-
-    // public function sessionNoId($condition = null)
-    // {
-    //     $nameSession    = 'C99-'.$this->infoCabang()->nomorCabang.'-'.Carbon::now()->format('dmY');
-    //     $getSession     = session()->get($nameSession);
-
-    //     if($condition == 'add'){
-    //         $getSession = $getSession ? $getSession + 1 : 2;
-
-    //         session()->put($nameSession, $getSession);
-    //     }
-
-    //     if($getSession){
-    //         $getSession = $getSession >= 10 ? '-0'.$getSession : '-00'.$getSession;
-    //         $value      = $nameSession . $getSession;
-    //     }else{
-    //         $value      = $nameSession . '-001';
-    //     }
-
-    //     //reset session
-    //     // session()->put($nameSession, '');
-
-    //     return (object) compact('value', 'getSession');
-    // }
 
     public function insert_nasabah($data)
     {
@@ -505,6 +485,17 @@ class AkadController extends Controller
             $kasCabang->total_kas  = $data->biaya_admin;
             $kasCabang->save();
         }   
+    }
+
+    public function insert_saldo_cabang($data)
+    {
+        $findSaldoCabang = $this->saldo_cabang->where('id_cabang', $data->id_cabang)->first();
+
+        // add up 'total saldo' with new income 'biaya admin' 
+        $marhunBih = $findSaldoCabang->total_saldo - $data->nilai_pencairan;
+
+        $kasCabang = $this->saldo_cabang->where('id_cabang', $data->id_cabang);
+        $kasCabang->update(['total_saldo' => $marhunBih]);
     }
 
     public function insert_log_saldo_cabang($akad, $nasabah)
