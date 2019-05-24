@@ -107,7 +107,9 @@ class Akad extends Model
         $end    = Carbon::now()->subDays(15)->format('Y-m-d');
         $start  = Carbon::now()->subDays(30)->format('Y-m-d');
 
-        return $query->whereBetween('tanggal_akad', [$start, $end]);
+        return $query->whereBetween('tanggal_akad', [$start, $end])
+               ->where('jangka_waktu_akad', '!=', '7')
+               ->where('jangka_waktu_akad', '!=', '1');
         // return $query->where('tanggal_akad', $end);
     }
 
