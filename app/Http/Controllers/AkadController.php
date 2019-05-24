@@ -7,7 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\Akad;
 use App\Models\Nasabah;
 use App\Models\Setting;
+use App\Models\Kas_cabang;
 use App\Models\User_cabang;
+use App\Models\Saldo_cabang;
+
+use App\Models\Log\Log_akad;
+use App\Models\Log\Log_kas_cabang;
+use App\Models\Log\Log_saldo_cabang;
 
 use Carbon\Carbon;
 use Auth;
@@ -19,14 +25,24 @@ class AkadController extends Controller
     							Nasabah $nasabah,
                                 Setting $setting,
     							Request $request,
-                                User_cabang $user_cabang
+                                Log_akad $log_akad,
+                                Kas_cabang $kas_cabang,
+                                User_cabang $user_cabang,
+                                Log_kas_cabang $log_kas_cabang,
+                                Saldo_cabang $saldo_cabang,
+                                Log_saldo_cabang $log_saldo_cabang
                             )
     {
-    	$this->akad 		= $akad;
-    	$this->nasabah 		= $nasabah;
-        $this->setting      = $setting;
-    	$this->request  	= $request;
-        $this->user_cabang  = $user_cabang;
+    	$this->akad 		    = $akad;
+    	$this->nasabah 		    = $nasabah;
+        $this->setting          = $setting;
+    	$this->request  	    = $request;
+        $this->log_akad         = $log_akad;
+        $this->kas_cabang       = $kas_cabang;
+        $this->user_cabang      = $user_cabang;
+        $this->saldo_cabang     = $saldo_cabang;
+        $this->log_kas_cabang   = $log_kas_cabang;
+        $this->log_saldo_cabang = $log_saldo_cabang;
 
         view()->share([
             'menu'          => 'database',
@@ -52,7 +68,7 @@ class AkadController extends Controller
         // name field 'tanggal jatuh tempo' for sorted
         $nameFieldSorted= 'akad.tanggal_jatuh_tempo';
         
-        $nasabahAkad    = $this->akad->nasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
+        $nasabahAkad    = $this->akad->joinNasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
 
         if(request('perpage_na')){
             // if get data from range date
@@ -98,7 +114,7 @@ class AkadController extends Controller
         // name field 'tanggal jatuh tempo' for sorted
         $nameFieldSorted= 'akad.tanggal_jatuh_tempo';
 
-        $akadJatuhTempo = $this->akad->nasabah();
+        $akadJatuhTempo = $this->akad->joinNasabah();
         $akadJatuhTempo = $akadJatuhTempo->baseBranch();
         $akadJatuhTempo = $akadJatuhTempo->belumLunas();
         $akadJatuhTempo = $akadJatuhTempo->sorted($nameFieldSorted, 'desc');
@@ -126,7 +142,7 @@ class AkadController extends Controller
         // list name tables on TAB 'pelunasan dan lelang' example list 'nasabah lunas, lelang, dan refund'.
         $nameTables = config('library.name_tables.akad_nasabah.pelunasan_dan_lelang');
 
-        $pelunasanLelang    = $this->akad->nasabah();
+        $pelunasanLelang    = $this->akad->joinNasabah();
         $pelunasanLelang    = $pelunasanLelang->baseBranch();
         $pelunasanLelang    = $pelunasanLelang->sorted('akad.tanggal_jatuh_tempo', 'desc');
 
@@ -151,7 +167,7 @@ class AkadController extends Controller
         // list name tables on TAB 'pelunasan dan lelang' example list 'nasabah lunas, lelang, dan refund'.
         $nameTables = config('library.name_tables.lokasi_distribusi');
 
-        $lokasiDistribusi    = $this->akad->nasabah();
+        $lokasiDistribusi    = $this->akad->joinNasabah();
         // $lokasiDistribusi    = $lokasiDistribusi->baseBranch();
         $lokasiDistribusi    = $lokasiDistribusi->sorted();
 
@@ -173,17 +189,17 @@ class AkadController extends Controller
 
     public function maintenance()
     {
-        // return Carbon::parse('2019-05-05')->addDay(15)->format('Y-m-d');
+        // return Carbon::parse('2019-05-09')->addDay(15)->format('Y-m-d');
 
         // list name tables on TAB 'pelunasan dan lelang' example list 'nasabah lunas, lelang, dan refund'.
         $nameTables = config('library.name_tables.lokasi_distribusi');
 
-        $maintenance    = $this->akad->nasabah();
+        $maintenance    = $this->akad->joinNasabah();
         // $maintenance    = $maintenance->baseBranch();
-        $maintenance    = $maintenance->sorted();
+        $maintenance    = $maintenance->sorted('tanggal_akad', 'desc');
 
         // if(request('jenis_m')){
-            // $maintenance= $maintenance->maintenance();
+            $maintenance= $maintenance->maintenance();
         // }
 
         // if get data from input keyword 
@@ -231,7 +247,7 @@ class AkadController extends Controller
         // name field 'tanggal jatuh tempo' for sorted
         $nameFieldSorted= 'akad.tanggal_jatuh_tempo';
 
-        $nasabahAkad    = $this->akad->nasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
+        $nasabahAkad    = $this->akad->joinNasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
 
         if(request('perpage_na')){
             // if get data from range date
@@ -267,10 +283,10 @@ class AkadController extends Controller
         // name field 'tanggal jatuh tempo' for sorted
         $nameFieldSorted= 'akad.tanggal_jatuh_tempo';
         // 7,15,30,60 days of data
-        $sixty          = $this->akad->nasabah()->belumLunas()->sorted($nameFieldSorted, 'desc');
-        $thirty         = $this->akad->nasabah()->belumLunas()->sorted($nameFieldSorted, 'desc');
-        $sevenDays      = $this->akad->nasabah()->belumLunas()->sorted($nameFieldSorted, 'desc');
-        $fifteenDays    = $this->akad->nasabah()->belumLunas()->sorted($nameFieldSorted, 'desc');
+        $sixty          = $this->akad->joinNasabah()->belumLunas()->sorted($nameFieldSorted, 'desc');
+        $thirty         = $this->akad->joinNasabah()->belumLunas()->sorted($nameFieldSorted, 'desc');
+        $sevenDays      = $this->akad->joinNasabah()->belumLunas()->sorted($nameFieldSorted, 'desc');
+        $fifteenDays    = $this->akad->joinNasabah()->belumLunas()->sorted($nameFieldSorted, 'desc');
 
         // addDay is scope function
         $nameTables[0]['data']  = $this->filter($sevenDays, 'ajt_7')->akad->addDay('7', 1)->paginate(request('perpage_ajt_7', 10));
@@ -296,9 +312,9 @@ class AkadController extends Controller
         $nameTables     = config('library.name_tables.akad_nasabah.pelunasan_dan_lelang');
 
         // data of list nasabah lunas, lelang, refund
-        $lunas          = $this->akad->nasabah()->lunas()->sorted('akad.tanggal_jatuh_tempo', 'desc');
-        $refund         = $this->akad->nasabah()->refund()->sorted('akad.tanggal_jatuh_tempo', 'desc');
-        $lelang         = $this->akad->nasabah()->lelang()->sorted('akad.tanggal_jatuh_tempo', 'desc');
+        $lunas          = $this->akad->joinNasabah()->lunas()->sorted('akad.tanggal_jatuh_tempo', 'desc');
+        $refund         = $this->akad->joinNasabah()->refund()->sorted('akad.tanggal_jatuh_tempo', 'desc');
+        $lelang         = $this->akad->joinNasabah()->lelang()->sorted('akad.tanggal_jatuh_tempo', 'desc');
 
         //proccess insert data array into variable nameTables
         $nameTables[0]['data'] = $this->filter($lunas, $code.'lunas')->akad->paginate(request($perpage.$code.'lunas', 10));
@@ -334,6 +350,7 @@ class AkadController extends Controller
         $menu = 'akad';
         $subMenu = '';
 
+        // value default 'tanggal akad' and 'tanggal jatuh tempo'
     	$tanggal_akad	     = Carbon::now()->format('d-m-Y');
     	$tanggal_jatuh_tempo = Carbon::now()->addDay('7')->format('d-m-Y');
 
@@ -349,12 +366,26 @@ class AkadController extends Controller
         $margin_kendaraan       = $this->setting->baseBranch()->jenisBarang('kendaraan')->value('margin');
         $potongan_kendaraan     = $this->setting->baseBranch()->jenisBarang('kendaraan')->value('potongan');
 
-        $noId = $this->sessionNoId()->value;
+        $noId = $this->codeNoId()->value;
 
     	return $this->template('akad._form', compact(
              'tanggal_akad', 'tanggal_jatuh_tempo', 'menu', 'subMenu', 'noId',
             'listTime', 'paymentOption', 'potongan_kendaraan', 'potongan_elektronik', 'margin_kendaraan', 'margin_elektronik'
         ));
+    }
+
+    public function codeNoId()
+    {
+        $codeNoId       = 'C99-'.$this->infoCabang()->nomorCabang.'-'.Carbon::now()->format('dmy');
+
+        // 'mendapatkan jumlah akad ke-berapa pada hari ini'
+        $contractToday  = $this->log_akad->where('no_id', 'LIKE', '%'.$codeNoId.'%')->count();
+        $contractToday  = $contractToday + 1;
+        $contractToday  = $contractToday >= 10 ? '-0'.$contractToday : '-00'.$contractToday;
+        
+        $value          = $codeNoId . $contractToday;
+
+        return (object) compact('value');
     }
 
     public function store()
@@ -378,7 +409,7 @@ class AkadController extends Controller
             $data[$item['name']] = $item['value'];
         }
 
-        $nasabah = $this->insert_nasabah($data);
+        $nasabah = $this->insert_nasabah($data)->data;
 
     	$akad 						  = $this->akad;
     	$akad->id_cabang 			  = $id_cabang;
@@ -401,40 +432,15 @@ class AkadController extends Controller
     	$akad->terbilang			  = $data['terbilang']; 
     	$akad->status				  = 'Belum Lunas';
     	$akad->status_lokasi    	  = 'kantor';
-        $akad->save(); 
-        
-        //session for 'NO. ID'
-        $this->sessionNoId('tambah');
+        $akad->save();
 
-        if($akad){
-            return 'berhasil';
-        }else{
-            return 'tidak';
-        }
-    }
+        // insert data to other table
+        $kas_cabang                   = $this->insert_kas_cabang($akad);
+        $saldo_cabang                 = $this->insert_saldo_cabang($akad);
 
-    public function sessionNoId($condition = null)
-    {
-        $nameSession    = 'C99-'.$this->infoCabang()->nomorCabang.'-'.Carbon::now()->format('dmY');
-        $getSession     = session()->get($nameSession);
-
-        if($condition == 'tambah'){
-            $getSession = $getSession ? $getSession + 1 : 2;
-
-            session()->put($nameSession, $getSession);
-        }
-
-        if($getSession){
-            $getSession = $getSession >= 10 ? '-0'.$getSession : '-00'.$getSession;
-            $value      = $nameSession . $getSession;
-        }else{
-            $value      = $nameSession . '-001';
-        }
-
-        //reset session
-        // session()->put($nameSession, '');
-
-        return (object) compact('value', 'getSession');
+        $log_akad                     = $this->insert_log_akad($akad);
+        $log_kas_cabang               = $this->insert_log_kas_cabang($akad, $nasabah);
+        $log_saldo_cabang             = $this->insert_log_saldo_cabang($akad, $nasabah);
     }
 
     public function insert_nasabah($data)
@@ -455,17 +461,94 @@ class AkadController extends Controller
             $nasabah->tanggal_daftar= Carbon::now()->format('Y-m-d');
             $nasabah->save();
 
-            $key_nasabah = $nasabah->key_nasabah;
+            $data = $nasabah;
         }else{
-            $key_nasabah = $findNasabah->key_nasabah;
+            $data = $findNasabah;
         }
 
-        return (object) compact('key_nasabah');
+        return (object) compact('data');
     }
 
-    public function destroy($id)
+    public function insert_kas_cabang($data)
     {
+        $findKasCabang = $this->kas_cabang->where('id_cabang', $data->id_cabang)->first();
 
+        if($findKasCabang){
+            // add up 'total kas' with new income 'biaya admin' 
+            $biayaAdmin = $findKasCabang->total_kas + $data->biaya_admin;
+
+            $kasCabang = $this->kas_cabang->where('id_cabang', $data->id_cabang);
+            $kasCabang->update(['total_kas' => $biayaAdmin]);
+        }else{
+            $kasCabang = $this->kas_cabang;
+            $kasCabang->id_cabang  = $data->id_cabang;
+            $kasCabang->total_kas  = $data->biaya_admin;
+            $kasCabang->save();
+        }   
+    }
+
+    public function insert_saldo_cabang($data)
+    {
+        $findSaldoCabang = $this->saldo_cabang->where('id_cabang', $data->id_cabang)->first();
+
+        // add up 'total saldo' with new income 'biaya admin' 
+        $marhunBih = $findSaldoCabang->total_saldo - $data->nilai_pencairan;
+
+        $kasCabang = $this->saldo_cabang->where('id_cabang', $data->id_cabang);
+        $kasCabang->update(['total_saldo' => $marhunBih]);
+    }
+
+    public function insert_log_akad($akad)
+    {
+        $logAkad = $this->log_akad;
+        $logAkad->no_id         = $akad->no_id;
+        $logAkad->status        = 'Belum Lunas';
+        $logAkad->tanggal_log   = $akad->tanggal_akad;
+        $logAkad->save();
+
+        return $logAkad;
+    }
+
+    public function insert_log_saldo_cabang($akad, $nasabah)
+    {
+        //'marhun bih'
+        $marhunBih = new Log_saldo_cabang;
+        $marhunBih->jenis               = 'kredit';
+        $marhunBih->jumlah              = $akad->nilai_pencairan;
+        $marhunBih->id_cabang           = $akad->id_cabang;
+        $marhunBih->keterangan          = 'AKAD A/N '.$nasabah->nama_lengkap;
+        $marhunBih->tanggal_log_saldo   = $akad->tanggal_akad;
+        $marhunBih->save();
+
+        //'biaya admin'
+        $biayaAdmin = new Log_saldo_cabang;
+        $biayaAdmin->jenis               = 'debit';
+        $biayaAdmin->jumlah              = $akad->biaya_admin;
+        $biayaAdmin->id_cabang           = $akad->id_cabang;
+        $biayaAdmin->keterangan          = 'B.ADM AKAD A/N '.$nasabah->nama_lengkap;
+        $biayaAdmin->tanggal_log_saldo   = $akad->tanggal_akad;
+        $biayaAdmin->save();
+    }
+
+    public function insert_log_kas_cabang($akad, $nasabah)
+    {
+        //'marhun bih'
+        $marhunBih = new Log_kas_cabang;
+        $marhunBih->jenis               = 'kredit';
+        $marhunBih->jumlah              = $akad->nilai_pencairan;
+        $marhunBih->id_cabang           = $akad->id_cabang;
+        $marhunBih->keterangan          = 'AKAD A/N '.$nasabah->nama_lengkap;
+        $marhunBih->tanggal_log_kas   = $akad->tanggal_akad;
+        $marhunBih->save();
+
+        //'biaya admin'
+        $biayaAdmin = new Log_kas_cabang;
+        $biayaAdmin->jenis               = 'debit';
+        $biayaAdmin->jumlah              = $akad->biaya_admin;
+        $biayaAdmin->id_cabang           = $akad->id_cabang;
+        $biayaAdmin->keterangan          = 'B.ADM AKAD A/N '.$nasabah->nama_lengkap;
+        $biayaAdmin->tanggal_log_kas   = $akad->tanggal_akad;
+        $biayaAdmin->save();
     }
 
 }

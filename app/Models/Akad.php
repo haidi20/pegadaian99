@@ -42,7 +42,7 @@ class Akad extends Model
     // variable interval for condition total day before 'tanggal jatuh tempo'
     public function scopeAddDay($query, $day, $interval)
     {
-        $end    = Carbon::now()->addDay($interval)->format('Y-m-d');
+        $end    = Carbon::now()->addDays($interval)->format('Y-m-d');
         $start  = Carbon::now()->format('Y-m-d');
 
         return $query->where('jangka_waktu_akad', $day)
@@ -97,17 +97,20 @@ class Akad extends Model
     }
 
     // for can fetch data nasabah use left join
-    public function scopeNasabah($query)
+    public function scopeJoinNasabah($query)
     {
         return $query->leftJoin('nasabah', 'akad.key_nasabah', '=', 'nasabah.key_nasabah');
     }
 
     public function scopeMaintenance($query)
     {
-        $end    = Carbon::parse($this->tanggal_akad)->addDay(30)->format('Y-m-d');
-        $start  = Carbon::parse($this->tanggal_akad)->addDay(15)->format('Y-m-d');
+        $end    = Carbon::now()->subDays(15)->format('Y-m-d');
+        $start  = Carbon::now()->subDays(30)->format('Y-m-d');
 
-        return $query->whereBetween('tanggal_akad', [$start, $end]);
+        return $query->whereBetween('tanggal_akad', [$start, $end])
+               ->where('jangka_waktu_akad', '!=', '7')
+               ->where('jangka_waktu_akad', '!=', '1');
+        // return $query->where('tanggal_akad', $end);
     }
 
     // search data by keyword form input
@@ -119,13 +122,6 @@ class Akad extends Model
     public function scopeSorted($query, $by = 'akad.id_akad', $sort = 'asc')
     {
         return $query->orderBy($by, $sort);
-    }
-
-    public function getNamaNasabahAttribute()
-    {
-    	if($this->nasabah){
-    		return $this->nasabah->nama_lengkap;
-    	}
     }
 
     public function getNominalNilaiTafsirAttribute()

@@ -30,7 +30,6 @@ Route::middleware('auth')->group(function () {
 
 		Route::post('/store', 'AkadController@store')->name('akad.store');
 		Route::post('/update/{id}', 'AkadController@update')->name('akad.update');
-		Route::post('/destroy/{id}', 'AkadController@destroy')->name('akad.destroy');
 	});
 	Route::group(['prefix' => 'cabang'], function () {
 		Route::get('/', 'CabangController@index')->name('cabang.index');

@@ -8,8 +8,9 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 use App\Models\Cabang;
-use App\Models\Saldo_cabang;
+use App\Models\Kas_cabang;
 use App\Models\User_cabang;
+use App\Models\Saldo_cabang;
 
 use Auth;
 
@@ -36,17 +37,21 @@ class Controller extends BaseController
             $nomorCabang    = $cabang ? $cabang->no_cabang : 0;
             // and then get total 'kas cabang' base on id_cabang
             $saldo_cabang   = Saldo_cabang::baseBranch()->first();
+            $kas_cabang     = Kas_cabang::baseBranch()->first();
             $total_kas      = $saldo_cabang ? $saldo_cabang->total_saldo : 0;
+            $total_kas_admin= $kas_cabang ? $kas_cabang->total_kas : 0;
             // for condition 'akad baru' if saldo not enough  
             $total_kas_rumus= $total_kas;
              
             // 'total kas' base on cabang
             $total_kas      = nominal($total_kas);
+            $total_kas_admin= nominal($total_kas_admin);
             $telp_cabang    = $cabang->telp_cabang;   
             $alamat_cabang  = $cabang->alamat_cabang;
             
         }else{
             $total_kas      = 'Tidak Ditemukan';
+            $total_kas_admin= 'Tidak Ditemukan';
             $nomorCabang    = 'Tidak Ditemukan';
             $telp_cabang    = '';
             $alamat_cabang  = '';
@@ -55,7 +60,7 @@ class Controller extends BaseController
         }
 
         return (object) compact(
-            'total_kas', 'nomorCabang', 'total_kas_rumus', 'alamat_cabang',
+            'total_kas', 'total_kas_admin', 'nomorCabang', 'total_kas_rumus', 'alamat_cabang',
             'telp_cabang'
         );
     }
