@@ -9,7 +9,9 @@ use App\Models\Nasabah;
 use App\Models\Setting;
 use App\Models\Kas_cabang;
 use App\Models\User_cabang;
-use App\Models\Log_saldo_cabang;
+
+use App\Models\Log\Log_akad;
+use App\Models\Log\Log_saldo_cabang;
 
 use Carbon\Carbon;
 use Auth;
@@ -21,6 +23,7 @@ class AkadController extends Controller
     							Nasabah $nasabah,
                                 Setting $setting,
     							Request $request,
+                                Log_akad $log_akad,
                                 Kas_cabang $kas_cabang,
                                 User_cabang $user_cabang,
                                 Log_saldo_cabang $log_saldo_cabang
@@ -30,6 +33,7 @@ class AkadController extends Controller
     	$this->nasabah 		    = $nasabah;
         $this->setting          = $setting;
     	$this->request  	    = $request;
+        $this->log_akad         = $log_akad;
         $this->kas_cabang       = $kas_cabang;
         $this->user_cabang      = $user_cabang;
         $this->log_saldo_cabang = $log_saldo_cabang;
@@ -355,7 +359,7 @@ class AkadController extends Controller
         $margin_kendaraan       = $this->setting->baseBranch()->jenisBarang('kendaraan')->value('margin');
         $potongan_kendaraan     = $this->setting->baseBranch()->jenisBarang('kendaraan')->value('potongan');
 
-        $noId = $this->sessionNoId()->value;
+        $noId = $this->codeNoId()->value;
 
     	return $this->template('akad._form', compact(
              'tanggal_akad', 'tanggal_jatuh_tempo', 'menu', 'subMenu', 'noId',
@@ -409,11 +413,10 @@ class AkadController extends Controller
     	$akad->status_lokasi    	  = 'kantor';
         $akad->save();
 
-        $log        = $this->insert_log_saldo_cabang($akad, $nasabah);
-        $kas_cabang = $this->insert_kas_cabang($akad);
-        
-        // add value of session 'NO. ID'
-        $this->sessionNoId('add');
+        // $kas_cabang                   = $this->insert_kas_cabang($akad);
+
+        return $log_akad                     = $this->insert_log_akad($akad);
+        // $log_saldo_cabang             = $this->insert_log_saldo_cabang($akad, $nasabah);
 
         // if($log){
         //     return 'berhasil';
@@ -422,29 +425,43 @@ class AkadController extends Controller
         // }
     }
 
-    public function sessionNoId($condition = null)
+    public function codeNoId()
     {
-        $nameSession    = 'C99-'.$this->infoCabang()->nomorCabang.'-'.Carbon::now()->format('dmY');
-        $getSession     = session()->get($nameSession);
+        $codeNoId       = 'C99-'.$this->infoCabang()->nomorCabang.'-'.Carbon::now()->format('dmy');
 
-        if($condition == 'add'){
-            $getSession = $getSession ? $getSession + 1 : 2;
+        // 'mendapatkan jumlah akad pada hari ini'
+        $contractToday  = $this->log_akad->where('no_id', 'LIKE', '%'.$codeNoId.'%')->count();
+        $contractToday  = $contractToday + 1;
+        $contractToday  = $contractToday >= 10 ? '-0'.$contractToday : '-00'.$contractToday;
+        
+        $value          = $codeNoId . $contractToday;
 
-            session()->put($nameSession, $getSession);
-        }
-
-        if($getSession){
-            $getSession = $getSession >= 10 ? '-0'.$getSession : '-00'.$getSession;
-            $value      = $nameSession . $getSession;
-        }else{
-            $value      = $nameSession . '-001';
-        }
-
-        //reset session
-        // session()->put($nameSession, '');
-
-        return (object) compact('value', 'getSession');
+        return (object) compact('value');
     }
+
+    // public function sessionNoId($condition = null)
+    // {
+    //     $nameSession    = 'C99-'.$this->infoCabang()->nomorCabang.'-'.Carbon::now()->format('dmY');
+    //     $getSession     = session()->get($nameSession);
+
+    //     if($condition == 'add'){
+    //         $getSession = $getSession ? $getSession + 1 : 2;
+
+    //         session()->put($nameSession, $getSession);
+    //     }
+
+    //     if($getSession){
+    //         $getSession = $getSession >= 10 ? '-0'.$getSession : '-00'.$getSession;
+    //         $value      = $nameSession . $getSession;
+    //     }else{
+    //         $value      = $nameSession . '-001';
+    //     }
+
+    //     //reset session
+    //     // session()->put($nameSession, '');
+
+    //     return (object) compact('value', 'getSession');
+    // }
 
     public function insert_nasabah($data)
     {
@@ -472,6 +489,24 @@ class AkadController extends Controller
         return (object) compact('nasabah');
     }
 
+    public function insert_kas_cabang($data)
+    {
+        $findKasCabang = $this->kas_cabang->where('id_cabang', $data->id_cabang)->first();
+
+        if($findKasCabang){
+            // add up 'total kas' with new income 'biaya admin' 
+            $biayaAdmin = $findKasCabang->total_kas + $data->biaya_admin;
+
+            $kasCabang = $this->kas_cabang->where('id_cabang', $data->id_cabang);
+            $kasCabang->update(['total_kas' => $biayaAdmin]);
+        }else{
+            $kasCabang = $this->kas_cabang;
+            $kasCabang->id_cabang  = $data->id_cabang;
+            $kasCabang->total_kas  = $data->biaya_admin;
+            $kasCabang->save();
+        }   
+    }
+
     public function insert_log_saldo_cabang($akad, $nasabah)
     {
         //'marhun bih'
@@ -493,26 +528,18 @@ class AkadController extends Controller
         $biayaAdmin->save();
     }
 
-    public function insert_kas_cabang($data)
+    public function insert_log_akad($akad)
     {
-        $findKasCabang = $this->kas_cabang->where('id_cabang', $data->id_cabang)->first();
+        $logAkad = $this->log_akad;
+        $logAkad->no_id         = $akad->no_id;
+        $logAkad->status        = 'Belum Lunas';
+        $logAkad->tanggal_log   = $akad->tanggal_akad;
+        $logAkad->save();
 
-        if($findKasCabang){
-            // add up 'total kas' with new income 'biaya admin' 
-            $biayaAdmin = $findKasCabang->total_kas + $data->biaya_admin;
-
-            $kasCabang = $this->kas_cabang->where('id_cabang', $data->id_cabang);
-            // $kasCabang->total_kas  = $biayaAdmin;
-            $kasCabang->update(['total_kas' => $biayaAdmin]);
-        }else{
-            $kasCabang = $this->kas_cabang;
-            $kasCabang->id_cabang  = $data->id_cabang;
-            $kasCabang->total_kas  = $data->biaya_admin;
-            $kasCabang->save();
-        }   
+        return $logAkad;
     }
 
-    public function destroy($id)
+    public function insert_log_kas_cabang()
     {
 
     }
