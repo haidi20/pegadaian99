@@ -104,8 +104,8 @@ class Akad extends Model
 
     public function scopeMaintenance($query)
     {
-        $end    = Carbon::now()->addDays(15)->format('Y-m-d');
-        $start  = Carbon::now()->subDays(15)->format('Y-m-d');
+        $end    = Carbon::now()->subDays(15)->format('Y-m-d');
+        $start  = Carbon::now()->subDays(30)->format('Y-m-d');
 
         return $query->whereBetween('tanggal_akad', [$start, $end]);
         // return $query->where('tanggal_akad', $end);
