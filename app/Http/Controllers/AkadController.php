@@ -12,6 +12,7 @@ use App\Models\User_cabang;
 use App\Models\Saldo_cabang;
 
 use App\Models\Log\Log_akad;
+use App\Models\Log\Log_kas_cabang;
 use App\Models\Log\Log_saldo_cabang;
 
 use Carbon\Carbon;
@@ -27,6 +28,7 @@ class AkadController extends Controller
                                 Log_akad $log_akad,
                                 Kas_cabang $kas_cabang,
                                 User_cabang $user_cabang,
+                                Log_kas_cabang $log_kas_cabang,
                                 Saldo_cabang $saldo_cabang,
                                 Log_saldo_cabang $log_saldo_cabang
                             )
@@ -39,6 +41,7 @@ class AkadController extends Controller
         $this->kas_cabang       = $kas_cabang;
         $this->user_cabang      = $user_cabang;
         $this->saldo_cabang     = $saldo_cabang;
+        $this->log_kas_cabang   = $log_kas_cabang;
         $this->log_saldo_cabang = $log_saldo_cabang;
 
         view()->share([
@@ -347,6 +350,7 @@ class AkadController extends Controller
         $menu = 'akad';
         $subMenu = '';
 
+        // value default 'tanggal akad' and 'tanggal jatuh tempo'
     	$tanggal_akad	     = Carbon::now()->format('d-m-Y');
     	$tanggal_jatuh_tempo = Carbon::now()->addDay('7')->format('d-m-Y');
 
@@ -368,6 +372,20 @@ class AkadController extends Controller
              'tanggal_akad', 'tanggal_jatuh_tempo', 'menu', 'subMenu', 'noId',
             'listTime', 'paymentOption', 'potongan_kendaraan', 'potongan_elektronik', 'margin_kendaraan', 'margin_elektronik'
         ));
+    }
+
+    public function codeNoId()
+    {
+        $codeNoId       = 'C99-'.$this->infoCabang()->nomorCabang.'-'.Carbon::now()->format('dmy');
+
+        // 'mendapatkan jumlah akad ke-berapa pada hari ini'
+        $contractToday  = $this->log_akad->where('no_id', 'LIKE', '%'.$codeNoId.'%')->count();
+        $contractToday  = $contractToday + 1;
+        $contractToday  = $contractToday >= 10 ? '-0'.$contractToday : '-00'.$contractToday;
+        
+        $value          = $codeNoId . $contractToday;
+
+        return (object) compact('value');
     }
 
     public function store()
@@ -416,31 +434,13 @@ class AkadController extends Controller
     	$akad->status_lokasi    	  = 'kantor';
         $akad->save();
 
+        // insert data to other table
         $kas_cabang                   = $this->insert_kas_cabang($akad);
         $saldo_cabang                 = $this->insert_saldo_cabang($akad);
 
         $log_akad                     = $this->insert_log_akad($akad);
+        $log_kas_cabang               = $this->insert_log_kas_cabang($akad, $nasabah);
         $log_saldo_cabang             = $this->insert_log_saldo_cabang($akad, $nasabah);
-
-        // if($log){
-        //     return 'berhasil';
-        // }else{
-        //     return 'tidak';
-        // }
-    }
-
-    public function codeNoId()
-    {
-        $codeNoId       = 'C99-'.$this->infoCabang()->nomorCabang.'-'.Carbon::now()->format('dmy');
-
-        // 'mendapatkan jumlah akad pada hari ini'
-        $contractToday  = $this->log_akad->where('no_id', 'LIKE', '%'.$codeNoId.'%')->count();
-        $contractToday  = $contractToday + 1;
-        $contractToday  = $contractToday >= 10 ? '-0'.$contractToday : '-00'.$contractToday;
-        
-        $value          = $codeNoId . $contractToday;
-
-        return (object) compact('value');
     }
 
     public function insert_nasabah($data)
@@ -498,6 +498,17 @@ class AkadController extends Controller
         $kasCabang->update(['total_saldo' => $marhunBih]);
     }
 
+    public function insert_log_akad($akad)
+    {
+        $logAkad = $this->log_akad;
+        $logAkad->no_id         = $akad->no_id;
+        $logAkad->status        = 'Belum Lunas';
+        $logAkad->tanggal_log   = $akad->tanggal_akad;
+        $logAkad->save();
+
+        return $logAkad;
+    }
+
     public function insert_log_saldo_cabang($akad, $nasabah)
     {
         //'marhun bih'
@@ -519,20 +530,25 @@ class AkadController extends Controller
         $biayaAdmin->save();
     }
 
-    public function insert_log_akad($akad)
+    public function insert_log_kas_cabang($akad, $nasabah)
     {
-        $logAkad = $this->log_akad;
-        $logAkad->no_id         = $akad->no_id;
-        $logAkad->status        = 'Belum Lunas';
-        $logAkad->tanggal_log   = $akad->tanggal_akad;
-        $logAkad->save();
+        //'marhun bih'
+        $marhunBih = new Log_kas_cabang;
+        $marhunBih->jenis               = 'kredit';
+        $marhunBih->jumlah              = $akad->nilai_pencairan;
+        $marhunBih->id_cabang           = $akad->id_cabang;
+        $marhunBih->keterangan          = 'AKAD A/N '.$nasabah->nama_lengkap;
+        $marhunBih->tanggal_log_kas   = $akad->tanggal_akad;
+        $marhunBih->save();
 
-        return $logAkad;
-    }
-
-    public function insert_log_kas_cabang()
-    {
-
+        //'biaya admin'
+        $biayaAdmin = new Log_kas_cabang;
+        $biayaAdmin->jenis               = 'debit';
+        $biayaAdmin->jumlah              = $akad->biaya_admin;
+        $biayaAdmin->id_cabang           = $akad->id_cabang;
+        $biayaAdmin->keterangan          = 'B.ADM AKAD A/N '.$nasabah->nama_lengkap;
+        $biayaAdmin->tanggal_log_kas   = $akad->tanggal_akad;
+        $biayaAdmin->save();
     }
 
 }

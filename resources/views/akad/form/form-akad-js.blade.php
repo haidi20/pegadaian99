@@ -238,15 +238,13 @@
                     type: "success",
                     icon: "success",
                 }).then(function() {
-                    // window.location.href = '{{route("akad.nasabah-akad")}}';
+                    window.location.href = '{{route("akad.nasabah-akad")}}';
                 });
-
-                console.log(result)
                     
-                // $.redirect(url_print, {
-                //     data: data,
-                //     url_pdf: url_pdf
-                // }, "GET", "_blank");
+                $.redirect(url_print, {
+                    data: data,
+                    url_pdf: url_pdf
+                }, "GET", "_blank");
             },
             error:function(xhr, ajaxOptions, thrownError){
                 console.log(thrownError)
