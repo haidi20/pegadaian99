@@ -168,16 +168,16 @@ class AkadController extends Controller
         $nameTables = config('library.name_tables.lokasi_distribusi');
 
         $lokasiDistribusi    = $this->akad->joinNasabah();
-        // $lokasiDistribusi    = $lokasiDistribusi->baseBranch();
+        $lokasiDistribusi    = $lokasiDistribusi->baseBranch();
         $lokasiDistribusi    = $lokasiDistribusi->sorted();
 
         // if(request('jenis_ld')){
-            $lokasiDistribusi= $lokasiDistribusi->kantor();
+            $lokasiDistribusi= $lokasiDistribusi->statusLokasi(request('jenis_ld', 'kantor'));
         // }
 
         // if get data from input keyword 
         if(request('q')){
-            $lokasiDistribusi   = $lokasiDistribusi->search(request('by'), request('q'));
+            $lokasiDistribusi   = $lokasiDistribusi->search('akad.nama_barang', request('q'));
         }
 
         $data = $lokasiDistribusi->paginate(request('perpage', 10));
@@ -189,13 +189,11 @@ class AkadController extends Controller
 
     public function maintenance()
     {
-        // return Carbon::parse('2019-05-09')->addDay(15)->format('Y-m-d');
-
         // list name tables on TAB 'pelunasan dan lelang' example list 'nasabah lunas, lelang, dan refund'.
         $nameTables = config('library.name_tables.lokasi_distribusi');
 
         $maintenance    = $this->akad->joinNasabah();
-        // $maintenance    = $maintenance->baseBranch();
+        $maintenance    = $maintenance->baseBranch();
         $maintenance    = $maintenance->sorted('tanggal_akad', 'desc');
 
         // if(request('jenis_m')){

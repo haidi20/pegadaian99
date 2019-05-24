@@ -72,19 +72,12 @@ class Akad extends Model
     //end query status 'lunas, belum lunas, lelang dan refund'
 
     //start query 'status lokasi kantor, proses, gudang'
-    public function scopeKantor($query)
+    public function scopeStatusLokasi($query, $location)
     {
-        return $query->whereStatus_lokasi('kantor');
-    }
-
-    public function scopeProses($query)
-    {
-        return $query->whereStatus_lokasi('proses');
-    }
-
-    public function scopeGudang($query)
-    {
-        return $query->whereStatus_lokasi('gudang');
+        if($location == 'kantor'){
+            $query->orWhere('status_lokasi', null);
+        }
+        return $query->where('status_lokasi', $location);
     }
     //end query 'status lokasi kantor, proses, gudang'
 
@@ -107,10 +100,12 @@ class Akad extends Model
         $end    = Carbon::now()->subDays(15)->format('Y-m-d');
         $start  = Carbon::now()->subDays(30)->format('Y-m-d');
 
-        return $query->whereBetween('tanggal_akad', [$start, $end])
-               ->where('jangka_waktu_akad', '!=', '7')
-               ->where('jangka_waktu_akad', '!=', '1');
-        // return $query->where('tanggal_akad', $end);
+        $query->whereBetween('tanggal_akad', [$start, $end])
+              ->where('jangka_waktu_akad', '!=', '7')
+              ->where('jangka_waktu_akad', '!=', '1')
+              ->where('maintenance', 0);
+
+        return $query;
     }
 
     // search data by keyword form input
