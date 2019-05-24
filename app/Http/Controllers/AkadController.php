@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Akad;
 use App\Models\Nasabah;
 use App\Models\Setting;
+use App\Models\Kas_cabang;
 use App\Models\User_cabang;
 use App\Models\Log_saldo_cabang;
 
@@ -20,6 +21,7 @@ class AkadController extends Controller
     							Nasabah $nasabah,
                                 Setting $setting,
     							Request $request,
+                                Kas_cabang $kas_cabang,
                                 User_cabang $user_cabang,
                                 Log_saldo_cabang $log_saldo_cabang
                             )
@@ -28,6 +30,7 @@ class AkadController extends Controller
     	$this->nasabah 		    = $nasabah;
         $this->setting          = $setting;
     	$this->request  	    = $request;
+        $this->kas_cabang       = $kas_cabang;
         $this->user_cabang      = $user_cabang;
         $this->log_saldo_cabang = $log_saldo_cabang;
 
@@ -406,16 +409,17 @@ class AkadController extends Controller
     	$akad->status_lokasi    	  = 'kantor';
         $akad->save();
 
-        $log = $this->insert_log_saldo_cabang($akad, $nasabah); 
+        $log        = $this->insert_log_saldo_cabang($akad, $nasabah);
+        $kas_cabang = $this->insert_kas_cabang($akad);
         
         // add value of session 'NO. ID'
         $this->sessionNoId('add');
 
-        if($log){
-            return 'berhasil';
-        }else{
-            return 'tidak';
-        }
+        // if($log){
+        //     return 'berhasil';
+        // }else{
+        //     return 'tidak';
+        // }
     }
 
     public function sessionNoId($condition = null)
@@ -487,6 +491,25 @@ class AkadController extends Controller
         $biayaAdmin->keterangan          = 'B.ADM AKAD A/N '.$nasabah->nama_lengkap;
         $biayaAdmin->tanggal_log_saldo   = $akad->tanggal_akad;
         $biayaAdmin->save();
+    }
+
+    public function insert_kas_cabang($data)
+    {
+        $findKasCabang = $this->kas_cabang->where('id_cabang', $data->id_cabang)->first();
+
+        if($findKasCabang){
+            // add up 'total kas' with new income 'biaya admin' 
+            $biayaAdmin = $findKasCabang->total_kas + $data->biaya_admin;
+
+            $kasCabang = $this->kas_cabang->where('id_cabang', $data->id_cabang);
+            // $kasCabang->total_kas  = $biayaAdmin;
+            $kasCabang->update(['total_kas' => $biayaAdmin]);
+        }else{
+            $kasCabang = $this->kas_cabang;
+            $kasCabang->id_cabang  = $data->id_cabang;
+            $kasCabang->total_kas  = $data->biaya_admin;
+            $kasCabang->save();
+        }   
     }
 
     public function destroy($id)
