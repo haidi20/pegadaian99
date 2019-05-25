@@ -4,13 +4,6 @@
 <script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/swithces.js')}}"></script>
 
 <script>
-    /*
-    * FYI :
-    * na    = 'nasabah akad'
-    * ajt   = 'akad jatuh tempo'
-    * pl    = 'Pelunasan dan Lelang'
-    */
-
     $(document).ready(function() {
         $('[data-toggle="tooltip"]').tooltip();
     });
@@ -141,8 +134,13 @@
                         </div>
                         <div class="col-sm-12 col-md-6 offset-md-4">
                             <div class="row">
-                                <div class="col-sm-12 col-md-3 offset-md-1">
-                                    
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <select name="by" id="by" class="form-control">
+                                            <option value="nama_barang" {{selected('nama_barang', 'by', 'request')}}>Nama Barang</option>
+                                            <option value="tanggal_akad" {{selected('tanggal_akad', 'by', 'request')}}>Tanggal Akad</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="col-sm-12 col-md-5">
                                     <div class="input-group input-group-success">

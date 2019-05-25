@@ -447,4 +447,21 @@ return [
 			],
 		],
 	],
+	'special' => [
+		'cabang' => [
+			0 	=> 'Modal Cabang',
+			1 	=> 'Pinjaman Nasabah',
+			2 	=> 'Hutang',
+			3 	=> 'Piutang',
+			4 	=> 'Refund',
+			5 	=> 'Sisa Saldo',
+			6 	=> 'Pendapatan B.Titip Bulan',
+			7 	=> 'Pendapatan B.Admin Akad',
+			8 	=> 'Pendapatan B.Admin Lelang',
+			9 	=> 'Jumlah Akad Bulan',
+			10 	=> 'Saldo Kas Administrasi',
+			11 	=> 'Hutang Biaya Operasional',
+			12 	=> 'Biaya Operasional',
+		]
+	]
 ];
