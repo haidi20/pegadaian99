@@ -8,6 +8,9 @@ use App\Models\Cabang;
 use App\Models\Kas_cabang;
 use App\Models\User_cabang;
 use App\Models\Saldo_cabang;
+use App\Models\Penambahan_modal;
+
+use App\Models\Log\Log_saldo_cabang;
 
 use Auth;
 use Carbon\Carbon;
@@ -19,14 +22,16 @@ class CabangController extends Controller
                                 Request $request,
                                 Kas_cabang $kas_cabang,
                                 User_cabang $user_cabang,
-                                Saldo_cabang $saldo_cabang
+                                Saldo_cabang $saldo_cabang,
+                                Penambahan_modal $penambahan_modal
                             )
     {
-        $this->cabang       = $cabang;
-        $this->request      = $request;
-        $this->kas_cabang   = $kas_cabang;
-        $this->user_cabang  = $user_cabang;
-        $this->saldo_cabang = $saldo_cabang;
+        $this->cabang           = $cabang;
+        $this->request          = $request;
+        $this->kas_cabang       = $kas_cabang;
+        $this->user_cabang      = $user_cabang;
+        $this->saldo_cabang     = $saldo_cabang;
+        $this->penambahan_modal = $penambahan_modal;
 
         view()->share([
             'menu'         => 'cabang',
@@ -133,7 +138,7 @@ class CabangController extends Controller
         $input = $this->request->except('_token');
 
         if($id){
-            $type           = 'perbaharui';
+            $type           = 'Memperbaharui';
             $cabang         = $this->cabang->find($id);
 
             $validateData   = $this->validateData('edit', $id);
@@ -142,7 +147,7 @@ class CabangController extends Controller
                 return $validateData->redirect;
             }
         }else{
-            $type                   = 'tambah';
+            $type                   = 'Menambahkan';
             $cabang                 = $this->cabang;
             $cabang->id_cabang      = uniqid();
 
@@ -152,11 +157,8 @@ class CabangController extends Controller
                 return $validateData->redirect;
             }
 
-             // for input value 'modal_awal' to table saldo_cabang
-            $saldo_cabang             = $this->saldo_cabang;
-            $saldo_cabang->id_cabang  = $cabang->id_cabang;
-            $saldo_cabang->total_saldo= remove_dot(request('modal_awal'));
-            $saldo_cabang->save();
+            // for input value 'modal_awal' to table 'saldo_cabang'
+            $saldo_cabang = $this->saldo_cabang($cabang);
         }
        
         $cabang->investor       = request('investor');
@@ -166,6 +168,10 @@ class CabangController extends Controller
         $cabang->alamat_cabang  = request('alamat_cabang');
         $cabang->save();
 
+        // insert data to other table
+        $logSaldoCabang     = $this->log_saldo_cabang($cabang, $saldo_cabang, $type);
+        $penambahanModal    = $this->penambahan_modal($cabang, $saldo_cabang, $type);
+
         $message    = '<strong>Sukses!</strong> Data Cabang telah di '.$type.' dengan Nomor Cabang '.$cabang->no_cabang.
                       ' dan Nama Cabang '.$cabang->nama_cabang.' telah Berhasil';
         flash_message('message', $message);
@@ -173,14 +179,49 @@ class CabangController extends Controller
         return $validateData->redirect;
     }
 
+    public function saldo_cabang($cabang)
+    {
+        $saldo_cabang             = $this->saldo_cabang;
+        $saldo_cabang->id_cabang  = $cabang->id_cabang;
+        $saldo_cabang->total_saldo= remove_dot(request('modal_awal'));
+        $saldo_cabang->save();
+
+        return $saldo_cabang;
+    }
+
+    public function penambahan_modal($cabang, $saldo, $type)
+    {
+        if($type == 'Menambahkan'){
+            $penambahanModal            = $this->penambahan_modal;
+            $penambahanModal->jumlah    = $saldo->total_saldo;
+            $penambahanModal->tanggal   = Carbon::now()->format('Y-m-d');
+            $penambahanModal->id_cabang = $cabang->id_cabang;
+            $penambahanModal->keterangan= "MODAL AWAL CABANG ".$cabang->no_cabang;
+            $penambahanModal->save();
+        }
+    }
+
+    public function log_saldo_cabang($cabang, $saldo, $type)
+    {
+        if($type == 'Menambahkan'){
+            $logSaldoCabang                     = new Log_saldo_cabang;
+            $logSaldoCabang->jenis              = 'debit';
+            $logSaldoCabang->jumlah             = $saldo->total_saldo;
+            $logSaldoCabang->id_cabang          = $cabang->id_cabang;
+            $logSaldoCabang->keterangan         = "MODAL AWAL CABANG ".$cabang->no_cabang;
+            $logSaldoCabang->tanggal_log_saldo  = Carbon::now()->format('Y-m-d');
+            $logSaldoCabang->save();
+        }
+    }
+
     public function validateData($type, $id = null)
     {
+        $message    = '<strong>Maaf!</strong> Data Cabang dengan Nomor Cabang '.request('no_cabang').' Sudah Tersedia';
+
         if($type == 'edit'){
             $findCabang = $this->cabang->find($id);
 
             if($findCabang->no_cabang != request('no_cabang')){
-                $message    = '<strong>Maaf!</strong> Data Cabang dengan Nomor Cabang '.request('no_cabang').
-                              ' Sudah Tersedia';
                 flash_message('message', $message, 'danger');
 
                 $already = true; 
@@ -193,8 +234,6 @@ class CabangController extends Controller
             $findCabang = $this->cabang->where('no_cabang', request('no_cabang'))->first();
 
             if($findCabang){
-                $message    = '<strong>Maaf!</strong> Data Cabang dengan Nomor Cabang '.request('no_cabang').
-                              ' Sudah Tersedia';
                 flash_message('message', $message, 'danger');
 
                 $already = true;
