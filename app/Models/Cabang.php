@@ -60,7 +60,7 @@ class Cabang extends Model
         return $query->where('nama_cabang', 'LIKE', '%'.$q.'%');
     }
 
-    public function scopeSorted($query, $by = 'cabang.id_cabang', $sort = 'desc')
+    public function scopeSorted($query, $by = 'cabang.id_cabang', $sort = 'asc')
     {
         return $query->orderBy($by, $sort);
     }

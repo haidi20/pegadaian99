@@ -37,20 +37,33 @@ class CabangController extends Controller
 
     public function index()
     {
+        $nameData   = config('library.special.cabang');
+        $nameBranch = $this->cabang->sorted('no_cabang')->get();
+
         // kasCabang is function scope
-        $cabang = $this->cabang->kasCabang()->sorted();
+        $cabang = $this->cabang->kasCabang()->sorted('cabang.no_cabang', 'desc');
 
-        // local function filter
-        $filter = $this->filter($cabang);
-
-        $cabang     = $filter->cabang->paginate(request('perpage', 10));
-        $dateRange  = $filter->dateRange;
-
-        $totalKas   = $this->cabang->kasCabang()->sum('kas_cabang.total_kas');
-        $totalKas   = nominal($totalKas);
-
-    	return  $this->template('cabang.index', compact('cabang', 'dateRange', 'totalKas'));
+    	return  $this->template('cabang.index', compact(
+            'cabang', 'nameBranch', 'nameData'
+        ));
     }
+
+    // public function index()
+    // {
+    //     // kasCabang is function scope
+    //     $cabang = $this->cabang->kasCabang()->sorted();
+
+    //     // local function filter
+    //     $filter = $this->filter($cabang);
+
+    //     $cabang     = $filter->cabang->paginate(request('perpage', 10));
+    //     $dateRange  = $filter->dateRange;
+
+    //     $totalKas   = $this->cabang->kasCabang()->sum('kas_cabang.total_kas');
+    //     $totalKas   = nominal($totalKas);
+
+    // 	return  $this->template('cabang.index', compact('cabang', 'dateRange', 'totalKas'));
+    // }
 
     public function filter($cabang)
     {
