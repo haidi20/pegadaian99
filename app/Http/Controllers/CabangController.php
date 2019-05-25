@@ -135,10 +135,22 @@ class CabangController extends Controller
         if($id){
             $type           = 'perbaharui';
             $cabang         = $this->cabang->find($id);
+
+            $validateData   = $this->validateData('edit', $id);
+            
+            if($validateData->already){
+                return $validateData->redirect;
+            }
         }else{
             $type                   = 'tambah';
             $cabang                 = $this->cabang;
             $cabang->id_cabang      = uniqid();
+
+            $validateData   = $this->validateData('create');
+            
+            if($validateData->already){
+                return $validateData->redirect;
+            }
 
              // for input value 'modal_awal' to table saldo_cabang
             $saldo_cabang             = $this->saldo_cabang;
@@ -154,13 +166,46 @@ class CabangController extends Controller
         $cabang->alamat_cabang  = request('alamat_cabang');
         $cabang->save();
 
-
-
         $message    = '<strong>Sukses!</strong> Data Cabang telah di '.$type.' dengan Nomor Cabang '.$cabang->no_cabang.
                       ' dan Nama Cabang '.$cabang->nama_cabang.' telah Berhasil';
         flash_message('message', $message);
 
-        return redirect()->route('cabang.index');
+        return $validateData->redirect;
+    }
+
+    public function validateData($type, $id = null)
+    {
+        if($type == 'edit'){
+            $findCabang = $this->cabang->find($id);
+
+            if($findCabang->no_cabang != request('no_cabang')){
+                $message    = '<strong>Maaf!</strong> Data Cabang dengan Nomor Cabang '.request('no_cabang').
+                              ' Sudah Tersedia';
+                flash_message('message', $message, 'danger');
+
+                $already = true; 
+            }else{
+                $already = false;
+            }
+
+            $redirect    = redirect()->route('cabang.edit', $id);
+        }elseif($type == 'create'){
+            $findCabang = $this->cabang->where('no_cabang', request('no_cabang'))->first();
+
+            if($findCabang){
+                $message    = '<strong>Maaf!</strong> Data Cabang dengan Nomor Cabang '.request('no_cabang').
+                              ' Sudah Tersedia';
+                flash_message('message', $message, 'danger');
+
+                $already = true;
+            }else{
+                $already = false;
+            }
+
+            $redirect= redirect()->route('cabang.create');
+        }        
+
+        return (object) compact('already', 'redirect');
     }
 
     public function api()

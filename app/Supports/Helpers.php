@@ -66,9 +66,9 @@ if( ! function_exists('active_tab') )
 */
 if( ! function_exists('flash_message') )
 {
-    function flash_message($session, $messages='')
+    function flash_message($session, $messages='', $type = 'success')
     {
-    	$notification = '<div class="alert alert-success background-success">
+    	$notification = '<div class="alert alert-'.$type.' background-'.$type.'">
 			                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			                    <i class="icofont icofont-close-line-circled text-white"></i>
 			                </button>
