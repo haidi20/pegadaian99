@@ -99,7 +99,7 @@ class AkadController extends Controller
         // column for 'nasabah akad'
         $column  = config('library.column.akad_nasabah.list_akad_nasabah');
 
-        return $this->template('akad.index.baru.nasabah-akad', compact(
+        return $this->template('akad.index.nasabah-akad', compact(
             'data', 'dateRange', 'menu', 'subMenu', 'column'
         ));
     }
@@ -130,7 +130,7 @@ class AkadController extends Controller
 
         $data = $akadJatuhTempo->paginate(request('perpage', 10));
 
-        return $this->template('akad.index.baru.akad-jatuh-tempo', compact(
+        return $this->template('akad.index.akad-jatuh-tempo', compact(
             'nameTables', 'column', 'data'
         ));
     }
@@ -157,7 +157,7 @@ class AkadController extends Controller
 
         $data = $pelunasanLelang->paginate(request('perpage', 10));
 
-        return $this->template('akad.index.baru.pelunasan-lelang', compact(
+        return $this->template('akad.index.pelunasan-lelang', compact(
             'nameTables', 'data', 'column'
         ));
     }
@@ -182,7 +182,7 @@ class AkadController extends Controller
 
         $data = $lokasiDistribusi->paginate(request('perpage', 10));
 
-        return $this->template('akad.index.baru.lokasi-distribusi', compact(
+        return $this->template('akad.index.lokasi-distribusi', compact(
             'nameTables', 'data'
         ));
     }
@@ -207,7 +207,7 @@ class AkadController extends Controller
 
         $data = $maintenance->paginate(request('perpage', 10));
 
-        return $this->template('akad.index.baru.maintenance', compact(
+        return $this->template('akad.index.maintenance', compact(
             'nameTables', 'data'
         ));
     }
