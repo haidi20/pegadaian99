@@ -31,6 +31,21 @@
 
 <script>
 
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    $(document).ready(function() {
+        $('[data-toggle="popover"]').popover({
+            html: true,
+            content: function() {
+                var content = $(this).attr("data-popover-content");
+                return $(content).children(".popover-body").html();
+                // return $('#primary-popover-content').html();
+            }
+        });
+    });
+
     function prosedur(type)
     {
         if(type == 'pelunasan'){
@@ -188,9 +203,30 @@
                                             <a href="javascript:void(0)" class="btn btn-mini btn-info" onClick="review()">
                                                 <i class="zmdi zmdi-search"></i>
                                             </a>
-                                            <a href="javascript:void(0)" class="btn btn-mini btn-success">
+                                            <button 
+                                                type="button" 
+                                                class="btn btn-success btn-mini waves-effect waves-light" 
+                                                data-toggle="popover" 
+                                                data-placement="left" 
+                                                title="Print Menu"
+                                                data-popover-content="#a2">
                                                 <i class="zmdi zmdi-print"></i>
-                                            </a>
+                                            </button>
+                                            {{-- for menu-mini button print --}}
+                                            <div id="a2" style="display:none">
+                                                <div class="popover-heading"></div>
+                                                <div class="popover-body">
+                                                    <a href="javascript:void(0)" class="btn btn-mini btn-success mb-1">
+                                                        <i class="zmdi zmdi-print"></i> Surat Akad
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="btn btn-mini btn-success mb-1">
+                                                        <i class="zmdi zmdi-print"></i> Kwitansi Akad
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="btn btn-mini btn-success" onClick="review()">
+                                                        <i class="zmdi zmdi-search"></i> Kwitansi Biaya Titip
+                                                    </a>
+                                                </div>
+                                            </div>
                                             <a href="javascript:void(0)" class="btn btn-mini btn-primary" onClick="edit({{$item->id_akad}})">
                                                 <i class="icofont icofont-edit icofont-sm"></i>
                                             </a>
