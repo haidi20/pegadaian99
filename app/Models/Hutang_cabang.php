@@ -33,6 +33,11 @@ class Hutang_cabang extends Model
     //     return $query->where('id_cabang', $user_cabang->id_cabang);
     // }
 
+    public function scopeBaseBranch($query, $id, $by)
+    {
+        return $query->where($by, $id);
+    }
+
     public function scopeSearch($query, $by, $q)
     {
         return $query->where($by, 'LIKE', '%'.$q.'%');
@@ -41,6 +46,11 @@ class Hutang_cabang extends Model
     public function scopeSorted($query, $by = 'tanggal_transaksi', $sort = 'desc')
     {
         return $query->orderBy($by, $sort);
+    }
+
+    public function scopeStatus($query, $condition)
+    {
+        return $query->where('status', $condition);
     }
 
     public function getNominalJumlahAttribute()

@@ -55,6 +55,11 @@ class Cabang extends Model
         return $query->leftJoin('kas_cabang', 'cabang.id_cabang', '=', 'kas_cabang.id_cabang');
     }
 
+    public function scopeSaldoCabang($query)
+    {
+        return $query->leftJoin('saldo_cabang', 'cabang.id_cabang', '=', 'saldo_cabang.id_cabang');
+    }
+
     public function scopeSearch($query, $q)
     {
         return $query->where('nama_cabang', 'LIKE', '%'.$q.'%');
