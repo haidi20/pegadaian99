@@ -62,7 +62,7 @@
              {!! session()->get('message') !!}
         </div>
     </div>
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm-12 col-md-12">
              <div class="card">
                  <div class="card-header">
@@ -72,7 +72,7 @@
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-12 col-md-10">
-                            {{-- <input type="text" name="daterange" class="form-control" value="{{$dateRange}}" /> --}}
+                            <input type="text" name="daterange" class="form-control" value="{{$dateRange}}" />
                             <input type="text" name="daterange" class="form-control" value="" />
                         </div>
                         <div class="col-sm-12 col-md-2 text-right">
@@ -82,17 +82,21 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="row">
         <div class="col-sm-12 col-md-12">
             <div class="card">
+                <div class="card-header">
+                    <h5>Waktu Rentang Laporan Dana</h5>
+                    <hr/>
+                </div>
                 <div class="card-block">
                     <div class="table-responsive dt-responsive">
                         <table id="dt-ajax-array" class="table table-striped table-bordered nowrap">
                             <thead>
                             <tr>
                                 <th>Nama Informasi</th>
-                                @foreach ($nameBranch as $index => $item)
+                                @foreach ($cabang as $index => $item)
                                     <th>{{$item->no_cabang}}</th>
                                 @endforeach
                             </tr>
@@ -101,8 +105,8 @@
                                 @foreach($nameData as $index => $item)
                                     <tr>
                                         <td>{{$item}}</td>
-                                        @foreach ($nameBranch as $item)
-                                            <td>0</td>
+                                        @foreach ($cabang as $item)
+                                            <td>{{$data[$index][$item->id_cabang]}}</td>
                                         @endforeach
                                     </tr>
                                 @endforeach

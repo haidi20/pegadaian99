@@ -19,6 +19,11 @@ class Hutang_kas extends Model
     	'status_hutang',
     ];
 
+    public function scopeBaseBranch($query, $id)
+    {
+        return $query->where('id_cabang', $id);
+    }
+
     // how to fetch data by username of user
     public function scopeIdCabang($query)
     {
@@ -36,6 +41,11 @@ class Hutang_kas extends Model
     public function scopeSorted($query, $by = 'tanggal_hutang', $sort = 'desc')
     {
         return $query->orderBy($by, $sort);
+    }
+
+    public function scopeStatus($query, $condition)
+    {
+        return $query->where('status_hutang', $condition);
     }
 
     public function getNominalJumlahAttribute()
