@@ -47,7 +47,7 @@ class CabangCreate extends CabangView
                  * user field form data
                  * value ('name|id|class', 'value')
                  */
-                ->value('#investor', 'Yogi Arif Widodo')
+                ->value('#investor', 'King Arif')
                 ->value('#modal_awal', '200000000')
                 ->value('#no_cabang', '15')
                 ->value('#nama_cabang', 'PEG99')
@@ -56,6 +56,7 @@ class CabangCreate extends CabangView
                 ->screenshot('UserView[TAMBAH](2)Cabang_FIELD')
                 // press ('value-of-button')
                 ->press('Proses')
+                ->assertSee('Sukses! Data Cabang telah di tambah')
                 ->screenshot('UserView[TAMBAH](3)Cabang_SUBMIT')
                 // end ✓ almost done
             ;
