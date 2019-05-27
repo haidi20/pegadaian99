@@ -126,11 +126,11 @@
                                         </td> --}}
                                         <td>
                                             <a href="{{route('akad.change-location', [$item->id_akad, 'send'])}}" class="btn btn-md btn-success mb-1">
-                                                Kirim ke {{$item->nama_target_lokasi}}
+                                                Kirim Ke {{$item->nama_target_lokasi}}
                                             </a>
                                             @if(request('jenis_ld') == 'proses')
                                                 <a href="{{route('akad.change-location', [$item->id_akad, 'reject'])}}" class="btn btn-md btn-warning mb-1">
-                                                    Kembali ke {{$item->nama_target_lokasi_kembali}}
+                                                    Kembalikan Ke {{$item->nama_target_lokasi_kembali}}
                                                 </a>
                                             @endif
                                         </td>

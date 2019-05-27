@@ -124,16 +124,20 @@ class Akad extends Model
 
     public function getNamaTargetLokasiAttribute()
     {
-        return $this->target_lokasi == null ? 'Gudang' : $this->target_lokasi;
+        $target = $this->target_lokasi == null ? 'gudang' : $this->target_lokasi;
+        $target = $target == 'kantor' ? 'KANTOR' : 'GUDANG';
+
+        return $target;
+        
     }
     public function getNamaTargetLokasiKembaliAttribute()
     {
         if($this->target_lokasi == null){
-            return 'Kantor';
+            return 'KANTOR';
         }elseif($this->target_lokasi == 'gudang'){
-            return 'Kantor';
+            return 'KANTOR';
         }else{
-            return 'Gudang';
+            return 'GUDANG';
         }
     }
 
