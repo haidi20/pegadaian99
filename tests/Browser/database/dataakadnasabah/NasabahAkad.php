@@ -40,13 +40,126 @@ class NasabahAkad extends DataNasabah
                  * ?clickLink('param')
                  * the function for this
                  * <a href='x'> param </a>
-                 * move to Database -> Data Akad Nasabah
+                 * move to Database -> Data Nasabah Akad
                  */
                 ->clickLink('Nasabah Akad')
                 ->assertSee('NASABAH AKAD')
                 // measure against , the bot seen a page ,
                 // for capture laters -> finalize js loading screen
-                ->screenshot('UserViewDataAkadNasabah[1]')
+                ->screenshot('UserViewDataNasabahAkad[1]')
+                /**
+                 * select('name', 'value-option')
+                 * user want show 50 data per page
+                 */
+                ->select('perpage', '25')
+                ->press('Oke')
+                ->assertSee('RENDYANSYAH') //assert for load & stop js to get good capture/screenshot
+                ->screenshot('UserViewDataNasabahAkad[1]page-load')
+                //
+                /**
+                 * ?clickLink('param')
+                 * the function for this
+                 * <a href='x'> param </a>
+                 * pagination move -> |2|
+                 */
+                ->clickLink('»')
+                ->assertSee('ANTONIUS E. LAPO') //assert for load & stop js to get good capture/screenshot
+                ->screenshot('UserViewDataNasabahAkad[1]page-pagination')
+                /**
+                 * searching
+                 */
+                //  [nama_lengkap]
+                ->select('by', 'nama_lengkap')
+                // some case value more prefered use ID not CLASS , sometime make anError
+                ->value('#q', 'ZAINU NILA RAHMA WATI	') //search
+                ->screenshot('UserViewNasabahAkad[3.1]FilterView-nama-lengkap')
+                // press ('value-of-button')
+                ->press('Oke')
+                ->assertSee('JL. DR. SUTOMO NO.29') //text from data by search
+                ->screenshot('UserViewNasabahAkad[3.1]FilterSubmit-nama-lengkap')
+
+                //  [no_telp]
+                ->select('by', 'no_telp')
+                // some case value more prefered use ID not CLASS , sometime make anError
+                ->value('#q', '08115802033') //search
+                ->screenshot('UserViewNasabahAkad[3.2]FilterView-no-telp')
+                // press ('value-of-button')
+                ->press('Oke')
+                ->assertSee('DEVI YULISTIA ANGGRENI') //text from data by search
+                ->screenshot('UserViewNasabahAkad[3.2]FilterSubmit-no-telp')
+                //
+
+                //  [no_id]
+                ->select('by', 'no_id')
+                // some case value more prefered use ID not CLASS , sometime make anError
+                ->value('#q', 'C99-03-170718-002') //search
+                ->screenshot('UserViewNasabahAkad[3.3]FilterView-no-id')
+                // press ('value-of-button')
+                ->press('Oke')
+                ->assertSee('DEVI YULISTIA ANGGRENI') //text from data by search
+                ->screenshot('UserViewNasabahAkad[3.3]FilterSubmit-no-id')
+                /**
+             * FUNCTION SEARCH DOESN'T WORK
+                //  [jaminan]
+                ->select('by', 'jaminan')
+                // some case value more prefered use ID not CLASS , sometime make anError
+                ->value('#q', 'OPPO F7 RAM 4/64') //search
+                ->screenshot('UserViewNasabahAkad[3.4]FilterView-jaminan')
+                // press ('value-of-button')
+                ->press('Oke')
+                ->assertSee('DEVI YULISTIA ANGGRENI') //text from data by search
+                ->screenshot('UserViewNasabahAkad[3.4]FilterSubmit-jaminan')
+
+                //  [pinjaman]
+                ->select('by', 'pinjaman')
+                // some case value more prefered use ID not CLASS , sometime make anError
+                ->value('#q', 'C99-03-170718-002') //search
+                ->screenshot('UserViewNasabahAkad[3.2]FilterView-no-id')
+                // press ('value-of-button')
+                ->press('Oke')
+                ->assertSee('DEVI YULISTIA ANGGRENI') //text from data by search
+                ->screenshot('UserViewNasabahAkad[3.2]FilterSubmit-no-id')
+
+                //  [tunggakan]
+                ->select('by', 'tunggakan')
+                // some case value more prefered use ID not CLASS , sometime make anError
+                ->value('#q', 'C99-03-170718-002') //search
+                ->screenshot('UserViewNasabahAkad[3.2]FilterView-no-id')
+                // press ('value-of-button')
+                ->press('Oke')
+                ->assertSee('DEVI YULISTIA ANGGRENI') //text from data by search
+                ->screenshot('UserViewNasabahAkad[3.2]FilterSubmit-no-id')
+
+                //  [tanggal_akad]
+                ->select('by', 'tanggal_akad')
+                // some case value more prefered use ID not CLASS , sometime make anError
+                ->value('#q', 'C99-03-170718-002') //search
+                ->screenshot('UserViewNasabahAkad[3.2]FilterView-no-id')
+                // press ('value-of-button')
+                ->press('Oke')
+                ->assertSee('DEVI YULISTIA ANGGRENI') //text from data by search
+                ->screenshot('UserViewNasabahAkad[3.2]FilterSubmit-no-id')
+
+                //  [jatuh_tempo]
+                ->select('by', 'jatuh_tempo')
+                // some case value more prefered use ID not CLASS , sometime make anError
+                ->value('#q', 'C99-03-170718-002') //search
+                ->screenshot('UserViewNasabahAkad[3.2]FilterView-no-id')
+                // press ('value-of-button')
+                ->press('Oke')
+                ->assertSee('DEVI YULISTIA ANGGRENI') //text from data by search
+                ->screenshot('UserViewNasabahAkad[3.2]FilterSubmit-no-id')
+
+                //  [prosedur]
+                ->select('by', 'prosedur')
+                // some case value more prefered use ID not CLASS , sometime make anError
+                ->value('#q', 'C99-03-170718-002') //search
+                ->screenshot('UserViewNasabahAkad[3.2]FilterView-no-id')
+                // press ('value-of-button')
+                ->press('Oke')
+                ->assertSee('DEVI YULISTIA ANGGRENI') //text from data by search
+                ->screenshot('UserViewNasabahAkad[3.2]FilterSubmit-no-id')
+             */
                 //
             ;
         });
