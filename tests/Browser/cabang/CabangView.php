@@ -43,40 +43,42 @@ class CabangView extends Login
                 // for capture laters -> finalize js loading screen
                 ->assertSee('Data Cabang')
                 // capture the task
+                ->assertSee('Nama Informasi')
                 ->screenshot('UserViewCabang[1]')
-                /**
-                 * DROP DOWN MENU PILIH CABANG
-                 * select('name', 'value')
-                 * 03
-                 */
-                ->select('perpage', '50')
-                ->screenshot('UserViewCabang[2]')
-                /**
-                 * ?clickLink('param')
-                 * the function for this
-                 * <a href='x'> param </a>
-                 * pagination move -> |2|
-                 */
-                // ->clickLink('2')
-                // measure againts browser assert
-                // ->assertSee('OKA - SUTOMO')
-                // capture the task
-                // ->screenshot('UserViewCabangPagination[2]')
-                /**
-                 * sorting
-                 * modal setiap cabang
-                 * !!button oke redundant
-                 * field data value('name|class|id', '$value')
-                 */
-                ->value('#q', 'OMO')
-                ->select('by', 'nama_cabang')
-                // button OKE search
-                ->click('#btn-search')
-                // // ->clickLink('Oke')
-                ->assertSee('516.000,00')
+
+                // /**
+                //  * DROP DOWN MENU PILIH CABANG
+                //  * select('name', 'value')
+                //  * 03
+                //  */
+                // ->select('perpage', '50')
+                // ->screenshot('UserViewCabang[2]')
+                // /**
+                //  * ?clickLink('param')
+                //  * the function for this
+                //  * <a href='x'> param </a>
+                //  * pagination move -> |2|
+                //  */
+                // // ->clickLink('2')
+                // // measure againts browser assert
+                // // ->assertSee('OKA - SUTOMO')
                 // // capture the task
-                ->screenshot('UserViewCabang[3]Search')
-                // end ✗ waktu rentang laporan duplicate UX Button Oke search
+                // // ->screenshot('UserViewCabangPagination[2]')
+                // /**
+                //  * sorting
+                //  * modal setiap cabang
+                //  * !!button oke redundant
+                //  * field data value('name|class|id', '$value')
+                //  */
+                // ->value('#q', 'OMO')
+                // ->select('by', 'nama_cabang')
+                // // button OKE search
+                // ->click('#btn-search')
+                // // // ->clickLink('Oke')
+                // ->assertSee('516.000,00')
+                // // // capture the task
+                // ->screenshot('UserViewCabang[3]Search')
+                // // end ✗ waktu rentang laporan duplicate UX Button Oke search
             ;
         });
     }

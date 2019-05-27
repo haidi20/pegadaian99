@@ -66,7 +66,7 @@ class CabangEdit extends CabangView
                 // capture task view edit cabang
                 ->screenshot('UserView[EDIT](4)Cabang')
                 // user change value of field data list cabang from select cabang
-                ->value('#investor', 'Yogi Arif Widodo')
+                ->value('#investor', 'King Yogi')
                 ->value('#nama_cabang', 'Bhayangan')
                 ->value('#telp_cabang', '021791021791')
                 ->value('#alamat_cabang', 'Dubai Emirat Arab')

@@ -68,6 +68,7 @@ class Login extends DuskTestCase
                  * '.class', '#id' , 'name'
                  */
                 ->press('.btn')
+                ->assertSee('Data Cabang')
                 // capture the task
                 ->screenshot('UserAuthLogin')
                 // end
