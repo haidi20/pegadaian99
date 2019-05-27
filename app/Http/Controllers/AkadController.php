@@ -178,7 +178,7 @@ class AkadController extends Controller
 
         // if get data from input keyword 
         if(request('q')){
-            $lokasiDistribusi   = $lokasiDistribusi->search('akad.nama_barang', request('q'));
+            $lokasiDistribusi= $lokasiDistribusi->search('akad.nama_barang', request('q'));
         }
 
         $data = $lokasiDistribusi->paginate(request('perpage', 10));
