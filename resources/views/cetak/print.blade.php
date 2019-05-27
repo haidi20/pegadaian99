@@ -147,7 +147,7 @@ label
         <br />
         <span id="id_label_titip">B. Titip Minggu ke</span>
         <span class="pull-right " style="margin-left: 214px">
-            : <span id="id_btitipmingguke">{{$data['biaya_titip_minggu_ke']}}</span>
+            : <span id="id_btitipmingguke">{{$data['bt_minggu_ke']}}</span>
         </span>
 
         <br />
@@ -159,7 +159,7 @@ label
         <br />
         <span id="id_label_badmin">Pembayaran B. Admin</span>
         <span class="pull-right " style="margin-left: 190px">
-            : Rp. <span id="id_badmin">{{$data['biaya_admin']}}</span> Hari
+            : Rp. <span id="id_badmin">{{$data['biaya_admin']}}</span>
         </span>
     </p>
     <label for="TANGGALJATUHTEMPO">
