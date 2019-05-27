@@ -247,6 +247,21 @@ class AkadController extends Controller
         ));
     }
 
+    public function change_checklist($id)
+    {
+        $akad = $this->akad->find($id);
+
+        if($akad->maintenance == 0){
+            $akad->maintenance = 1;
+        }else{
+            $akad->maintenance = 0;
+        }
+
+        $akad->save();
+
+        return redirect()->back();
+    }
+
     public function index()
     {
         // return config('menu.menu_header');

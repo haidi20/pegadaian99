@@ -2,7 +2,10 @@
 
 @section('script-bottom')
 <script>
-    
+    function checklist(id)
+    {
+        window.location.href = '{{url("akad/change-checklist")}}/'+id;
+    }
 </script>
 @endsection
 
@@ -88,7 +91,14 @@
                                         <td align="center">
                                             <div class="border-checkbox-section">
                                                 <div class="border-checkbox-group border-checkbox-group-primary">
-                                                    <input class="border-checkbox" type="checkbox" id="checkbox{{$index}}" value="1">
+                                                    <input 
+                                                        class="border-checkbox" 
+                                                        type="checkbox" 
+                                                        id="checkbox{{$index}}"
+                                                        onClick="checklist({{$item->id_akad}})" 
+                                                        value="{{$item->maintenance}}"
+                                                        {{$item->maintenance == 1 ? 'checked' : ''}}
+                                                    >
                                                     <label class="border-checkbox-label" for="checkbox{{$index}}"></label>
                                                 </div>
                                             </div>
