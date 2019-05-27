@@ -123,7 +123,18 @@
 
             // determine 'biaya titip'
             biaya_titip(value, 'bt_yang_dibayar');
+
+            // determine 'bt_minggu_ke'
+            bt_minggu_ke(value);
         });
+    }
+
+    function bt_minggu_ke(value)
+    {
+        if(value >= 1){
+            console.log(value);
+            $('#bt_minggu_ke').val('0-'+value);
+        }
     }
 
     function kondisi_bt_yang_dibayar(value = null, option = null)

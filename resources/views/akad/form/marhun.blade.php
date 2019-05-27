@@ -113,7 +113,7 @@
                                 <span class="input-group-addon" id="basic-addon1">Rp.</span>
                                 <input type="text" class="form-control autonumber biaya_titip" value="0"  data-v-min="0" data-v-max="9999999999" data-a-sep="." data-a-dec="," disabled>
                                 <input type="hidden" name="biaya_titip" class="biaya_titip" value="0">
-                                <input type="hidden" name="biaya_titip_minggu_ke" class="" value="1-2">
+                                <input type="hidden" name="bt_minggu_ke" id="bt_minggu_ke" value="0">
                             </div>                            
                         </div>
                     </div>
