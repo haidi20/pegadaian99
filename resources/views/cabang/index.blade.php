@@ -1,33 +1,51 @@
 @extends('_layouts.default')
 
 @section('script-top')
-<!-- Range slider css -->
-<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/seiyria-bootstrap-slider/css/bootstrap-slider.css')}}">
-
-<!-- Date-time picker css -->
-<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/pages/advance-elements/css/bootstrap-datetimepicker.css')}}">
-
-<!-- Date-range picker css  -->
-<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/bootstrap-daterangepicker/css/daterangepicker.css')}}">
+<!-- Data Table Css -->
+<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/pages/data-table/css/buttons.dataTables.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/pages/data-table/extensions/responsive/css/responsive.dataTables.css')}}">
+<style>
+    .custom-font{
+        /* font-size: 12px; */
+        width:1px;
+    }
+</style>
 @endsection
 
 @section('script-bottom')
-<!-- Bootstrap date-time-picker js -->
-<script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/moment-with-locales.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('adminty/files/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/bootstrap-datetimepicker.min.js')}}"></script>
-<!-- Date-range picker js -->
-<script type="text/javascript" src="{{asset('adminty/files/bower_components/bootstrap-daterangepicker/js/daterangepicker.js')}}"></script>
-<!-- Date-dropper js -->
-<script type="text/javascript" src="{{asset('adminty/files/bower_components/datedropper/js/datedropper.min.js')}}"></script>
-<!-- Color picker js -->
-<script type="text/javascript" src="{{asset('adminty/files/bower_components/spectrum/js/spectrum.js')}}"></script>
-<script type="text/javascript" src="{{asset('adminty/files/bower_components/jscolor/js/jscolor.js')}}"></script>
-
-<script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/custom-picker.js')}}"></script>
+<!-- data-table js -->
+<script src="{{asset('adminty/files/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('adminty/files/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('adminty/files/assets/pages/data-table/js/jszip.min.js')}}"></script>
+<script src="{{asset('adminty/files/assets/pages/data-table/js/pdfmake.min.js')}}"></script>
+<script src="{{asset('adminty/files/assets/pages/data-table/js/vfs_fonts.js')}}"></script>
+<script src="{{asset('adminty/files/assets/pages/data-table/extensions/responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('adminty/files/bower_components/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{asset('adminty/files/bower_components/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{asset('adminty/files/bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('adminty/files/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('adminty/files/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
 
 <script>
-     
+     $(document).ready(function() {
+        $('#res-config').DataTable({
+            responsive: true
+        });
+        var newcs = $('#new-cons').DataTable();
+
+        new $.fn.dataTable.Responsive(newcs);
+
+        $('#show-hide-res').DataTable({
+            responsive: {
+                details: {
+                    display: $.fn.dataTable.Responsive.display.childRowImmediate,
+                    type: ''
+                }
+            }
+        });
+    });
 </script>
 @endsection
 
@@ -92,21 +110,21 @@
                 </div>
                 <div class="card-block">
                     <div class="table-responsive dt-responsive">
-                        <table id="dt-ajax-array" class="table table-striped table-bordered nowrap">
+                        <table id="new-cons" class="table table-striped table-bordered nowrap">
                             <thead>
-                            <tr>
-                                <th>Nama Informasi</th>
-                                @foreach ($cabang as $index => $item)
-                                    <th>{{$item->no_cabang}}</th>
-                                @endforeach
-                            </tr>
+                                <tr>
+                                    <th>Nomor Cabang</th>
+                                    @foreach ($nameData as $index => $item)
+                                        <th class="custom-font">{{$item}}</th>
+                                    @endforeach
+                                </tr>
                             </thead>
                             <tbody>
-                                @foreach($nameData as $index => $item)
+                                @foreach($cabang as $index => $item)
                                     <tr>
-                                        <td>{{$item}}</td>
-                                        @foreach ($cabang as $item)
-                                            <td>{{$data[$index][$item->id_cabang]}}</td>
+                                        <td>{{$item->no_cabang}}</td>
+                                        @foreach ($nameData as $key => $value)
+                                            <td class="custom-font">{{$data[$key][$item->id_cabang]}}</td>
                                         @endforeach
                                     </tr>
                                 @endforeach
