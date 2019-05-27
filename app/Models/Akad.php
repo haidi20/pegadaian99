@@ -54,6 +54,7 @@ class Akad extends Model
     {
         return $query->whereStatus('Belum Lunas');
     }
+    
 
     public function scopeLelang($query)
     {
@@ -75,7 +76,8 @@ class Akad extends Model
     public function scopeStatusLokasi($query, $location = 'kantor')
     {
         if($location == 'kantor'){
-            $query->orWhere('status_lokasi', null);
+            $query->where('status_lokasi', '<>', 'proses')
+                  ->where('status_lokasi', '<>', 'gudang');
         }
 
         return $query->where('status_lokasi', $location);
@@ -118,6 +120,21 @@ class Akad extends Model
     public function scopeSorted($query, $by = 'akad.id_akad', $sort = 'asc')
     {
         return $query->orderBy($by, $sort);
+    }
+
+    public function getNamaTargetLokasiAttribute()
+    {
+        return $this->target_lokasi == null ? 'Gudang' : $this->target_lokasi;
+    }
+    public function getNamaTargetLokasiKembaliAttribute()
+    {
+        if($this->target_lokasi == null){
+            return 'Kantor';
+        }elseif($this->target_lokasi == 'gudang'){
+            return 'Kantor';
+        }else{
+            return 'Gudang';
+        }
     }
 
     public function getNominalNilaiTafsirAttribute()

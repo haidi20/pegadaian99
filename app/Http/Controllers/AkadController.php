@@ -169,7 +169,7 @@ class AkadController extends Controller
 
         $lokasiDistribusi    = $this->akad->joinNasabah();
         $lokasiDistribusi    = $lokasiDistribusi->baseBranch();
-        $lokasiDistribusi    = $lokasiDistribusi->sorted();
+        $lokasiDistribusi    = $lokasiDistribusi->sorted('akad.tanggal_akad', 'desc');
 
         // filter data base on field 'status lokasi'
         if(request('jenis_ld')){
@@ -186,6 +186,39 @@ class AkadController extends Controller
         return $this->template('akad.index.lokasi-distribusi', compact(
             'nameTables', 'data'
         ));
+    }
+
+    public function change_location($id, $type)
+    {
+        $akad = $this->akad->find($id);
+        
+        if($type == 'send'){
+            if($akad->status_lokasi == null || $akad->status_lokasi == 'kantor'){
+                $akad->status_lokasi = 'proses';
+                $akad->target_lokasi = 'gudang';
+            }elseif($akad->status_lokasi == 'proses' && $akad->target_lokasi == 'gudang'){
+                $akad->status_lokasi = 'gudang';
+                $akad->target_lokasi = 'kantor';
+            }elseif($akad->status_lokasi == 'proses' && $akad->target_lokasi == 'kantor'){
+                $akad->status_lokasi = 'kantor';
+                $akad->target_lokasi = 'gudang';
+            }elseif($akad->status_lokasi == 'gudang' && $akad->target_lokasi == 'kantor'){
+                $akad->status_lokasi = 'proses';
+                $akad->target_lokasi = 'kantor';
+            }
+        }else{
+            if($akad->target_lokasi == 'gudang'){
+                $akad->status_lokasi = 'kantor';
+                $akad->target_lokasi = 'gudang';
+            }elseif($akad->target_lokasi == 'kantor'){
+                $akad->status_lokasi = 'gudang';
+                $akad->target_lokasi = 'kantor';
+            }
+        }
+
+        $akad->save();
+
+        return redirect()->back();
     }
 
     public function maintenance()

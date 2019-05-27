@@ -125,9 +125,14 @@
                                             </div>
                                         </td> --}}
                                         <td>
-                                            <a href="javascript:void(0)" class="btn btn-md btn-success mb-1">
-                                                Kirim Ke Gudang
+                                            <a href="{{route('akad.change-location', [$item->id_akad, 'send'])}}" class="btn btn-md btn-success mb-1">
+                                                Kirim ke {{$item->nama_target_lokasi}}
                                             </a>
+                                            @if(request('jenis_ld') == 'proses')
+                                                <a href="{{route('akad.change-location', [$item->id_akad, 'reject'])}}" class="btn btn-md btn-warning mb-1">
+                                                    Kembali ke {{$item->nama_target_lokasi_kembali}}
+                                                </a>
+                                            @endif
                                         </td>
                                         <td>
                                             <a href="javascript:void(0)" class="btn btn-sm btn-info mb-1">

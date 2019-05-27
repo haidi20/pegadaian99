@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
 		Route::get('/lokasi-distribusi', 'AkadController@lokasi_distribusi')->name('akad.lokasi-distribusi');
 		Route::get('/maintenance', 'AkadController@maintenance')->name('akad.maintenance');
 
+		Route::get('/change-location/{id}/{type}', 'AkadController@change_location')->name('akad.change-location');
+
 		Route::post('/store', 'AkadController@store')->name('akad.store');
 		Route::post('/update/{id}', 'AkadController@update')->name('akad.update');
 	});
