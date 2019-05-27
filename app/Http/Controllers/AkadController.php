@@ -171,9 +171,10 @@ class AkadController extends Controller
         $lokasiDistribusi    = $lokasiDistribusi->baseBranch();
         $lokasiDistribusi    = $lokasiDistribusi->sorted();
 
-        // if(request('jenis_ld')){
-            $lokasiDistribusi= $lokasiDistribusi->statusLokasi(request('jenis_ld', 'kantor'));
-        // }
+        // filter data base on field 'status lokasi'
+        if(request('jenis_ld')){
+            $lokasiDistribusi= $lokasiDistribusi->statusLokasi(request('jenis_ld'));
+        }
 
         // if get data from input keyword 
         if(request('q')){

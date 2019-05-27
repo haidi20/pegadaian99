@@ -1,71 +1,8 @@
 @extends('_layouts.default')
 
 @section('script-bottom')
-<script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/swithces.js')}}"></script>
-
 <script>
-    /*
-    * FYI :
-    * na    = 'nasabah akad'
-    * ajt   = 'akad jatuh tempo'
-    * pl    = 'Pelunasan dan Lelang'
-    */
 
-    $(document).ready(function() {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-
-    $(document).ready(function() {
-        $('[data-toggle="popover"]').popover({
-            html: true,
-            content: function() {
-                var content = $(this).attr("data-popover-content");
-                return $(content).children(".popover-body").html();
-                // return $('#primary-popover-content').html();
-            }
-        });
-    });
-
-     // for bug class active on tab
-     function removeActive(tab)
-     {
-        var nasabah_akad = $('#nasabah_akad')
-        var akad_jatuh_tempo = $('#akad_jatuh_tempo')
-        var pelunasan_dan_lelang = $('#pelunasan_dan_lelang')
-
-        if(tab == 'nasabah_akad'){
-            $('#name_tab').val('nasabah_akad')
-            akad_jatuh_tempo.removeClass('active')
-            pelunasan_dan_lelang.removeClass('active')
-        }else if(tab == 'akad_jatuh_tempo'){
-            $('#name_tab').val('akad_jatuh_tempo')
-            nasabah_akad.removeClass('active')
-            pelunasan_dan_lelang.removeClass('active')
-        }else{
-            $('#name_tab').val('pelunasan_dan_lelang')
-            nasabah_akad.removeClass('active')
-            akad_jatuh_tempo.removeClass('active')
-        }
-     }
-
-     function prosedur(type)
-     {
-        if(type == 'pelunasan'){
-            $('#pelunasan').css('display', '')
-        }else{
-            $('#pelunasan').css('display', 'none')
-        }
-
-        $('#modal-prosedur-na').modal('show');
-     }
-
-     function review()
-     {
-         $('#modal-review-na').modal('show');
-         
-         // for close popover on button "kwitansi biaya titip"
-         $('[data-toggle="popover"]').popover('hide');
-     }
 </script>
 @endsection
 
@@ -100,19 +37,21 @@
             <div class="card">
                 <div class="card-block">
                     <div class="sub-title">
-                        <h6>Pelunasan dan Lelang</h6>
+                        <h6>Lokasi / Distribusi</h6>
                     </div> 
+                    <form action="{{route('akad.lokasi-distribusi')}}" method="GET">
                     <div class="form-group row">
-                        <label class="col-sm-12 col-md-3 col-form-label" for="jenis_ajt">Jenis Pelunasan dan Lelang</label>
+                        <label class="col-sm-12 col-md-3 col-form-label" for="jenis_ld">Jenis Lokasi / Distribusi</label>
                         <div class="col-sm-12 col-md-9">
-                            <select name="jenis_ajt" id="jenis_ajt" class="form-control form-control-success">
+                            <select name="jenis_ld" id="jenis_ld" class="form-control form-control-success">
                                 @foreach ($nameTables as $index => $item)
-                                    <option value="{{$item['key']}}" {{selected($item['key'], 'jenis_pl', 'request')}}>{{$item['name']}}</option>
+                                    <option value="{{$item['key']}}" {{selected($item['key'], 'jenis_ld', 'request')}}>{{$item['name']}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-xs">Proses</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -134,6 +73,11 @@
                                     <option {{ selected(100, 'perpage', 'request')}}>100</option>
                                 </select> 
                                 {{-- &nbsp; Entries --}}
+                                <select name="jenis_ld" id="jenis_ld" style="visibility:hidden;" class="form-control form-control-success">
+                                    @foreach ($nameTables as $index => $item)
+                                        <option value="{{$item['key']}}" {{selected($item['key'], 'jenis_ld', 'request')}}>{{$item['name']}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6 offset-md-4">
@@ -162,7 +106,8 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Barang</th>
-                                <th width="100px">Ceklis</th>
+                                {{-- <th width="100px">Ceklis</th> --}}
+                                <th width="100px">Action</th>
                                 <th width="100px">Print</th>
                             </tr>
                             </thead>
@@ -171,16 +116,21 @@
                                     <tr>
                                         <td>{{$index + 1}}</td>
                                         <td>{{$item->nama_barang}}</td>
-                                        <td align="center">
+                                        {{-- <td align="center">
                                             <div class="border-checkbox-section">
                                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                                     <input class="border-checkbox" type="checkbox" id="checkbox{{$index}}" value="1">
                                                     <label class="border-checkbox-label" for="checkbox{{$index}}"></label>
                                                 </div>
                                             </div>
+                                        </td> --}}
+                                        <td>
+                                            <a href="javascript:void(0)" class="btn btn-md btn-success mb-1">
+                                                Kirim Ke Gudang
+                                            </a>
                                         </td>
                                         <td>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-success mb-1">
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-info mb-1">
                                                 <i class="zmdi zmdi-print"></i>
                                             </a>
                                         </td>

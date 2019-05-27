@@ -72,11 +72,12 @@ class Akad extends Model
     //end query status 'lunas, belum lunas, lelang dan refund'
 
     //start query 'status lokasi kantor, proses, gudang'
-    public function scopeStatusLokasi($query, $location)
+    public function scopeStatusLokasi($query, $location = 'kantor')
     {
         if($location == 'kantor'){
             $query->orWhere('status_lokasi', null);
         }
+
         return $query->where('status_lokasi', $location);
     }
     //end query 'status lokasi kantor, proses, gudang'
