@@ -75,11 +75,6 @@ class Akad extends Model
     //start query 'status lokasi kantor, proses, gudang'
     public function scopeStatusLokasi($query, $location = 'kantor')
     {
-        if($location == 'kantor'){
-            $query->where('status_lokasi', '<>', 'proses')
-                  ->where('status_lokasi', '<>', 'gudang');
-        }
-
         return $query->where('status_lokasi', $location);
     }
     //end query 'status lokasi kantor, proses, gudang'
@@ -124,11 +119,7 @@ class Akad extends Model
 
     public function getNamaTargetLokasiAttribute()
     {
-        $target = $this->target_lokasi == null ? 'gudang' : $this->target_lokasi;
-        $target = $target == 'kantor' ? 'KANTOR' : 'GUDANG';
-
-        return $target;
-        
+        return $this->target_lokasi == 'kantor' ? 'KANTOR' : 'GUDANG'; 
     }
     public function getNamaTargetLokasiKembaliAttribute()
     {
