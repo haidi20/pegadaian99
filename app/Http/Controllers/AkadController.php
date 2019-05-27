@@ -228,6 +228,7 @@ class AkadController extends Controller
 
         $maintenance    = $this->akad->joinNasabah();
         $maintenance    = $maintenance->baseBranch();
+        $maintenance    = $maintenance->sorted('akad.maintenance');
         $maintenance    = $maintenance->sorted('tanggal_akad', 'desc');
 
         // if(request('jenis_m')){

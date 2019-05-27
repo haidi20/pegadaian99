@@ -100,8 +100,8 @@ class Akad extends Model
 
         $query->whereBetween('tanggal_akad', [$start, $end])
               ->where('jangka_waktu_akad', '!=', '7')
-              ->where('jangka_waktu_akad', '!=', '1')
-              ->where('maintenance', 0);
+              ->where('jangka_waktu_akad', '!=', '1');
+            //   ->where('maintenance', 0);
 
         return $query;
     }
