@@ -54,6 +54,7 @@ class Akad extends Model
     {
         return $query->whereStatus('Belum Lunas');
     }
+    
 
     public function scopeLelang($query)
     {
@@ -72,11 +73,13 @@ class Akad extends Model
     //end query status 'lunas, belum lunas, lelang dan refund'
 
     //start query 'status lokasi kantor, proses, gudang'
-    public function scopeStatusLokasi($query, $location)
+    public function scopeStatusLokasi($query, $location = 'kantor')
     {
         if($location == 'kantor'){
-            $query->orWhere('status_lokasi', null);
+            $query->where('status_lokasi', '<>', 'proses')
+                  ->where('status_lokasi', '<>', 'gudang');
         }
+
         return $query->where('status_lokasi', $location);
     }
     //end query 'status lokasi kantor, proses, gudang'
@@ -117,6 +120,25 @@ class Akad extends Model
     public function scopeSorted($query, $by = 'akad.id_akad', $sort = 'asc')
     {
         return $query->orderBy($by, $sort);
+    }
+
+    public function getNamaTargetLokasiAttribute()
+    {
+        $target = $this->target_lokasi == null ? 'gudang' : $this->target_lokasi;
+        $target = $target == 'kantor' ? 'KANTOR' : 'GUDANG';
+
+        return $target;
+        
+    }
+    public function getNamaTargetLokasiKembaliAttribute()
+    {
+        if($this->target_lokasi == null){
+            return 'KANTOR';
+        }elseif($this->target_lokasi == 'gudang'){
+            return 'KANTOR';
+        }else{
+            return 'GUDANG';
+        }
     }
 
     public function getNominalNilaiTafsirAttribute()
