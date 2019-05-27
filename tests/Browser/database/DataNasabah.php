@@ -74,31 +74,31 @@ class DataNasabah extends Login
                 //  [nama_lengkap]
                 ->select('by', 'nama_lengkap')
                 // some case value more prefered use ID not CLASS , sometime make anError
-                ->value('#q', 'SELVY SOVYANA')
+                ->value('#q', 'SELVY SOVYANA') //search
                 ->screenshot('UserViewDataNasabah[3.1]FilterView-nama-lengkap')
                 // press ('value-of-button')
                 ->press('Oke')
-                ->assertSee('JL. DR. SUTOMO NO.29')
+                ->assertSee('JL. DR. SUTOMO NO.29') //text from data by search
                 ->screenshot('UserViewDataNasabah[3.1]FilterSubmit-nama-lengkap')
 
                 //  [no_telp]
                 ->select('by', 'no_telp')
                 // some case value more prefered use ID not CLASS , sometime make anError
-                ->value('#q', '082250256655')
+                ->value('#q', '082250256655') //search
                 ->screenshot('UserViewDataNasabah[3.2]FilterView-no-telp')
                 // press ('value-of-button')
                 ->press('Oke')
-                ->assertSee('DEVI YULISTIA ANGGRENI')
+                ->assertSee('DEVI YULISTIA ANGGRENI') //text from data by search
                 ->screenshot('UserViewDataNasabah[3.2]FilterSubmit-no-telp')
 
                 //  [alamat]
                 ->select('by', 'alamat')
                 // some case value more prefered use ID not CLASS , sometime make anError
-                ->value('#q', 'JL. TURI RAYA B 545 RT 075')
+                ->value('#q', 'JL. TURI RAYA B 545 RT 075') //search
                 ->screenshot('UserViewDataNasabah[3.3]FilterView-alamat')
                 // press ('value-of-button')
                 ->press('Oke')
-                ->assertSee('NURMAHAYATI')
+                ->assertSee('NURMAHAYATI') //text from data by search
                 ->screenshot('UserViewDataNasabah[3.3]FilterSubmit-alamat')
                 /**
                  * modal view [jquery]
@@ -107,24 +107,32 @@ class DataNasabah extends Login
                 ->click('#detail_955') //detail-view
                 ->assertSee('NURMAHAYATI')
                 ->assertSee('Wanita')
-                ->screenshot('UserViewDataNasabah[4]detail-info')
+                ->screenshot('UserViewDataNasabah[4]detail-info[1]')
                 ->press('Oke')
+                ->assertSee('DATA TABLE NASABAH')
+                ->screenshot('UserViewDataNasabah[4]detail-info[2]ok-close')
                 /**
                  * i will refresh mean's back to the Data nasabah
                  * todo edit
                  */
-                ->clickLink('Data Nasabah')
-                ->assertSee('DATA TABLE NASABAH')
-                ->click('.btn-primary')
+                // ->clickLink('Data Nasabah')
+                // ->assertSee('DATA TABLE NASABAH')
+
+                /**
+                 * edit click
+                 */
+                ->click('a[href="http://127.0.0.1:8000/nasabah/edit/954"]')
+                ->assertPathIs('/nasabah/edit/954')
                 ->assertSee('Edit Data Nasabah')
                 ->screenshot('UserViewDataNasabah[5.1]edit-data-nasabah')
-                ->value('#alamat', 'JL. PANGERAN ANTASARI')
+                ->value('#no_identitas', '99999999999')
+                // ->value('#alamat', 'JL. PANGERAN ANTASARIS') //edit data alamat with this value
                 ->screenshot('UserViewDataNasabah[5.2]edit-data-nasabah-alamat')
                 ->press('Proses')
-                ->assertSee('Sukses! Data Nasabah telah di perbaharui dengan Atas Nama NUR INDA MARLIDANI')
+                ->assertSee('Sukses! Data Nasabah telah di perbaharui dengan Atas Nama')
                 ->screenshot('UserViewDataNasabah[5.3]edit-data-nasabah-alamat-submit')
 
-                // end ✗
+                // end ✓ almost done
             ;
         });
     }

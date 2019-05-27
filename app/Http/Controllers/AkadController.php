@@ -228,6 +228,7 @@ class AkadController extends Controller
 
         $maintenance    = $this->akad->joinNasabah();
         $maintenance    = $maintenance->baseBranch();
+        $maintenance    = $maintenance->sorted('akad.maintenance');
         $maintenance    = $maintenance->sorted('tanggal_akad', 'desc');
 
         // if(request('jenis_m')){
@@ -244,6 +245,21 @@ class AkadController extends Controller
         return $this->template('akad.index.maintenance', compact(
             'nameTables', 'data'
         ));
+    }
+
+    public function change_checklist($id)
+    {
+        $akad = $this->akad->find($id);
+
+        if($akad->maintenance == 0){
+            $akad->maintenance = 1;
+        }else{
+            $akad->maintenance = 0;
+        }
+
+        $akad->save();
+
+        return redirect()->back();
     }
 
     public function index()
