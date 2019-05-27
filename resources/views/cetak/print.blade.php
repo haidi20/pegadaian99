@@ -138,14 +138,22 @@ label
     <!-- pembayaran -->
     <label for="PEMBAYARAN"> <strong>PEMBAYARAN</strong> </label>
     <p>
-        <!-- No ID -->
         <span id="id_label_tanggal">Tanggal Pembayaran</span>
         <span class="pull-right " style="margin-left: 202px"> : </span>
         <span class="pull-right" id="id_tanggal_pembayaran">{{$data['tanggal_akad']}}</span>
-        <!-- <br> should -->
-        <!-- Nama -->
+
         <br />
-        <span id="id_label_titip">B. Titip Minggu ke</span>
+        <span id="id_label_titip">Opsi Pembayaran</span>
+        <span class="pull-right " style="margin-left: 214px">
+            @if($data['nilai_opsi_pembayaran'] == 1)
+                : <span id="id_btitipmingguke">Harian</span>
+            @else
+                : <span id="id_btitipmingguke">{{$data['nilai_opsi_pembayaran']}} Hari</span>
+            @endif
+        </span>
+
+        <br />
+        <span id="id_label_titip">B. Titip</span>
         <span class="pull-right " style="margin-left: 214px">
             : <span id="id_btitipmingguke">{{$data['bt_minggu_ke']}}</span>
         </span>

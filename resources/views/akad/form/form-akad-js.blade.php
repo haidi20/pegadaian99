@@ -132,8 +132,7 @@
     function bt_minggu_ke(value)
     {
         if(value >= 1){
-            console.log(value);
-            $('#bt_minggu_ke').val('0-'+value);
+            $('#bt_minggu_ke').val('0 - '+value);
         }
     }
 
