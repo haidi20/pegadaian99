@@ -69,7 +69,7 @@ class PembayaranController extends Controller
 
     public function bku()
     {
-        $bku = $this->bku->idCabang()->sorted();
+        $bku = $this->bku->baseBranch()->jenis('kas')->sorted();
 
         if(request('by')){
             $bku = $bku->search(request('by'), request('q'));
