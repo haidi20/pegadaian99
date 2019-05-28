@@ -223,6 +223,8 @@ class AkadController extends Controller
 
     public function maintenance()
     {
+        // list column maintenance
+        $column     = config('library.column.akad_nasabah.maintenance');
         // list name tables on TAB 'pelunasan dan lelang' example list 'nasabah lunas, lelang, dan refund'.
         $nameTables = config('library.name_tables.lokasi_distribusi');
 
@@ -230,10 +232,7 @@ class AkadController extends Controller
         $maintenance    = $maintenance->baseBranch();
         $maintenance    = $maintenance->sorted('akad.maintenance');
         $maintenance    = $maintenance->sorted('tanggal_akad', 'desc');
-
-        // if(request('jenis_m')){
-            $maintenance= $maintenance->maintenance();
-        // }
+        $maintenance    = $maintenance->maintenance();
 
         // if get data from input keyword 
         if(request('q')){
@@ -243,7 +242,7 @@ class AkadController extends Controller
         $data = $maintenance->paginate(request('perpage', 10));
 
         return $this->template('akad.index.maintenance', compact(
-            'nameTables', 'data'
+            'nameTables', 'data', 'column'
         ));
     }
 
