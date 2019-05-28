@@ -285,7 +285,7 @@ class CabangController extends Controller
             $cabang                 = $this->cabang;
             $cabang->id_cabang      = uniqid();
 
-            $validateData   = $this->validateData('create');
+            $validateData           = $this->validateData('create');
             
             if($validateData->already){
                 return $validateData->redirect;
@@ -303,8 +303,11 @@ class CabangController extends Controller
         $cabang->save();
 
         // insert data to other table
-        $logSaldoCabang     = $this->log_saldo_cabang($cabang, $saldo_cabang, $type);
-        $penambahanModal    = $this->penambahan_modal($cabang, $saldo_cabang, $type);
+        // condition when make new data branch
+        if(!$id){
+            $logSaldoCabang     = $this->log_saldo_cabang($cabang, $saldo_cabang, $type);
+            $penambahanModal    = $this->penambahan_modal($cabang, $saldo_cabang, $type);
+        }
 
         $message    = '<strong>Sukses!</strong> Data Cabang telah di '.$type.' dengan Nomor Cabang '.$cabang->no_cabang.
                       ' dan Nama Cabang '.$cabang->nama_cabang.' telah Berhasil';
