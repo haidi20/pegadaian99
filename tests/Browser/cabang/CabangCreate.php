@@ -8,6 +8,23 @@ use Tests\Browser\cabang\CabangView;
 
 class CabangCreate extends CabangView
 {
+    public function investor()
+    {
+        $avoidsamedata = rand(0, 99);
+        $investor = "King Yogi$avoidsamedata";
+        return $investor;
+    }
+    public function number_cabang()
+    {
+        $number_cabang = rand(0, 99);
+        return $number_cabang;
+    }
+    public function nama_cabang()
+    {
+        $number = $this->number_cabang();
+        $nama_cabang = "CAB$number";
+        return $nama_cabang;
+    }
     /**
      * A Dusk test example.
      * @test
@@ -47,16 +64,17 @@ class CabangCreate extends CabangView
                  * user field form data
                  * value ('name|id|class', 'value')
                  */
-                ->value('#investor', 'King Arif')
+                ->value('#investor', $this->investor())
                 ->value('#modal_awal', '200000000')
-                ->value('#no_cabang', '15')
-                ->value('#nama_cabang', 'PEG99')
+                ->value('#no_cabang', $this->number_cabang())
+                ->value('#nama_cabang', $this->nama_cabang())
                 ->value('#telp_cabang', '081545778612')
                 ->value('#alamat_cabang', 'Loa Janan Loa Duri')
                 ->screenshot('UserView[TAMBAH](2)Cabang_FIELD')
                 // press ('value-of-button')
                 ->press('Proses')
-                ->assertSee('Sukses! Data Cabang telah di tambah')
+                // ->assertSee('Maaf')
+                ->assertSee('Sukses! Data Cabang telah di Menambahkan dengan Nomor Cabang') // $no_cabang dan $nama_cabang , getData(laters...)
                 ->screenshot('UserView[TAMBAH](3)Cabang_SUBMIT')
                 // end ✓ almost done
             ;
