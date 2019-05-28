@@ -52,7 +52,7 @@
                                     <div class="form-group">
                                         <select name="by" id="by" class="form-control">
                                             @foreach ($column as $index => $item)
-                                            <option value="{{$index}}" {{selected($index, 'by', 'request')}}>{{$item}}</option>
+                                                <option value="{{$index}}" {{selected($index, 'by', 'request')}}>{{$item}}</option>
                                             @endforeach
                                         </select>
                                     </div>

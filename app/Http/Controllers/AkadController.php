@@ -475,7 +475,7 @@ class AkadController extends Controller
     	$akad->nilai_tafsir			  = remove_dot($data['taksiran_marhun']); 
     	$akad->nilai_pencairan		  = remove_dot($data['marhun_bih']); 
     	$akad->bt_7_hari			  = remove_dot($data['biaya_titip']); 
-    	$akad->biaya_admin			  =  remove_dot($data['biaya_admin']); 
+    	$akad->biaya_admin			  = remove_dot($data['biaya_admin']); 
     	$akad->terbilang			  = $data['terbilang']; 
     	$akad->status				  = 'Belum Lunas';
     	$akad->status_lokasi    	  = 'kantor';

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Bku;
+use App\Models\Akad;
 use App\Models\Administrasi;
 
 use Auth;
@@ -14,11 +15,13 @@ class PembayaranController extends Controller
 {
 	public function __construct(
     							Bku $bku,
+    							Akad $akad,
                                 Request $request,
                                 Administrasi $administrasi
                             )
     {
     	$this->bku  	    = $bku;
+    	$this->akad  	    = $akad;
         $this->request      = $request;
         $this->administrasi = $administrasi;
 
@@ -31,7 +34,7 @@ class PembayaranController extends Controller
 
     public function pembayaran()
     {
-        $biaya_titip    = $this->biaya_titip();
+        $biayaTitip    = $this->biaya_titip();
         $administrasi   = $this->administrasi();
 
         // list column 'list biaya titip' and 'list biaya administrasi'
@@ -39,29 +42,29 @@ class PembayaranController extends Controller
         $columnBiayaAdministrasi    = config('library.column.pendapatan.list_biaya_administrasi');
 
     	return $this->template('pembayaran.pendapatan', compact(
-            'columnBiayaTitip', 'columnBiayaAdministrasi',
-            'administrasi'
+            'columnBiayaTitip', 'columnBiayaAdministrasi', 
+            'administrasi', 'biayaTitip'
         ));
     }
 
     // for table 'LIST BIAYA TITIP'
     public function biaya_titip()
     {
+        $akad = $this->akad->joinNasabah()->baseBranch();
+        $akad = $akad->sorted('tanggal_akad', 'desc');
+        $akad = $akad->paginate(10);
 
+        return $akad;
     }
 
     // for table 'LIST BIAYA ADMINISTRASI'
     public function administrasi()
     {
-        $administrasi = $this->administrasi;
+        $akad = $this->akad->joinNasabah()->baseBranch();
+        $akad = $akad->sorted('tanggal_akad', 'desc');
+        $akad = $akad->paginate(10);
 
-        if(request('by_adm')){
-            $administrasi = $administrasi->search(request('by_adm'), request('q_adm'));
-        }
-
-        $administrasi = $administrasi->paginate(request('perpage_adm', 10));
-
-        return $administrasi;
+        return $akad;
     }
 
     public function bku()
