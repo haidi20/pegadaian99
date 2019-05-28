@@ -28,13 +28,6 @@
 
 <script>
      $(document).ready(function() {
-        // $('#res-config').DataTable({
-        //     responsive: true
-        // });
-        // var newcs = $('#new-cons').DataTable();
-
-        // new $.fn.dataTable.Responsive(newcs);
-
         $('#new-cons').DataTable( {
             responsive: {
                 details: {
@@ -46,7 +39,7 @@
                                     '<td>'+col.data+'</td>'+
                                 '</tr>' :
                                 '';
-                        } ).join('');
+                        }).join('');
     
                         return data ?
                             $('<table/>').append( data ) :

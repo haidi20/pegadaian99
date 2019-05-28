@@ -247,6 +247,12 @@ return [
 					'pengembalian'		=> 'Pengembalian',
 				],
 			],	
+			'maintenance' => [
+				'no_id' 		=> 'ID',
+				'nama_lengkap' 	=> 'Nama Nasabah', 
+				'nama_barang' 	=> 'Nama Barang',
+				'tanggal_akad' 	=> 'Tanggal Akad',
+			],
 		],
 		'nasabah' => [
 			'nama_lengkap' 	=> 'Nama',

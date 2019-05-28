@@ -51,8 +51,9 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                         <select name="by" id="by" class="form-control">
-                                            <option value="nama_barang" {{selected('nama_barang', 'by', 'request')}}>Nama Barang</option>
-                                            <option value="tanggal_akad" {{selected('tanggal_akad', 'by', 'request')}}>Tanggal Akad</option>
+                                            @foreach ($column as $index => $item)
+                                            <option value="{{$index}}" {{selected($index, 'by', 'request')}}>{{$item}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -76,8 +77,9 @@
                             <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Barang</th>
-                                <th>Tanggal Akad</th>
+                                @foreach ($column as $index => $item)
+                                    <th>{{$item}}</th>
+                                @endforeach
                                 <th width="100px">Ceklis</th>
                                 <th width="100px">Print</th>
                             </tr>
@@ -86,6 +88,8 @@
                                 @forelse($data as $index => $item)
                                     <tr>
                                         <td>{{$index + 1}}</td>
+                                        <td>{{$item->no_id}}</td>
+                                        <td>{{$item->nama_lengkap}}</td>
                                         <td>{{$item->nama_barang}}</td>
                                         <td>{{$item->tanggal_akad}}</td>
                                         <td align="center">
