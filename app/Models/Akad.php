@@ -132,6 +132,16 @@ class Akad extends Model
         }
     }
 
+    public function getNominalBiayaAdminAttribute()
+    {
+        return 'Rp '. nominal($this->biaya_admin);
+    }
+
+    public function getNominalBiayaTitipAttribute()
+    {
+        return 'Rp '. nominal($this->bt_7_hari);
+    }
+
     public function getNominalNilaiTafsirAttribute()
     {
         return 'Rp '. nominal($this->nilai_tafsir);

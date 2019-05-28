@@ -94,34 +94,26 @@
                             </tr>
                             </thead>
                             <tbody>
-                                {{-- @forelse($nasabah as $index => $item)
+                                @forelse($biayaTitip as $index => $item)
                                     <tr>
+                                        <td>{{$index + 1}}</td>
                                         <td>{{$item->nama_lengkap}}</td>
-                                        <td>{{$item->no_telp}}</td>
-                                        <td>{{$item->alamat}}</td>
-                                        <td align="center">
-                                            <a href="javascript:void(0)" onClick="detail({{$item->id_nasabah}})" title="Detail Data"
-                                               data-url="{{route('nasabah.detail', $item->id_nasabah)}}" id="detail_{{$item->id_nasabah}}" class="btn btn-sm btn-info">
-                                                <i class="icofont icofont-external icofont-lg"></i>
-                                            </a>
-                                            <a href="{{route('nasabah.edit', $item->id_nasabah)}}" class="btn btn-sm btn-primary" title="Edit Data">
-                                                {{-- <i class="icofont icofont-ui-delete icofont-lg"></i>
-                                                <i class="icofont icofont-edit icofont-lg"></i>
-                                            </a>
-                                        </td>
+                                        <td>{{$item->no_id}}</td>
+                                        <td></td>
+                                        <td>{{$item->tanggal_akad}}</td>
+                                        <td>{{$item->nominal_biaya_titip}}</td>
                                     </tr>
                                 @empty
                                 <tr>
                                     <td colspan="11" align="center">No data available in table</td>
                                 </tr>
-                                @endforelse --}} 
-                                 <td colspan="11" align="center">No data available in table</td>
+                                @endforelse
                             </tbody>
                             {{-- <tfoot>
                             </tfoot> --}}
                         </table>
                     </div>
-                   {{-- {!! $nasabah->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}                    --}}
+                   {!! $biayaTitip->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}                   
                 </div>
             </div>
         </div>
@@ -188,9 +180,10 @@
                             <tbody>
                                 @forelse($administrasi as $index => $item)
                                     <tr>
-                                        <td>{{$item->tanggal_transaksi}}</td>
-                                        <td>{{$item->jumlah}}</td>
-                                        <td>{{$item->keterangan}}</td>
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{$item->tanggal_akad}}</td>
+                                        <td>{{$item->nominal_biaya_admin}}</td>
+                                        <td></td>
                                     </tr>
                                 @empty
                                     <tr>
