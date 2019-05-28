@@ -43,8 +43,13 @@ class CabangView extends Login
                 // for capture laters -> finalize js loading screen
                 ->assertSee('Data Cabang')
                 // capture the task
-                ->assertSee('Nama Informasi')
+                ->assertSee('Waktu Rentang Laporan Dana')
                 ->screenshot('UserViewCabang[1]')
+                ->click('.sorting_1')
+                ->assertSee('Sisa Saldo')
+                ->screenshot('UserViewCabang[2]')
+                // ->select('new-cons_length', '50')
+                // ->screenshot('UserViewCabang[3]')
 
                 // /**
                 //  * DROP DOWN MENU PILIH CABANG
