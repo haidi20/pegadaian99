@@ -455,13 +455,13 @@ return [
 			3 	=> 'Piutang',
 			4 	=> 'Refund',
 			5 	=> 'Sisa Saldo',
-			6 	=> 'Pendapatan B.Titip Bulan',
-			7 	=> 'Pendapatan B.Admin Akad',
-			8 	=> 'Pendapatan B.Admin Lelang',
-			9 	=> 'Jumlah Akad Bulan',
-			10 	=> 'Saldo Kas Administrasi',
-			11 	=> 'Hutang Biaya Operasional',
-			12 	=> 'Biaya Operasional',
+			6 	=> 'Biaya Operasional',
+			7 	=> 'Jumlah Akad Bulan',
+			8 	=> 'Saldo Kas Administrasi',
+			9 	=> 'Pendapatan B.Titip Bulan',
+			10 	=> 'Hutang Biaya Operasional',
+			11 	=> 'Pendapatan B.Admin Akad',
+			12 	=> 'Pendapatan B.Admin Lelang',
 		]
 	]
 ];
