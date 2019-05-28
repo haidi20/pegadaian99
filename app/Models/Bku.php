@@ -25,7 +25,7 @@ class Bku extends Model
     ];
 
     // how to fetch data by username of user
-    public function scopeIdCabang($query)
+    public function scopeBaseBranch($query)
     {
         // get data id_cabang from table 'user_cabang' base on this user
         $user_cabang    = User_cabang::baseUsername()->first();
@@ -41,6 +41,11 @@ class Bku extends Model
     public function scopeSorted($query, $by = 'tanggal', $sort = 'desc')
     {
         return $query->orderBy($by, $sort);
+    }
+
+    public function scopeJenis($query, $type)
+    {
+        return $query->where('jenis', $type);
     }
 
     public function getNominalDebitAttribute()
