@@ -12,6 +12,8 @@ class BukuView extends Login
 {
     public function data_view_assert()
     { }
+    /** *
+     * /still de
     // public function data_uraian()
     // {
     //     $uraian = Bku::all();
@@ -19,6 +21,7 @@ class BukuView extends Login
     //     // $uraian = DB::Table('bku')->select('uraian')->first();
     //     return $uraian;
     // }
+     */
     /**
      * A Dusk test example.
      * @test
