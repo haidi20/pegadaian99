@@ -50,7 +50,7 @@ class TambahData extends Login
                  * ?clickLink('param')
                  * the function for this
                  * <a href='x'> param </a>
-                 * move to CabangCreate | Tambah Cabang
+                 * move to Biaya Operasional | Tambah Data
                  */
                 ->clickLink('Biaya Operasional')
                 ->clickLink('Tambah Data')
