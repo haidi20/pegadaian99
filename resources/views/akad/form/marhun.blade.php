@@ -72,7 +72,7 @@
                                     </label>
                                 </div>
                             </div>
-                            {{-- <input type="hidden" id="nilai_detail_jenis_barang" value="elektronik"> --}}
+                            {{-- <input type="hidden" id="nilai_detail_jenis_barang" value="smartphone"> --}}
                         </div>
                     </div>
                     <div class="form-group row" id="item_elektronik" style="display:">

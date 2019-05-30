@@ -24,12 +24,13 @@ class UpdateeeAkadTable extends Migration
         NOT NULL AFTER kekurangan;"); 
 
         Schema::table('akad', function (Blueprint $table) {
-            $table->string('status_lokasi')->nullable()->default('kantor');
-            $table->string('target_lokasi')->nullable()->default('gudang');
             $table->integer('maintenance')->default(0);
+            $table->string('detail_jenis_barang')->nullable()->default('smartphone');
             $table->string('kelengkapan_barang_satu')->nullable();
             $table->string('kelengkapan_barang_dua')->nullable();
             $table->string('kelengkapan_barang_tiga')->nullable();
+            $table->string('status_lokasi')->nullable()->default('kantor');
+            $table->string('target_lokasi')->nullable()->default('gudang');
         });      
     }
 
