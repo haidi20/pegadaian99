@@ -43,7 +43,7 @@ form.steps({
 
             // conditon if all form not null modal show
             if(form.valid()){
-                $('#modal-akad-notif').modal('show')
+                akad_confirm('stepOne')
             }
 
             form.find(".body:eq(" + newIndex + ") label.error").remove();
@@ -69,7 +69,7 @@ form.steps({
     },
     onFinished: function(event, currentIndex) {
         // in file form-akad-js.blade.php
-        akad_confirm()
+        akad_confirm('stepTwo')
     }
 }).validate({
     errorPlacement: function errorPlacement(error, element) {

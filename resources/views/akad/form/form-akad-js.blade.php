@@ -434,35 +434,40 @@
         }
     }
 
-    function akad_confirm()
+    //condition = stepOne or stepTwo
+    function akad_confirm(condition)
     {
         var data = $('#example-advanced-form').serializeArray();
 
-        // manipulation html in model confirm
-        insert_data(data)
+        if(condition == 'stepOne'){
+            $('#modal-akad-confirm-stepOne').modal('show')
+        }else if(condition == 'stepTwo'){
+            $('#modal-akad-confirm-stepTwo').modal('show')
+        }
 
-        $('#modal-akad-confirm').modal('show')
+        // manipulation html in model confirm
+        insert_data_confirm(data)
     }
 
-    function insert_data(data)
+    function insert_data_confirm(data)
     {
         $.each(data, function(index, item){
             kondisi_jenis_barang(item);
 
             if(item.name == 'taksiran_marhun'){
-                $('#data-'+item.name).html(': Rp.'+item.value);
+                $('.data-'+item.name).html(': Rp.'+item.value);
             }else if(item.name == 'marhun_bih'){
-                $('#data-'+item.name).html(': Rp.'+item.value);
+                $('.data-'+item.name).html(': Rp.'+item.value);
             }else if(item.name == 'biaya_titip'){
-                $('#data-'+item.name).html(': Rp.'+item.value);
+                $('.data-'+item.name).html(': Rp.'+item.value);
             }else if(item.name == 'jml_bt_yang_dibayar'){
-                $('#data-'+item.name).html(': Rp.'+item.value);
+                $('.data-'+item.name).html(': Rp.'+item.value);
             }else if(item.name == 'biaya_admin'){
-                $('#data-'+item.name).html(': Rp.'+item.value);
+                $('.data-'+item.name).html(': Rp.'+item.value);
             }else if(item.name == 'tanggal_lahir'){
-                $('#data-'+item.name).html(': '+moment().add(item.value, 'days').format('DD-MM-Y'));
+                $('.data-'+item.name).html(': '+moment().add(item.value, 'days').format('DD-MM-Y'));
             }else{
-                $('#data-'+item.name).html(': '+item.value);
+                $('.data-'+item.name).html(': '+item.value);
             }
         });
     }
