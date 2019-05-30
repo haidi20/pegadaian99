@@ -44,8 +44,7 @@ class DataPengeluaran extends TambahData
                 ->clickLink('Data Pengeluaran')
                 // measure against , the bot seen a page ,
                 // for capture laters -> finalize js loading screen
-
-                ->clickLink('79')
+                ->clickLink('79') //pagination
                 ->assertSee('Biaya Operasional')
                 // capture the task
                 ->screenshot('UserViewBiayaOperasional[DATA_PENGELUARAN](1)')
