@@ -248,7 +248,7 @@
                     type: "success",
                     icon: "success",
                 }).then(function() {
-                    window.location.href = '{{route("akad.nasabah-akad")}}';
+                    // window.location.href = '{{route("akad.nasabah-akad")}}';
                 });
                     
                 $.redirect(url_print, {
