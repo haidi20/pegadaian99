@@ -16,13 +16,13 @@
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_kelamin" value="Pria" {{checked('Pria', 'jenis_kelamin', 'Pria')}}>
+                                        <input type="radio" name="jenis_kelamin" id="jk_pria" value="Pria" {{checked('Pria', 'jenis_kelamin', 'Pria')}}>
                                         <i class="helper"></i>Pria
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_kelamin" value="Wanita" {{checked('Wanita', 'jenis_kelamin', 'Pria')}}>
+                                        <input type="radio" name="jenis_kelamin" id="jk_wanita" value="Wanita" {{checked('Wanita', 'jenis_kelamin', 'Pria')}}>
                                         <i class="helper"></i>Wanita
                                     </label>
                                 </div>
@@ -53,19 +53,19 @@
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_id" value="KTP" {{checked('KTP', 'jenis_id', 'KTP')}}>
+                                        <input type="radio" name="jenis_id" value="KTP" id="jenis_KTP" {{checked('KTP', 'jenis_id', 'KTP')}}>
                                         <i class="helper"></i>KTP
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_id" value="SIM" {{checked('SIM', 'jenis_id', 'KTP')}}>
+                                        <input type="radio" name="jenis_id" value="SIM" id="jenis_SIM" {{checked('SIM', 'jenis_id', 'KTP')}}>
                                         <i class="helper"></i>SIM
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_id" value="KK" {{checked('KK', 'jenis_id', 'KTP')}}>
+                                        <input type="radio" name="jenis_id" value="KK" id="jenis_KK" {{checked('KK', 'jenis_id', 'KTP')}}>
                                         <i class="helper"></i>KK
                                     </label>
                                 </div>
@@ -80,7 +80,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="tanggal_lahir">Tanggal Lahir</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" value="{{old('tanggal_lahir', '2000-01-01')}}" >
                         </div>
                     </div>

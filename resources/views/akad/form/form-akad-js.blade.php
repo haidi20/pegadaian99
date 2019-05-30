@@ -31,14 +31,64 @@
             cache: false,
             success:function(result){		
                 // console.log(result.nasabah)
-                $( "#nama_lengkap" ).autocomplete({
-                    source: result.nasabah
+                var nama_lengkap =  $("#nama_lengkap");
+
+                nama_lengkap.autocomplete({
+                    source: result.data,
+                    select: function( event, ui ) {
+                        var name = ui.item.value;
+                        
+                        get_full_data_nasabah(name)
+                    },
                 });
             },
             error:function(xhr, ajaxOptions, thrownError){
-                console.log(thrownError)
+               console.log(thrownError)
             }
         });
+    }
+
+    function get_full_data_nasabah(value)
+    {
+        $.ajax({
+            url: '{{url("nasabah/ajax")}}',
+            type: 'GET',
+            cache: false,
+            data: {nama_nasabah: value, type: 'full'},
+            success:function(result){	
+                var data = result.data ;
+
+                insert_form_nasabah(data);
+            },
+            error:function(xhr, ajaxOptions, thrownError){
+               console.log(thrownError)
+            }
+        });
+    }
+
+    function insert_form_nasabah(data)
+    {
+        // insert to form 'jenis kelamin'
+        if(data.jenis_kelamin == 'Pria'){
+            $('#jk_pria').prop('checked', true);
+        }else if(data.jenis_kelamin == 'Wanita'){
+            $('#jk_wanita').prop('checked', true);
+        }
+
+        if(data.jenis_id == 'KTP'){
+            $('#jenis_KTP').prop('checked', true);
+        }else if(data.jenis_id == 'SIM'){
+            $('#jenis_SIM').prop('checked', true);
+        }else if(data.jenis_id == 'KK'){
+            $('#jenis_KK').prop('checked', true);
+        }
+
+        $('#kota').val(data.kota);
+        $('#alamat').val(data.alamat);
+        $('#no_telp').val(data.no_telp);
+        $('#no_identitas').val(data.no_identitas);
+        $('#tanggal_lahir').val(data.tanggal_lahir);
+        // $('#no_telp').val(data.no_telp);
     }
 
     function taksiran_marhun_keyup()
@@ -236,6 +286,7 @@
         var url_pdf     = '{{route("pdf")}}';
         // console.log(data);
 
+        // first insert data to table 'akad'
         $.ajax({
             url: url_akad,
             type: 'POST',
@@ -248,9 +299,11 @@
                     type: "success",
                     icon: "success",
                 }).then(function() {
+                    // if success, redirect to page 'database > data akad nasabah > nasabah akad'
                     window.location.href = '{{route("akad.nasabah-akad")}}';
                 });
-                    
+                
+                // new tab for print after than new tab again for PDF 
                 $.redirect(url_print, {
                     data: data,
                     url_pdf: url_pdf
@@ -263,7 +316,7 @@
     }
 
     /* determine 'biaya titp'
-    * value is nilai from 'marhun_bih', 'opsi_pembayaran', or 'jenis_barang'
+    * value is 'nilai' from 'marhun_bih', 'opsi_pembayaran', or 'jenis_barang'
     * option for condition between 'marhun bih', 'opsi_pembayaran' and 'jenis_barang'
     */
     function biaya_titip(value, option)
@@ -381,35 +434,40 @@
         }
     }
 
-    function akad_confirm()
+    //condition = stepOne or stepTwo
+    function akad_confirm(condition)
     {
         var data = $('#example-advanced-form').serializeArray();
 
-        // manipulation html in model confirm
-        insert_data(data)
+        if(condition == 'stepOne'){
+            $('#modal-akad-confirm-stepOne').modal('show')
+        }else if(condition == 'stepTwo'){
+            $('#modal-akad-confirm-stepTwo').modal('show')
+        }
 
-        $('#modal-akad-confirm').modal('show')
+        // manipulation html in model confirm
+        insert_data_confirm(data)
     }
 
-    function insert_data(data)
+    function insert_data_confirm(data)
     {
         $.each(data, function(index, item){
             kondisi_jenis_barang(item);
 
             if(item.name == 'taksiran_marhun'){
-                $('#data-'+item.name).html(': Rp.'+item.value);
+                $('.data-'+item.name).html(': Rp.'+item.value);
             }else if(item.name == 'marhun_bih'){
-                $('#data-'+item.name).html(': Rp.'+item.value);
+                $('.data-'+item.name).html(': Rp.'+item.value);
             }else if(item.name == 'biaya_titip'){
-                $('#data-'+item.name).html(': Rp.'+item.value);
+                $('.data-'+item.name).html(': Rp.'+item.value);
             }else if(item.name == 'jml_bt_yang_dibayar'){
-                $('#data-'+item.name).html(': Rp.'+item.value);
+                $('.data-'+item.name).html(': Rp.'+item.value);
             }else if(item.name == 'biaya_admin'){
-                $('#data-'+item.name).html(': Rp.'+item.value);
+                $('.data-'+item.name).html(': Rp.'+item.value);
             }else if(item.name == 'tanggal_lahir'){
-                $('#data-'+item.name).html(': '+moment().add(item.value, 'days').format('DD-MM-Y'));
+                $('.data-'+item.name).html(': '+moment().add(item.value, 'days').format('DD-MM-Y'));
             }else{
-                $('#data-'+item.name).html(': '+item.value);
+                $('.data-'+item.name).html(': '+item.value);
             }
         });
     }

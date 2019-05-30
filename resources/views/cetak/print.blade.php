@@ -144,7 +144,7 @@ label
 
         <br />
         <span id="id_label_titip">Opsi Pembayaran</span>
-        <span class="pull-right " style="margin-left: 214px">
+        <span class="pull-right " style="margin-left: 223px">
             @if($data['nilai_opsi_pembayaran'] == 1)
                 : <span id="id_btitipmingguke">Harian</span>
             @else
@@ -154,7 +154,7 @@ label
 
         <br />
         <span id="id_label_titip">B. Titip</span>
-        <span class="pull-right " style="margin-left: 214px">
+        <span class="pull-right " style="margin-left: 287px">
             : <span id="id_btitipmingguke">{{$data['bt_minggu_ke']}}</span>
         </span>
 
@@ -248,7 +248,7 @@ label
                 jangka_waktu_akad: '{{$data["jangka_waktu_akad"]}}',
                 tanggal_jatuh_tempo: '{{$data["tanggal_jatuh_tempo"]}}',
                 jml_bt_yang_dibayar: '{{$data["jml_bt_yang_dibayar"]}}',
-                biaya_titip_minggu_ke: '{{$data["biaya_titip_minggu_ke"]}}',
+                bt_minggu_ke: '{{$data["bt_minggu_ke"]}}',
             }, "GET", "_blank");
         }
     </script>
