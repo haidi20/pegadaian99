@@ -401,6 +401,10 @@
             $('.kelengkapan_barang_satu').html('Type')
             $('.kelengkapan_barang_dua').html('Merk')
             $('.kelengkapan_barang_tiga').html('Imei / Nomor Serial')
+            //hide / show 'detail jenis barang'
+            $('.detail-elektronik').css('display', '')
+            $('.detail-kendaraan').css('display', 'none')
+            $('#smartphone').prop('checked', true)
             //insert value 'jenis_kendaraan'
             $('#nilai_jenis_barang').val('elektronik')
             // set 'biaya admin'
@@ -418,6 +422,10 @@
             $('.kelengkapan_barang_satu').html('KT')
             $('.kelengkapan_barang_dua').html('Warna')
             $('.kelengkapan_barang_tiga').html('Nomor Rangka')
+            //hide / show 'detail jenis barang'
+            $('.detail-elektronik').css('display', 'none');
+            $('.detail-kendaraan').css('display', '');
+            $('#motor').prop('checked', true)
             //insert value 'jenis_kendaraan'
             $('#nilai_jenis_barang').val('kendaraan')
             // set 'biaya admin'
