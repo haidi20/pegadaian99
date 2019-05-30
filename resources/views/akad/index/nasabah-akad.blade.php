@@ -9,6 +9,13 @@
 
 <!-- Date-range picker css  -->
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/bootstrap-daterangepicker/css/daterangepicker.css')}}">
+
+<style>
+    .col-md-1half {
+        .make-md-column(1.5);
+        margin-left:15px;
+    }
+</style>
 @endsection
 
 @section('script-bottom')
@@ -133,7 +140,7 @@
                             </div> 
                             <form method="get">
                             <div class="row">
-                                <div class="col-sm-12 col-md-2">
+                                <div class="col-md-1half">
                                      <div class="form-group">
                                         {{-- Show &nbsp; --}}
                                         <select name="perpage" id="perpage" class="form-control perpage">
