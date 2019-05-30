@@ -31,14 +31,64 @@
             cache: false,
             success:function(result){		
                 // console.log(result.nasabah)
-                $( "#nama_lengkap" ).autocomplete({
-                    source: result.nasabah
+                var nama_lengkap =  $("#nama_lengkap");
+
+                nama_lengkap.autocomplete({
+                    source: result.data,
+                    select: function( event, ui ) {
+                        var name = ui.item.value;
+                        
+                        get_full_data_nasabah(name)
+                    },
                 });
             },
             error:function(xhr, ajaxOptions, thrownError){
-                console.log(thrownError)
+               console.log(thrownError)
             }
         });
+    }
+
+    function get_full_data_nasabah(value)
+    {
+        $.ajax({
+            url: '{{url("nasabah/ajax")}}',
+            type: 'GET',
+            cache: false,
+            data: {nama_nasabah: value, type: 'full'},
+            success:function(result){	
+                var data = result.data ;
+
+                insert_form_nasabah(data);
+            },
+            error:function(xhr, ajaxOptions, thrownError){
+               console.log(thrownError)
+            }
+        });
+    }
+
+    function insert_form_nasabah(data)
+    {
+        // insert to form 'jenis kelamin'
+        if(data.jenis_kelamin == 'Pria'){
+            $('#jk_pria').prop('checked', true);
+        }else if(data.jenis_kelamin == 'Wanita'){
+            $('#jk_wanita').prop('checked', true);
+        }
+
+        if(data.jenis_id == 'KTP'){
+            $('#jenis_KTP').prop('checked', true);
+        }else if(data.jenis_id == 'SIM'){
+            $('#jenis_SIM').prop('checked', true);
+        }else if(data.jenis_id == 'KK'){
+            $('#jenis_KK').prop('checked', true);
+        }
+
+        $('#kota').val(data.kota);
+        $('#alamat').val(data.alamat);
+        $('#no_telp').val(data.no_telp);
+        $('#no_identitas').val(data.no_identitas);
+        $('#tanggal_lahir').val(data.tanggal_lahir);
+        // $('#no_telp').val(data.no_telp);
     }
 
     function taksiran_marhun_keyup()
@@ -236,6 +286,7 @@
         var url_pdf     = '{{route("pdf")}}';
         // console.log(data);
 
+        // first insert data to table 'akad'
         $.ajax({
             url: url_akad,
             type: 'POST',
@@ -248,9 +299,11 @@
                     type: "success",
                     icon: "success",
                 }).then(function() {
-                    // window.location.href = '{{route("akad.nasabah-akad")}}';
+                    // if success, redirect to page 'database > data akad nasabah > nasabah akad'
+                    window.location.href = '{{route("akad.nasabah-akad")}}';
                 });
-                    
+                
+                // new tab for print after than new tab again for PDF 
                 $.redirect(url_print, {
                     data: data,
                     url_pdf: url_pdf
@@ -263,7 +316,7 @@
     }
 
     /* determine 'biaya titp'
-    * value is nilai from 'marhun_bih', 'opsi_pembayaran', or 'jenis_barang'
+    * value is 'nilai' from 'marhun_bih', 'opsi_pembayaran', or 'jenis_barang'
     * option for condition between 'marhun bih', 'opsi_pembayaran' and 'jenis_barang'
     */
     function biaya_titip(value, option)

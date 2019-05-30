@@ -82,8 +82,12 @@ class NasabahController extends Controller
 
     public function ajax()
     {
-        $nasabah = $this->nasabah->pluck('nama_lengkap');
+        if(request('type') == 'full'){
+            $data = $this->nasabah->where('nama_lengkap', request('nama_nasabah'))->first();
+        }else{
+            $data = $this->nasabah->pluck('nama_lengkap');
+        }
 
-        return response()->json(compact('nasabah'));
+        return response()->json(compact('data'));
     }
 }

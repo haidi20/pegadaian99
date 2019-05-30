@@ -219,7 +219,7 @@ label
     {{-- </div> --}}
     <script type="text/javascript" src="{{asset('adminty/files/bower_components/jquery/js/jquery.min.js')}}"></script>
     <script src="https://cdn.rawgit.com/mgalante/jquery.redirect/master/jquery.redirect.js"></script>
-    {{-- <script>
+    <script>
         var data = '{{json_encode($input)}}';
         
         if(data){
@@ -251,7 +251,7 @@ label
                 bt_minggu_ke: '{{$data["bt_minggu_ke"]}}',
             }, "GET", "_blank");
         }
-    </script> --}}
+    </script>
 </body>
 
 </html>
