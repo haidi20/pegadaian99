@@ -116,6 +116,20 @@ class HutangPembayaran extends TambahData
                 ->press('Oke')
                 ->assertSee($status_hutangBL) //text from data by search
                 ->screenshot('UserViewBiayaOperasional[HUTANG-PEMBAYARAN](3.6)')
+                /**
+                 * modal view [jquery]
+                 * click('id')
+                 */
+                # only view
+                ->click('#detail_1') //detail-view
+                ->assertSee('Anda yakin data ini status menjadi LUNAS ?')
+                ->press('Cancel')
+                ->screenshot('UserViewBiayaOperasional[HUTANG-PEMBAYARAN](4)-dialog-view')
+                # action pressOk
+                ->click('#detail_1') //detail-view
+                ->assertSee('Anda yakin data ini status menjadi LUNAS ?')
+                ->press('OK')
+                ->screenshot('UserViewBiayaOperasional[HUTANG-PEMBAYARAN](4)-dialog-view')
                 // end
             ;
         });
