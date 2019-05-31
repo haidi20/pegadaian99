@@ -28,7 +28,7 @@ class HutangPembayaran extends TambahData
             $keterangan = 'Hutang kas ke saldo cabang'; // value='uraian'
             $tanggal_hutang = '2017-09-09';
             $status_hutangBL = 'Belum Lunas';
-            $status_hutangSL = 'Sudah Lunas';
+            $status_hutangSL = 'Lunas';
             $browser
                 /**
                  * #path_url-02 cabang_path()
@@ -121,15 +121,35 @@ class HutangPembayaran extends TambahData
                  * click('id')
                  */
                 # only view
-                ->click('#detail_1') //detail-view
-                ->assertSee('Anda yakin data ini status menjadi LUNAS ?')
+                ->assertSee('Action')
+                ->click('#detail_2') //detail-view
+
+                // waitForText('$selector','$second = 5')
+                ->waitForText('Anda', 5) //for complete jsload min-5-second-for-screenshot
+                ->screenshot('UserViewBiayaOperasional[HUTANG-PEMBAYARAN](5)-dialog-view-cancel')
                 ->press('Cancel')
-                ->screenshot('UserViewBiayaOperasional[HUTANG-PEMBAYARAN](4)-dialog-view')
-                # action pressOk
+                ->waitForText('DATA HUTANG', 5) //for complete jsload min-5-second-for-screenshot
+                ->screenshot('UserViewBiayaOperasional[HUTANG-PEMBAYARAN](5.1)-dialog-view-cancel')
+
+                //  [status_hutang]
+                ->select('by', 'status_hutang')
+                // some case value more prefered use ID not CLASS , sometime make anError
+                ->value('#q', $status_hutangSL) //search
+                ->screenshot('UserViewBiayaOperasional[HUTANG-PEMBAYARAN](3.4.1)')
+                // press ('value-of-button')
+                ->press('Oke')
+                ->assertSee($status_hutangSL) //text from data by search
+                ->screenshot('UserViewBiayaOperasional[HUTANG-PEMBAYARAN](3.6.2)')
+
+                ->assertSee('Action')
                 ->click('#detail_1') //detail-view
-                ->assertSee('Anda yakin data ini status menjadi LUNAS ?')
+
+                // waitForText('$selector','$second = 5')
+                ->waitForText('Anda', 5) //for complete jsload min-5-second-for-screenshot
+                ->screenshot('UserViewBiayaOperasional[HUTANG-PEMBAYARAN](5)-dialog-view-ok')
                 ->press('OK')
-                ->screenshot('UserViewBiayaOperasional[HUTANG-PEMBAYARAN](4)-dialog-view')
+                ->waitForText('DATA HUTANG', 5) //for complete jsload min-5-second-for-screenshot
+                ->screenshot('UserViewBiayaOperasional[HUTANG-PEMBAYARAN](5.1)-dialog-view-ok')
                 // end
             ;
         });
