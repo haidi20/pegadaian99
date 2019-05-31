@@ -10,6 +10,15 @@ use Tests\Browser\Login;
 class TambahSaldo extends Login
 {
     /**
+     * declare
+     * #path_url-02
+     * url.com/cabang
+     */
+    public function cabang_path()
+    {
+        return '/cabang';
+    }
+    /**
      * A Dusk test example.
      * @test
      * @return void
@@ -26,7 +35,7 @@ class TambahSaldo extends Login
             $myMoney = '1000000';
             $browser
                 // path direct link after log in is www.url.com/cabang
-                ->assertPathIs('/cabang')
+                ->assertPathIs($this->cabang_path())
                 ->assertSee('Data Cabang')
                 // going to Data Permodalan
                 ->clickLink('Data Permodalan')
