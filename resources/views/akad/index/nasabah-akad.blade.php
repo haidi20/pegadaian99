@@ -12,7 +12,7 @@
 
 <style>
     .col-md-1half {
-        .make-md-column(1.5);
+        /* .make-md-column(1.5); */
         margin-left:15px;
     }
 </style>
