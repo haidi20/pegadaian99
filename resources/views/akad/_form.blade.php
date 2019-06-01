@@ -35,8 +35,7 @@
 <script src="{{asset('adminty/files/bower_components/jquery.steps/js/jquery.steps.js')}}"></script>
 <script src="{{asset('adminty/files/bower_components/jquery-validation/js/jquery.validate.js')}}"></script>
 
-
-<script src="{{asset('js/form-wizard.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/form-wizard.js')}}"></script>
 <script src="https://cdn.rawgit.com/mgalante/jquery.redirect/master/jquery.redirect.js"></script>
 @include('akad.form.form-akad-js')
 @endsection

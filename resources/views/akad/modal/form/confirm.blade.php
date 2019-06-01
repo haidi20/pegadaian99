@@ -63,6 +63,10 @@
                                                         <td class="data-jenis_barang"></td>
                                                     </tr>
                                                     <tr>
+                                                        <td>Detail Jenis Barang</td>
+                                                        <td class="data-detail_jenis_barang"></td>
+                                                    </tr>
+                                                    <tr>
                                                         <td class="name-kelengkapan_barang_satu"></td>
                                                         <td class="data-kelengkapan_barang_satu"></td>
                                                     </tr>
@@ -223,6 +227,10 @@
                                                     <tr>
                                                         <td>Jenis Barang</td>
                                                         <td class="data-jenis_barang"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Detail Jenis Barang</td>
+                                                        <td class="data-detail_jenis_barang"></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="name-kelengkapan_barang_satu"></td>

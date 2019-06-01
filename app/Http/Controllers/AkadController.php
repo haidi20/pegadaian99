@@ -464,6 +464,7 @@ class AkadController extends Controller
     	$akad->key_nasabah 			  = $nasabah->key_nasabah;
     	$akad->nama_barang			  = $data['nama_barang']; 
     	$akad->jenis_barang			  = $data['jenis_barang']; 
+    	$akad->detail_jenis_barang	  = $data['detail_jenis_barang']; 
     	$akad->kelengkapan			  = $data['kelengkapan']; 
         $akad->kelengkapan_barang_satu= $data['kelengkapan_barang_satu']; 
         $akad->kelengkapan_barang_dua = $data['kelengkapan_barang_dua']; 
