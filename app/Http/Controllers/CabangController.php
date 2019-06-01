@@ -149,7 +149,6 @@ class CabangController extends Controller
         return $result;
     }
 
-    // 'pendapatan biaya titip bulan'
     public function biayaTitipBulan($id)
     {
         $result = 0;
