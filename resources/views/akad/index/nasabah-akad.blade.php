@@ -24,6 +24,11 @@
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/bootstrap-daterangepicker/js/daterangepicker.js')}}"></script>
 <!-- Date-dropper js -->
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/datedropper/js/datedropper.min.js')}}"></script>
+<!-- Color picker js -->
+<script type="text/javascript" src="{{asset('adminty/files/bower_components/spectrum/js/spectrum.js')}}"></script>
+<script type="text/javascript" src="{{asset('adminty/files/bower_components/jscolor/js/jscolor.js')}}"></script>
+
+<script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/custom-picker.js')}}"></script>
 
 <!-- jquery redirect -->
 <script type="text/javascript" async src="https://cdn.rawgit.com/mgalante/jquery.redirect/master/jquery.redirect.js"></script>
@@ -188,9 +193,9 @@
                             </ul>
                             <!-- Tab panes -->
                             <form method="get">
-                            <input type="hidden" id="name_tab" name="name_tab" value="{{request('name_tab')}}">
+                            <input type="hidden" id="name_tab" name="name_tab" value="{{request('name_tab', 'seluruh_data')}}">
                             <div class="tab-content tabs card-block">
-                                <div class="tab-pane active{{active_tab('seluruh_data', request('name_tab'))}}" id="seluruh_data" role="tabpanel">
+                                <div class="tab-pane active {{active_tab('seluruh_data', request('name_tab'))}}" id="seluruh_data" role="tabpanel">
                                     @include('akad.index.detail.table-nasabah-akad')
                                 </div>
                                 <div class="tab-pane {{active_tab('harian', request('name_tab'))}}" id="harian" role="tabpanel">

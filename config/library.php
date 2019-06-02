@@ -471,7 +471,8 @@ return [
 		],
 		'nasabah_akad' => [
 			'detail_jenis_barang' => [
-				'smartphone' => 'Smartphone',
+				'' 			=> 'Semua Detail Jenis Barang',
+				'smartphone'=> 'Smartphone',
 				'laptop'	=> 'Laptop',
 				'kamera'	=> 'Kamera',
 				'tv'		=> 'TV',
@@ -480,11 +481,10 @@ return [
 				'lain_lain'	=> 'Lain - lain',
 			],
 			'waktu_akad' => [
-				'seluruh_data' 		=> 'Seluruh Data',
-				'harian' 			=> 'harian',
-				'tujuh_hari' 		=> '7 Hari',
-				'lima_belas_hari'	=> '15 Hari',
-				'ringkasan_hari' 	=> 'Ringkasan Hari'
+				''		=> 'Seluruh Data',
+				'1' 	=> 'harian',
+				'7' 	=> '7 Hari',
+				'15'	=> '15 Hari',
 			]
 		],
 	],

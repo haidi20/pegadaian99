@@ -1,4 +1,4 @@
-<form method="get">
+{{-- <form method="get"> --}}
     <div class="row">
         <div class="col-md-1half">
              <div class="form-group">
@@ -14,7 +14,7 @@
         </div>
         <div class="col-sm-12 col-md-3">
             <div class="form-group">
-                <input type="text" name="daterange" id="date" class="form-control" value="{{$dateRange}}" />
+                <input type="text" name="daterange" id="date" class="form-control" value="{{$seluruhData->dateRange}}" />
             </div>
         </div>
         <div class="col-sm-12 col-md-7">
@@ -51,9 +51,9 @@
         </div>
         <div class="col-sm-12 col-md-5">
             <div class="form-group">
-                <select name="detail_jenis_barang" id="detail_jenis_barang" class="form-control">
+                <select name="opsi_pembayaran" id="opsi_pembayaran" class="form-control">
                     @foreach($waktuAkad as $index => $item)
-                        <option value="{{$index}}" {{selected($index, 'detail_jenis_barang', 'request')}}>{{$item}}</option>
+                        <option value="{{$index}}" {{selected($index, 'opsi_pembayaran', 'request')}}>{{$item}}</option>
                     @endforeach
                 </select>
             </div>
@@ -65,7 +65,7 @@
         </div>
     </div>
     <input type="hidden" name="page" value="{{request('page')}}">
-</form>
+{{-- </form> --}}
 <br>
 <div class="row">
     <div class="col-sm-12 col-md-12">
@@ -81,7 +81,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($data as $index => $item)
+                    @forelse($seluruhData->data as $index => $item)
                         <tr>
                             <td>{{$index + 1}}</td>
                             <td>{{$item->nama_lengkap}}</td>
@@ -141,6 +141,6 @@
                 </tbody>
             </table>
         </div>
-        {!! $data->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
+        {!! $seluruhData->data->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
     </div>
 </div>

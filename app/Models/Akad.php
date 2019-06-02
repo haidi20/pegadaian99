@@ -54,6 +54,11 @@ class Akad extends Model
                      ->whereBetween('tanggal_jatuh_tempo', [$start, $end]);
     }
 
+    public function scopeDetailJenisBarang($query, $data)
+    {
+        return $query->where('detail_jenis_barang', $data);
+    }
+
     //start query status 'lunas, belum lunas, lelang dan refund'
     public function scopeBelumLunas($query)
     {
@@ -120,6 +125,11 @@ class Akad extends Model
     public function scopeSorted($query, $by = 'akad.id_akad', $sort = 'asc')
     {
         return $query->orderBy($by, $sort);
+    }
+
+    public function scopeOpsiPembayaran($query, $data)
+    {
+        return $query->where('opsi_pembayaran', $data);
     }
 
     public function getNamaTargetLokasiAttribute()
