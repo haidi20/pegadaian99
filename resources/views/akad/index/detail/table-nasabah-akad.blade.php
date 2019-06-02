@@ -14,7 +14,7 @@
         </div>
         <div class="col-sm-12 col-md-3">
             <div class="form-group">
-                <input type="text" name="daterange" id="date" class="form-control" value="{{$seluruhData->dateRange}}" />
+                <input type="text" name="daterange" id="date" class="form-control" value="{{$dateRange}}" />
             </div>
         </div>
         <div class="col-sm-12 col-md-7">
@@ -49,7 +49,7 @@
                 </select>
             </div>
         </div>
-        <div class="col-sm-12 col-md-5">
+        <div class="col-sm-12 col-md-5 opsi-pembayaran">
             <div class="form-group">
                 <select name="opsi_pembayaran" id="opsi_pembayaran" class="form-control">
                     @foreach($waktuAkad as $index => $item)
@@ -81,7 +81,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($seluruhData->data as $index => $item)
+                    @forelse($data as $index => $item)
                         <tr>
                             <td>{{$index + 1}}</td>
                             <td>{{$item->nama_lengkap}}</td>
@@ -141,6 +141,6 @@
                 </tbody>
             </table>
         </div>
-        {!! $seluruhData->data->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
+        {!! $data->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
     </div>
 </div>
