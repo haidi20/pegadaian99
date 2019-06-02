@@ -7,12 +7,6 @@
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/pages/advance-elements/css/bootstrap-datetimepicker.css')}}">
 <!-- Date-range picker css  -->
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/bootstrap-daterangepicker/css/daterangepicker.css')}}">
-
-<!-- Data Table Css -->
-<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/pages/data-table/css/buttons.dataTables.min.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/pages/data-table/extensions/responsive/css/responsive.dataTables.css')}}">
 @endsection
 
 @section('script-bottom')
@@ -24,17 +18,6 @@
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/bootstrap-daterangepicker/js/daterangepicker.js')}}"></script>
 <!-- Date-dropper js -->
 <script type="text/javascript" src="{{asset('adminty/files/bower_components/datedropper/js/datedropper.min.js')}}"></script>
-
-<!-- data-table js -->
-<script src="{{asset('adminty/files/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('adminty/files/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
-<script src="{{asset('adminty/files/assets/pages/data-table/js/jszip.min.js')}}"></script>
-<script src="{{asset('adminty/files/assets/pages/data-table/js/pdfmake.min.js')}}"></script>
-<script src="{{asset('adminty/files/assets/pages/data-table/js/vfs_fonts.js')}}"></script>
-<script src="{{asset('adminty/files/assets/pages/data-table/extensions/responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{asset('adminty/files/bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{asset('adminty/files/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{asset('adminty/files/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
 
 <!-- jquery redirect -->
 <script type="text/javascript" async src="https://cdn.rawgit.com/mgalante/jquery.redirect/master/jquery.redirect.js"></script>
@@ -62,32 +45,9 @@
         });
     });
 
-    $(document).ready(function() {
-        $('#new-cons').DataTable( {
-            responsive: {
-                details: {
-                    renderer: function ( api, rowIdx, columns ) {
-                        var data = $.map( columns, function ( col, i ) {
-                            return col.hidden ?
-                                '<tr data-dt-row="'+col.rowIndex+'" data-dt-column="'+col.columnIndex+'">'+
-                                    '<td>'+col.title+':'+'</td> '+
-                                    '<td>'+col.data+'</td>'+
-                                '</tr>' :
-                                '';
-                        }).join('');
-    
-                        return data ?
-                            $('<table/>').append( data ) :
-                            false;
-                    }
-                }
-            }
-        });
-    });
-
-     // for bug class active on tab
-     function removeActive(tab)
-     {
+    // for bug class active on tab
+    function removeActive(tab)
+    {
         var dataTabs = [
             'seluruh_data', 'harian',
             'tujuh_hari', 'lima_belas_hari',
@@ -101,30 +61,10 @@
                 $('#'+dataTabs[i]).removeClass('active');
             }
         }
+    }
 
-        // var seluruh_data = $('#seluruh_data')
-        // var harian = $('#harian')
-        // var tujuh_hari = $('#tujuh_hari')
-        // var lima_belas_hari = $('#lima_belas_hari')
-        // var ringkasan_harian = $('#ringkasan_harian')
-
-        // if(tab == 'nasabah_akad'){
-        //     $('#name_tab').val('nasabah_akad')
-        //     akad_jatuh_tempo.removeClass('active')
-        //     pelunasan_dan_lelang.removeClass('active')
-        // }else if(tab == 'akad_jatuh_tempo'){
-        //     $('#name_tab').val('akad_jatuh_tempo')
-        //     nasabah_akad.removeClass('active')
-        //     pelunasan_dan_lelang.removeClass('active')
-        // }else{
-        //     $('#name_tab').val('pelunasan_dan_lelang')
-        //     nasabah_akad.removeClass('active')
-        //     akad_jatuh_tempo.removeClass('active')
-        // }
-     }
-
-     function prosedur_na(type)
-     {
+    function prosedur(type)
+    {
         if(type == 'pelunasan'){
             $('#pelunasan').css('display', '')
         }else{
@@ -132,21 +72,27 @@
         }
 
         $('#modal-prosedur-na').modal('show');
-     }
+    }
 
-     function review_na()
-     {
-         $('#modal-review-na').modal('show');
-         
-         // for close popover on button "kwitansi biaya titip"
-         $('[data-toggle="popover"]').popover('hide');
-     }
+    function edit(id)
+    {
+        $('#modal-edit').modal('show');
+    }
+
+    function review()
+    {
+        $('#modal-review-na').modal('show');
+        
+        // for close popover on button "kwitansi biaya titip"
+        $('[data-toggle="popover"]').popover('hide');
+    }
 </script>
 @endsection
 
 @section('content')
 {{-- include file modal  --}}
 @include('akad.modal.index.prosedur')
+@include('akad.modal.index.form')
 <div class="page-header">
     <div class="row align-items-end">
         <div class="col-lg-8">
@@ -240,7 +186,7 @@
                             <div class="tab-content tabs card-block">
                                 <div class="tab-pane active{{active_tab('seluruh_data', request('name_tab'))}}" id="seluruh_data" role="tabpanel">
                                     <div class="table-responsive dt-responsive">
-                                        <table id="new-cons" class="table table-striped table-bordered nowrap">
+                                        <table class="table table-striped table-bordered nowrap">
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
