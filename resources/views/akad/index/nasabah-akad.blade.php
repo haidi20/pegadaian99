@@ -42,10 +42,17 @@
     */
 
     $(document).ready(function() {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
 
-    $(document).ready(function() {
+        var nameTab = $('#name_tab').val()
+
+        if(nameTab == 'seluruh_data'){
+            $('.seluruh_data').addClass('active');
+        }
+
+        kondisiOpsiPembayaran(nameTab);
+
+        $('[data-toggle="tooltip"]').tooltip();
+
         $('[data-toggle="popover"]').popover({
             html: true,
             content: function() {
@@ -54,12 +61,6 @@
                 // return $('#primary-popover-content').html();
             }
         });
-    });
-
-    $(function(){
-        if($('#name_tab').val() == 'seluruh_data'){
-            $('.seluruh_data').addClass('active');
-        }
     });
 
     // for bug class active on tab
