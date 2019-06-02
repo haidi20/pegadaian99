@@ -157,9 +157,18 @@
                                         <input type="text" name="daterange" id="date" class="form-control" value="{{$dateRange}}" />
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-6 offset-md-1">
+                                <div class="col-sm-12 col-md-7">
                                     <div class="row">
-                                        <div class="col-sm-4 offset-md-1">
+                                        <div class="col-sm-12 col-md-4">
+                                            <div class="form-group">
+                                                <select name="detail_jenis_barang" id="detail_jenis_barang" class="form-control">
+                                                    @foreach($detailJenisBarang as $index => $item)
+                                                        <option value="{{$index}}" {{selected($index, 'detail_jenis_barang', 'request')}}>{{$item}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-3">
                                             <div class="form-group">
                                                 <select name="by" id="by" class="form-control">
                                                     @foreach($column as $index => $item)
@@ -168,7 +177,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-sm-5 col-md-5">
+                                        <div class="col-sm-12 col-md-4">
                                             <div class="input-group input-group-success">
                                                 <span class="input-group-addon">
                                                    <i class="icofont icofont-ui-search"></i>
@@ -176,8 +185,8 @@
                                                 <input type="text" name="q" id="q" value="{{ request('q') }}" class="form-control" placeholder="Search">
                                             </div>
                                         </div>
-                                        <div class="col-sm-2 col-md-2">
-                                            <button type="submit" class="btn btn-default" id="btn-search">Oke</button>
+                                        <div class="col-sm-12 col-md-1">
+                                            <button type="submit" class="btn btn-sm btn-default" id="btn-search">Oke</button>
                                         </div>
                                     </div>
                                 </div>
@@ -206,7 +215,7 @@
                                                         <td>{{$item->no_id}}</td>
                                                         <td>{{$item->nama_barang}}</td>
                                                         <td>{{$item->nominal_nilai_tafsir}}</td>
-                                                        <td>statis Rp. 0 (0 minggu)</td>
+                                                        <td>{{$item->terbilang_tunggakan}}</td>
                                                         <td>{{$item->tanggal_akad}}</td>
                                                         <td>{{$item->tanggal_jatuh_tempo}}</td>
                                                         <td>

@@ -194,7 +194,7 @@ return [
 				'nama_lengkap' 	=> 'Nama',
 				'no_telp' 		=> 'No. telp',
 				'no_id' 		=> 'ID',
-				'jaminan' 		=> 'Jaminan',
+				'nama_barang' 	=> 'Jaminan',
 				'pinjaman'	 	=> 'Pinjaman',
 				'tunggakan' 	=> 'Tunggakan',
 				'tanggal_akad'	=> 'Tanggal Akad',
@@ -468,6 +468,17 @@ return [
 			10 	=> 'Hutang Biaya Operasional',
 			11 	=> 'Pendapatan B.Admin Akad',
 			12 	=> 'Pendapatan B.Admin Lelang',
-		]
-	]
+		],
+		'nasabah_akad' => [
+			'detail_jenis_barang' => [
+				'smartphone' => 'Smartphone',
+				'laptop'	=> 'Laptop',
+				'kamera'	=> 'Kamera',
+				'tv'		=> 'TV',
+				'motor'		=> 'Motor',
+				'mobil'		=> 'Mobil',
+				'lain_lain'	=> 'Lain - lain',
+			],
+		],
+	],
 ];

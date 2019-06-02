@@ -94,6 +94,7 @@ if( ! function_exists('remove_dot') ){
 if( ! function_exists('nominal') ){
     function nominal($number)
     {
-        return  number_format($number, 2, ',', '.').',-';
+		// return  number_format($number, 2, ',', '.').',-';
+		return number_format($number, 0,'', '.');
     }
 }

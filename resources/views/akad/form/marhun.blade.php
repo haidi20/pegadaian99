@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="detail_jenis_barang" value="lain-lain">
+                                        <input type="radio" name="detail_jenis_barang" value="lain_lain">
                                         <i class="helper"></i>Lain - Lain
                                     </label>
                                 </div>

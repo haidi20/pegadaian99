@@ -15,8 +15,9 @@ use App\Models\Log\Log_akad;
 use App\Models\Log\Log_kas_cabang;
 use App\Models\Log\Log_saldo_cabang;
 
-use Carbon\Carbon;
 use Auth;
+use Terbilang;
+use Carbon\Carbon;
 
 class AkadController extends Controller
 {
@@ -98,9 +99,12 @@ class AkadController extends Controller
 
         // column for 'nasabah akad'
         $column  = config('library.column.akad_nasabah.list_akad_nasabah');
+        // detail 'jenis barang'
+        $detailJenisBarang = config('library.special.nasabah_akad.detail_jenis_barang');
 
         return $this->template('akad.index.nasabah-akad', compact(
-            'data', 'dateRange', 'menu', 'subMenu', 'column'
+            'data', 'dateRange', 'menu', 'subMenu', 
+            'column', 'detailJenisBarang'
         ));
     }
 

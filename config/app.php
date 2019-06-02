@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'id',
 
     /*
     |--------------------------------------------------------------------------
@@ -180,6 +180,8 @@ return [
         Mews\Captcha\CaptchaServiceProvider::class,
         // \Torann\GeoIP\GeoIPServiceProvider::class,
 
+        Riskihajar\Terbilang\TerbilangServiceProvider::class,
+
     ],
 
     /*
@@ -230,6 +232,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
         // 'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
+        'Terbilang' => Riskihajar\Terbilang\Facades\Terbilang::class,
     ],
 
 ];

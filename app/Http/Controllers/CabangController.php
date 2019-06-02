@@ -19,6 +19,7 @@ use App\Models\Penambahan_modal;
 use App\Models\Log\Log_saldo_cabang;
 
 use Auth;
+use Terbilang;
 use Carbon\Carbon;
 
 class CabangController extends Controller
@@ -149,7 +150,6 @@ class CabangController extends Controller
         return $result;
     }
 
-    // 'pendapatan biaya titip bulan'
     public function biayaTitipBulan($id)
     {
         $result = 0;

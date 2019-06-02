@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Terbilang;
 use Carbon\Carbon;
 
 class Akad extends Model
@@ -12,7 +13,11 @@ class Akad extends Model
     public $timestamps      = false;
     protected $primaryKey   = 'id_akad';
     // protected $guarded   = [];
-    protected $fillable     = [
+    // protected $dates = [
+    //     'tanggal_akad',
+    //     'tanggal_jatuh_tempo'
+    // ];
+    protected $fillable = [
         'id_cabang',
         'no_id',
         'key_nasabah',
@@ -123,9 +128,7 @@ class Akad extends Model
     }
     public function getNamaTargetLokasiKembaliAttribute()
     {
-        if($this->target_lokasi == null){
-            return 'KANTOR';
-        }elseif($this->target_lokasi == 'gudang'){
+        if($this->target_lokasi == 'gudang'){
             return 'KANTOR';
         }else{
             return 'GUDANG';
@@ -145,5 +148,12 @@ class Akad extends Model
     public function getNominalNilaiTafsirAttribute()
     {
         return 'Rp '. nominal($this->nilai_tafsir);
+    }
+
+    public function getTerbilangTunggakanAttribute()
+    {
+        // if(){
+            // return Terbilang::period(Carbon::now(), $this->tanggal_jatuh_tempo);
+        // }
     }
 }
