@@ -479,6 +479,13 @@ return [
 				'mobil'		=> 'Mobil',
 				'lain_lain'	=> 'Lain - lain',
 			],
+			'waktu_akad' => [
+				'seluruh_data' 		=> 'Seluruh Data',
+				'harian' 			=> 'harian',
+				'tujuh_hari' 		=> '7 Hari',
+				'lima_belas_hari'	=> '15 Hari',
+				'ringkasan_hari' 	=> 'Ringkasan Hari'
+			]
 		],
 	],
 ];

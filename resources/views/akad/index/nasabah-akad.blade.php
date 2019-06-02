@@ -7,6 +7,12 @@
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/pages/advance-elements/css/bootstrap-datetimepicker.css')}}">
 <!-- Date-range picker css  -->
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/bootstrap-daterangepicker/css/daterangepicker.css')}}">
+
+<style>
+    .col-md-1half {
+        margin-left:15px;
+    }
+</style>
 @endsection
 
 @section('script-bottom')
@@ -185,78 +191,7 @@
                             <input type="hidden" id="name_tab" name="name_tab" value="{{request('name_tab')}}">
                             <div class="tab-content tabs card-block">
                                 <div class="tab-pane active{{active_tab('seluruh_data', request('name_tab'))}}" id="seluruh_data" role="tabpanel">
-                                    <div class="table-responsive dt-responsive">
-                                        <table class="table table-striped table-bordered nowrap">
-                                            <thead>
-                                                <tr>
-                                                    <th>No</th>
-                                                    @foreach($column as $index => $item)
-                                                        <th>{{$item}}</th>
-                                                    @endforeach
-                                                    <th>action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @forelse($data as $index => $item)
-                                                    <tr>
-                                                        <td>{{$index + 1}}</td>
-                                                        <td>{{$item->nama_lengkap}}</td>
-                                                        <td>{{$item->no_telp}}</td>
-                                                        <td>{{$item->no_id}}</td>
-                                                        <td>{{$item->nama_barang}}</td>
-                                                        <td>{{$item->nominal_nilai_tafsir}}</td>
-                                                        <td>{{$item->terbilang_tunggakan}}</td>
-                                                        <td>{{$item->tanggal_akad}}</td>
-                                                        <td>{{$item->tanggal_jatuh_tempo}}</td>
-                                                        <td>
-                                                            <a href="#" class="btn btn-mini btn-primary" onClick="prosedur('bt')">
-                                                                Bayar B. Titip
-                                                            </a>
-                                                            <a href="#" class="btn btn-mini btn-success" onClick="prosedur('pelunasan')">
-                                                                Pelunasan
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0)" class="btn btn-mini btn-info" onClick="review()">
-                                                                <i class="zmdi zmdi-search"></i>
-                                                            </a>
-                                                            <button 
-                                                                type="button" 
-                                                                class="btn btn-success btn-mini waves-effect waves-light" 
-                                                                data-toggle="popover" 
-                                                                data-placement="left" 
-                                                                title="Print Menu"
-                                                                data-popover-content="#a2">
-                                                                <i class="zmdi zmdi-print"></i>
-                                                            </button>
-                                                            {{-- for menu-mini button print --}}
-                                                            <div id="a2" style="display:none">
-                                                                <div class="popover-heading"></div>
-                                                                <div class="popover-body">
-                                                                    <a href="javascript:void(0)" class="btn btn-mini btn-success mb-1">
-                                                                        <i class="zmdi zmdi-print"></i> Surat Akad
-                                                                    </a>
-                                                                    <a href="javascript:void(0)" class="btn btn-mini btn-success mb-1">
-                                                                        <i class="zmdi zmdi-print"></i> Kwitansi Akad
-                                                                    </a>
-                                                                    <a href="javascript:void(0)" class="btn btn-mini btn-success" onClick="review()">
-                                                                        <i class="zmdi zmdi-search"></i> Kwitansi Biaya Titip
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <a href="javascript:void(0)" onClick="edit({{$item->id_akad}})" class="btn btn-mini btn-primary">
-                                                                <i class="icofont icofont-edit icofont-sm"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                @empty
-                                                <tr>
-                                                    <td colspan="11" align="center">No data available in table</td>
-                                                </tr>
-                                                @endforelse
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                    @include('akad.index.detail.table-nasabah-akad')
                                 </div>
                                 <div class="tab-pane {{active_tab('harian', request('name_tab'))}}" id="harian" role="tabpanel">
                                     harian
@@ -264,31 +199,6 @@
                             </div>
                             </form>
                         </div>
-                        {{-- <div class="col-sm-12 col-md-4">
-                            <div class="sub-title"></div>
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs md-tabs" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active {{active_tab('ringkasan_harian', request('name_tab'))}}" 
-                                        data-toggle="tab" 
-                                        href="#ringkasan_harian" 
-                                        onClick="removeActive('ringkasan_harian')" 
-                                        role="tab">
-                                            Ringkasan Harian
-                                    </a>
-                                    <div class="slide"></div>
-                                </li>
-                            </ul>
-                            <!-- Tab panes -->
-                            <form method="get">
-                            <input type="hidden" id="name_tab" name="name_tab" value="{{request('name_tab')}}">
-                            <div class="tab-content card-block">
-                                <div class="tab-pane {{active_tab('nasabah_akad', request('name_tab'))}}" id="nasabah_akad" role="tabpanel">
-                                    
-                                </div>
-                            </div>
-                            </form>
-                        </div> --}}
                     </div>
                     
                     <!-- Row end -->

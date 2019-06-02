@@ -99,12 +99,14 @@ class AkadController extends Controller
 
         // column for 'nasabah akad'
         $column  = config('library.column.akad_nasabah.list_akad_nasabah');
+        // 'waktu akad' example 'selutuh data, harian, 7 hari, 15 hari, ringkasan harian'
+        $waktuAkad = config('library.special.nasabah_akad.waktu_akad');
         // detail 'jenis barang'
         $detailJenisBarang = config('library.special.nasabah_akad.detail_jenis_barang');
 
         return $this->template('akad.index.nasabah-akad', compact(
             'data', 'dateRange', 'menu', 'subMenu', 
-            'column', 'detailJenisBarang'
+            'column', 'detailJenisBarang', 'waktuAkad'
         ));
     }
 
