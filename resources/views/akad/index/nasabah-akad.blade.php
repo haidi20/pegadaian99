@@ -56,6 +56,12 @@
         });
     });
 
+    $(function(){
+        if($('#name_tab').val() == 'seluruh_data'){
+            $('.seluruh_data').addClass('active');
+        }
+    });
+
     // for bug class active on tab
     function removeActive(tab)
     {
@@ -71,6 +77,17 @@
             if(tab != dataTabs[i]){
                 $('#'+dataTabs[i]).removeClass('active');
             }
+        }
+
+        kondisiOpsiPembayaran(tab);
+    }
+
+    function kondisiOpsiPembayaran(tab)
+    {
+        if(tab == 'seluruh_data'){
+            $('.opsi-pembayaran').show();
+        }else{
+            $('.opsi-pembayaran').hide();
         }
     }
 
@@ -146,7 +163,7 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs  tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active {{active_tab('seluruh_data', request('name_tab'))}}" 
+                                    <a class="nav-link seluruh_data {{active_tab('seluruh_data', request('name_tab'))}}" 
                                         data-toggle="tab" 
                                         href="#seluruh_data" 
                                         onClick="removeActive('seluruh_data')" 
@@ -195,11 +212,17 @@
                             <form method="get">
                             <input type="hidden" id="name_tab" name="name_tab" value="{{request('name_tab', 'seluruh_data')}}">
                             <div class="tab-content tabs card-block">
-                                <div class="tab-pane active {{active_tab('seluruh_data', request('name_tab'))}}" id="seluruh_data" role="tabpanel">
-                                    @include('akad.index.detail.table-nasabah-akad')
+                                <div class="tab-pane seluruh_data {{active_tab('seluruh_data', request('name_tab'))}}" id="seluruh_data" role="tabpanel">
+                                    @include('akad.index.detail.table-nasabah-akad', ['data' => $seluruhData->data, 'dateRange' => $seluruhData->dateRange])
                                 </div>
                                 <div class="tab-pane {{active_tab('harian', request('name_tab'))}}" id="harian" role="tabpanel">
-                                    harian
+                                    @include('akad.index.detail.table-nasabah-akad', ['data' => $harian->data, 'dateRange' => $harian->dateRange])
+                                </div>
+                                <div class="tab-pane {{active_tab('tujuh_hari', request('name_tab'))}}" id="tujuh_hari" role="tabpanel">
+                                    @include('akad.index.detail.table-nasabah-akad', ['data' => $tujuh->data, 'dateRange' => $tujuh->dateRange])
+                                </div>
+                                <div class="tab-pane {{active_tab('lima_belas_hari', request('name_tab'))}}" id="lima_belas_hari" role="tabpanel">
+                                    @include('akad.index.detail.table-nasabah-akad', ['data' => $limaBelas->data, 'dateRange' => $limaBelas->dateRange])
                                 </div>
                             </div>
                             </form>
