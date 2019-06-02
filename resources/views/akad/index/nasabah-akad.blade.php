@@ -3,16 +3,13 @@
 @section('script-top')
 <!-- Range slider css -->
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/seiyria-bootstrap-slider/css/bootstrap-slider.css')}}">
-
 <!-- Date-time picker css -->
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/pages/advance-elements/css/bootstrap-datetimepicker.css')}}">
-
 <!-- Date-range picker css  -->
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/bootstrap-daterangepicker/css/daterangepicker.css')}}">
 
 <style>
     .col-md-1half {
-        /* .make-md-column(1.5); */
         margin-left:15px;
     }
 </style>
@@ -59,20 +56,30 @@
         });
     });
 
-    $(function(){
-        formatRupiah();
-    });
-
-    function prosedur(type, id)
+    // for bug class active on tab
+    function removeActive(tab)
     {
-        // for in modal 'pembayaran biaya titip' show / hide word 'total'
-        // and change name title modal
+        var dataTabs = [
+            'seluruh_data', 'harian',
+            'tujuh_hari', 'lima_belas_hari',
+            'ringkasan_harian'
+        ];
+
+        for(var i = 0; i < dataTabs.length; i++){
+            // console.log(dataTabs[i]);
+            $('#name_tab').val(tab)
+            if(tab != dataTabs[i]){
+                $('#'+dataTabs[i]).removeClass('active');
+            }
+        }
+    }
+
+    function prosedur(type)
+    {
         if(type == 'pelunasan'){
             $('#pelunasan').css('display', '')
-            $('.prosedur-title').html('Pelunasan');
         }else{
             $('#pelunasan').css('display', 'none')
-            $('.prosedur-title').html('Pembayaran Biaya Titip');
         }
 
         $('#modal-prosedur-na').modal('show');
@@ -102,7 +109,7 @@
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4 class="">Data Akad Nasabah</h4>
+                    <h4 class="">Nasabah Akad</h4>
                     {{-- <span>Rincian Dana</span> --}}
                 </div>
             </div>
@@ -134,155 +141,71 @@
                 <div class="card-block">
                     <!-- Row start -->
                     <div class="row">
-                        <div class="col-lg-12 col-xl-12">
-                            <div class="sub-title">
-                                <h6>Nasabah Akad</h6>
-                            </div> 
+                        <div class="col-sm-12 col-md-12">
+                            {{-- <div class="sub-title">Nasabah Akad</div> --}}
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs  tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active {{active_tab('seluruh_data', request('name_tab'))}}" 
+                                        data-toggle="tab" 
+                                        href="#seluruh_data" 
+                                        onClick="removeActive('seluruh_data')" 
+                                        role="tab">
+                                            Seluruh Data
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{active_tab('harian', request('name_tab'))}}" 
+                                        data-toggle="tab" 
+                                        href="#harian" 
+                                        onClick="removeActive('harian')" 
+                                        role="tab">
+                                            Harian
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{active_tab('tujuh_hari', request('name_tab'))}}" 
+                                        data-toggle="tab" 
+                                        href="#tujuh_hari" 
+                                        onClick="removeActive('tujuh_hari')" 
+                                        role="tab">
+                                            7 Hari
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{active_tab('lima_belas_hari', request('name_tab'))}}" 
+                                        data-toggle="tab" 
+                                        href="#lima_belas_hari" 
+                                        onClick="removeActive('lima_belas_hari')" 
+                                        role="tab">
+                                            15 Hari
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{active_tab('ringkasan_harian', request('name_tab'))}}" 
+                                        data-toggle="tab" 
+                                        href="#ringkasan_harian" 
+                                        onClick="removeActive('ringkasan_harian')" 
+                                        role="tab">
+                                            Ringkasan Harian
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- Tab panes -->
                             <form method="get">
-                            <div class="row">
-                                <div class="col-md-1half">
-                                     <div class="form-group">
-                                        {{-- Show &nbsp; --}}
-                                        <select name="perpage" id="perpage" class="form-control perpage">
-                                            <option {{ selected(10, 'perpage', 'request')}}>10</option>
-                                            <option {{ selected(25, 'perpage', 'request')}}>25</option>
-                                            <option {{ selected(50, 'perpage', 'request')}}>50</option>
-                                            <option {{ selected(100, 'perpage', 'request')}}>100</option>
-                                        </select> 
-                                        {{-- &nbsp; Entries --}}
-                                    </div>
+                            <input type="hidden" id="name_tab" name="name_tab" value="{{request('name_tab', 'seluruh_data')}}">
+                            <div class="tab-content tabs card-block">
+                                <div class="tab-pane active {{active_tab('seluruh_data', request('name_tab'))}}" id="seluruh_data" role="tabpanel">
+                                    @include('akad.index.detail.table-nasabah-akad')
                                 </div>
-                                <div class="col-sm-12 col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" name="daterange" id="date" class="form-control" value="{{$dateRange}}" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-7">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-4">
-                                            <div class="form-group">
-                                                <select name="detail_jenis_barang" id="detail_jenis_barang" class="form-control">
-                                                    @foreach($detailJenisBarang as $index => $item)
-                                                        <option value="{{$index}}" {{selected($index, 'detail_jenis_barang', 'request')}}>{{$item}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-3">
-                                            <div class="form-group">
-                                                <select name="by" id="by" class="form-control">
-                                                    @foreach($column as $index => $item)
-                                                        <option value="{{$index}}" {{selected($index, 'by', 'request')}}>{{$item}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-4">
-                                            <div class="input-group input-group-success">
-                                                <span class="input-group-addon">
-                                                   <i class="icofont icofont-ui-search"></i>
-                                                </span>
-                                                <input type="text" name="q" id="q" value="{{ request('q') }}" class="form-control" placeholder="Search">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-1">
-                                            <button type="submit" class="btn btn-sm btn-default" id="btn-search">Oke</button>
-                                        </div>
-                                    </div>
+                                <div class="tab-pane {{active_tab('harian', request('name_tab'))}}" id="harian" role="tabpanel">
+                                    harian
                                 </div>
                             </div>
                             </form>
-                            <br>
-                            <div class="row">
-                                <div class="col-sm-12 col-md-12">
-                                    <div class="table-responsive dt-responsive">
-                                        <table id="dt-ajax-array" class="table table-striped table-bordered nowrap">
-                                            <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                 @foreach($column as $index => $item)
-                                                    <th>{{$item}}</th>
-                                                 @endforeach
-                                                <th>action</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                                @forelse($data as $index => $item)
-                                                    <tr>
-                                                        <td>{{$index + 1}}</td>
-                                                        <td>{{$item->nama_lengkap}}</td>
-                                                        <td>{{$item->no_telp}}</td>
-                                                        <td>{{$item->no_id}}</td>
-                                                        <td>{{$item->nama_barang}}</td>
-                                                        <td>{{$item->nominal_nilai_tafsir}}</td>
-                                                        <td>{{$item->terbilang_tunggakan}}</td>
-                                                        <td>{{$item->tanggal_akad}}</td>
-                                                        <td>{{$item->tanggal_jatuh_tempo}}</td>
-                                                        <td>
-                                                            <a href="#" class="btn btn-mini btn-primary" onClick="prosedur('bt')">
-                                                                Bayar B. Titip
-                                                            </a>
-                                                            <a href="#" class="btn btn-mini btn-success" onClick="prosedur('pelunasan')">
-                                                                Pelunasan
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0)" class="btn btn-mini btn-info" onClick="review()">
-                                                                <i class="zmdi zmdi-search"></i>
-                                                            </a>
-                                                            <button 
-                                                                type="button" 
-                                                                class="btn btn-success btn-mini waves-effect waves-light" 
-                                                                data-toggle="popover" 
-                                                                data-placement="left" 
-                                                                title="Print Menu"
-                                                                data-popover-content="#a2">
-                                                                <i class="zmdi zmdi-print"></i>
-                                                            </button>
-                                                            {{-- for menu-mini button print --}}
-                                                            <div id="a2" style="display:none">
-                                                                <div class="popover-heading"></div>
-                                                                <div class="popover-body">
-                                                                    <a href="javascript:void(0)" class="btn btn-mini btn-success mb-1">
-                                                                        <i class="zmdi zmdi-print"></i> Surat Akad
-                                                                    </a>
-                                                                    <a href="javascript:void(0)" class="btn btn-mini btn-success mb-1">
-                                                                        <i class="zmdi zmdi-print"></i> Kwitansi Akad
-                                                                    </a>
-                                                                    <a href="javascript:void(0)" class="btn btn-mini btn-success" onClick="review()">
-                                                                        <i class="zmdi zmdi-search"></i> Kwitansi Biaya Titip
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <a href="javascript:void(0)" onClick="edit({{$item->id_akad}})" class="btn btn-mini btn-primary">
-                                                                <i class="icofont icofont-edit icofont-sm"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                @empty
-                                                <tr>
-                                                    <td colspan="11" align="center">No data available in table</td>
-                                                </tr>
-                                                @endforelse
-                                            </tbody>
-                                            {{-- <tfoot>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
-                                            </tr>
-                                            </tfoot> --}}
-                                        </table>
-                                    </div>
-                                    {!! $data->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
-                                </div>
-                            </div>
-                            
                         </div>
                     </div>
+                    
                     <!-- Row end -->
                 </div>
             </div>

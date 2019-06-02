@@ -471,7 +471,8 @@ return [
 		],
 		'nasabah_akad' => [
 			'detail_jenis_barang' => [
-				'smartphone' => 'Smartphone',
+				'' 			=> 'Semua Detail Jenis Barang',
+				'smartphone'=> 'Smartphone',
 				'laptop'	=> 'Laptop',
 				'kamera'	=> 'Kamera',
 				'tv'		=> 'TV',
@@ -479,6 +480,12 @@ return [
 				'mobil'		=> 'Mobil',
 				'lain_lain'	=> 'Lain - lain',
 			],
+			'waktu_akad' => [
+				''		=> 'Seluruh Data',
+				'1' 	=> 'harian',
+				'7' 	=> '7 Hari',
+				'15'	=> '15 Hari',
+			]
 		],
 	],
 ];
