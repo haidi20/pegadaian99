@@ -87,8 +87,10 @@
     {
         if(tab == 'seluruh_data'){
             $('.opsi-pembayaran').show();
+            $('.jangka-waktu-akad').show();
         }else{
             $('.opsi-pembayaran').hide();
+            $('.jangka-waktu-akad').hide();
         }
     }
 

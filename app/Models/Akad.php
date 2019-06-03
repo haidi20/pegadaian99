@@ -132,6 +132,11 @@ class Akad extends Model
         return $query->where('opsi_pembayaran', $data);
     }
 
+    public function scopeJangkaWaktuAkad($query, $data)
+    {
+        return $query->where('jangka_waktu_akad', $data);
+    }
+
     public function getNamaTargetLokasiAttribute()
     {
         return $this->target_lokasi == 'kantor' ? 'KANTOR' : 'GUDANG'; 

@@ -49,11 +49,20 @@
                 </select>
             </div>
         </div>
-        <div class="col-sm-12 col-md-5 opsi-pembayaran">
+        <div class="col-sm-12 col-md-4 opsi-pembayaran">
             <div class="form-group">
                 <select name="opsi_pembayaran" id="opsi_pembayaran" class="form-control">
                     @foreach($waktuAkad as $index => $item)
                         <option value="{{$index}}" {{selected($index, 'opsi_pembayaran', 'request')}}>{{$item}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4 jangka-waktu-akad">
+            <div class="form-group">
+                <select name="jangka_waktu_akad" id="jangka_waktu_akad" class="form-control">
+                    @foreach($jangkaWaktuAkad as $index => $item)
+                        <option value="{{$index}}" {{selected($index, 'jangka_waktu_akad', 'request')}}>{{$item}}</option>
                     @endforeach
                 </select>
             </div>
