@@ -1,4 +1,4 @@
-{{-- <form method="get"> --}}
+<form method="get">
     <div class="row">
         <div class="col-md-1half">
              <div class="form-group">
@@ -64,8 +64,9 @@
             <button type="submit" class="btn btn-sm btn-primary" id="btn-search">Oke</button>
         </div>
     </div>
+    <input type="hidden" class="name_tab" id="name_tab" name="name_tab" value="{{request('name_tab', 'seluruh_data')}}">
     <input type="hidden" name="page" value="{{request('page')}}">
-{{-- </form> --}}
+</form>
 <br>
 <div class="row">
     <div class="col-sm-12 col-md-12">

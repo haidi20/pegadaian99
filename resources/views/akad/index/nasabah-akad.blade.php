@@ -43,7 +43,7 @@
 
     $(document).ready(function() {
 
-        var nameTab = $('#name_tab').val()
+        var nameTab = $('.name_tab').val()
 
         if(nameTab == 'seluruh_data'){
             $('.seluruh_data').addClass('active');
@@ -74,7 +74,7 @@
 
         for(var i = 0; i < dataTabs.length; i++){
             // console.log(dataTabs[i]);
-            $('#name_tab').val(tab)
+            $('.name_tab').val(tab)
             if(tab != dataTabs[i]){
                 $('#'+dataTabs[i]).removeClass('active');
             }
@@ -210,8 +210,7 @@
                                 </li>
                             </ul>
                             <!-- Tab panes -->
-                            <form method="get">
-                            <input type="hidden" id="name_tab" name="name_tab" value="{{request('name_tab', 'seluruh_data')}}">
+                            {{-- <form method="get"> --}}
                             <div class="tab-content tabs card-block">
                                 <div class="tab-pane seluruh_data {{active_tab('seluruh_data', request('name_tab'))}}" id="seluruh_data" role="tabpanel">
                                     @include('akad.index.detail.table-nasabah-akad', ['data' => $seluruhData->data, 'dateRange' => $seluruhData->dateRange])
@@ -226,7 +225,7 @@
                                     @include('akad.index.detail.table-nasabah-akad', ['data' => $limaBelas->data, 'dateRange' => $limaBelas->dateRange])
                                 </div>
                             </div>
-                            </form>
+                            {{-- </form> --}}
                         </div>
                     </div>
                     
