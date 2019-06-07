@@ -8,6 +8,7 @@ use App\Models\Akad;
 use App\Models\Nasabah;
 use App\Models\Setting;
 use App\Models\Kas_cabang;
+use App\Models\Biaya_titip;
 use App\Models\User_cabang;
 use App\Models\Saldo_cabang;
 
@@ -28,6 +29,7 @@ class AkadController extends Controller
     							Request $request,
                                 Log_akad $log_akad,
                                 Kas_cabang $kas_cabang,
+                                biaya_titip $biaya_titip,
                                 User_cabang $user_cabang,
                                 Log_kas_cabang $log_kas_cabang,
                                 Saldo_cabang $saldo_cabang,
@@ -40,6 +42,7 @@ class AkadController extends Controller
     	$this->request  	    = $request;
         $this->log_akad         = $log_akad;
         $this->kas_cabang       = $kas_cabang;
+        $this->biaya_titip      = $biaya_titip;
         $this->user_cabang      = $user_cabang;
         $this->saldo_cabang     = $saldo_cabang;
         $this->log_kas_cabang   = $log_kas_cabang;
@@ -445,6 +448,7 @@ class AkadController extends Controller
     	$akad->nilai_tafsir			  = remove_dot($data['taksiran_marhun']); 
     	$akad->nilai_pencairan		  = remove_dot($data['marhun_bih']); 
     	$akad->bt_7_hari			  = remove_dot($data['biaya_titip']); 
+    	$akad->bt_ke			      = $data['bt_yang_dibayar']; 
     	$akad->biaya_admin			  = remove_dot($data['biaya_admin']); 
     	$akad->terbilang			  = $data['terbilang']; 
     	$akad->status				  = 'Belum Lunas';
@@ -452,6 +456,7 @@ class AkadController extends Controller
         $akad->save();
 
         // insert data to other table
+        $bea_titip                    = $this->insert_bea_titip($akad);
         $kas_cabang                   = $this->insert_kas_cabang($akad);
         $saldo_cabang                 = $this->insert_saldo_cabang($akad);
 
@@ -484,6 +489,18 @@ class AkadController extends Controller
         }
 
         return (object) compact('data');
+    }
+
+    public function insert_bea_titip($data)
+    {
+        if(reqeust('bt_yang_dibayar') >= 1){
+            $biaya_titip                        = $this->biaya_titip;
+            $biaya_titip->no_id                 = $data->no_id;
+            $biaya_titip->keterangan            = 'KE 1-'.request('bt_yang_dibayar');
+            $biaya_titip->pembayaran            = $data->bt_7_hari;
+            $biaya_titip->biaya_titip_ke        = request('bt_yang_dibayar');
+            $biaya_titip->tanggal_pembayaran    = Carbon::now()->format('Y-m-d');
+        }
     }
 
     public function insert_kas_cabang($data)

@@ -154,3 +154,44 @@
         {!! $data->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
     </div>
 </div>
+<br>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="view-info">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12">
+                    <div class="general-info">
+                        <div class="row" id="data-detail">
+                            <div class="col-sm-12 col-md-7">
+                                {{-- <div class="table-responsive"> --}}
+                                <div class="">
+                                    <table class="table m-0">
+                                        <tbody id="table-detail-one">
+                                            <tr>
+                                                <td>Total Pinjaman </td>
+                                                <td>: Rp. 123.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total tunggakan </td>
+                                                <td>: Rp. 456.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total tunggakan jatuh tempo </td>
+                                                <td>: Rp. 789.000</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- end of table col-lg-6 -->
+                        </div>
+                        <!-- end of row -->
+                    </div>
+                    <!-- end of general info -->
+                </div>
+                <!-- end of col-lg-12 -->
+            </div>
+            <!-- end of row -->
+        </div>
+    </div>
+</div>
