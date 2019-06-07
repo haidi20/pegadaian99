@@ -98,6 +98,12 @@ class Akad extends Model
     }
 
     // for can fetch data nasabah use left join
+    public function scopeJoinBiayaTitip($query)
+    {
+        return $query->rightJoin('bea_titip', 'akad.no_id', '=', 'bea_titip.no_id');
+    }
+
+    // for can fetch data nasabah use left join
     public function scopeJoinNasabah($query)
     {
         return $query->leftJoin('nasabah', 'akad.key_nasabah', '=', 'nasabah.key_nasabah');
@@ -170,5 +176,10 @@ class Akad extends Model
         // if(){
             // return Terbilang::period(Carbon::now(), $this->tanggal_jatuh_tempo);
         // }
+    }
+
+    public function getJarakDariTanggalAkadAttribute()
+    {
+        return 'jarak tanggal akad';
     }
 }

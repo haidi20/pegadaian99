@@ -70,6 +70,8 @@ class AkadController extends Controller
         $menu    = 'database';
         $subMenu = 'akad';
 
+        return $this->cobaQuery();
+
         $harian         = $this->harian();
         $tujuh          = $this->tujuh();
         $limaBelas      = $this->limaBelas();
@@ -86,6 +88,39 @@ class AkadController extends Controller
             'column', 'detailJenisBarang', 'waktuAkad',
             'seluruhData', 'harian', 'tujuh', 'limaBelas'
         ));
+    }
+
+    public function cobaQuery()
+    {
+        $total = $this->akad->joinBiayaTitip()
+                ->where('akad.no_id', 'C99-06-310119-002')
+                ->sum('pembayaran');
+
+        $data = $this->akad->joinBiayaTitip()
+        ->select([
+            'tanggal_akad', 
+            'tanggal_jatuh_tempo',
+            // 'tanggal_pembayaran', 
+            'bt_7_hari',
+            'keterangan', 
+            // 'pembayaran',
+            // 'opsi_pembayaran',
+        ])
+        ->where('akad.no_id', 'C99-06-310119-002')
+        // ->orderBy('tanggal_pembayaran')
+        ->orderBy('tanggal_pembayaran', 'desc')
+        ->first();
+
+        // $minggu_tertunggak = Carbon::parse($data->tanggal_jatuh_tempo)->diffInDays($data->tanggal_akad) / 7;
+        $total_minggu = Carbon::parse('01-04-2019')->diffInDays($data->tanggal_akad) / 7;
+        $total_minggu = round($total_minggu);
+
+        $data['total'] = $total;
+        $data['jml_minggu_sudah_di_bayar'] = $total / $data->bt_7_hari;
+        $data['minggu_yang_tertunggak'] = $total_minggu - $data->jml_minggu_sudah_di_bayar;
+        $data['harus_di_bayar'] = $data->minggu_yang_tertunggak * $data->bt_7_hari;
+
+        return $data;
     }
 
     public function seluruhData()
@@ -306,22 +341,12 @@ class AkadController extends Controller
     {
         if(request('name_tab', 'seluruh_data') == $nameTab){
             if(request('daterange') != null){
-                // if get data from range date
-                // if(request('daterange')){
-                    $end    = carbon::parse(substr(request('daterange'), 13, 20));
-                    $start  = carbon::parse(substr(request('daterange'), 1, 9));
-                // }
-    
-                // scope function filterRange
-                $akad       = $akad->filterRange($start, $end);
-                $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
+                $end    = carbon::parse(substr(request('daterange'), 13, 20));
+                $start  = carbon::parse(substr(request('daterange'), 1, 9));
             }else{
                 // for default date in form filter date range
                 $end        = Carbon::now()->day(30);
                 $start      = Carbon::now()->day(1);
-    
-                // format dateRange base on template
-                $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
             }
     
             // if get data from input keyword 
@@ -344,12 +369,11 @@ class AkadController extends Controller
             // for default date in form filter date range
             $end        = Carbon::now()->day(30);
             $start      = Carbon::now()->day(1);
-
-            // format dateRange base on template
-            $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
         }
 
-        
+        // scope function filterRange
+        $akad       = $akad->filterRange($start, $end);
+        $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
 
         return (object) compact('akad', 'dateRange');
     }
@@ -493,13 +517,14 @@ class AkadController extends Controller
 
     public function insert_bea_titip($data)
     {
-        if(reqeust('bt_yang_dibayar') >= 1){
+        if(request('bt_yang_dibayar') >= 1){
             $biaya_titip                        = $this->biaya_titip;
             $biaya_titip->no_id                 = $data->no_id;
             $biaya_titip->keterangan            = 'KE 1-'.request('bt_yang_dibayar');
             $biaya_titip->pembayaran            = $data->bt_7_hari;
             $biaya_titip->biaya_titip_ke        = request('bt_yang_dibayar');
             $biaya_titip->tanggal_pembayaran    = Carbon::now()->format('Y-m-d');
+            $biaya_titip->save();
         }
     }
 
