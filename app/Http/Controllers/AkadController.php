@@ -70,7 +70,7 @@ class AkadController extends Controller
         $menu    = 'database';
         $subMenu = 'akad';
 
-        return $this->cobaQuery();
+        // return $this->cobaQuery();
 
         $harian         = $this->harian();
         $tujuh          = $this->tujuh();
@@ -92,35 +92,40 @@ class AkadController extends Controller
 
     public function cobaQuery()
     {
-        $total = $this->akad->joinBiayaTitip()
-                ->where('akad.no_id', 'C99-06-310119-002')
-                ->sum('pembayaran');
+        $code = 'C99-06-310119-002';
 
-        $data = $this->akad->joinBiayaTitip()
-        ->select([
-            'tanggal_akad', 
-            'tanggal_jatuh_tempo',
-            // 'tanggal_pembayaran', 
-            'bt_7_hari',
-            'keterangan', 
-            // 'pembayaran',
-            // 'opsi_pembayaran',
-        ])
-        ->where('akad.no_id', 'C99-06-310119-002')
-        // ->orderBy('tanggal_pembayaran')
-        ->orderBy('tanggal_pembayaran', 'desc')
-        ->first();
+        // $total = $this->akad->joinBiayaTitip()
+        //         ->where('akad.no_id', $code)
+        //         ->sum('pembayaran');
 
-        // $minggu_tertunggak = Carbon::parse($data->tanggal_jatuh_tempo)->diffInDays($data->tanggal_akad) / 7;
-        $total_minggu = Carbon::parse('01-04-2019')->diffInDays($data->tanggal_akad) / 7;
-        $total_minggu = round($total_minggu);
+        // $data = $this->akad->joinBiayaTitip()
+        // ->select([
+        //     'tanggal_akad', 
+        //     'tanggal_jatuh_tempo',
+        //     // 'tanggal_pembayaran', 
+        //     'bt_7_hari',
+        //     'keterangan', 
+        //     // 'pembayaran',
+        //     // 'opsi_pembayaran',
+        // ])
+        // ->where('akad.no_id', $code)
+        // // ->orderBy('tanggal_pembayaran')
+        // ->orderBy('tanggal_pembayaran', 'desc')
+        // ->first();
 
-        $data['total'] = $total;
-        $data['jml_minggu_sudah_di_bayar'] = $total / $data->bt_7_hari;
-        $data['minggu_yang_tertunggak'] = $total_minggu - $data->jml_minggu_sudah_di_bayar;
-        $data['harus_di_bayar'] = $data->minggu_yang_tertunggak * $data->bt_7_hari;
+        // $total_minggu = Carbon::parse('01-04-2019')->diffInDays($data->tanggal_akad) / 7;
+        // $total_minggu = round($total_minggu);
 
-        return $data;
+        // $data['total'] = $total;
+        // $data['jml_minggu_sudah_di_bayar'] = $total / $data->bt_7_hari;
+        // $data['minggu_yang_tertunggak'] = $total_minggu - $data->jml_minggu_sudah_di_bayar;
+        // $data['harus_di_bayar'] = $data->minggu_yang_tertunggak * $data->bt_7_hari;
+
+        $data = $this->akad
+            ->where('akad.no_id', $code)
+            ->first();
+
+        return $data->info_tertunggak;
     }
 
     public function seluruhData()

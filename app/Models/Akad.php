@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Biaya_titip;
+
 use Terbilang;
 use Carbon\Carbon;
 
@@ -171,15 +173,37 @@ class Akad extends Model
         return 'Rp '. nominal($this->nilai_tafsir);
     }
 
-    public function getTerbilangTunggakanAttribute()
+    public function getNominalTunggakanAttribute()
     {
-        // if(){
-            // return Terbilang::period(Carbon::now(), $this->tanggal_jatuh_tempo);
-        // }
-    }
+        $biaya_titip = Biaya_titip::where('no_id', $this->no_id)->get();
 
-    public function getJarakDariTanggalAkadAttribute()
-    {
-        return 'jarak tanggal akad';
+        if(!$biaya_titip->isEmpty()){
+            $total = Biaya_titip::
+                where('no_id', $this->no_id)
+                ->sum('pembayaran');
+
+            $data = Biaya_titip::
+                where('no_id', $this->no_id)
+                // ->orderBy('tanggal_pembayaran')
+                ->orderBy('tanggal_pembayaran', 'desc')
+                ->first();
+
+            $total_minggu = Carbon::parse($this->tanggal_akad)->diffInDays($data->tanggal_jatuh_tempo) / 7;
+            $total_minggu = round($total_minggu);
+
+            $data['tanggal_akad'] = $this->tanggal_akad;
+            $data['tanggal_jatuh_tempo'] = $this->tanggal_jatuh_tempo;
+            $data['total'] = $total;
+            // 'jumlah minggu yang sudah di bayar'
+            $data['minggu_sudah'] = $total / $this->bt_7_hari;
+            // 'jumlah minggu yang belum dibayar'
+            $data['minggu_tertunggak'] = $total_minggu - $data->minggu_sudah;
+            $data['total_minggu'] = $total_minggu;
+            // 'jumlah uang yang harus dibayar' 
+            $data['nominal'] = $data->minggu_tertunggak * $this->bt_7_hari;
+            $data['nominal'] = nominal($data->nominal);
+
+            return 'Rp.'.$data->nominal.' ('.$data->minggu_tertunggak.' Periode)';
+        }
     }
 }
