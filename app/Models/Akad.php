@@ -160,17 +160,17 @@ class Akad extends Model
 
     public function getNominalBiayaAdminAttribute()
     {
-        return 'Rp '. nominal($this->biaya_admin);
+        return 'Rp. '. nominal($this->biaya_admin);
     }
 
     public function getNominalBiayaTitipAttribute()
     {
-        return 'Rp '. nominal($this->bt_7_hari);
+        return 'Rp. '.nominal($this->bt_7_hari);
     }
 
     public function getNominalNilaiTafsirAttribute()
     {
-        return 'Rp '. nominal($this->nilai_tafsir);
+        return 'Rp. '.nominal($this->nilai_pencairan);
     }
 
     public function getNominalTunggakanAttribute()
@@ -219,9 +219,14 @@ class Akad extends Model
             $data['jarak_waktu'] = $jarak_waktu;
             // 'jumlah uang yang harus dibayar' 
             $data['nominal'] = $data->waktu_tertunggak * $this->bt_7_hari;
+            // 'mendapatkan angka tunggakan seblum kasih format nominal'
+            $nominal= $data->nominal;
             $data['nominal'] = nominal($data->nominal);
 
-            return 'Rp.'.$data->nominal.' ('.$data->waktu_tertunggak.' '.$keterangan.')';
+            $info   = 'Rp. '.$data->nominal.' ('.$data->waktu_tertunggak.' '.$keterangan.')';
+            $jatuhTempo = $this->tanggal_jatuh_tempo == $tanggal_sekarang ? $nominal : 0;
+
+            return (object) compact('info', 'nominal', 'jatuhTempo');
         }
     }
 }

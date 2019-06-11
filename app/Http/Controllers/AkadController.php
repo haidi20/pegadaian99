@@ -88,44 +88,6 @@ class AkadController extends Controller
         ));
     }
 
-    public function cobaQuery()
-    {
-        $code = 'C99-06-310119-002';
-
-        // $total = $this->akad->joinBiayaTitip()
-        //         ->where('akad.no_id', $code)
-        //         ->sum('pembayaran');
-
-        // $data = $this->akad->joinBiayaTitip()
-        // ->select([
-        //     'tanggal_akad', 
-        //     'tanggal_jatuh_tempo',
-        //     // 'tanggal_pembayaran', 
-        //     'bt_7_hari',
-        //     'keterangan', 
-        //     // 'pembayaran',
-        //     // 'opsi_pembayaran',
-        // ])
-        // ->where('akad.no_id', $code)
-        // // ->orderBy('tanggal_pembayaran')
-        // ->orderBy('tanggal_pembayaran', 'desc')
-        // ->first();
-
-        // $total_minggu = Carbon::parse('01-04-2019')->diffInDays($data->tanggal_akad) / 7;
-        // $total_minggu = round($total_minggu);
-
-        // $data['total'] = $total;
-        // $data['jml_minggu_sudah_di_bayar'] = $total / $data->bt_7_hari;
-        // $data['minggu_yang_tertunggak'] = $total_minggu - $data->jml_minggu_sudah_di_bayar;
-        // $data['harus_di_bayar'] = $data->minggu_yang_tertunggak * $data->bt_7_hari;
-
-        $data = $this->akad
-            ->where('akad.no_id', $code)
-            ->first();
-
-        return $data->info_tertunggak;
-    }
-
     public function seluruhData()
     {
         // name field 'tanggal jatuh tempo' for sorted
@@ -133,11 +95,31 @@ class AkadController extends Controller
         
         $akad           = $this->akad->joinNasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
         $seluruhData    = $this->filter($akad, 'seluruh_data')->akad;
+        $infoTotal      = $this->infoTotal($seluruhData, 'seluruh_data');
         $data           = $seluruhData->paginate(request('perpage', 10));
 
         $dateRange      = $this->filter($akad, 'seluruh_data')->dateRange;
 
-        return (object) compact('data', 'dateRange'); 
+        return (object) compact('data', 'dateRange', 'infoTotal'); 
+    }
+
+    public function infoTotal($akad, $nameTab = null)
+    {
+        $pinjaman           = [];
+        $tunggakan          = [];
+        $tunggakanJatuhTempo= [];
+
+        foreach ($akad->get() as $index => $item) {
+            $pinjaman[]             = $item->nilai_pencairan;
+            $tunggakan[]            = $item->nominal_tunggakan->nominal;
+            $tunggakanJatuhTempo[]  = $item->nominal_tunggakan->jatuhTempo;
+        }
+
+        $totalPinjaman              = nominal(array_sum($pinjaman));
+        $totalTunggakan             = nominal(array_sum($tunggakan)); 
+        $totalTunggakanJatuhTempo   = nominal(array_sum($tunggakanJatuhTempo));
+
+        return (object) compact('totalPinjaman', 'totalTunggakan', 'totalTunggakanJatuhTempo');
     }
 
     public function harian()

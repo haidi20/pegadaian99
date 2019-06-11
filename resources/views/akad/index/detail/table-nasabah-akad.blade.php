@@ -99,7 +99,7 @@
                             <td>{{$item->no_id}}</td>
                             <td>{{$item->nama_barang}}</td>
                             <td>{{$item->nominal_nilai_tafsir}}</td>
-                            <td>{{$item->nominal_tunggakan}}</td>
+                            <td>{{$item->nominal_tunggakan->info}}</td>
                             <td>{{$item->tanggal_akad}}</td>
                             <td>{{$item->tanggal_jatuh_tempo}}</td>
                             <td>
@@ -169,15 +169,15 @@
                                         <tbody id="table-detail-one">
                                             <tr>
                                                 <td>Total Pinjaman </td>
-                                                <td>: Rp. 123.000</td>
+                                                <td>: Rp. {{$infoTotal->totalPinjaman}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Total tunggakan </td>
-                                                <td>: Rp. 456.000</td>
+                                                <td>: Rp. {{$infoTotal->totalTunggakan}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Total tunggakan jatuh tempo </td>
-                                                <td>: Rp. 789.000</td>
+                                                <td>: Rp. {{$infoTotal->totalTunggakanJatuhTempo}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
