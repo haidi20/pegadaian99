@@ -225,21 +225,21 @@
                                     @include('akad.index.detail.table-nasabah-akad', [
                                         'data' => $harian->data, 
                                         'dateRange' => $harian->dateRange,
-                                        'infoTotal' => $seluruhData->infoTotal
+                                        'infoTotal' => $harian->infoTotal
                                     ])
                                 </div>
                                 <div class="tab-pane {{active_tab('tujuh_hari', request('name_tab'))}}" id="tujuh_hari" role="tabpanel">
                                     @include('akad.index.detail.table-nasabah-akad', [
                                         'data' => $tujuh->data, 
                                         'dateRange' => $tujuh->dateRange,
-                                        'infoTotal' => $seluruhData->infoTotal
+                                        'infoTotal' => $tujuh->infoTotal
                                     ])
                                 </div>
                                 <div class="tab-pane {{active_tab('lima_belas_hari', request('name_tab'))}}" id="lima_belas_hari" role="tabpanel">
                                     @include('akad.index.detail.table-nasabah-akad', [
                                         'data' => $limaBelas->data, 
                                         'dateRange' => $limaBelas->dateRange,
-                                        'infoTotal' => $seluruhData->infoTotal
+                                        'infoTotal' => $limaBelas->infoTotal
                                     ])
                                 </div>
                             </div>

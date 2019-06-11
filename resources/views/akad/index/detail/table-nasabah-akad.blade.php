@@ -151,7 +151,9 @@
                 </tbody>
             </table>
         </div>
-        {!! $data->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
+        @if($data)
+            {!! $data->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
+        @endif
     </div>
 </div>
 <br>
