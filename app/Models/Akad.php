@@ -195,10 +195,10 @@ class Akad extends Model
             }else{
                 $batas_waktu = $this->tanggal_jatuh_tempo;
             }
-            
-            // return $batas_waktu;
 
-            $jarak_waktu = Carbon::parse($this->tanggal_akad)->diffInDays($batas_waktu) / $this->opsi_pembayaran;
+            $opsi_pembayaran = $this->opsi_pembayaran;
+
+            $jarak_waktu = Carbon::parse($this->tanggal_akad)->diffInDays($batas_waktu) / $opsi_pembayaran;
             
             //condition 'harian' or 'mingguan'
             if($this->opsi_pembayaran == 1){
@@ -224,6 +224,7 @@ class Akad extends Model
             $data['nominal'] = nominal($data->nominal);
 
             $info   = 'Rp. '.$data->nominal.' ('.$data->waktu_tertunggak.' '.$keterangan.')';
+            // $info = $jarak_waktu;
             $jatuhTempo = $this->tanggal_jatuh_tempo == $tanggal_sekarang ? $nominal : 0;
 
             return (object) compact('info', 'nominal', 'jatuhTempo');
