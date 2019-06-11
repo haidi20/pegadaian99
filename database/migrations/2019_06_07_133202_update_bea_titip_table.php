@@ -14,7 +14,7 @@ class UpdateBeaTitipTable extends Migration
     public function up()
     {
         Schema::table('bea_titip', function (Blueprint $table) {
-            $table->integer('biaya_titip_ke')->default(0);
+            // $table->integer('biaya_titip_ke')->default(0);
         });
     }
 

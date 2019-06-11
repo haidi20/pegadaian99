@@ -228,6 +228,14 @@ class Akad extends Model
             $jatuhTempo = $this->tanggal_jatuh_tempo == $tanggal_sekarang ? $nominal : 0;
 
             return (object) compact('info', 'nominal', 'jatuhTempo');
+        }else{
+            $keterangan = $this->opsi_pembayaran == 1 ? 'harian' : 'periode';
+
+            $info       = 'Rp. 0 (0 '.$keterangan.')';
+            $nominal    = 0;
+            $jatuhTempo = 0;
+
+            return (object) compact('info', 'nominal', 'jatuhTempo');
         }
     }
 }
