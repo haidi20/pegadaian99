@@ -123,7 +123,7 @@
 @section('content')
 {{-- include file modal  --}}
 @include('akad.modal.index.prosedur')
-@include('akad.modal.index.form')
+@include('akad.modal.index.action')
 <div class="page-header">
     <div class="row align-items-end">
         <div class="col-lg-8">
