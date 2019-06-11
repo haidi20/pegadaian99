@@ -37,7 +37,7 @@ return [
    | default format FULL, available format FULL, YEAR, MONTH, DAY, HOUR, MINUTE, SECOND
    */
    'period' => [
-       'type' => 'FULL',
+       'type' => 'DAY',
        'format' => '{YEAR} {MONTH} {DAY} {HOUR} {MINUTE} {SECOND}',
        'hide_zero_value' => true,
        'separator' => ' ',

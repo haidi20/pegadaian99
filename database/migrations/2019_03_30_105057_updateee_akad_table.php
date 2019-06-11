@@ -24,6 +24,7 @@ class UpdateeeAkadTable extends Migration
         NOT NULL AFTER kekurangan;"); 
 
         Schema::table('akad', function (Blueprint $table) {
+            $table->integer('bt_ke')->default(0);
             $table->integer('maintenance')->default(0);
             $table->integer('opsi_pembayaran')->default(7);
             $table->string('detail_jenis_barang')->default('smartphone');

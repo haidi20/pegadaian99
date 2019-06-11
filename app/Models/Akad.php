@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Biaya_titip;
+
 use Terbilang;
 use Carbon\Carbon;
 
@@ -98,6 +100,12 @@ class Akad extends Model
     }
 
     // for can fetch data nasabah use left join
+    public function scopeJoinBiayaTitip($query)
+    {
+        return $query->rightJoin('bea_titip', 'akad.no_id', '=', 'bea_titip.no_id');
+    }
+
+    // for can fetch data nasabah use left join
     public function scopeJoinNasabah($query)
     {
         return $query->leftJoin('nasabah', 'akad.key_nasabah', '=', 'nasabah.key_nasabah');
@@ -132,6 +140,11 @@ class Akad extends Model
         return $query->where('opsi_pembayaran', $data);
     }
 
+    public function scopeJangkaWaktuAkad($query, $data)
+    {
+        return $query->where('jangka_waktu_akad', $data);
+    }
+
     public function getNamaTargetLokasiAttribute()
     {
         return $this->target_lokasi == 'kantor' ? 'KANTOR' : 'GUDANG'; 
@@ -147,23 +160,74 @@ class Akad extends Model
 
     public function getNominalBiayaAdminAttribute()
     {
-        return 'Rp '. nominal($this->biaya_admin);
+        return 'Rp. '. nominal($this->biaya_admin);
     }
 
     public function getNominalBiayaTitipAttribute()
     {
-        return 'Rp '. nominal($this->bt_7_hari);
+        return 'Rp. '.nominal($this->bt_7_hari);
     }
 
     public function getNominalNilaiTafsirAttribute()
     {
-        return 'Rp '. nominal($this->nilai_tafsir);
+        return 'Rp. '.nominal($this->nilai_pencairan);
     }
 
-    public function getTerbilangTunggakanAttribute()
+    public function getNominalTunggakanAttribute()
     {
-        // if(){
-            // return Terbilang::period(Carbon::now(), $this->tanggal_jatuh_tempo);
-        // }
+        $biaya_titip = Biaya_titip::where('no_id', $this->no_id)->get();
+
+        if(!$biaya_titip->isEmpty()){
+            $total = Biaya_titip::
+                where('no_id', $this->no_id)
+                ->sum('pembayaran');
+
+            $data = Biaya_titip::
+                where('no_id', $this->no_id)
+                // ->orderBy('tanggal_pembayaran')
+                ->orderBy('tanggal_pembayaran', 'desc')
+                ->first();
+
+            $tanggal_sekarang = Carbon::now()->format('Y-m-d');
+            
+            if($tanggal_sekarang <= $this->tanggal_jatuh_tempo){
+                $batas_waktu = $tanggal_sekarang;
+            }else{
+                $batas_waktu = $this->tanggal_jatuh_tempo;
+            }
+
+            $opsi_pembayaran = $this->opsi_pembayaran;
+
+            $jarak_waktu = Carbon::parse($this->tanggal_akad)->diffInDays($batas_waktu) / $opsi_pembayaran;
+            
+            //condition 'harian' or 'mingguan'
+            if($this->opsi_pembayaran == 1){
+                $jarak_waktu = ceil($jarak_waktu) + 1;
+                $keterangan  = 'Hari';
+            }else{
+                $jarak_waktu = ceil($jarak_waktu);
+                $keterangan  = 'periode';
+            }
+
+            $data['tanggal_akad'] = $this->tanggal_akad;
+            $data['tanggal_jatuh_tempo'] = $this->tanggal_jatuh_tempo;
+            $data['total'] = $total;
+            // 'jumlah minggu / hari yang sudah di bayar'
+            $data['waktu_sudah'] = $total / $this->bt_7_hari;
+            // 'jumlah minggu / hari yang belum dibayar'
+            $data['waktu_tertunggak'] = $jarak_waktu - $data->waktu_sudah;
+            $data['jarak_waktu'] = $jarak_waktu;
+            // 'jumlah uang yang harus dibayar' 
+            $data['nominal'] = $data->waktu_tertunggak * $this->bt_7_hari;
+            // 'mendapatkan angka tunggakan seblum kasih format nominal'
+            $nominal= $data->nominal;
+            $data['nominal'] = nominal($data->nominal);
+
+            $info   = 'Rp. '.$data->nominal.' ('.$data->waktu_tertunggak.' '.$keterangan.')';
+            // $info = $jarak_waktu;
+            $jatuhTempo = $this->tanggal_jatuh_tempo == $tanggal_sekarang ? $nominal : 0;
+
+            return (object) compact('info', 'nominal', 'jatuhTempo');
+        }
     }
 }

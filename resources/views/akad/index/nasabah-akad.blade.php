@@ -43,7 +43,7 @@
 
     $(document).ready(function() {
 
-        var nameTab = $('#name_tab').val()
+        var nameTab = $('.name_tab').val()
 
         if(nameTab == 'seluruh_data'){
             $('.seluruh_data').addClass('active');
@@ -74,7 +74,7 @@
 
         for(var i = 0; i < dataTabs.length; i++){
             // console.log(dataTabs[i]);
-            $('#name_tab').val(tab)
+            $('.name_tab').val(tab)
             if(tab != dataTabs[i]){
                 $('#'+dataTabs[i]).removeClass('active');
             }
@@ -87,8 +87,10 @@
     {
         if(tab == 'seluruh_data'){
             $('.opsi-pembayaran').show();
+            $('.jangka-waktu-akad').show();
         }else{
             $('.opsi-pembayaran').hide();
+            $('.jangka-waktu-akad').hide();
         }
     }
 
@@ -210,23 +212,38 @@
                                 </li>
                             </ul>
                             <!-- Tab panes -->
-                            <form method="get">
-                            <input type="hidden" id="name_tab" name="name_tab" value="{{request('name_tab', 'seluruh_data')}}">
+                            {{-- <form method="get"> --}}
                             <div class="tab-content tabs card-block">
                                 <div class="tab-pane seluruh_data {{active_tab('seluruh_data', request('name_tab'))}}" id="seluruh_data" role="tabpanel">
-                                    @include('akad.index.detail.table-nasabah-akad', ['data' => $seluruhData->data, 'dateRange' => $seluruhData->dateRange])
+                                    @include('akad.index.detail.table-nasabah-akad', [
+                                        'data' => $seluruhData->data, 
+                                        'dateRange' => $seluruhData->dateRange,
+                                        'infoTotal' => $seluruhData->infoTotal
+                                    ])
                                 </div>
                                 <div class="tab-pane {{active_tab('harian', request('name_tab'))}}" id="harian" role="tabpanel">
-                                    @include('akad.index.detail.table-nasabah-akad', ['data' => $harian->data, 'dateRange' => $harian->dateRange])
+                                    @include('akad.index.detail.table-nasabah-akad', [
+                                        'data' => $harian->data, 
+                                        'dateRange' => $harian->dateRange,
+                                        'infoTotal' => $harian->infoTotal
+                                    ])
                                 </div>
                                 <div class="tab-pane {{active_tab('tujuh_hari', request('name_tab'))}}" id="tujuh_hari" role="tabpanel">
-                                    @include('akad.index.detail.table-nasabah-akad', ['data' => $tujuh->data, 'dateRange' => $tujuh->dateRange])
+                                    @include('akad.index.detail.table-nasabah-akad', [
+                                        'data' => $tujuh->data, 
+                                        'dateRange' => $tujuh->dateRange,
+                                        'infoTotal' => $tujuh->infoTotal
+                                    ])
                                 </div>
                                 <div class="tab-pane {{active_tab('lima_belas_hari', request('name_tab'))}}" id="lima_belas_hari" role="tabpanel">
-                                    @include('akad.index.detail.table-nasabah-akad', ['data' => $limaBelas->data, 'dateRange' => $limaBelas->dateRange])
+                                    @include('akad.index.detail.table-nasabah-akad', [
+                                        'data' => $limaBelas->data, 
+                                        'dateRange' => $limaBelas->dateRange,
+                                        'infoTotal' => $limaBelas->infoTotal
+                                    ])
                                 </div>
                             </div>
-                            </form>
+                            {{-- </form> --}}
                         </div>
                     </div>
                     

@@ -481,10 +481,17 @@ return [
 				'lain_lain'	=> 'Lain - lain',
 			],
 			'waktu_akad' => [
-				''		=> 'Seluruh Data',
+				''		=> 'Seluruh Data Opsi Pembayaran',
 				'1' 	=> 'harian',
 				'7' 	=> '7 Hari',
 				'15'	=> '15 Hari',
+			],
+			'jangka_waktu_akad' => [
+				0 	=> 'Semua Hari Jangka Waktu Akad',
+				7 	=> '7 Hari',
+				15 	=> '15 Hari',
+				30 	=> '30 Hari',
+				60 	=> '60 Hari',
 			]
 		],
 	],

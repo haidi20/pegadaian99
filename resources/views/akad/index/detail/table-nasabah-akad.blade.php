@@ -1,4 +1,4 @@
-{{-- <form method="get"> --}}
+<form method="get">
     <div class="row">
         <div class="col-md-1half">
              <div class="form-group">
@@ -49,11 +49,20 @@
                 </select>
             </div>
         </div>
-        <div class="col-sm-12 col-md-5 opsi-pembayaran">
+        <div class="col-sm-12 col-md-4 opsi-pembayaran">
             <div class="form-group">
                 <select name="opsi_pembayaran" id="opsi_pembayaran" class="form-control">
                     @foreach($waktuAkad as $index => $item)
                         <option value="{{$index}}" {{selected($index, 'opsi_pembayaran', 'request')}}>{{$item}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4 jangka-waktu-akad">
+            <div class="form-group">
+                <select name="jangka_waktu_akad" id="jangka_waktu_akad" class="form-control">
+                    @foreach($jangkaWaktuAkad as $index => $item)
+                        <option value="{{$index}}" {{selected($index, 'jangka_waktu_akad', 'request')}}>{{$item}}</option>
                     @endforeach
                 </select>
             </div>
@@ -64,8 +73,9 @@
             <button type="submit" class="btn btn-sm btn-primary" id="btn-search">Oke</button>
         </div>
     </div>
+    <input type="hidden" class="name_tab" id="name_tab" name="name_tab" value="{{request('name_tab', 'seluruh_data')}}">
     <input type="hidden" name="page" value="{{request('page')}}">
-{{-- </form> --}}
+</form>
 <br>
 <div class="row">
     <div class="col-sm-12 col-md-12">
@@ -89,7 +99,7 @@
                             <td>{{$item->no_id}}</td>
                             <td>{{$item->nama_barang}}</td>
                             <td>{{$item->nominal_nilai_tafsir}}</td>
-                            <td>{{$item->terbilang_tunggakan}}</td>
+                            <td>{{$item->nominal_tunggakan->info}}</td>
                             <td>{{$item->tanggal_akad}}</td>
                             <td>{{$item->tanggal_jatuh_tempo}}</td>
                             <td>
@@ -141,6 +151,49 @@
                 </tbody>
             </table>
         </div>
-        {!! $data->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
+        @if($data)
+            {!! $data->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
+        @endif
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="view-info">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12">
+                    <div class="general-info">
+                        <div class="row" id="data-detail">
+                            <div class="col-sm-12 col-md-7">
+                                {{-- <div class="table-responsive"> --}}
+                                <div class="">
+                                    <table class="table m-0">
+                                        <tbody id="table-detail-one">
+                                            <tr>
+                                                <td>Total Pinjaman </td>
+                                                <td>: Rp. {{$infoTotal->totalPinjaman}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total tunggakan </td>
+                                                <td>: Rp. {{$infoTotal->totalTunggakan}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total tunggakan jatuh tempo </td>
+                                                <td>: Rp. {{$infoTotal->totalTunggakanJatuhTempo}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- end of table col-lg-6 -->
+                        </div>
+                        <!-- end of row -->
+                    </div>
+                    <!-- end of general info -->
+                </div>
+                <!-- end of col-lg-12 -->
+            </div>
+            <!-- end of row -->
+        </div>
     </div>
 </div>
