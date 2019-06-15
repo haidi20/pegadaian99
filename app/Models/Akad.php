@@ -188,22 +188,40 @@ class Akad extends Model
                 ->orderBy('tanggal_pembayaran', 'desc')
                 ->first();
 
-            $total_minggu = Carbon::parse($this->tanggal_akad)->diffInDays($data->tanggal_jatuh_tempo) / 7;
-            $total_minggu = round($total_minggu);
+            $tanggal_sekarang = Carbon::now()->format('Y-m-d');
+            
+            if($tanggal_sekarang <= $this->tanggal_jatuh_tempo){
+                $batas_waktu = $tanggal_sekarang;
+            }else{
+                $batas_waktu = $this->tanggal_jatuh_tempo;
+            }
+            
+            // return $batas_waktu;
+
+            $jarak_waktu = Carbon::parse($this->tanggal_akad)->diffInDays($batas_waktu) / $this->opsi_pembayaran;
+            
+            //condition 'harian' or 'mingguan'
+            if($this->opsi_pembayaran == 1){
+                $jarak_waktu = ceil($jarak_waktu) + 1;
+                $keterangan  = 'Hari';
+            }else{
+                $jarak_waktu = ceil($jarak_waktu);
+                $keterangan  = 'periode';
+            }
 
             $data['tanggal_akad'] = $this->tanggal_akad;
             $data['tanggal_jatuh_tempo'] = $this->tanggal_jatuh_tempo;
             $data['total'] = $total;
-            // 'jumlah minggu yang sudah di bayar'
-            $data['minggu_sudah'] = $total / $this->bt_7_hari;
-            // 'jumlah minggu yang belum dibayar'
-            $data['minggu_tertunggak'] = $total_minggu - $data->minggu_sudah;
-            $data['total_minggu'] = $total_minggu;
+            // 'jumlah minggu / hari yang sudah di bayar'
+            $data['waktu_sudah'] = $total / $this->bt_7_hari;
+            // 'jumlah minggu / hari yang belum dibayar'
+            $data['waktu_tertunggak'] = $jarak_waktu - $data->waktu_sudah;
+            $data['jarak_waktu'] = $jarak_waktu;
             // 'jumlah uang yang harus dibayar' 
-            $data['nominal'] = $data->minggu_tertunggak * $this->bt_7_hari;
+            $data['nominal'] = $data->waktu_tertunggak * $this->bt_7_hari;
             $data['nominal'] = nominal($data->nominal);
 
-            return 'Rp.'.$data->nominal.' ('.$data->minggu_tertunggak.' Periode)';
+            return 'Rp.'.$data->nominal.' ('.$data->waktu_tertunggak.' '.$keterangan.')';
         }
     }
 }

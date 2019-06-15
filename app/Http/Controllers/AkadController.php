@@ -70,8 +70,6 @@ class AkadController extends Controller
         $menu    = 'database';
         $subMenu = 'akad';
 
-        // return $this->cobaQuery();
-
         $harian         = $this->harian();
         $tujuh          = $this->tujuh();
         $limaBelas      = $this->limaBelas();
