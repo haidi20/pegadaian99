@@ -81,7 +81,7 @@ class AkadController extends Controller
         $jangkaWaktuAkad    = config('library.special.nasabah_akad.jangka_waktu_akad');
         $detailJenisBarang  = config('library.special.nasabah_akad.detail_jenis_barang');
 
-        return $this->template('akad.index.nasabah-akad', compact(
+        return $this->template('akad.index.nasabah-akad.index', compact(
             'dateRange', 'menu', 'subMenu', 'jangkaWaktuAkad',
             'column', 'detailJenisBarang', 'waktuAkad',
             'seluruhData', 'harian', 'tujuh', 'limaBelas'

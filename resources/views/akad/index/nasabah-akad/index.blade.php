@@ -122,8 +122,8 @@
 
 @section('content')
 {{-- include file modal  --}}
-@include('akad.modal.index.prosedur')
-@include('akad.modal.index.action')
+@include('akad.modal.index.prosedur.index')
+@include('akad.modal.index.action.index')
 <div class="page-header">
     <div class="row align-items-end">
         <div class="col-lg-8">
@@ -215,32 +215,35 @@
                             {{-- <form method="get"> --}}
                             <div class="tab-content tabs card-block">
                                 <div class="tab-pane seluruh_data {{active_tab('seluruh_data', request('name_tab'))}}" id="seluruh_data" role="tabpanel">
-                                    @include('akad.index.detail.table-nasabah-akad', [
+                                    @include('akad.index.nasabah-akad.table', [
                                         'data' => $seluruhData->data, 
                                         'dateRange' => $seluruhData->dateRange,
                                         'infoTotal' => $seluruhData->infoTotal
                                     ])
                                 </div>
                                 <div class="tab-pane {{active_tab('harian', request('name_tab'))}}" id="harian" role="tabpanel">
-                                    @include('akad.index.detail.table-nasabah-akad', [
+                                    @include('akad.index.nasabah-akad.table', [
                                         'data' => $harian->data, 
                                         'dateRange' => $harian->dateRange,
                                         'infoTotal' => $harian->infoTotal
                                     ])
                                 </div>
                                 <div class="tab-pane {{active_tab('tujuh_hari', request('name_tab'))}}" id="tujuh_hari" role="tabpanel">
-                                    @include('akad.index.detail.table-nasabah-akad', [
+                                    @include('akad.index.nasabah-akad.table', [
                                         'data' => $tujuh->data, 
                                         'dateRange' => $tujuh->dateRange,
                                         'infoTotal' => $tujuh->infoTotal
                                     ])
                                 </div>
                                 <div class="tab-pane {{active_tab('lima_belas_hari', request('name_tab'))}}" id="lima_belas_hari" role="tabpanel">
-                                    @include('akad.index.detail.table-nasabah-akad', [
+                                    @include('akad.index.nasabah-akad.table', [
                                         'data' => $limaBelas->data, 
                                         'dateRange' => $limaBelas->dateRange,
                                         'infoTotal' => $limaBelas->infoTotal
                                     ])
+                                </div>
+                                <div class="tab-pane {{active_tab('ringkasan_harian', request('name_tab'))}}" id="ringkasan_harian" role="tabpanel">
+                                    @include('akad.index.nasabah-akad.table-ringkasan_harian')
                                 </div>
                             </div>
                             {{-- </form> --}}
