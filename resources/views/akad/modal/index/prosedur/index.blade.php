@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-prosedur-na"  tabindex="-1" role="dialog">
+<div class="modal fade" id="modal-prosedur"  tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -20,31 +20,31 @@
                                                 <tbody id="table-detail-one">
                                                     <tr>
                                                         <td>Nama </td>
-                                                        <td>: data</td>
+                                                        <td class="nama_lengkap"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Jaminan </td>
-                                                        <td>: data</td>
+                                                        <td class="nama_barang"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Pinjaman </td>
-                                                        <td>: data</td>
+                                                        <td class="nilai_tafsir"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Biaya Titip </td>
-                                                        <td>: data</td>
+                                                        <td class="biaya_titip"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Biaya Titip Terbayar </td>
-                                                        <td>: data</td>
+                                                        <td class="bt_terbayar"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Biaya Titip Tertunggak </td>
-                                                        <td>: data</td>
+                                                        <td class="bt_tertunggak"></td>
                                                     </tr>
                                                     <tr id="pelunasan">
                                                         <td>Total </td>
-                                                        <td>: Data</td>
+                                                        <td class="pelunasan"></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

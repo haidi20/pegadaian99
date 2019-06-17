@@ -178,7 +178,7 @@ class Akad extends Model
         $biaya_titip = Biaya_titip::where('no_id', $this->no_id)->get();
 
         if(!$biaya_titip->isEmpty()){
-            $total = Biaya_titip::
+            $totalTerbayar = Biaya_titip::
                 where('no_id', $this->no_id)
                 ->sum('pembayaran');
 
@@ -211,31 +211,35 @@ class Akad extends Model
 
             $data['tanggal_akad'] = $this->tanggal_akad;
             $data['tanggal_jatuh_tempo'] = $this->tanggal_jatuh_tempo;
-            $data['total'] = $total;
+            $data['totalTerbayar'] = $totalTerbayar;
             // 'jumlah minggu / hari yang sudah di bayar'
-            $data['waktu_sudah'] = $total / $this->bt_7_hari;
+            $data['waktu_sudah'] = $totalTerbayar / $this->bt_7_hari;
             // 'jumlah minggu / hari yang belum dibayar'
             $data['waktu_tertunggak'] = $jarak_waktu - $data->waktu_sudah;
             $data['jarak_waktu'] = $jarak_waktu;
             // 'jumlah uang yang harus dibayar' 
             $data['nominal'] = $data->waktu_tertunggak * $this->bt_7_hari;
             // 'mendapatkan angka tunggakan seblum kasih format nominal'
-            $nominal= $data->nominal;
+            $nominal= nominal($data->nominal);
             $data['nominal'] = nominal($data->nominal);
 
             $info   = 'Rp. '.$data->nominal.' ('.$data->waktu_tertunggak.' '.$keterangan.')';
             // $info = $jarak_waktu;
             $jatuhTempo = $this->tanggal_jatuh_tempo == $tanggal_sekarang ? $nominal : 0;
 
-            return (object) compact('info', 'nominal', 'jatuhTempo');
+            //rewrite data
+            $totalTerbayar = nominal($totalTerbayar);
+
+            return (object) compact('info', 'nominal', 'jatuhTempo', 'totalTerbayar');
         }else{
             $keterangan = $this->opsi_pembayaran == 1 ? 'harian' : 'periode';
 
             $info       = 'Rp. 0 (0 '.$keterangan.')';
             $nominal    = 0;
             $jatuhTempo = 0;
+            $totalTerbayar = 0;
 
-            return (object) compact('info', 'nominal', 'jatuhTempo');
+            return (object) compact('info', 'nominal', 'jatuhTempo', 'totalTerbayar');
         }
     }
 }

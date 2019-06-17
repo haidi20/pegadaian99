@@ -94,7 +94,7 @@
         }
     }
 
-    function prosedur(type)
+    function prosedur(type, id)
     {
         if(type == 'pelunasan'){
             $('#pelunasan').css('display', '')
@@ -102,12 +102,53 @@
             $('#pelunasan').css('display', 'none')
         }
 
-        $('#modal-prosedur-na').modal('show');
+        fetch_data(id, 'prosedur')
+
+        $('#modal-prosedur').modal('show');
     }
 
     function edit(id)
     {
         $('#modal-edit').modal('show');
+    }
+
+    // type is between 'prosedur' and edit
+    function fetch_data(id, type)
+    {
+        $.ajax({
+            url: '{{url("akad/ajax/fetch-data")}}',
+            type: 'GET',
+            cache: false,
+            data:{id:id},
+            success:function(result){		
+                // console.log(result)
+
+                if(type == 'prosedur'){
+                    modal_prosedur(result)
+                }
+            },
+            error:function(xhr, ajaxOptions, thrownError){
+                console.log(thrownError)
+            }
+        });
+    }
+
+    function modal_prosedur(data)
+    {
+        $.each(data, function(index, item){
+            var name = '.'+index;
+            var value;
+
+            if(index == 'bt_terbayar' || index == 'bt_tertunggak'){
+                value = 'Rp. '+item;
+            }else{
+                value = item;
+            }
+
+            $(name).html(value)
+        });
+
+        console.log(data)
     }
 
     function review()

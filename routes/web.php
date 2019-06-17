@@ -31,6 +31,8 @@ Route::middleware('auth')->group(function () {
 		Route::get('/change-checklist/{id}', 'AkadController@change_checklist')->name('akad.change-checklist');
 		Route::get('/change-location/{id}/{type}', 'AkadController@change_location')->name('akad.change-location');
 
+		Route::get('/ajax/fetch-data', 'AkadController@fetch_data')->name('akad.fetch-data');
+
 		Route::post('/store', 'AkadController@store')->name('akad.store');
 		Route::post('/update/{id}', 'AkadController@update')->name('akad.update');
 	});

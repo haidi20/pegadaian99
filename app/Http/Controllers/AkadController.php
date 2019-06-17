@@ -63,6 +63,19 @@ class AkadController extends Controller
     * m     = maintenance
     */
 
+    // data ajax
+    public function fetch_data()
+    {
+        $findAkad = $this->akad->joinNasabah()->find(request('id'));
+
+        $findAkad['biaya_titip']    = $findAkad->nominal_biaya_titip; 
+        $findAkad['bt_terbayar']    = $findAkad->nominal_tunggakan->totalTerbayar;
+        $findAkad['nilai_tafsir']   = $findAkad->nominal_nilai_tafsir; 
+        $findAkad['bt_tertunggak']  = $findAkad->nominal_tunggakan->nominal;
+
+        return $findAkad;
+    }
+
     //SUB MENU
     public function nasabah_akad()
     {
