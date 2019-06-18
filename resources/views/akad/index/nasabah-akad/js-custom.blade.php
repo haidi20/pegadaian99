@@ -178,6 +178,8 @@
             }
 
             $(name).html(value)
+
+            console.log(name)
         });
 
         // condition base on 'opsi pembayaran'
