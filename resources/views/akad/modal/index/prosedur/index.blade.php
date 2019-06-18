@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-prosedur"  tabindex="-1" role="dialog">
+<div class="modal fade" id="modal-prosedur"  tabindex="-1" aria-hidden="true" style='z-index:10000;' role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -94,7 +94,7 @@
                 <br>
                 <div class="row">
                     <div class="col-sm-12 col-md-6 pl-4">
-                        <a href="#" class="btn btn-sm btn-info">
+                        <a href="#" class="btn btn-sm btn-info bayar" onClick="bayar()">
                             Bayar
                         </a>
                     </div>
@@ -114,3 +114,4 @@
 <input type="hidden" class="until_checkbox">
 <input type="hidden" class="opsi_pembayaran">
 <input type="hidden" class="default_until_checkbox">
+<input type="hidden" class="nominal_total">

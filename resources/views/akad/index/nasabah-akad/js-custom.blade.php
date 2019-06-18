@@ -70,6 +70,9 @@
         fetch_data(id, 'prosedur')
 
         $('#modal-prosedur').modal('show');
+
+        // button 'bayar' disabled
+        $('.bayar').addClass('disabled')
     }
 
     function customCheckbox(condition)
@@ -104,14 +107,17 @@
         var opsi_pembayaran = $('.opsi_pembayaran').val()
 
         var selanjutnya = parseInt(value) + 1
-
         var biaya_titip = $('.bt_7_hari').text()
         var biaya_titip = parseInt(biaya_titip)
 
         if($('#checkbox'+from).prop('checked') == true){
             var waktu_ke = value - (from - 1);
+
+            $('.bayar').removeClass('disabled')
         }else{
-            waktu_ke = 0;
+            var waktu_ke = 0;
+
+            $('.bayar').addClass('disabled')
         }
 
         if($('#checkbox'+value).prop('checked') == false){
@@ -134,6 +140,42 @@
 
         var keterangan = 'Total : Rp. '+nominal+' ('+waktu_ke+' minggu)'
         $('#keterangan_total').html(keterangan)
+
+        $('.nominal_total').val(nominal)
+    }
+
+    function bayar()
+    {
+        var nominal = $('.nominal_total').val()
+
+        swal({
+            title: "Mengingatkan!",
+            text: 'Yakin melakukan pembayaran sebesar Rp. '+nominal+' ?',
+            icon: "warning",
+            // showCancelButton: true,
+            // confirmButtonClass: "btn-danger",
+            buttons: ["Tidak", "Ya"],
+            cancel: true,
+            confirm: true,
+        });
+
+        // swal({
+        //     title: "Mengingatkan!",
+        //     text: 'Yakin membayaran dengan nominal ?',
+        //     type: 'warning',
+        //     showCancelButton: true,
+        //     confirmButtonColor: '#3085d6',
+        //     cancelButtonColor: '#d33',
+        //     confirmButtonText: 'Ya',
+        //     cancelButtonText: 'Tidak'
+        // },
+        // function(isConfirm) {
+        //     if (isConfirm) {
+        //         swal("Deleted!", "Your imaginary file has been deleted.", "success");
+        //     } else {
+        //         swal("Cancelled", "Your imaginary file is safe :)", "error");
+        //     }
+        // });
     }
 
     function edit(id)
@@ -177,9 +219,7 @@
                 value = item;
             }
 
-            $(name).html(value)
-
-            console.log(name)
+            $(name).html(value) 
         });
 
         // condition base on 'opsi pembayaran'
