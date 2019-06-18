@@ -63,6 +63,21 @@ class AkadController extends Controller
     * m     = maintenance
     */
 
+    // data ajax
+    public function fetch_data()
+    {
+        $findAkad = $this->akad->joinNasabah()->find(request('id'));
+
+        $findAkad['bt_terbayar']        = $findAkad->nominal_tunggakan->totalTerbayar;
+        $findAkad['waktu_sudah']        = $findAkad->nominal_tunggakan->waktu_sudah;
+        $findAkad['nilai_tafsir']       = $findAkad->nominal_nilai_tafsir; 
+        $findAkad['bt_tertunggak']      = $findAkad->nominal_tunggakan->nominal;
+        $findAkad['waktu_tertunggak']   = $findAkad->nominal_tunggakan->waktu_tertunggak; 
+        $findAkad['nominal_biaya_titip']= $findAkad->nominal_biaya_titip; 
+
+        return $findAkad;
+    }
+
     //SUB MENU
     public function nasabah_akad()
     {
@@ -81,7 +96,7 @@ class AkadController extends Controller
         $jangkaWaktuAkad    = config('library.special.nasabah_akad.jangka_waktu_akad');
         $detailJenisBarang  = config('library.special.nasabah_akad.detail_jenis_barang');
 
-        return $this->template('akad.index.nasabah-akad', compact(
+        return $this->template('akad.index.nasabah-akad.index', compact(
             'dateRange', 'menu', 'subMenu', 'jangkaWaktuAkad',
             'column', 'detailJenisBarang', 'waktuAkad',
             'seluruhData', 'harian', 'tujuh', 'limaBelas'

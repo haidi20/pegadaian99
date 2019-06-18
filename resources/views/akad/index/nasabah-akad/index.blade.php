@@ -33,97 +33,13 @@
 <!-- jquery redirect -->
 <script type="text/javascript" async src="https://cdn.rawgit.com/mgalante/jquery.redirect/master/jquery.redirect.js"></script>
 
-<script>
-    /*
-    * FYI :
-    * na    = 'nasabah akad'
-    * ajt   = 'akad jatuh tempo'
-    * pl    = 'Pelunasan dan Lelang'
-    */
-
-    $(document).ready(function() {
-
-        var nameTab = $('.name_tab').val()
-
-        if(nameTab == 'seluruh_data'){
-            $('.seluruh_data').addClass('active');
-        }
-
-        kondisiOpsiPembayaran(nameTab);
-
-        $('[data-toggle="tooltip"]').tooltip();
-
-        $('[data-toggle="popover"]').popover({
-            html: true,
-            content: function() {
-                var content = $(this).attr("data-popover-content");
-                return $(content).children(".popover-body").html();
-                // return $('#primary-popover-content').html();
-            }
-        });
-    });
-
-    // for bug class active on tab
-    function removeActive(tab)
-    {
-        var dataTabs = [
-            'seluruh_data', 'harian',
-            'tujuh_hari', 'lima_belas_hari',
-            'ringkasan_harian'
-        ];
-
-        for(var i = 0; i < dataTabs.length; i++){
-            // console.log(dataTabs[i]);
-            $('.name_tab').val(tab)
-            if(tab != dataTabs[i]){
-                $('#'+dataTabs[i]).removeClass('active');
-            }
-        }
-
-        kondisiOpsiPembayaran(tab);
-    }
-
-    function kondisiOpsiPembayaran(tab)
-    {
-        if(tab == 'seluruh_data'){
-            $('.opsi-pembayaran').show();
-            $('.jangka-waktu-akad').show();
-        }else{
-            $('.opsi-pembayaran').hide();
-            $('.jangka-waktu-akad').hide();
-        }
-    }
-
-    function prosedur(type)
-    {
-        if(type == 'pelunasan'){
-            $('#pelunasan').css('display', '')
-        }else{
-            $('#pelunasan').css('display', 'none')
-        }
-
-        $('#modal-prosedur-na').modal('show');
-    }
-
-    function edit(id)
-    {
-        $('#modal-edit').modal('show');
-    }
-
-    function review()
-    {
-        $('#modal-review-na').modal('show');
-        
-        // for close popover on button "kwitansi biaya titip"
-        $('[data-toggle="popover"]').popover('hide');
-    }
-</script>
+@include('akad.index.nasabah-akad.js-custom')
 @endsection
 
 @section('content')
 {{-- include file modal  --}}
-@include('akad.modal.index.prosedur')
-@include('akad.modal.index.form')
+@include('akad.modal.index.prosedur.index')
+@include('akad.modal.index.action.index')
 <div class="page-header">
     <div class="row align-items-end">
         <div class="col-lg-8">
@@ -215,32 +131,35 @@
                             {{-- <form method="get"> --}}
                             <div class="tab-content tabs card-block">
                                 <div class="tab-pane seluruh_data {{active_tab('seluruh_data', request('name_tab'))}}" id="seluruh_data" role="tabpanel">
-                                    @include('akad.index.detail.table-nasabah-akad', [
+                                    @include('akad.index.nasabah-akad.table', [
                                         'data' => $seluruhData->data, 
                                         'dateRange' => $seluruhData->dateRange,
                                         'infoTotal' => $seluruhData->infoTotal
                                     ])
                                 </div>
                                 <div class="tab-pane {{active_tab('harian', request('name_tab'))}}" id="harian" role="tabpanel">
-                                    @include('akad.index.detail.table-nasabah-akad', [
+                                    @include('akad.index.nasabah-akad.table', [
                                         'data' => $harian->data, 
                                         'dateRange' => $harian->dateRange,
                                         'infoTotal' => $harian->infoTotal
                                     ])
                                 </div>
                                 <div class="tab-pane {{active_tab('tujuh_hari', request('name_tab'))}}" id="tujuh_hari" role="tabpanel">
-                                    @include('akad.index.detail.table-nasabah-akad', [
+                                    @include('akad.index.nasabah-akad.table', [
                                         'data' => $tujuh->data, 
                                         'dateRange' => $tujuh->dateRange,
                                         'infoTotal' => $tujuh->infoTotal
                                     ])
                                 </div>
                                 <div class="tab-pane {{active_tab('lima_belas_hari', request('name_tab'))}}" id="lima_belas_hari" role="tabpanel">
-                                    @include('akad.index.detail.table-nasabah-akad', [
+                                    @include('akad.index.nasabah-akad.table', [
                                         'data' => $limaBelas->data, 
                                         'dateRange' => $limaBelas->dateRange,
                                         'infoTotal' => $limaBelas->infoTotal
                                     ])
+                                </div>
+                                <div class="tab-pane {{active_tab('ringkasan_harian', request('name_tab'))}}" id="ringkasan_harian" role="tabpanel">
+                                    @include('akad.index.nasabah-akad.table-ringkasan_harian')
                                 </div>
                             </div>
                             {{-- </form> --}}

@@ -103,11 +103,14 @@
                             <td>{{$item->tanggal_akad}}</td>
                             <td>{{$item->tanggal_jatuh_tempo}}</td>
                             <td>
-                                <a href="#" class="btn btn-mini btn-primary" onClick="prosedur('bt')">
+                                <a href="javascript:void(0)" class="btn btn-mini btn-primary" onClick="prosedur('bt', {{$item->id_akad}})">
                                     Bayar B. Titip
                                 </a>
-                                <a href="#" class="btn btn-mini btn-success" onClick="prosedur('pelunasan')">
+                                <a href="javascript:void(0)" class="btn btn-mini btn-success" onClick="prosedur('pelunasan', {{$item->id_akad}})">
                                     Pelunasan
+                                </a>
+                                <a href="javascript:void(0)" class="btn btn-mini btn-warning">
+                                    Akad Baru
                                 </a>
                             </td>
                             <td>

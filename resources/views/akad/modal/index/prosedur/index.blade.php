@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-prosedur-na"  tabindex="-1" role="dialog">
+<div class="modal fade" id="modal-prosedur"  tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -20,31 +20,31 @@
                                                 <tbody id="table-detail-one">
                                                     <tr>
                                                         <td>Nama </td>
-                                                        <td>: data</td>
+                                                        <td class="nama_lengkap"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Jaminan </td>
-                                                        <td>: data</td>
+                                                        <td class="nama_barang"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Pinjaman </td>
-                                                        <td>: data</td>
+                                                        <td class="nilai_tafsir"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Biaya Titip </td>
-                                                        <td>: data</td>
+                                                        <td class="nominal_biaya_titip"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Biaya Titip Terbayar </td>
-                                                        <td>: data</td>
+                                                        <td class="bt_terbayar"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Biaya Titip Tertunggak </td>
-                                                        <td>: data</td>
+                                                        <td class="bt_tertunggak"></td>
                                                     </tr>
                                                     <tr id="pelunasan">
                                                         <td>Total </td>
-                                                        <td>: Data</td>
+                                                        <td class="pelunasan"></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -63,35 +63,24 @@
                 <br>
                 <div class="row">
                     <div class="col-sm-12 col-md-6 pl-4">
-                        <a href="#" class="btn btn-sm btn-success">
+                        <a href="#" class="btn btn-sm btn-success" onClick="customCheckbox('add')">
                             <i class="zmdi zmdi-plus"></i> Tambah
                         </a>
-                        <a href="#" class="btn btn-sm btn-warning">
+                        <a href="#" class="btn btn-sm btn-warning" onClick="customCheckbox('delete')">
                             <i class="ion-minus-round"></i> Kurangi
                         </a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 col-md-6 pl-4">
-                        <h4>Pembayaran Minggu Ke:</h4>
+                    <div class="col-sm-12 col-md-12 pl-4">
+                        <h4 id="keterangan_waktu_ke"></h4>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 col-md-6 pl-5">
+                    <div class="col-sm-12 col-md-12 pl-5">
                         <div class="form-group row">
-                            <div class="col-sm-12 col-md-12">
-                                <div class="checkbox-color checkbox-success">
-                                    <input id="checkbox13" type="checkbox" >
-                                    <label for="checkbox13">
-                                        1
-                                    </label>
-                                </div>
-                                <div class="checkbox-color checkbox-success">
-                                    <input id="checkbox14" type="checkbox" >
-                                    <label for="checkbox14">
-                                        2
-                                    </label>
-                                </div>
+                            <div class="col-sm-12 col-md-12 checkbox" >
+
                             </div>
                         </div>
                     </div>
@@ -99,7 +88,7 @@
                 <br>
                 <div class="row">
                     <div class="col-sm-12 col-md-6 pl-4">
-                        <h5>Total : Rp. 0 (0 minggu)</h5>
+                        <h5 id="keterangan_total">Total : Rp. 0 (0 minggu) </h5>
                     </div>
                 </div>
                 <br>
@@ -119,47 +108,9 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade modal-flex" id="modal-review-na" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#tab-home" role="tab">Detail Nasabah</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#tab-profile" role="tab">Data Akad</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#tab-messages" role="tab">Bea Titip</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#tab-settings" role="tab">Rincian Akad</a>
-                    </li>
-                </ul>
-                <div class="tab-content modal-body">
-                    <div class="tab-pane active" id="tab-home" role="tabpanel">
-                        {{-- <h6>Detail Nasabah</h6> --}}
-                        @include('akad.modal.index.detail-prosedur.detail-nasabah')
-                    </div>
-                    <div class="tab-pane" id="tab-profile" role="tabpanel">
-                        {{-- <h6>Data Akad</h6> --}}
-                        @include('akad.modal.index.detail-prosedur.data-akad')
-                    </div>
-                    <div class="tab-pane" id="tab-messages" role="tabpanel">
-                        {{-- <h6>Bea Titip</h6> --}}
-                        @include('akad.modal.index.detail-prosedur.biaya-titip')
-                    </div>
-                    <div class="tab-pane" id="tab-settings" role="tabpanel">
-                        {{-- <h6>Rincian Akad</h6> --}}
-                        @include('akad.modal.index.detail-prosedur.rincian-akad')
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{{-- information hidden --}}
+<input type="hidden" class="bt_7_hari">
+<input type="hidden" class="from_checkbox">
+<input type="hidden" class="until_checkbox">
+<input type="hidden" class="opsi_pembayaran">
+<input type="hidden" class="default_until_checkbox">

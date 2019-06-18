@@ -42,3 +42,48 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade modal-flex" id="modal-review-na" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#tab-home" role="tab">Detail Nasabah</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tab-profile" role="tab">Data Akad</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tab-messages" role="tab">Bea Titip</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tab-settings" role="tab">Rincian Akad</a>
+                    </li>
+                </ul>
+                <div class="tab-content modal-body">
+                    <div class="tab-pane active" id="tab-home" role="tabpanel">
+                        {{-- <h6>Detail Nasabah</h6> --}}
+                        @include('akad.modal.index.action.detail.detail-nasabah')
+                    </div>
+                    <div class="tab-pane" id="tab-profile" role="tabpanel">
+                        {{-- <h6>Data Akad</h6> --}}
+                        @include('akad.modal.index.action.detail.data-akad')
+                    </div>
+                    <div class="tab-pane" id="tab-messages" role="tabpanel">
+                        {{-- <h6>Bea Titip</h6> --}}
+                        @include('akad.modal.index.action.detail.biaya-titip')
+                    </div>
+                    <div class="tab-pane" id="tab-settings" role="tabpanel">
+                        {{-- <h6>Rincian Akad</h6> --}}
+                        @include('akad.modal.index.action.detail.rincian-akad')
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
