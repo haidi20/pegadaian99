@@ -157,25 +157,15 @@
             buttons: ["Tidak", "Ya"],
             cancel: true,
             confirm: true,
+        }).then((action) => {
+            if (action) {
+                swal("Poof! Your imaginary file has been deleted!", {
+                    icon: "success",
+                });
+            }else {
+                swal("Your imaginary file is safe!");
+            }
         });
-
-        // swal({
-        //     title: "Mengingatkan!",
-        //     text: 'Yakin membayaran dengan nominal ?',
-        //     type: 'warning',
-        //     showCancelButton: true,
-        //     confirmButtonColor: '#3085d6',
-        //     cancelButtonColor: '#d33',
-        //     confirmButtonText: 'Ya',
-        //     cancelButtonText: 'Tidak'
-        // },
-        // function(isConfirm) {
-        //     if (isConfirm) {
-        //         swal("Deleted!", "Your imaginary file has been deleted.", "success");
-        //     } else {
-        //         swal("Cancelled", "Your imaginary file is safe :)", "error");
-        //     }
-        // });
     }
 
     function edit(id)
