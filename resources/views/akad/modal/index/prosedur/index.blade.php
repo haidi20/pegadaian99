@@ -32,7 +32,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Biaya Titip </td>
-                                                        <td class="biaya_titip"></td>
+                                                        <td class="nominal_biaya_titip"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Biaya Titip Terbayar </td>
@@ -63,24 +63,24 @@
                 <br>
                 <div class="row">
                     <div class="col-sm-12 col-md-6 pl-4">
-                        <a href="#" class="btn btn-sm btn-success">
+                        <a href="#" class="btn btn-sm btn-success" onClick="customCheckbox('add')">
                             <i class="zmdi zmdi-plus"></i> Tambah
                         </a>
-                        <a href="#" class="btn btn-sm btn-warning">
+                        <a href="#" class="btn btn-sm btn-warning" onClick="customCheckbox('delete')">
                             <i class="ion-minus-round"></i> Kurangi
                         </a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 col-md-6 pl-4">
-                        <h4>Pembayaran Minggu Ke:</h4>
+                    <div class="col-sm-12 col-md-12 pl-4">
+                        <h4 id="keterangan_waktu_ke"></h4>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 col-md-6 pl-5">
+                    <div class="col-sm-12 col-md-12 pl-5">
                         <div class="form-group row">
-                            <div class="col-sm-12 col-md-12">
-                                <div class="checkbox-color checkbox-success">
+                            <div class="col-sm-12 col-md-12" id="checkbox">
+                                {{-- <div class="checkbox-color checkbox-success">
                                     <input id="checkbox13" type="checkbox" >
                                     <label for="checkbox13">
                                         1
@@ -91,7 +91,7 @@
                                     <label for="checkbox14">
                                         2
                                     </label>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -118,3 +118,9 @@
         </div>
     </div>
 </div>
+
+{{-- information hidden --}}
+<input type="hidden" name="value_biaya_titip" class="bt_7_hari">
+<input type="hidden" class="from_checkbox">
+<input type="hidden" class="until_checkbox">
+<input type="hidden" class="default_until_checkbox">
