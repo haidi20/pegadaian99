@@ -95,8 +95,45 @@
                 executionCheckbox(from, until)
             }            
         }
-        
-        console.log(until, default_until)
+    }
+
+    function conditionDisabled(value)
+    {
+        var from            = $('.from_checkbox').val()
+        var until           = $('.until_checkbox').val()
+        var opsi_pembayaran = $('.opsi_pembayaran').val()
+
+        var selanjutnya = parseInt(value) + 1
+
+        var biaya_titip = $('.bt_7_hari').text()
+        var biaya_titip = parseInt(biaya_titip)
+
+        if($('#checkbox'+from).prop('checked') == true){
+            var waktu_ke = value - (from - 1);
+        }else{
+            waktu_ke = 0;
+        }
+
+        if($('#checkbox'+value).prop('checked') == false){
+            if(waktu_ke != 0){
+                var nominal = (biaya_titip * waktu_ke) - biaya_titip
+            }else{
+                var nominal = 0;
+            }
+        }else{
+            var nominal = biaya_titip * waktu_ke;
+        }
+
+        nominal = formatRupiah(nominal.toString())
+
+        if($('#checkbox'+selanjutnya).attr('disabled')){
+            $('#checkbox'+selanjutnya).removeAttr('disabled')
+        }else{
+            $('#checkbox'+selanjutnya).prop('disabled', true)
+        }
+
+        var keterangan = 'Total : Rp. '+nominal+' ('+waktu_ke+' minggu)'
+        $('#keterangan_total').html(keterangan)
     }
 
     function edit(id)
@@ -160,10 +197,11 @@
             until = data.waktu_sudah + data.waktu_tertunggak;
         }
 
-        //set value from and until
+        //set value
         $('.from_checkbox').val(from)
         $('.until_checkbox').val(until)
         $('.default_until_checkbox').val(until)
+        $('.opsi_pembayaran').val(data.opsi_pembayaran)
 
         // show checkbox base on time done pay and not yet pay
         executionCheckbox(from, until)
@@ -171,24 +209,26 @@
 
     function executionCheckbox(from, until)
     {
-        var checkbox = '';
-        var i = from;
+        var i           = from;
+        var disabled    = '';
+        var checkbox    = '';
 
-        //condition disabled
-        
+        // console.log(from, until)
 
         for (i; i <= until; i++) {
+            if(i > from){
+                disabled = 'disabled';
+            }
+
             checkbox = checkbox + '<div class="checkbox-color checkbox-success">';
-            checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" value="'+i+'">';
+            checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" '+disabled+' onCLick="conditionDisabled('+i+')">';
             checkbox = checkbox + '<label for="checkbox'+i+'">';
             checkbox = checkbox + i;
             checkbox = checkbox + '</label>';
             checkbox = checkbox + '</div>'; 
         }
 
-        console.log(checkbox)
-
-        $('#checkbox').html(checkbox)
+        $('.checkbox').html(checkbox)
     }
 
     function review()

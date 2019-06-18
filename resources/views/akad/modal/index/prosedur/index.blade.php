@@ -79,19 +79,8 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-12 pl-5">
                         <div class="form-group row">
-                            <div class="col-sm-12 col-md-12" id="checkbox">
-                                {{-- <div class="checkbox-color checkbox-success">
-                                    <input id="checkbox13" type="checkbox" >
-                                    <label for="checkbox13">
-                                        1
-                                    </label>
-                                </div>
-                                <div class="checkbox-color checkbox-success">
-                                    <input id="checkbox14" type="checkbox" >
-                                    <label for="checkbox14">
-                                        2
-                                    </label>
-                                </div> --}}
+                            <div class="col-sm-12 col-md-12 checkbox" >
+
                             </div>
                         </div>
                     </div>
@@ -99,7 +88,7 @@
                 <br>
                 <div class="row">
                     <div class="col-sm-12 col-md-6 pl-4">
-                        <h5>Total : Rp. 0 (0 minggu)</h5>
+                        <h5 id="keterangan_total">Total : Rp. 0 (0 minggu) </h5>
                     </div>
                 </div>
                 <br>
@@ -120,7 +109,8 @@
 </div>
 
 {{-- information hidden --}}
-<input type="hidden" name="value_biaya_titip" class="bt_7_hari">
+<input type="hidden" class="bt_7_hari">
 <input type="hidden" class="from_checkbox">
 <input type="hidden" class="until_checkbox">
+<input type="hidden" class="opsi_pembayaran">
 <input type="hidden" class="default_until_checkbox">
