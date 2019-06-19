@@ -88,7 +88,7 @@
                                     <option {{ selected(25, 'perpage', 'request')}}>25</option>
                                     <option {{ selected(50, 'perpage', 'request')}}>50</option>
                                     <option {{ selected(100, 'perpage', 'request')}}>100</option>
-                                </select> 
+                                </select>
                                 {{-- &nbsp; Entries --}}
                             </div>
                         </div>
@@ -138,7 +138,7 @@
                                         <td>{{$item->tanggal_hutang}}</td>
                                         <td>{{$item->status_hutang}}</td>
                                         <td>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-primary" onClick="edit('{{url('operasional/change-status', $item->id_hutang_kas)}}')" title="Edit Data">
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary" onClick="edit('{{url('operasional/change-status', $item->id_hutang_kas)}}')" title="Edit Data" id="detail_{{ $item->id_hutang_kas }}">
                                                 <i class="icofont icofont-edit icofont-lg"></i>
                                             </a>
                                         </td>
@@ -153,7 +153,7 @@
                             </tfoot> --}}
                         </table>
                     </div>
-                   {!! $hutang_kas->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}                   
+                   {!! $hutang_kas->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
                 </div>
             </div>
         </div>
