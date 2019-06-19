@@ -73,6 +73,9 @@
 
         // button 'bayar' disabled
         $('.bayar').addClass('disabled')
+
+        var keterangan = 'Total : Rp. 0 (0 minggu)'
+        $('#keterangan_total').html(keterangan)
     }
 
     function customCheckbox(condition)
@@ -110,6 +113,7 @@
         var biaya_titip = $('.bt_7_hari').text()
         var biaya_titip = parseInt(biaya_titip)
 
+        // condition if checkbox nothing checked 'waktu_ke' set value 0
         if($('#checkbox'+from).prop('checked') == true){
             var waktu_ke = value - (from - 1);
 
@@ -120,15 +124,20 @@
             $('.bayar').addClass('disabled')
         }
 
+        // condition if checkbox not checked and then 'melakukan pengurangan pada jumlah waktu dan biaya titip'
         if($('#checkbox'+value).prop('checked') == false){
             if(waktu_ke != 0){
                 var nominal = (biaya_titip * waktu_ke) - biaya_titip
+                waktu_ke = waktu_ke - 1;
             }else{
                 var nominal = 0;
             }
         }else{
+            // 'rumus biaya titip dikalikan dengan jumlah hari/minggu di pilih'
             var nominal = biaya_titip * waktu_ke;
         }
+
+        $('.nominal_total').val(nominal)
 
         nominal = formatRupiah(nominal.toString())
 
@@ -140,42 +149,53 @@
 
         var keterangan = 'Total : Rp. '+nominal+' ('+waktu_ke+' minggu)'
         $('#keterangan_total').html(keterangan)
-
-        $('.nominal_total').val(nominal)
     }
 
     function bayar()
     {
-        var nominal = $('.nominal_total').val()
+        var from            = $('.from_checkbox').val()
+        var id_akad         = $('.id_akad').text()
+        var nominal         = $('.nominal_total').val()
+        var format_nominal  = formatRupiah(nominal.toString())
+
+        var until = '';
+        $('input[type=checkbox]').each(function () {
+            if (this.checked) {
+                until = $(this).val();
+           }           
+        });
 
         swal({
             title: "Mengingatkan!",
-            text: 'Yakin melakukan pembayaran sebesar Rp. '+nominal+' ?',
+            text: 'Yakin melakukan pembayaran sebesar Rp. '+format_nominal+' ?',
             icon: "warning",
             // showCancelButton: true,
             // confirmButtonClass: "btn-danger",
             buttons: ["Tidak", "Ya"],
             cancel: true,
             confirm: true,
-        });
+        }).then((action) => {
+            if (action) {
+                $.ajax({
+                    url: '{{url("akad/ajax/bayar-biaya-titip")}}',
+                    type: 'GET',
+                    cache: false,
+                    data:{id_akad:id_akad, bt_7_hari:nominal, from:from, until:until},
+                    success:function(result){	
+                        swal("Pembayaran Biaya Titip Telah Berhasil", {
+                            icon: "success",
+                        });
 
-        // swal({
-        //     title: "Mengingatkan!",
-        //     text: 'Yakin membayaran dengan nominal ?',
-        //     type: 'warning',
-        //     showCancelButton: true,
-        //     confirmButtonColor: '#3085d6',
-        //     cancelButtonColor: '#d33',
-        //     confirmButtonText: 'Ya',
-        //     cancelButtonText: 'Tidak'
-        // },
-        // function(isConfirm) {
-        //     if (isConfirm) {
-        //         swal("Deleted!", "Your imaginary file has been deleted.", "success");
-        //     } else {
-        //         swal("Cancelled", "Your imaginary file is safe :)", "error");
-        //     }
-        // });
+                        window.location.href = '{{route("akad.nasabah-akad")}}';
+                    },
+                    error:function(xhr, ajaxOptions, thrownError){
+                        console.log(thrownError)
+                    }
+                });
+            }else {
+                swal("Your imaginary file is safe!");
+            }
+        });
     }
 
     function edit(id)
@@ -263,7 +283,7 @@
             }
 
             checkbox = checkbox + '<div class="checkbox-color checkbox-success">';
-            checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" '+disabled+' onCLick="conditionDisabled('+i+')">';
+            checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" '+disabled+' value="'+i+'" onCLick="conditionDisabled('+i+')">';
             checkbox = checkbox + '<label for="checkbox'+i+'">';
             checkbox = checkbox + i;
             checkbox = checkbox + '</label>';

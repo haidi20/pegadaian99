@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
 		Route::get('/change-location/{id}/{type}', 'AkadController@change_location')->name('akad.change-location');
 
 		Route::get('/ajax/fetch-data', 'AkadController@fetch_data')->name('akad.fetch-data');
+		Route::get('/ajax/bayar-biaya-titip', 'AkadController@bayar_biaya_titip')->name('akad.bayar-biaya-titip');
 
 		Route::post('/store', 'AkadController@store')->name('akad.store');
 		Route::post('/update/{id}', 'AkadController@update')->name('akad.update');

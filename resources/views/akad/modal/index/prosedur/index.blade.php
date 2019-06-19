@@ -115,3 +115,4 @@
 <input type="hidden" class="opsi_pembayaran">
 <input type="hidden" class="default_until_checkbox">
 <input type="hidden" class="nominal_total">
+<input type="hidden" class="id_akad">
