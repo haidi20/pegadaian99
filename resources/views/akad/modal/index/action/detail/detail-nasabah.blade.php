@@ -9,23 +9,23 @@
                                 <tbody id="table-detail-one">
                                     <tr>
                                         <th>Nama </th>
-                                        <td>: data</td>
+                                        <td class="nama_lengkap"></td>
                                     </tr>
                                     <tr>
                                         <th>Jenis Kelamin </th>
-                                        <td>: data</td>
+                                        <td class="jenis_kelamin"></td>
                                     </tr>
                                     <tr>
                                         <th>Kota </th>
-                                        <td>: data</td>
+                                        <td class="kota"></td>
                                     </tr>
                                     <tr>
                                         <th>No. Telp </th>
-                                        <td>: data</td>
+                                        <td class="no_telp"></td>
                                     </tr>
                                     <tr>
                                         <th>Jenis Id </th>
-                                        <td>: data</td>
+                                        <td class="jenis_id"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -37,19 +37,19 @@
                                 <tbody id="table-detail-two">
                                     <tr>
                                         <th>No Identitas </th>
-                                        <td>: data</td>
+                                        <td class="no_identitas"></td>
                                     </tr>
                                     <tr>
                                         <th>Tanggal Lahir </th>
-                                        <td>: data</td>
+                                        <td class="tanggal_lahir"></td>
                                     </tr>
                                     <tr>
                                         <th>Tanggal Daftar </th>
-                                        <td>: data</td>
+                                        <td class="tanggal_daftar"></td>
                                     </tr>
                                     <tr>
                                         <th>Alamat </th>
-                                        <td>: data</td>
+                                        <td class="alamat"></td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -114,7 +114,7 @@
                                 </a>
                             </td>
                             <td>
-                                <a href="javascript:void(0)" class="btn btn-mini btn-info" onClick="review()">
+                                <a href="javascript:void(0)" class="btn btn-mini btn-info" onClick="review({{$item->id_akad}})">
                                     <i class="zmdi zmdi-search"></i>
                                 </a>
                                 <button 

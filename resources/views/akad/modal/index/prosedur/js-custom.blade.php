@@ -67,7 +67,7 @@
             $('#pelunasan').css('display', 'none')
         }
 
-        fetch_data(id, 'prosedur')
+        fetch_data(id)
 
         $('#modal-prosedur').modal('show');
 
@@ -198,25 +198,15 @@
         });
     }
 
-    function edit(id)
-    {
-        $('#modal-edit').modal('show');
-    }
-
-    // type is between 'prosedur' and edit
-    function fetch_data(id, type)
+    function fetch_data(id)
     {
         $.ajax({
             url: '{{url("akad/ajax/fetch-data")}}',
             type: 'GET',
             cache: false,
             data:{id:id},
-            success:function(result){		
-                // console.log(result)
-
-                if(type == 'prosedur'){
-                    modal_prosedur(result)
-                }
+            success:function(result){
+                modal_prosedur(result)
             },
             error:function(xhr, ajaxOptions, thrownError){
                 console.log(thrownError)
@@ -291,13 +281,5 @@
         }
 
         $('.checkbox').html(checkbox)
-    }
-
-    function review()
-    {
-        $('#modal-review-na').modal('show');
-        
-        // for close popover on button "kwitansi biaya titip"
-        $('[data-toggle="popover"]').popover('hide');
     }
 </script>

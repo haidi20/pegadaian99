@@ -33,7 +33,8 @@
 <!-- jquery redirect -->
 <script type="text/javascript" async src="https://cdn.rawgit.com/mgalante/jquery.redirect/master/jquery.redirect.js"></script>
 
-@include('akad.index.nasabah-akad.js-custom')
+@include('akad.modal.index.prosedur.js-custom')
+@include('akad.modal.index.action.js-custom')
 @endsection
 
 @section('content')
