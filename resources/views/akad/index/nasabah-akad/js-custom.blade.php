@@ -113,6 +113,7 @@
         var biaya_titip = $('.bt_7_hari').text()
         var biaya_titip = parseInt(biaya_titip)
 
+        // condition if checkbox nothing checked 'waktu_ke' set value 0
         if($('#checkbox'+from).prop('checked') == true){
             var waktu_ke = value - (from - 1);
 
@@ -123,13 +124,16 @@
             $('.bayar').addClass('disabled')
         }
 
+        // condition if checkbox not checked and then 'melakukan pengurangan pada jumlah waktu dan biaya titip'
         if($('#checkbox'+value).prop('checked') == false){
             if(waktu_ke != 0){
                 var nominal = (biaya_titip * waktu_ke) - biaya_titip
+                waktu_ke = waktu_ke - 1;
             }else{
                 var nominal = 0;
             }
         }else{
+            // 'rumus biaya titip dikalikan dengan jumlah hari/minggu di pilih'
             var nominal = biaya_titip * waktu_ke;
         }
 
@@ -149,10 +153,10 @@
 
     function bayar()
     {
-        var nominal = $('.nominal_total').val()
-        var format_nominal = formatRupiah(nominal.toString())
-
-        var id_akad = $('.id_akad').text()
+        var from            = $('.from_checkbox').val()
+        var id_akad         = $('.id_akad').text()
+        var nominal         = $('.nominal_total').val()
+        var format_nominal  = formatRupiah(nominal.toString())
 
         var until = '';
         $('input[type=checkbox]').each(function () {
@@ -160,8 +164,6 @@
                 until = $(this).val();
            }           
         });
-        
-        console.log(until)
 
         swal({
             title: "Mengingatkan!",
@@ -178,12 +180,13 @@
                     url: '{{url("akad/ajax/bayar-biaya-titip")}}',
                     type: 'GET',
                     cache: false,
-                    data:{id_akad:id_akad, bt_7_hari:nominal},
-                    success:function(result){
-                        console.log(result)		
-                        // swal("hasilnya = "+result, {
-                        //     icon: "success",
-                        // });
+                    data:{id_akad:id_akad, bt_7_hari:nominal, from:from, until:until},
+                    success:function(result){	
+                        swal("Pembayaran Biaya Titip Telah Berhasil", {
+                            icon: "success",
+                        });
+
+                        window.location.href = '{{route("akad.nasabah-akad")}}';
                     },
                     error:function(xhr, ajaxOptions, thrownError){
                         console.log(thrownError)
