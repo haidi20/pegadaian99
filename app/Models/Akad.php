@@ -160,7 +160,7 @@ class Akad extends Model
 
     public function getNominalBiayaAdminAttribute()
     {
-        return 'Rp. '. nominal($this->biaya_admin);
+        return 'Rp. '.nominal($this->biaya_admin);
     }
 
     public function getNominalBiayaTitipAttribute()
@@ -169,6 +169,11 @@ class Akad extends Model
     }
 
     public function getNominalNilaiTafsirAttribute()
+    {
+        return 'Rp. '.nominal($this->nilai_tafsir);
+    }
+
+    public function getNominalNilaiPencairanAttribute()
     {
         return 'Rp. '.nominal($this->nilai_pencairan);
     }

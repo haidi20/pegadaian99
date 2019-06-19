@@ -68,14 +68,29 @@ class AkadController extends Controller
     {
         $findAkad = $this->akad->joinNasabah()->find(request('id'));
 
-        $findAkad['bt_terbayar']        = $findAkad->nominal_tunggakan->totalTerbayar;
-        $findAkad['waktu_sudah']        = $findAkad->nominal_tunggakan->waktu_sudah;
-        $findAkad['nilai_tafsir']       = $findAkad->nominal_nilai_tafsir; 
-        $findAkad['bt_tertunggak']      = $findAkad->nominal_tunggakan->nominal;
-        $findAkad['waktu_tertunggak']   = $findAkad->nominal_tunggakan->waktu_tertunggak; 
-        $findAkad['nominal_biaya_titip']= $findAkad->nominal_biaya_titip; 
+        // overwrite some field
+        $findAkad['bt_terbayar']                = $findAkad->nominal_tunggakan->totalTerbayar;
+        $findAkad['waktu_sudah']                = $findAkad->nominal_tunggakan->waktu_sudah;
+        $findAkad['biaya_admin']                = $findAkad->nominal_biaya_admin;
+        $findAkad['nilai_tafsir']               = $findAkad->nominal_nilai_tafsir; 
+        $findAkad['bt_tertunggak']              = $findAkad->nominal_tunggakan->nominal;
+        $findAkad['nilai_pencairan']            = $findAkad->nilai_pencairan; 
+        $findAkad['waktu_tertunggak']           = $findAkad->nominal_tunggakan->waktu_tertunggak; 
+        $findAkad['nominal_biaya_titip']        = $findAkad->nominal_biaya_titip; 
+        $findAkad['nominal_nilai_pencairan']    = $findAkad->nominal_nilai_pencairan; 
 
         return $findAkad;
+    }
+
+    public function fetch_data_biaya_titip()
+    {
+        $biaya_titip = $this->biaya_titip;
+        $biaya_titip = $biaya_titip->where('no_id', request('no_id'));
+        $biaya_titip = $biaya_titip->sorted('tanggal_pembayaran', 'desc');
+        $biaya_titip = $biaya_titip->get();
+        
+
+        return $biaya_titip;
     }
 
     public function bayar_biaya_titip()

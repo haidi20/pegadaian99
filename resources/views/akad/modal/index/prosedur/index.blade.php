@@ -28,7 +28,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Pinjaman </td>
-                                                        <td class="nilai_tafsir"></td>
+                                                        <td class="nominal_nilai_pencairan"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Biaya Titip </td>

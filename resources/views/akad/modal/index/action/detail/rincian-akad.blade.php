@@ -12,22 +12,22 @@
                 <th>Status</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>KHALIDA AULIYA KARINA PUTRI</td>
-                <td>C99-05-030519-001</td>
-                <td>Rp. 1,000,000</td>
-                <td>NIKON D3200</td>
-                <td>13-04-2019</td>
-                <td>13-04-2019</td>
-                <td>Rp. 90,000</td>
-                <td>Belum Lunas</td>
+        <tbody id="table_rincian_akad">
+            {{-- <tr>
+                <td class="nama_lengkap"></td>
+                <td class="no_id"></td>
+                <td class="nilai_tafsir"></td>
+                <td class="nama_barang"></td>
+                <td class="tanggal_akad"></td>
+                <td class="tanggal_pembayaran"></td>
+                <td class="pembayaran"></td>
+                <td class="status"></td>
             </tr>
             <tr>
                 <td colspan="6">Total (Biaya Titip & Pinjaman)</td>
                 <td>Rp. 1,090,000</td>
                 <td></td>
-            </tr>
+            </tr> --}}
         </tbody>
     </table>
 </div>

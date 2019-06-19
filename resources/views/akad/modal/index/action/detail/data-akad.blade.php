@@ -11,59 +11,59 @@
         </thead>
         <tbody>
             <tr>
-                <td>C99-05-030519-001</td>
+                <td class="no_id"></td>
                 <td>
                     <b>Nama Barang :</b>
                     <ul >
-                        <li >LAPTOP DELL INTEL CORE I5 GEN 7 RAM 4 RADEON R5</li>
+                        <li class="nama_barang"></li>
                     </ul>
                     <b>Jenis :</b>
                     <ul >
-                        <li >Data</li>
+                        <li class="jenis_barang"></li>
                     </ul>
                     <b>Kelengkapan :</b>
                     <ul >
-                        <li >Data</li>
+                        <li class="kelengkapan"></li>
                     </ul>
                     <b>Kekurangan :</b>
                     <ul >
-                        <li >Data</li>
+                        <li class="kekurangan"></li>
                     </ul>
                 </td>
                 <td>
                     <b>Waktu Akad :</b>
                     <ul >
-                        <li >60 hari</li>
+                        <li class="jangka_waktu_akad"></li>
                     </ul>
                     <b>Tanggal Akad :</b>
                     <ul >
-                        <li >Data</li>
+                        <li class="tanggal_akad"></li>
                     </ul>
                     <b>Jatuh Tempo :</b>
                     <ul >
-                        <li >Data</li>
+                        <li class="tanggal_jatuh_tempo"></li>
                     </ul>
                 </td>
                 <td>
                     <b>Nilai Tafsir :</b>
                     <ul >
-                        <li >Rp. 3,800,000</li>
+                        <li class="nilai_tafsir"></li>
                     </ul>
                     <b>Nilai Pencairan :</b>
                     <ul >
-                        <li >Rp. 2,300,000</li>
+                        <li class="nominal_nilai_pencairan"></li>
                     </ul>
-                    <b>Biaya Titp Per 7 Hari :</b>
+                    <b class="keterangan_opsi_pembayaran"></b>
                     <ul >
-                        <li >Rp. 110,000</li>
+                        <li class="nominal_biaya_titip"></li>
                     </ul>
                     <b>Biaya Administrasi :</b>
                     <ul >
-                        <li >Rp. 10,000</li>
+                        <li class="biaya_admin"></li>
                     </ul>
                 </td>
-                <td>
-                    Belum Lunas
+                <td class="status">
+                    
                 </td>
             </tr>
         </tbody>
