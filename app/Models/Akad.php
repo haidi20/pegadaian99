@@ -226,7 +226,12 @@ class Akad extends Model
             $nominal= nominal($data->nominal);  
             $data['nominal'] = nominal($data->nominal);
 
-            $info   = 'Rp. '.$data->nominal.' ('.$data->waktu_tertunggak.' '.$keterangan.')';
+            if($data->waktu_tertunggak == 0){
+                $info   = 'Lunas Biaya Titip';
+            }else{
+                $info   = 'Rp. '.$data->nominal.' ('.$data->waktu_tertunggak.' '.$keterangan.')';
+            }
+
             // $info = $jarak_waktu;
             $jatuhTempo = $this->tanggal_jatuh_tempo == $tanggal_sekarang ? $nominal : 0;
             //about time done pay and not yet pay
