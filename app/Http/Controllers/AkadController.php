@@ -63,7 +63,7 @@ class AkadController extends Controller
     * m     = maintenance
     */
 
-    // data ajax
+    // start data ajax
     public function fetch_data()
     {
         $findAkad = $this->akad->joinNasabah()->find(request('id'));
@@ -77,6 +77,25 @@ class AkadController extends Controller
 
         return $findAkad;
     }
+
+    public function bayar_biaya_titip()
+    {
+        // $findAkad = $this->akad->where('id_akad', request('id_akad'));
+        // $dataAkad = $findAkad->first();
+
+        // // rumus sum 'biaya titip' on table akad
+        // $updateBiayaTitip = $dataAkad->bt_7_hari + request('bt_7_hari');
+
+        // $findAkad = $findAkad->update(['bt_7_hari' => $updateBiayaTitip]);
+
+        $keterangan = 'KE 1-2';
+        
+        return $keterangan;
+        
+        // insert_bea_titip($findAkad, $keterangan);
+    }
+
+    //end data ajax
 
     //SUB MENU
     public function nasabah_akad()
@@ -518,12 +537,16 @@ class AkadController extends Controller
         return (object) compact('data');
     }
 
-    public function insert_bea_titip($data)
+    public function insert_bea_titip($data, $keterangan = null)
     {
+        if($keterangan == null){
+            $keterangan = 'KE 1-'.request('bt_yang_dibayar');
+        }
+
         if(request('bt_yang_dibayar') >= 1){
             $biaya_titip                        = $this->biaya_titip;
             $biaya_titip->no_id                 = $data->no_id;
-            $biaya_titip->keterangan            = 'KE 1-'.request('bt_yang_dibayar');
+            $biaya_titip->keterangan            = $keterangan;
             $biaya_titip->pembayaran            = $data->bt_7_hari;
             $biaya_titip->biaya_titip_ke        = request('bt_yang_dibayar');
             $biaya_titip->tanggal_pembayaran    = Carbon::now()->format('Y-m-d');

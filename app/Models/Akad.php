@@ -190,11 +190,14 @@ class Akad extends Model
 
             $tanggal_sekarang = Carbon::now()->format('Y-m-d');
             
-            if($tanggal_sekarang >= $this->tanggal_jatuh_tempo){
-                $batas_waktu = $tanggal_sekarang;
-            }else{
-                $batas_waktu = $this->tanggal_jatuh_tempo;
-            }
+            // JANGAN DI HAPUS
+            // if($tanggal_sekarang >= $this->tanggal_jatuh_tempo){
+            //     $batas_waktu = $tanggal_sekarang;
+            // }else{
+            //     $batas_waktu = $this->tanggal_jatuh_tempo;
+            // }
+
+            $batas_waktu = $this->tanggal_jatuh_tempo;
 
             $opsi_pembayaran = $this->opsi_pembayaran;
 

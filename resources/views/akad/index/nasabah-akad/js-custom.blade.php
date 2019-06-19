@@ -73,6 +73,9 @@
 
         // button 'bayar' disabled
         $('.bayar').addClass('disabled')
+
+        var keterangan = 'Total : Rp. 0 (0 minggu)'
+        $('#keterangan_total').html(keterangan)
     }
 
     function customCheckbox(condition)
@@ -130,6 +133,8 @@
             var nominal = biaya_titip * waktu_ke;
         }
 
+        $('.nominal_total').val(nominal)
+
         nominal = formatRupiah(nominal.toString())
 
         if($('#checkbox'+selanjutnya).attr('disabled')){
@@ -140,17 +145,27 @@
 
         var keterangan = 'Total : Rp. '+nominal+' ('+waktu_ke+' minggu)'
         $('#keterangan_total').html(keterangan)
-
-        $('.nominal_total').val(nominal)
     }
 
     function bayar()
     {
         var nominal = $('.nominal_total').val()
+        var format_nominal = formatRupiah(nominal.toString())
+
+        var id_akad = $('.id_akad').text()
+
+        var until = '';
+        $('input[type=checkbox]').each(function () {
+            if (this.checked) {
+                until = $(this).val();
+           }           
+        });
+        
+        console.log(until)
 
         swal({
             title: "Mengingatkan!",
-            text: 'Yakin melakukan pembayaran sebesar Rp. '+nominal+' ?',
+            text: 'Yakin melakukan pembayaran sebesar Rp. '+format_nominal+' ?',
             icon: "warning",
             // showCancelButton: true,
             // confirmButtonClass: "btn-danger",
@@ -159,8 +174,20 @@
             confirm: true,
         }).then((action) => {
             if (action) {
-                swal("Poof! Your imaginary file has been deleted!", {
-                    icon: "success",
+                $.ajax({
+                    url: '{{url("akad/ajax/bayar-biaya-titip")}}',
+                    type: 'GET',
+                    cache: false,
+                    data:{id_akad:id_akad, bt_7_hari:nominal},
+                    success:function(result){
+                        console.log(result)		
+                        // swal("hasilnya = "+result, {
+                        //     icon: "success",
+                        // });
+                    },
+                    error:function(xhr, ajaxOptions, thrownError){
+                        console.log(thrownError)
+                    }
                 });
             }else {
                 swal("Your imaginary file is safe!");
@@ -253,7 +280,7 @@
             }
 
             checkbox = checkbox + '<div class="checkbox-color checkbox-success">';
-            checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" '+disabled+' onCLick="conditionDisabled('+i+')">';
+            checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" '+disabled+' value="'+i+'" onCLick="conditionDisabled('+i+')">';
             checkbox = checkbox + '<label for="checkbox'+i+'">';
             checkbox = checkbox + i;
             checkbox = checkbox + '</label>';
