@@ -6,11 +6,22 @@ use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\Browser\Login;
+use App\Models\Bku;
 
 class BukuView extends Login
 {
     public function data_view_assert()
     { }
+    /** *
+     * /still de
+    // public function data_uraian()
+    // {
+    //     $uraian = Bku::all();
+    //     $uraian->uraian->first();
+    //     // $uraian = DB::Table('bku')->select('uraian')->first();
+    //     return $uraian;
+    // }
+     */
     /**
      * A Dusk test example.
      * @test
@@ -18,6 +29,9 @@ class BukuView extends Login
      */
     public function a_user_view_bku()
     {
+        // $uraian = factory(Bku::class)->create([
+        //     'uraian' => 'AKAD A/N JULIYATI',
+        // ]);
         /**
          * first todo
          * todo auth|login|middleware
@@ -25,8 +39,8 @@ class BukuView extends Login
          */
         $this->user_login();
         $this->browse(function (Browser $browser) {
-            $assert = 'AKAD A/N IWAN SUMANTO'; //for see finalize js loading
-            $assert_search = 'AKAD A/N JULIYATI'; //for uraian - tanggal - uraian - kredit - saldo
+            $assert = 'PELUNASAN A/N YUSRANSYAH'; //for see finalize js loading
+            $assert_search = 'B.ADM'; //for uraian - tanggal - uraian - kredit - saldo
             $assert_debit = '10000'; // Rp. 10.000,00,-
             $assert_kredit = '1500000'; // for search kredit + assert
             $assert_saldo = '885000'; // for search saldo + assert
@@ -57,7 +71,7 @@ class BukuView extends Login
                 ->select('perpage', '100')
                 // button OKE search
                 ->press('Oke')
-                // [finalize_js_loading_screen]
+                // [finalize_js_loading_screen  ]
                 ->assertSee($assert)
                 ->screenshot('UserViewDataPembayaran[2.1]view-4perpage-100')
 
@@ -116,7 +130,7 @@ class BukuView extends Login
                 ->value('#q', $assert_kredit)
                 ->press('Oke')
                 // [finalize_js_loading_screen]
-                ->assertSee($assert_search)
+                ->assertSee('Rp. 1.500.000,00,-')
                 ->screenshot('UserViewDataPembayaran[3.4]view-search-by-kredit')
 
                 // Select Saldo
@@ -124,7 +138,7 @@ class BukuView extends Login
                 ->value('#q', $assert_saldo)
                 ->press('Oke')
                 // [finalize_js_loading_screen]
-                ->assertSee($assert_search)
+                ->assertSee('B.TITIP')
                 ->screenshot('UserViewDataPembayaran[3.5]view-search-by-saldo')
                 // end ✓ almost done
             ;

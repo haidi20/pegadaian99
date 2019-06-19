@@ -40,7 +40,6 @@ class NasabahAkad extends DataNasabah
                  * ?clickLink('param')
                  * the function for this
                  * <a href='x'> param </a>
-                 * move to Database -> Data Nasabah Akad
                  */
                 ->clickLink('Nasabah Akad')
                 ->assertSee('NASABAH AKAD')
