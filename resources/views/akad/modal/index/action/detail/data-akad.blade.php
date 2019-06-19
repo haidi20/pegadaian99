@@ -51,7 +51,7 @@
                     </ul>
                     <b>Nilai Pencairan :</b>
                     <ul >
-                        <li class="nilai_pencairan"></li>
+                        <li class="nominal_nilai_pencairan"></li>
                     </ul>
                     <b class="keterangan_opsi_pembayaran"></b>
                     <ul >

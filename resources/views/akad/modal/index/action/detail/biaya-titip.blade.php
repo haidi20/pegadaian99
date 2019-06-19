@@ -10,15 +10,6 @@
             </tr>
         </thead>
         <tbody id="table_biaya_titip">
-            {{-- <tr>
-                <td>C99-05-030519-001</td>
-                <td>13-04-2019</td>
-                <td>KE 1-2</td>
-                <td>Rp. 90,000 </td>
-                <td>
-                    <i class="zmdi zmdi-print" title="Bukti Pembayaran"></i>
-                </td>
-            </tr> --}}
         </tbody>
     </table>
 </div>

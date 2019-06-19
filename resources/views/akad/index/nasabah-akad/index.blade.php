@@ -33,6 +33,60 @@
 <!-- jquery redirect -->
 <script type="text/javascript" async src="https://cdn.rawgit.com/mgalante/jquery.redirect/master/jquery.redirect.js"></script>
 
+<script>
+    $(document).ready(function() {
+        var nameTab = $('.name_tab').val()
+
+        if(nameTab == 'seluruh_data'){
+            $('.seluruh_data').addClass('active');
+        }
+
+        kondisiOpsiPembayaran(nameTab);
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $('[data-toggle="popover"]').popover({
+            html: true,
+            content: function() {
+                var content = $(this).attr("data-popover-content");
+                return $(content).children(".popover-body").html();
+                // return $('#primary-popover-content').html();
+            }
+        });
+    });
+
+    // for bug class active on tab
+    function removeActive(tab)
+    {
+        var dataTabs = [
+            'seluruh_data', 'harian',
+            'tujuh_hari', 'lima_belas_hari',
+            'ringkasan_harian'
+        ];
+
+        for(var i = 0; i < dataTabs.length; i++){
+            // console.log(dataTabs[i]);
+            $('.name_tab').val(tab)
+            if(tab != dataTabs[i]){
+                $('#'+dataTabs[i]).removeClass('active');
+            }
+        }
+
+        kondisiOpsiPembayaran(tab);
+    }
+
+    function kondisiOpsiPembayaran(tab)
+    {
+        if(tab == 'seluruh_data'){
+            $('.opsi-pembayaran').show();
+            $('.jangka-waktu-akad').show();
+        }else{
+            $('.opsi-pembayaran').hide();
+            $('.jangka-waktu-akad').hide();
+        }
+    }
+</script>
+
 @include('akad.modal.index.prosedur.js-custom')
 @include('akad.modal.index.action.js-custom')
 @endsection

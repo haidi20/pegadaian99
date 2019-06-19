@@ -1,63 +1,4 @@
 <script>
-    /*
-    * FYI :
-    * na    = 'nasabah akad'
-    * ajt   = 'akad jatuh tempo'
-    * pl    = 'Pelunasan dan Lelang'
-    */
-
-    $(document).ready(function() {
-
-        var nameTab = $('.name_tab').val()
-
-        if(nameTab == 'seluruh_data'){
-            $('.seluruh_data').addClass('active');
-        }
-
-        kondisiOpsiPembayaran(nameTab);
-
-        $('[data-toggle="tooltip"]').tooltip();
-
-        $('[data-toggle="popover"]').popover({
-            html: true,
-            content: function() {
-                var content = $(this).attr("data-popover-content");
-                return $(content).children(".popover-body").html();
-                // return $('#primary-popover-content').html();
-            }
-        });
-    });
-
-    // for bug class active on tab
-    function removeActive(tab)
-    {
-        var dataTabs = [
-            'seluruh_data', 'harian',
-            'tujuh_hari', 'lima_belas_hari',
-            'ringkasan_harian'
-        ];
-
-        for(var i = 0; i < dataTabs.length; i++){
-            // console.log(dataTabs[i]);
-            $('.name_tab').val(tab)
-            if(tab != dataTabs[i]){
-                $('#'+dataTabs[i]).removeClass('active');
-            }
-        }
-
-        kondisiOpsiPembayaran(tab);
-    }
-
-    function kondisiOpsiPembayaran(tab)
-    {
-        if(tab == 'seluruh_data'){
-            $('.opsi-pembayaran').show();
-            $('.jangka-waktu-akad').show();
-        }else{
-            $('.opsi-pembayaran').hide();
-            $('.jangka-waktu-akad').hide();
-        }
-    }
 
     function prosedur(type, id)
     {
@@ -67,7 +8,7 @@
             $('#pelunasan').css('display', 'none')
         }
 
-        fetch_data(id)
+        akad_prosedur(id)
 
         $('#modal-prosedur').modal('show');
 
@@ -198,7 +139,7 @@
         });
     }
 
-    function fetch_data(id)
+    function akad_prosedur(id)
     {
         $.ajax({
             url: '{{url("akad/ajax/fetch-data")}}',
