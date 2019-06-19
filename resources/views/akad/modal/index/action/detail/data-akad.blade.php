@@ -53,7 +53,7 @@
                     <ul >
                         <li class="nilai_pencairan"></li>
                     </ul>
-                    <b>Biaya Titp Per 7 Hari :</b>
+                    <b class="keterangan_opsi_pembayaran"></b>
                     <ul >
                         <li class="nominal_biaya_titip"></li>
                     </ul>

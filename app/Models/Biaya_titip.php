@@ -24,4 +24,14 @@ class Biaya_titip extends Model
     {
         return $this->belongsTo('App\Models\Akad', 'no_id', 'no_id');
     }
+
+    public function scopeSorted($query, $by = 'id_bt', $sort = 'asc')
+    {
+        return $query->orderBy($by, $sort);
+    }
+
+    public function getNominalPembayaranAttribute()
+    {
+        return nominal($this->pembayaran);
+    }
 }
