@@ -114,7 +114,7 @@
                                 </a>
                             </td>
                             <td>
-                                <a href="javascript:void(0)" class="btn btn-mini btn-info" onClick="review({{$item->id_akad}})">
+                                <a href="javascript:void(0)" class="btn btn-mini btn-info" onClick="review({{$item->id_akad}}, 'review')">
                                     <i class="zmdi zmdi-search"></i>
                                 </a>
                                 <button 
@@ -136,7 +136,7 @@
                                         <a href="javascript:void(0)" class="btn btn-mini btn-success mb-1">
                                             <i class="zmdi zmdi-print"></i> Kwitansi Akad
                                         </a>
-                                        <a href="javascript:void(0)" class="btn btn-mini btn-success" onClick="review()">
+                                        <a href="javascript:void(0)" class="btn btn-mini btn-success" onClick="review({{$item->id_akad}}, 'biaya_titip')">
                                             <i class="zmdi zmdi-search"></i> Kwitansi Biaya Titip
                                         </a>
                                     </div>

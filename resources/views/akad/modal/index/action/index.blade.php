@@ -44,7 +44,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade modal-flex" id="modal-review-na" tabindex="-1" role="dialog">
+<div class="modal fade modal-flex" id="modal-review" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -53,35 +53,35 @@
                 </button>
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#tab-home" role="tab">Detail Nasabah</a>
+                        <a class="nav-link active" data-toggle="tab" href="#tab-detail-nasabah" id="name-tab-detail-nasabah" role="tab">Detail Nasabah</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#tab-profile" role="tab">Data Akad</a>
+                        <a class="nav-link" data-toggle="tab" href="#tab-data-akad" id="name-tab-data-akad" role="tab">Data Akad</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#tab-messages" role="tab">Bea Titip</a>
+                        <a class="nav-link" data-toggle="tab" href="#tab-bea-titip" id="name-tab-bea-titip" role="tab">Bea Titip</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#tab-settings" role="tab">Rincian Akad</a>
+                        <a class="nav-link" data-toggle="tab" href="#tab-rincian-akad" id="name-tab-rincian-akad" role="tab">Rincian Akad</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#tab-maintenance" role="tab">maintenance</a>
+                        <a class="nav-link" data-toggle="tab" href="#tab-maintenance" id="name-tab-maintenance" role="tab">maintenance</a>
                     </li>
                 </ul>
                 <div class="tab-content modal-body">
-                    <div class="tab-pane active" id="tab-home" role="tabpanel">
+                    <div class="tab-pane active" id="tab-detail-nasabah" role="tabpanel">
                         {{-- <h6>Detail Nasabah</h6> --}}
                         @include('akad.modal.index.action.detail.detail-nasabah')
                     </div>
-                    <div class="tab-pane" id="tab-profile" role="tabpanel">
+                    <div class="tab-pane" id="tab-data-akad" role="tabpanel">
                         {{-- <h6>Data Akad</h6> --}}
                         @include('akad.modal.index.action.detail.data-akad')
                     </div>
-                    <div class="tab-pane" id="tab-messages" role="tabpanel">
+                    <div class="tab-pane" id="tab-bea-titip" role="tabpanel">
                         {{-- <h6>Bea Titip</h6> --}}
                         @include('akad.modal.index.action.detail.biaya-titip')
                     </div>
-                    <div class="tab-pane" id="tab-settings" role="tabpanel">
+                    <div class="tab-pane" id="tab-rincian-akad" role="tabpanel">
                         {{-- <h6>Rincian Akad</h6> --}}
                         @include('akad.modal.index.action.detail.rincian-akad')
                     </div>
