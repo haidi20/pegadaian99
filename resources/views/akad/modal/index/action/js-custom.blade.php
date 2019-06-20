@@ -30,7 +30,6 @@
                 console.log(result)
 
                 modal_review(result)
-
                 fetch_data_biaya_titip(result)
             },
             error:function(xhr, ajaxOptions, thrownError){
@@ -53,6 +52,8 @@
             }else if(index == 'tanggal_akad' || index == 'tanggal_jatuh_tempo'){
                 item = item.toString();
                 value = moment(item).format('DD-MM-Y');
+            }else if(index == 'maintenance'){
+                value = item == 0 ? 'Belum Di Periksa' : 'Sudah Di Periksa';
             }else{
                 value = item;
             }

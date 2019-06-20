@@ -64,6 +64,9 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#tab-settings" role="tab">Rincian Akad</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tab-maintenance" role="tab">maintenance</a>
+                    </li>
                 </ul>
                 <div class="tab-content modal-body">
                     <div class="tab-pane active" id="tab-home" role="tabpanel">
@@ -81,6 +84,10 @@
                     <div class="tab-pane" id="tab-settings" role="tabpanel">
                         {{-- <h6>Rincian Akad</h6> --}}
                         @include('akad.modal.index.action.detail.rincian-akad')
+                    </div>
+                    <div class="tab-pane" id="tab-maintenance" role="tabpanel">
+                        {{-- <h6>Rincian Akad</h6> --}}
+                        @include('akad.modal.index.action.detail.maintenance')
                     </div>
                 </div>
             </div>
