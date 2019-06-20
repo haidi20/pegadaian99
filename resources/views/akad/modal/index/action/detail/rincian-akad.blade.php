@@ -4,12 +4,12 @@
             <tr>
                 <th>Nasabah</th>
                 <th>No ID</th>
-                <th>Pinjaman</th>
-                <th>Jaminan</th>
-                <th>Tgl Akad</th>
+                <th>Nama Barang</th>
+                <th>Nilai B.Titip</th>
                 <th>Tgl Pembayaran</th>
-                <th>BT Terbayar</th>
-                <th>Status</th>
+                <th>Opsi</th>
+                <th>Keterangan</th>
+                <th>Total Pembayaran</th>
             </tr>
         </thead>
         <tbody id="table_rincian_akad">

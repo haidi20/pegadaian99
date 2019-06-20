@@ -117,22 +117,21 @@
             table = table + '<tr>';
             table = table + '<td>'+akad.nama_lengkap+'</td>';
             table = table + '<td>'+akad.no_id+'</td>';
-            table = table + '<td>'+akad.nominal_nilai_pencairan+'</td>';
             table = table + '<td>'+akad.nama_barang+'</td>';
-            table = table + '<td>'+akad.tanggal_akad+'</td>';
+            table = table + '<td>'+akad.nominal_biaya_titip+'</td>';
             table = table + '<td>'+item.tanggal_pembayaran+'</td>';
+            table = table + '<td>'+akad.opsi_pembayaran+'</td>';
+            table = table + '<td>'+item.keterangan+'</td>';
             table = table + '<td> Rp. '+pembayaran+'</td>';
-            table = table + '<td>'+akad.status+'</td>';
             table = table + '</tr>';
 
             total_pembayaran += Number(item.pembayaran)
         });
 
-        total_pembayaran = total_pembayaran + Number(akad.nilai_pencairan);
         total_pembayaran = formatRupiah(total_pembayaran.toString());
 
         table = table + '<tr>';
-        table = table + '<td colspan="6">Total (Biaya Titip & Pinjaman)</td>';
+        table = table + '<td colspan="7" align="right">Total </td>';
         table = table + '<td>Rp. '+total_pembayaran+'</td>';
         table = table + '<td></td>';
         table = table + '</tr>';
