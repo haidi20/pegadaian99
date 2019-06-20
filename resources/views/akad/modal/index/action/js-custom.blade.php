@@ -1,11 +1,17 @@
 <script>
+    $(function(){
+        $('.nilai_pencairan').on('keyup' ,function(){
+            this.value = formatRupiah(this.value)
+        });
+    });
+
     function review(id, type)
     {        
         // for close popover on button "kwitansi biaya titip"
         $('[data-toggle="popover"]').popover('hide');
 
         // for condition active base on button on table. between type is review or 'biaya titip'
-        condition_tab(type)
+        condition_tab(type);
 
         // for empty data in table 'biaya titip'
         $('#table_biaya_titip').empty();
@@ -37,8 +43,10 @@
         }
     }
 
-    function edit(id)
+    function edit_akad(id)
     {
+        akad_action(id, 'edit');
+
         $('#modal-edit').modal('show');
     }
 
@@ -53,12 +61,29 @@
             success:function(result){		
                 console.log(result)
 
-                modal_review(result)
-                fetch_data_biaya_titip(result)
+                if(type == 'review'){
+                    modal_review(result)
+                    fetch_data_biaya_titip(result)
+                }else if(type == 'edit'){
+                    form_edit_akad(result)
+                }
             },
             error:function(xhr, ajaxOptions, thrownError){
                 console.log(thrownError)
             }
+        });
+    }
+
+    function form_edit_akad(data)
+    {
+        $.each(data, function(index, item){
+            var name = '.'+index;
+
+            if(index == 'nilai_pencairan'){
+                item = formatRupiah(item)
+            }
+
+            $(name).val(item) 
         });
     }
 
