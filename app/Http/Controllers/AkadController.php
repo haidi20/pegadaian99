@@ -89,7 +89,6 @@ class AkadController extends Controller
         $biaya_titip = $biaya_titip->sorted('tanggal_pembayaran', 'desc');
         $biaya_titip = $biaya_titip->get();
         
-
         return $biaya_titip;
     }
 

@@ -118,10 +118,11 @@
 
         $.each(data, function(index, item){
             var pembayaran = formatRupiah(item.pembayaran)
+            var tanggal_pembayaran = moment(item.tanggal_pembayaran).format('DD-MM-Y');
 
             table = table + '<tr>';
             table = table + '<td>'+item.no_id+'</td>';
-            table = table + '<td>'+item.tanggal_pembayaran+'</td>';
+            table = table + '<td>'+tanggal_pembayaran+'</td>';
             table = table + '<td>'+item.keterangan+'</td>';
             table = table + '<td> Rp. '+pembayaran+'</td>';
             table = table + '<td><i class="zmdi zmdi-print" title="Bukti Pembayaran"></i></td>';
@@ -138,13 +139,14 @@
 
         $.each(data, function(index, item){
             var pembayaran = formatRupiah(item.pembayaran)
+            var tanggal_pembayaran = moment(item.tanggal_pembayaran).format('DD-MM-Y');
 
             table = table + '<tr>';
             table = table + '<td>'+akad.nama_lengkap+'</td>';
             table = table + '<td>'+akad.no_id+'</td>';
             table = table + '<td>'+akad.nama_barang+'</td>';
             table = table + '<td>'+akad.nominal_biaya_titip+'</td>';
-            table = table + '<td>'+item.tanggal_pembayaran+'</td>';
+            table = table + '<td>'+tanggal_pembayaran+'</td>';
             table = table + '<td>'+akad.opsi_pembayaran+'</td>';
             table = table + '<td>'+item.keterangan+'</td>';
             table = table + '<td> Rp. '+pembayaran+'</td>';
