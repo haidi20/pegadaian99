@@ -189,4 +189,16 @@
 
         $('#table_rincian_akad').append(table);
     }
+
+    function send_edit_akad()
+    {
+        var data = $('#form-edit-akad').serializeArray();
+        var array = [];
+
+        $.each(data, function(index, item){
+            array[item.name] = item.value;
+        });
+        
+        console.log(array)
+    }
 </script>
