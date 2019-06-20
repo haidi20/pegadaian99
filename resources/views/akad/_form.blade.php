@@ -37,7 +37,7 @@
 
 <script type="text/javascript" src="{{asset('js/form-wizard.js')}}"></script>
 <script src="https://cdn.rawgit.com/mgalante/jquery.redirect/master/jquery.redirect.js"></script>
-@include('akad.form.form-akad-js')
+@include('akad.form.custom-js')
 @endsection
 
 @section('content')

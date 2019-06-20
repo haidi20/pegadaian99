@@ -1,16 +1,40 @@
 <script>
-    function review(id)
-    {
-        $('#modal-review-na').modal('show');
-        
+    function review(id, type)
+    {        
         // for close popover on button "kwitansi biaya titip"
         $('[data-toggle="popover"]').popover('hide');
+
+        // for condition active base on button on table. between type is review or 'biaya titip'
+        condition_tab(type)
 
         // for empty data in table 'biaya titip'
         $('#table_biaya_titip').empty();
         $('#table_rincian_akad').empty();   
 
         akad_action(id, 'review');
+
+        $('#modal-review').modal('show');
+    }
+
+    function condition_tab(type)
+    {
+        if(type == 'biaya_titip'){
+            type = 'bea-titip';
+        }else if(type == 'review'){
+            type = 'detail-nasabah';
+        }
+
+        var tab = ['detail-nasabah', 'data-akad', 'bea-titip', 'rincian-akad', 'maintenance'];
+
+        for(var i = 0; i < tab.length; i++){
+            if(tab[i] == type){
+                $('#tab-'+type).addClass('active');
+                $('#name-tab-'+type).addClass('active');
+            }else{
+                $('#tab-'+tab[i]).removeClass('active');
+                $('#name-tab-'+tab[i]).removeClass('active');
+            }
+        }
     }
 
     function edit(id)
@@ -134,7 +158,6 @@
         table = table + '<tr>';
         table = table + '<td colspan="7" align="right">Total </td>';
         table = table + '<td>Rp. '+total_pembayaran+'</td>';
-        table = table + '<td></td>';
         table = table + '</tr>';
 
         $('#table_rincian_akad').append(table);
