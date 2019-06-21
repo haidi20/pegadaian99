@@ -107,6 +107,24 @@ class AkadController extends Controller
         $insert  = $this->insert_bea_titip($dataAkad, $keterangan);
     }
 
+    public function insert_data()
+    {
+        $data = request('data');
+        $akad = [];
+
+        foreach ($data as $index => $item) {
+            $akad[$item['name']] = $item['value'] ;
+        }
+
+        $findAkad = $this->akad->find($akad['id_akad']);
+        $findAkad->no_telp = $akad['no_telp'];
+        $findAkad->nama_barang = $akad['nama_barang'];
+        $findAkad->nilai_pencairan = remove_dot($akad['nilai_pencairan']);
+        $findAkad->save();
+
+        return $findAkad;
+    }
+
     //end data ajax
 
     //SUB MENU
