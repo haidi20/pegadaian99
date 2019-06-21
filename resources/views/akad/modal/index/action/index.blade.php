@@ -9,18 +9,19 @@
             </div>
             <div class="modal-body">
                 <form id="form-edit-akad">
+                    <input type="hidden" class="id_akad" name="id_akad">
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="nama_lengkap">Nama</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control nama_lengkap" name="nama_lengkap" id="nama_lengkap" >
+                            <input type="text" class="form-control nama_lengkap" name="nama_lengkap" id="nama_lengkap" disabled>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="no_telp">No. Telp</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control no_telp" name="no_telp" id="no_telp" >
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="nama_barang">Jaminan</label>
                         <div class="col-sm-10">

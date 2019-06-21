@@ -193,12 +193,18 @@
     function send_edit_akad()
     {
         var data = $('#form-edit-akad').serializeArray();
-        var array = [];
-
-        $.each(data, function(index, item){
-            array[item.name] = item.value;
-        });
         
-        console.log(array)
+        $.ajax({
+            url: '{{url("akad/ajax/insert-data")}}',
+            type: 'GET',
+            cache: false,
+            data:{data:data},
+            success:function(result){	
+                console.log(result)
+            },
+            error:function(xhr, ajaxOptions, thrownError){
+                console.log(thrownError)
+            }
+        });
     }
 </script>
