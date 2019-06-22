@@ -233,9 +233,9 @@ class Akad extends Model
             // 'jumlah uang yang harus dibayar' 
             $data['nominal'] = $data->waktu_tertunggak * $this->bt_7_hari;
             // 'mendapatkan angka tunggakan seblum kasih format nominal'
-            // $nominal= nominal($data->nominal); 
-            $nominal = $data->nominal; 
-            $data['nominal'] = nominal($data->nominal);
+            $nominalBiasa = $data->nominal; 
+            $nominal  = nominal($data->nominal); 
+            $data['nominal'] = $nominal;
 
             if($data->waktu_tertunggak == 0){
                 $info   = 'Lunas Biaya Titip';
@@ -244,7 +244,7 @@ class Akad extends Model
             }
 
             // $info = $jarak_waktu;
-            $jatuhTempo = $this->tanggal_jatuh_tempo == $tanggal_sekarang ? $nominal : 0;
+            $jatuhTempo = $this->tanggal_jatuh_tempo == $tanggal_sekarang ? $nominalBiasa : 0;
             //about time done pay and not yet pay
             $waktu_sudah        = $data->waktu_sudah;
             $waktu_tertunggak   = $data->waktu_tertunggak;
@@ -254,7 +254,7 @@ class Akad extends Model
 
             return (object) compact(
                 'info', 'nominal', 'jatuhTempo', 'totalTerbayar',
-                'waktu_sudah', 'waktu_tertunggak'
+                'waktu_sudah', 'waktu_tertunggak', 'nominalBiasa'
             );
         }else{
             $keterangan = $this->opsi_pembayaran == 1 ? 'harian' : 'periode';
@@ -264,11 +264,12 @@ class Akad extends Model
             $jatuhTempo         = 0;
             $waktu_sudah        = 0;
             $totalTerbayar      = 0;
+            $nominalBiasa       = 0;
             $waktu_tertunggak   = 0;
 
             return (object) compact(
                 'info', 'nominal', 'jatuhTempo', 'totalTerbayar',
-                'waktu_sudah', 'waktu_tertunggak'
+                'waktu_sudah', 'waktu_tertunggak', 'nominalBiasa'
             );
         }
     }

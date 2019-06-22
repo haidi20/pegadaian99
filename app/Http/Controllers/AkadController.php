@@ -246,7 +246,7 @@ class AkadController extends Controller
 
         foreach ($akad->get() as $index => $item) {
             $pinjaman[]             = $item->nilai_pencairan;
-            $tunggakan[]            = $item->data_tunggakan->nominal;
+            $tunggakan[]            = $item->data_tunggakan->nominalBiasa;
             $tunggakanJatuhTempo[]  = $item->data_tunggakan->jatuhTempo;
         }
 
