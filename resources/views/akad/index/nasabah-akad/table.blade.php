@@ -98,8 +98,8 @@
                             <td>{{$item->no_telp}}</td>
                             <td>{{$item->no_id}}</td>
                             <td>{{$item->nama_barang}}</td>
-                            <td>{{$item->nominal_nilai_tafsir}}</td>
-                            <td>{{$item->nominal_tunggakan->info}}</td>
+                            <td>{{$item->nominal_nilai_pencairan}}</td>
+                            <td>{{$item->data_tunggakan->info}}</td>
                             <td>{{$item->tanggal_akad}}</td>
                             <td>{{$item->tanggal_jatuh_tempo}}</td>
                             <td>

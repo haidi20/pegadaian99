@@ -69,13 +69,13 @@ class AkadController extends Controller
         $findAkad = $this->akad->joinNasabah()->find(request('id'));
 
         // overwrite some field
-        $findAkad['bt_terbayar']                = $findAkad->nominal_tunggakan->totalTerbayar;
-        $findAkad['waktu_sudah']                = $findAkad->nominal_tunggakan->waktu_sudah;
+        $findAkad['bt_terbayar']                = $findAkad->data_tunggakan->totalTerbayar;
+        $findAkad['waktu_sudah']                = $findAkad->data_tunggakan->waktu_sudah;
         $findAkad['biaya_admin']                = $findAkad->nominal_biaya_admin;
         $findAkad['nilai_tafsir']               = $findAkad->nominal_nilai_tafsir; 
-        $findAkad['bt_tertunggak']              = $findAkad->nominal_tunggakan->nominal;
+        $findAkad['bt_tertunggak']              = $findAkad->data_tunggakan->nominal;
         $findAkad['nilai_pencairan']            = $findAkad->nilai_pencairan; 
-        $findAkad['waktu_tertunggak']           = $findAkad->nominal_tunggakan->waktu_tertunggak; 
+        $findAkad['waktu_tertunggak']           = $findAkad->data_tunggakan->waktu_tertunggak; 
         $findAkad['nominal_biaya_titip']        = $findAkad->nominal_biaya_titip; 
         $findAkad['nominal_nilai_pencairan']    = $findAkad->nominal_nilai_pencairan; 
 
@@ -117,12 +117,11 @@ class AkadController extends Controller
         }
 
         $findAkad = $this->akad->find($akad['id_akad']);
-        $findAkad->no_telp = $akad['no_telp'];
         $findAkad->nama_barang = $akad['nama_barang'];
         $findAkad->nilai_pencairan = remove_dot($akad['nilai_pencairan']);
         $findAkad->save();
 
-        return $findAkad;
+        return 'berhasil';
     }
 
     //end data ajax
@@ -138,6 +137,7 @@ class AkadController extends Controller
         $tujuh          = $this->tujuh();
         $limaBelas      = $this->limaBelas();
         $seluruhData    = $this->seluruhData();
+        $ringkasanHarian= $this->ringkasanHarian();
 
         $column             = config('library.column.akad_nasabah.list_akad_nasabah');
         // 'waktu akad' example 'selutuh data, harian, 7 hari, 15 hari, ringkasan harian'
@@ -148,7 +148,7 @@ class AkadController extends Controller
         return $this->template('akad.index.nasabah-akad.index', compact(
             'dateRange', 'menu', 'subMenu', 'jangkaWaktuAkad',
             'column', 'detailJenisBarang', 'waktuAkad',
-            'seluruhData', 'harian', 'tujuh', 'limaBelas'
+            'seluruhData', 'harian', 'tujuh', 'limaBelas', 'ringkasanHarian'
         ));
     }
 
@@ -212,6 +212,32 @@ class AkadController extends Controller
         return (object) compact('data', 'dateRange', 'infoTotal'); 
     }
 
+    public function ringkasanHarian()
+    {
+        $data       = [];
+        $dateNow    = Carbon::now()->format('Y-m-d');
+
+        $akadBaru   = $this->akad->baseBranch();
+        $akadBaru   = $akadBaru->where('tanggal_akad', $dateNow);
+        $akadBaru   = $akadBaru->baseStatusAkad('baru');
+
+        $akadUlang  = $this->akad->baseBranch();
+        $akadUlang  = $akadUlang->where('tanggal_akad', $dateNow);
+        $akadUlang  = $akadUlang->baseStatusAkad('ulang');
+
+        $biayaTitip = (object) [
+            'akadBaru' => 'Rp. '.nominal($akadBaru->sum('bt_7_hari')),
+            'akadUlang' => 'Rp. '.nominal($akadUlang->sum('bt_7_hari')),
+        ];
+
+        $biayaAdmin = (object) [
+            'akadBaru' => 'Rp. '.nominal($akadBaru->sum('biaya_admin')),
+            'akadUlang' => 'Rp. '.nominal($akadUlang->sum('biaya_admin')),
+        ];
+
+        return (object) compact('biayaTitip', 'biayaAdmin');
+    }
+
     public function infoTotal($akad, $nameTab = null)
     {
         $pinjaman           = [];
@@ -220,8 +246,8 @@ class AkadController extends Controller
 
         foreach ($akad->get() as $index => $item) {
             $pinjaman[]             = $item->nilai_pencairan;
-            $tunggakan[]            = $item->nominal_tunggakan->nominal;
-            $tunggakanJatuhTempo[]  = $item->nominal_tunggakan->jatuhTempo;
+            $tunggakan[]            = $item->data_tunggakan->nominal;
+            $tunggakanJatuhTempo[]  = $item->data_tunggakan->jatuhTempo;
         }
 
         $totalPinjaman              = nominal(array_sum($pinjaman));
@@ -241,8 +267,7 @@ class AkadController extends Controller
         // name field 'tanggal jatuh tempo' for sorted
         $nameFieldSorted= 'akad.tanggal_jatuh_tempo';
 
-        $akadJatuhTempo = $this->akad->joinNasabah();
-        $akadJatuhTempo = $akadJatuhTempo->baseBranch();
+        $akadJatuhTempo = $this->akad->joinNasabah()->baseBranch();
         $akadJatuhTempo = $akadJatuhTempo->belumLunas();
         $akadJatuhTempo = $akadJatuhTempo->sorted($nameFieldSorted, 'desc');
 

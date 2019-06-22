@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-edit"  tabindex="-1" role="dialog">
+<div class="modal fade" id="modal-edit"  tabindex="-1" aria-hidden="true" style='z-index:10000;' role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -41,7 +41,7 @@
                 <button type="submit" class="btn btn-success btn-xs" onClick="send_edit_akad()">Proses</button>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-info waves-effect " data-dismiss="modal">Keluar</button>
+                {{-- <button type="button" class="btn btn-default btn-info waves-effect " data-dismiss="modal">Keluar</button> --}}
             </div>
         </div>
     </div>

@@ -99,6 +99,16 @@ class Akad extends Model
         return $query->where('id_cabang', $user_cabang->id_cabang);
     }
 
+    public function scopeBaseStatusAkad($query, $type)
+    {
+        return $query->where('status_akad', $type);
+    }
+
+    public function scopeJangkaWaktuAkad($query, $data)
+    {
+        return $query->where('jangka_waktu_akad', $data);
+    }
+
     // for can fetch data nasabah use left join
     public function scopeJoinBiayaTitip($query)
     {
@@ -124,6 +134,11 @@ class Akad extends Model
         return $query;
     }
 
+    public function scopeOpsiPembayaran($query, $data)
+    {
+        return $query->where('opsi_pembayaran', $data);
+    }
+
     // search data by keyword form input
     public function scopeSearch($query, $by, $key)
     {
@@ -133,16 +148,6 @@ class Akad extends Model
     public function scopeSorted($query, $by = 'akad.id_akad', $sort = 'asc')
     {
         return $query->orderBy($by, $sort);
-    }
-
-    public function scopeOpsiPembayaran($query, $data)
-    {
-        return $query->where('opsi_pembayaran', $data);
-    }
-
-    public function scopeJangkaWaktuAkad($query, $data)
-    {
-        return $query->where('jangka_waktu_akad', $data);
     }
 
     public function getNamaTargetLokasiAttribute()
@@ -178,7 +183,7 @@ class Akad extends Model
         return 'Rp. '.nominal($this->nilai_pencairan);
     }
 
-    public function getNominalTunggakanAttribute()
+    public function getDataTunggakanAttribute()
     {
         $biaya_titip = Biaya_titip::where('no_id', $this->no_id)->get();
 
@@ -228,7 +233,8 @@ class Akad extends Model
             // 'jumlah uang yang harus dibayar' 
             $data['nominal'] = $data->waktu_tertunggak * $this->bt_7_hari;
             // 'mendapatkan angka tunggakan seblum kasih format nominal'
-            $nominal= nominal($data->nominal);  
+            // $nominal= nominal($data->nominal); 
+            $nominal = $data->nominal; 
             $data['nominal'] = nominal($data->nominal);
 
             if($data->waktu_tertunggak == 0){
