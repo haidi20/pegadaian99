@@ -12,13 +12,13 @@
                 <tbody>
                     <tr>
                         <td>Pendapatan B. Titip</td>
-                        <td></td>
-                        <td></td>
+                        <td>{{$ringkasanHarian->biayaTitip->akadBaru}}</td>
+                        <td>{{$ringkasanHarian->biayaTitip->akadUlang}}</td>
                     </tr>
                     <tr>
                         <td>Pendapatan B. Admin</td>
-                        <td></td>
-                        <td></td>
+                        <td>{{$ringkasanHarian->biayaAdmin->akadBaru}}</td>
+                        <td>{{$ringkasanHarian->biayaAdmin->akadUlang}}</td>
                     </tr>
                 </tbody>
             </table>
