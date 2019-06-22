@@ -138,7 +138,7 @@ class AkadController extends Controller
         $limaBelas      = $this->limaBelas();
         $seluruhData    = $this->seluruhData();
 
-        // return $harian->infoTotal->totalTunggakan;
+        // return $seluruhData->infoTotal->totalPinjaman;
 
         $column             = config('library.column.akad_nasabah.list_akad_nasabah');
         // 'waktu akad' example 'selutuh data, harian, 7 hari, 15 hari, ringkasan harian'
