@@ -58,8 +58,23 @@
     {
         checkbox = '';
 
+        // 'untuk mendapatkan nilai checkbox yang tercentang'
+        var checked = '';
+        $('input[type=checkbox]').each(function () {
+            if (this.checked){
+                checked = $(this).val();
+            }           
+        });
+        checked = Number(checked) + 2;
+        console.log(checked)
+        if(until >= checked){
+            disabled = 'disabled';
+        }else{
+            disabled = '';
+        }
+
         checkbox = checkbox + '<div class="checkbox-color checkbox-success checkbox'+until+'">';
-        checkbox = checkbox + '<input id="checkbox'+until+'" type="checkbox" class="checkbox'+until+'" disabled value="'+until+'" onCLick="condition_disabled('+until+')">';
+        checkbox = checkbox + '<input id="checkbox'+until+'" type="checkbox" class="checkbox'+until+'" '+disabled+' value="'+until+'" onCLick="condition_disabled('+until+')">';
         checkbox = checkbox + '<label for="checkbox'+until+'" class="checkbox'+until+'">';
         checkbox = checkbox + until;
         checkbox = checkbox + '</label>';
@@ -69,8 +84,6 @@
             $('.checkbox').append(checkbox)
         }else if(condition == 'delete'){
             until = until + 1;
-
-            console.log(until)
 
             $('.checkbox'+until).remove()
         }
@@ -212,7 +225,7 @@
                 value = item;
             }
 
-            $(name).html(value) 
+            $(name).html(': '+value) 
         });
 
         // condition word 'harian' or 'mingguan'
@@ -250,7 +263,7 @@
         var total = nilai_pencairan + bt_tertunggak;
         var format_total = 'Rp. '+formatRupiah(total.toString())
 
-        $('.total').html(format_total)
+        $('.total').html(': '+format_total)
         $('.nominal_total').val(total)
 
         var keterangan = 'Total : '+format_total+' ('+waktu_ke+' minggu)'
