@@ -1,22 +1,32 @@
 <script>
 
+    // type is between pelunasan and biaya titip
     function prosedur(type, id)
     {
         if(type == 'pelunasan'){
+            // show word 'total'
             $('#pelunasan').css('display', '')
-        }else{
+            // change title modal = 'pelunasan'
+            $('.prosedur-title').html('Pelunasan')
+            // active button 'bayar'
+            $('.bayar').removeClass('disabled')
+        }else if(type == 'biaya_titip'){
+             // hide word 'total'
             $('#pelunasan').css('display', 'none')
+             // change title modal = 'Pembayaran Biaya Titip'
+            $('.prosedur-title').html('Pembayaran Biaya Titip')
+            // disabled button 'bayar'
+            $('.bayar').addClass('disabled')
         }
-
-        akad_prosedur(id)
 
         $('#modal-prosedur').modal('show');
 
-        // button 'bayar' disabled
-        $('.bayar').addClass('disabled')
+        if(type == 'biaya_titip'){
+            var keterangan = 'Total : Rp. 0 (0 minggu)'
+            $('#keterangan_total').html(keterangan)
+        }
 
-        var keterangan = 'Total : Rp. 0 (0 minggu)'
-        $('#keterangan_total').html(keterangan)
+        akad_prosedur(id, type)
     }
 
     function customCheckbox(condition)
@@ -139,7 +149,8 @@
         });
     }
 
-    function akad_prosedur(id)
+    // type is between pelunasan and biaya titip
+    function akad_prosedur(id, type)
     {
         $.ajax({
             url: '{{url("akad/ajax/fetch-data")}}',
@@ -147,7 +158,7 @@
             cache: false,
             data:{id:id},
             success:function(result){
-                modal_prosedur(result)
+                modal_prosedur(result, type)
             },
             error:function(xhr, ajaxOptions, thrownError){
                 console.log(thrownError)
@@ -155,7 +166,8 @@
         });
     }
 
-    function modal_prosedur(data)
+    // type is between pelunasan and biaya titip
+    function modal_prosedur(data, type)
     {
         var from, until;
 
@@ -173,21 +185,18 @@
             $(name).html(value) 
         });
 
-        // condition base on 'opsi pembayaran'
+        // condition word 'harian' or 'mingguan'
         if(data.opsi_pembayaran == 1){
-             // condition word 'harian' or 'mingguan'
             $('#keterangan_waktu_ke').html('Pembayaran Hari Ke:')
-
-            // condition let i 
-            from = data.waktu_sudah + 1;
-            until = data.waktu_sudah + data.waktu_tertunggak;
         }else{
-             // condition word 'harian' or 'mingguan'
             $('#keterangan_waktu_ke').html('Pembayaran Minggu Ke:')
+        }
 
-            // condition let i
-            from = data.waktu_sudah + 1;
-            until = data.waktu_sudah + data.waktu_tertunggak;
+        from = data.waktu_sudah + 1;
+        until = data.waktu_sudah + data.waktu_tertunggak;
+
+        if(type == 'pelunasan'){
+            totalPembayaran(data, until)
         }
 
         //set value
@@ -197,24 +206,43 @@
         $('.opsi_pembayaran').val(data.opsi_pembayaran)
 
         // show checkbox base on time done pay and not yet pay
-        executionCheckbox(from, until)
+        executionCheckbox(from, until, type)
     }
 
-    function executionCheckbox(from, until)
+    function totalPembayaran(data, waktu_ke)
+    {
+        // 'rumus total di pelunasan'
+        var total = Number(data.nilai_pencairan) + Number(data.bt_tertunggak_biasa)
+        total = 'Rp. '+formatRupiah(total.toString())
+
+        $('.total').html(total)
+
+        var keterangan = 'Total : '+total+' ('+waktu_ke+' minggu)'
+        $('#keterangan_total').html(keterangan)
+    }
+
+    // type is between pelunasan and biaya titip
+    function executionCheckbox(from, until, type)
     {
         var i           = from;
+        var checked     = type == 'pelunasan' ? 'checked' : '';
         var disabled    = '';
         var checkbox    = '';
 
         // console.log(from, until)
 
         for (i; i <= until; i++) {
-            if(i > from){
-                disabled = 'disabled';
+            // condition if type is 'pelunasan' all checkbox checklist
+            if(type == 'biaya_titip'){
+                if(i > from){
+                    disabled = 'disabled';
+                }
+            }else if(type == 'pelunasan'){
+                disabled = '';
             }
 
             checkbox = checkbox + '<div class="checkbox-color checkbox-success">';
-            checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" '+disabled+' value="'+i+'" onCLick="conditionDisabled('+i+')">';
+            checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" '+checked+' '+disabled+' value="'+i+'" onCLick="conditionDisabled('+i+')">';
             checkbox = checkbox + '<label for="checkbox'+i+'">';
             checkbox = checkbox + i;
             checkbox = checkbox + '</label>';

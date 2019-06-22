@@ -44,7 +44,7 @@
                                                     </tr>
                                                     <tr id="pelunasan">
                                                         <td>Total </td>
-                                                        <td class="pelunasan"></td>
+                                                        <td class="total"></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
