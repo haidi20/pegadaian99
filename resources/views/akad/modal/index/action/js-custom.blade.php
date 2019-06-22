@@ -200,7 +200,12 @@
             cache: false,
             data:{data:data},
             success:function(result){	
-                console.log(result)
+                swal("Pembaharuan Data Akad Telah Berhasil", {
+                    icon: "success",
+                    showConfirmButton: false,
+                });
+
+                window.location.href = '{{route("akad.nasabah-akad")}}';
             },
             error:function(xhr, ajaxOptions, thrownError){
                 console.log(thrownError)

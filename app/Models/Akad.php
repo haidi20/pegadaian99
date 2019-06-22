@@ -178,7 +178,7 @@ class Akad extends Model
         return 'Rp. '.nominal($this->nilai_pencairan);
     }
 
-    public function getNominalTunggakanAttribute()
+    public function getDataTunggakanAttribute()
     {
         $biaya_titip = Biaya_titip::where('no_id', $this->no_id)->get();
 
@@ -228,7 +228,8 @@ class Akad extends Model
             // 'jumlah uang yang harus dibayar' 
             $data['nominal'] = $data->waktu_tertunggak * $this->bt_7_hari;
             // 'mendapatkan angka tunggakan seblum kasih format nominal'
-            $nominal= nominal($data->nominal);  
+            // $nominal= nominal($data->nominal); 
+            $nominal = $data->nominal; 
             $data['nominal'] = nominal($data->nominal);
 
             if($data->waktu_tertunggak == 0){
