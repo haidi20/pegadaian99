@@ -40,7 +40,7 @@
             $('.until_checkbox').val(until)
 
              // show checkbox base on add time and remove time
-            execution_checkbox(from, until)
+            add_remove_checkbox(from, until, condition)
         }
 
         if(condition == 'delete'){
@@ -49,8 +49,30 @@
                 $('.until_checkbox').val(until)
 
                 // show checkbox base on add time and remove time
-                execution_checkbox(from, until)
+                add_remove_checkbox(from, until, condition)
             }            
+        }
+    }
+
+    function add_remove_checkbox(from, until, condition)
+    {
+        checkbox = '';
+
+        checkbox = checkbox + '<div class="checkbox-color checkbox-success checkbox'+until+'">';
+        checkbox = checkbox + '<input id="checkbox'+until+'" type="checkbox" class="checkbox'+until+'" disabled value="'+until+'" onCLick="condition_disabled('+until+')">';
+        checkbox = checkbox + '<label for="checkbox'+until+'" class="checkbox'+until+'">';
+        checkbox = checkbox + until;
+        checkbox = checkbox + '</label>';
+        checkbox = checkbox + '</div>'; 
+
+        if(condition == 'add'){
+            $('.checkbox').append(checkbox)
+        }else if(condition == 'delete'){
+            until = until + 1;
+
+            console.log(until)
+
+            $('.checkbox'+until).remove()
         }
     }
 
@@ -235,7 +257,7 @@
         $('#keterangan_total').html(keterangan)
     }
 
-    // type is between pelunasan and biaya titip
+    // type is between 'pelunasan' and 'biaya titip'
     function execution_checkbox(from, until, type)
     {
         var i           = from;
@@ -255,9 +277,9 @@
                 disabled = '';
             }
 
-            checkbox = checkbox + '<div class="checkbox-color checkbox-success">';
-            checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" '+checked+' '+disabled+' value="'+i+'" onCLick="condition_disabled('+i+')">';
-            checkbox = checkbox + '<label for="checkbox'+i+'">';
+            checkbox = checkbox + '<div class="checkbox-color checkbox-success checkbox'+until+'">';
+            checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" class="checkbox'+until+'" '+checked+' '+disabled+' value="'+i+'" onCLick="condition_disabled('+i+')">';
+            checkbox = checkbox + '<label for="checkbox'+i+'" class="checkbox'+until+'">';
             checkbox = checkbox + i;
             checkbox = checkbox + '</label>';
             checkbox = checkbox + '</div>'; 
