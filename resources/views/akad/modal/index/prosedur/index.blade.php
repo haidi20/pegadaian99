@@ -63,10 +63,10 @@
                 <br>
                 <div class="row">
                     <div class="col-sm-12 col-md-6 pl-4">
-                        <a href="#" class="btn btn-sm btn-success" onClick="customCheckbox('add')">
+                        <a href="#" class="btn btn-sm btn-success" onClick="custom_checkbox('add')">
                             <i class="zmdi zmdi-plus"></i> Tambah
                         </a>
-                        <a href="#" class="btn btn-sm btn-warning" onClick="customCheckbox('delete')">
+                        <a href="#" class="btn btn-sm btn-warning" onClick="custom_checkbox('delete')">
                             <i class="ion-minus-round"></i> Kurangi
                         </a>
                     </div>
@@ -109,10 +109,12 @@
 </div>
 
 {{-- information hidden --}}
+<input type="hidden" class="id_akad">
 <input type="hidden" class="bt_7_hari">
+<input type="hidden" class="type_button">
+<input type="hidden" class="nominal_total">
 <input type="hidden" class="from_checkbox">
 <input type="hidden" class="until_checkbox">
+<input type="hidden" class="nilai_pencairan">
 <input type="hidden" class="opsi_pembayaran">
 <input type="hidden" class="default_until_checkbox">
-<input type="hidden" class="nominal_total">
-<input type="hidden" class="id_akad">

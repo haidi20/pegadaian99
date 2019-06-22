@@ -105,7 +105,7 @@ class AkadController extends Controller
             $this->request['bt_yang_dibayar'] = request('from');
         }
         
-        $insert  = $this->insert_bea_titip($dataAkad, $keterangan);
+        $this->insert_bea_titip($dataAkad, $keterangan);
     }
 
     public function insert_data()
@@ -604,10 +604,16 @@ class AkadController extends Controller
                 }
             }
 
+            if(request('bt_7_hari')){
+                $bt_7_hari = request('bt_7_hari');
+            }else{
+                $bt_7_hari = $data->bt_7_hari;
+            }
+
             $biaya_titip                        = $this->biaya_titip;
             $biaya_titip->no_id                 = $data->no_id;
             $biaya_titip->keterangan            = $keterangan;
-            $biaya_titip->pembayaran            = $data->bt_7_hari;
+            $biaya_titip->pembayaran            = $bt_7_hari;
             $biaya_titip->tanggal_pembayaran    = Carbon::now()->format('Y-m-d');
             $biaya_titip->save();
         }
