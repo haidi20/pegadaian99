@@ -132,7 +132,7 @@
                         <div class="col-lg-12 col-sm-12">
                             <div class="general-info">
                                 <div class="row" id="data-detail">
-                                    <div class="col-sm-12 col-md-6">
+                                    <div class="col-sm-12 col-md-5">
                                         <div class="table-responsive">
                                             <table class="table m-0">
                                                 <tbody id="table-detail-one">
@@ -172,9 +172,9 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="table-responsive">
-                                            <table class="table m-0" >
+                                    <div class="col-sm-12 col-md-7">
+                                        <div class="table-responsive" style="">
+                                            <table class="table table-akad-ulang m-0">
                                                 <tbody class="table-detail-two">
                                                     <tr>
                                                         <td>NO. ID</td>
@@ -234,7 +234,22 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Opsi Pembayaran</td>
-                                                        <td class="data-opsi_pembayaran"></td>
+                                                        {{-- setting show / hide use jquery  --}}
+                                                        <td>
+                                                            <div class="form-radio">
+                                                                :
+                                                                {{-- setting show / hide use jquery  --}}
+                                                                @foreach($paymentOption as $index => $item)
+                                                                    <div class="radio radio-inline" >
+                                                                        <label>
+                                                                            <input type="radio" class="op_{{$item['value']}}" name="opsi_pembayaran" checked value="{{$item['value']}}" >
+                                                                            <i class="helper"></i>{{$item['text']}}
+                                                                        </label>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                            <input type="hidden" id="nilai_opsi_pembayaran" name="nilai_opsi_pembayaran" value="1">
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Biaya Titip</td>
