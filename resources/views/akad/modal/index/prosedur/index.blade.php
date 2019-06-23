@@ -182,7 +182,20 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Jangka Waktu Akad</td>
-                                                        <td class="data-jangka_waktu_akad"></td>
+                                                        {{-- <td class="data-jangka_waktu_akad"></td> --}}
+                                                        <td>
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-12 col-md-6">
+                                                                    <select name="jangka_waktu_akad" id="jangka_waktu_akad" class="form-control">
+                                                                        @foreach($listTime as $index => $item)
+                                                                        <option value="{{$item['value']}}" class="jwa_{{$item['value']}}">
+                                                                                    {{$item['text']}}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </div>
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Tanggal Akad</td>

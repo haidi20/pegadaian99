@@ -348,6 +348,7 @@
         });
 
         opsi_pembayaran(data)
+        jangka_waktu_akad(data)
     }
 
     function kondisi_jenis_barang(title, value)
@@ -370,8 +371,17 @@
     function opsi_pembayaran(data)
     {
         var data    = data.opsi_pembayaran;
-        console.log(data)
 
         $('.op_'+data).prop('checked', true);
+    }
+
+    function jangka_waktu_akad(data)
+    {
+        var jwa = data.jangka_waktu_akad;
+
+        console.log(jwa);
+
+        // jwa is 'jangka waktu akad'
+        $('.jwa_'+jwa).prop('selected', true)
     }
 </script>

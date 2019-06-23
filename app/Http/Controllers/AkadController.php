@@ -150,13 +150,14 @@ class AkadController extends Controller
 
         $column             = config('library.column.akad_nasabah.list_akad_nasabah');
         // 'waktu akad' example 'selutuh data, harian, 7 hari, 15 hari, ringkasan harian'
+        $listTime           = config('library.form.akad.list_time');
         $waktuAkad          = config('library.special.nasabah_akad.waktu_akad');
         $paymentOption      = config('library.form.akad.payment_option');
         $jangkaWaktuAkad    = config('library.special.nasabah_akad.jangka_waktu_akad');
         $detailJenisBarang  = config('library.special.nasabah_akad.detail_jenis_barang');
 
         return $this->template('akad.index.nasabah-akad.index', compact(
-            'dateRange', 'menu', 'subMenu', 'jangkaWaktuAkad',
+            'dateRange', 'menu', 'subMenu', 'jangkaWaktuAkad', 'listTime',
             'column', 'detailJenisBarang', 'waktuAkad', 'paymentOption',
             'seluruhData', 'harian', 'tujuh', 'limaBelas', 'ringkasanHarian'
         ));
