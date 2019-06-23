@@ -201,7 +201,11 @@
             cache: false,
             data:{id:id},
             success:function(result){
-                modal_prosedur(result, type)
+                if(type == 'pelunasan' || type == 'biaya_titip'){
+                    modal_prosedur(result, type)
+                }else if(type == 'akad_ulang'){
+                    modal_akad_ulang(result, type)
+                }
             },
             error:function(xhr, ajaxOptions, thrownError){
                 console.log(thrownError)
@@ -301,8 +305,51 @@
         $('.checkbox').html(checkbox)
     }
 
-    function akad_ulang()
+    function akad_ulang(id)
     {
+        $('#modal-akad-ulang').modal('show')
 
+        // 'untuk mendapatkan data akad terlebih dahulu'
+        akad_prosedur(id, 'akad_ulang')
+    }
+
+    function modal_akad_ulang(data, type)
+    {
+        console.log(data)
+
+        $.each(data, function(index, item){
+            kondisi_jenis_barang(index, item);
+
+            var name = '.data-'+index;
+
+            if(index == 'nilai_tafsir' || index == 'nilai_pencairan'){
+                $(name).html(': Rp.'+formatRupiah(item.toString()));
+            }else if(index == 'biaya_titip' || index == 'jml_bt_yang_dibayar'){
+                $(name).html(': Rp.'+formatRupiah(item.toString()));
+            }else if(index == 'biaya_admin'){
+                $(name).html(': Rp.'+formatRupiah(item.toString()));
+            }else if(index == 'tanggal_lahir' || index == 'tanggal_akad' || index == 'tanggal_jatuh_tempo'){
+                $(name).html(': '+moment(item).format('DD-MM-Y'));
+            }else{
+                $(name).html(': '+item);
+            }
+        });
+    }
+
+    function kondisi_jenis_barang(title, value)
+    {
+        if(value == 'Kendaraan'){
+            var barang_satu = 'KT';
+            var barang_dua = 'Warna';
+            var barang_tiga = 'Nomor Rangka';
+        }else if(value == 'Elektronik'){
+            var barang_satu = 'Type';
+            var barang_dua = 'Merk';
+            var barang_tiga = 'Imei / Nomor Serial';
+        }
+
+        $('.name-kelengkapan_barang_satu').html(barang_satu);
+        $('.name-kelengkapan_barang_dua').html(barang_dua);
+        $('.name-kelengkapan_barang_tiga').html(barang_tiga);
     }
 </script>

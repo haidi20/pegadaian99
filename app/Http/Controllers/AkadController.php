@@ -72,12 +72,13 @@ class AkadController extends Controller
         $findAkad['bt_terbayar']                = $findAkad->data_tunggakan->totalTerbayar;
         $findAkad['waktu_sudah']                = $findAkad->data_tunggakan->waktu_sudah;
         $findAkad['biaya_admin']                = $findAkad->nominal_biaya_admin;
-        $findAkad['nilai_tafsir']               = $findAkad->nominal_nilai_tafsir; 
+        $findAkad['nilai_tafsir']               = $findAkad->nilai_tafsir; 
         $findAkad['bt_tertunggak']              = $findAkad->data_tunggakan->nominal;
         $findAkad['nilai_pencairan']            = $findAkad->nilai_pencairan; 
         $findAkad['waktu_tertunggak']           = $findAkad->data_tunggakan->waktu_tertunggak; 
         $findAkad['bt_tertunggak_biasa']        = $findAkad->data_tunggakan->nominalBiasa;
         $findAkad['nominal_biaya_titip']        = $findAkad->nominal_biaya_titip; 
+        $findAkad['nominal_nilai_tafsir']       = $findAkad->nominal_nilai_tafsir; 
         $findAkad['nominal_nilai_pencairan']    = $findAkad->nominal_nilai_pencairan; 
 
         return $findAkad;
