@@ -147,6 +147,7 @@
         var type_button     = $('.type_button').val()
         var nilai_pencairan = $('.nilai_pencairan').val()
 
+        // 'agar bisa memasukkan hanya nilai biaya titip'
         if(type_button == 'pelunasan'){
             nominal = nominal - nilai_pencairan;
         }
@@ -174,7 +175,13 @@
                     url: '{{url("akad/ajax/bayar-biaya-titip")}}',
                     type: 'GET',
                     cache: false,
-                    data:{id_akad:id_akad, bt_7_hari:nominal, from:from, until:until},
+                    data:{
+                        from:from, 
+                        until:until,
+                        id_akad:id_akad, 
+                        type:type_button,
+                        bt_7_hari:nominal, 
+                    },
                     success:function(result){	
                         swal("Pembayaran Biaya Titip Telah Berhasil", {
                             icon: "success",
@@ -201,7 +208,11 @@
             cache: false,
             data:{id:id},
             success:function(result){
-                modal_prosedur(result, type)
+                if(type == 'pelunasan' || type == 'biaya_titip'){
+                    modal_prosedur(result, type)
+                }else if(type == 'akad_ulang'){
+                    modal_akad_ulang(result, type)
+                }
             },
             error:function(xhr, ajaxOptions, thrownError){
                 console.log(thrownError)
@@ -301,8 +312,74 @@
         $('.checkbox').html(checkbox)
     }
 
-    function akad_ulang()
+    function akad_ulang(id)
     {
+        $('#modal-akad-ulang').modal('show')
 
+        // 'untuk mendapatkan data akad terlebih dahulu'
+        akad_prosedur(id, 'akad_ulang')
+    }
+
+    function modal_akad_ulang(data, type)
+    {
+        // console.log(data)
+
+        $.each(data, function(index, item){
+            kondisi_jenis_barang(index, item);
+
+            var name = '.data-'+index;
+
+            if(index == 'nilai_tafsir' || index == 'nilai_pencairan'){
+                $(name).html(': Rp.'+formatRupiah(item.toString()));
+            }else if(index == 'biaya_titip' || index == 'jml_bt_yang_dibayar'){
+                $(name).html(': Rp.'+formatRupiah(item.toString()));
+            }else if(index == 'biaya_admin'){
+                $(name).html(': Rp.'+formatRupiah(item.toString()));
+            }else if(index == 'tanggal_lahir' || index == 'tanggal_akad' || index == 'tanggal_jatuh_tempo'){
+                $(name).html(': '+moment(item).format('DD-MM-Y'));
+            }else if(index == 'kelengkapan'){
+                $(name).html(': '+item);
+                // var words = item.split(' ');
+
+                // console.log(words)
+            }else{
+                $(name).text(': '+item);
+            }
+        });
+
+        opsi_pembayaran(data)
+        jangka_waktu_akad(data)
+    }
+
+    function kondisi_jenis_barang(title, value)
+    {
+        if(value == 'Kendaraan'){
+            var barang_satu = 'KT';
+            var barang_dua = 'Warna';
+            var barang_tiga = 'Nomor Rangka';
+        }else if(value == 'Elektronik'){
+            var barang_satu = 'Type';
+            var barang_dua = 'Merk';
+            var barang_tiga = 'Imei / Nomor Serial';
+        }
+
+        $('.name-kelengkapan_barang_satu').html(barang_satu);
+        $('.name-kelengkapan_barang_dua').html(barang_dua);
+        $('.name-kelengkapan_barang_tiga').html(barang_tiga);
+    }
+
+    function opsi_pembayaran(data)
+    {
+        var data    = data.opsi_pembayaran;
+
+        $('.op_'+data).prop('checked', true);
+    }
+
+    function jangka_waktu_akad(data)
+    {
+        var jwa = data.jangka_waktu_akad;
+
+        // jwa is 'jangka waktu akad'
+        $('.jwa_'+jwa).prop('selected', true)
     }
 </script>

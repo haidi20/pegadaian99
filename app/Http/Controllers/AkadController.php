@@ -72,12 +72,13 @@ class AkadController extends Controller
         $findAkad['bt_terbayar']                = $findAkad->data_tunggakan->totalTerbayar;
         $findAkad['waktu_sudah']                = $findAkad->data_tunggakan->waktu_sudah;
         $findAkad['biaya_admin']                = $findAkad->nominal_biaya_admin;
-        $findAkad['nilai_tafsir']               = $findAkad->nominal_nilai_tafsir; 
+        $findAkad['nilai_tafsir']               = $findAkad->nilai_tafsir; 
         $findAkad['bt_tertunggak']              = $findAkad->data_tunggakan->nominal;
         $findAkad['nilai_pencairan']            = $findAkad->nilai_pencairan; 
         $findAkad['waktu_tertunggak']           = $findAkad->data_tunggakan->waktu_tertunggak; 
         $findAkad['bt_tertunggak_biasa']        = $findAkad->data_tunggakan->nominalBiasa;
         $findAkad['nominal_biaya_titip']        = $findAkad->nominal_biaya_titip; 
+        $findAkad['nominal_nilai_tafsir']       = $findAkad->nominal_nilai_tafsir; 
         $findAkad['nominal_nilai_pencairan']    = $findAkad->nominal_nilai_pencairan; 
 
         return $findAkad;
@@ -95,7 +96,7 @@ class AkadController extends Controller
 
     public function bayar_biaya_titip()
     {
-        $dataAkad = $this->akad->where('id_akad', request('id_akad'))->first();
+        $dataAkad = $this->akad->where('id_akad', request('id_akad'));
 
         if(request('from') == request('until')){
             $keterangan = 'KE '.request('from');
@@ -104,8 +105,15 @@ class AkadController extends Controller
             $keterangan = 'KE '.request('from').'-'.request('until');
             $this->request['bt_yang_dibayar'] = request('from');
         }
+
+        if(request('type') == 'pelunasan'){
+            //'status akad menjadi lunas'
+            $updateAkad = $dataAkad->update([
+                'status' => 'Lunas'
+            ]);
+        }
         
-        $this->insert_bea_titip($dataAkad, $keterangan);
+        $this->insert_bea_titip($dataAkad->first(), $keterangan);
     }
 
     public function insert_data()
@@ -142,13 +150,15 @@ class AkadController extends Controller
 
         $column             = config('library.column.akad_nasabah.list_akad_nasabah');
         // 'waktu akad' example 'selutuh data, harian, 7 hari, 15 hari, ringkasan harian'
+        $listTime           = config('library.form.akad.list_time');
         $waktuAkad          = config('library.special.nasabah_akad.waktu_akad');
+        $paymentOption      = config('library.form.akad.payment_option');
         $jangkaWaktuAkad    = config('library.special.nasabah_akad.jangka_waktu_akad');
         $detailJenisBarang  = config('library.special.nasabah_akad.detail_jenis_barang');
 
         return $this->template('akad.index.nasabah-akad.index', compact(
-            'dateRange', 'menu', 'subMenu', 'jangkaWaktuAkad',
-            'column', 'detailJenisBarang', 'waktuAkad',
+            'dateRange', 'menu', 'subMenu', 'jangkaWaktuAkad', 'listTime',
+            'column', 'detailJenisBarang', 'waktuAkad', 'paymentOption',
             'seluruhData', 'harian', 'tujuh', 'limaBelas', 'ringkasanHarian'
         ));
     }
