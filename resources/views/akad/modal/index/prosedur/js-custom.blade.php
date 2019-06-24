@@ -318,6 +318,10 @@
 
         // 'untuk mendapatkan data akad terlebih dahulu'
         akad_prosedur(id, 'akad_ulang')
+
+        $('.penyusutan').on('keyup', function(){
+            this.value = formatRupiah(this.value);
+        });
     }
 
     function modal_akad_ulang(data, type)
