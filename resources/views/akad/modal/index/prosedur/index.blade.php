@@ -250,6 +250,10 @@
                                                         <td class="data-nilai_pencairan"></td>
                                                     </tr>
                                                     <tr>
+                                                        <td>Tunggakan</td>
+                                                        <td class="data-bt_tertunggak"></td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>Penyusutan Pinjaman</td>
                                                         <td>
                                                             <div class="col-sm-12 col-md-12">

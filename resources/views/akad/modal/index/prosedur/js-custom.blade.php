@@ -341,6 +341,8 @@
                 $(name).html(': Rp.'+formatRupiah(item.toString()));
             }else if(index == 'tanggal_lahir' || index == 'tanggal_akad' || index == 'tanggal_jatuh_tempo'){
                 $(name).html(': '+moment(item).format('DD-MM-Y'));
+            }else if(index == 'bt_tertunggak'){
+                $(name).html(': Rp.'+formatRupiah(item.toString()));
             }else if(index == 'kelengkapan'){
                 $(name).html(': '+item);
                 // var words = item.split(' ');
