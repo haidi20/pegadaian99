@@ -338,7 +338,7 @@
             }else if(index == 'tanggal_lahir' || index == 'tanggal_akad' || index == 'tanggal_jatuh_tempo'){
                 $(name).html(': '+moment(item).format('DD-MM-Y'));
             }else if(index == 'kelengkapan'){
-                $(name).html(item)
+                $(name).html(': '+item);
                 // var words = item.split(' ');
 
                 // console.log(words)
@@ -378,8 +378,6 @@
     function jangka_waktu_akad(data)
     {
         var jwa = data.jangka_waktu_akad;
-
-        console.log(jwa);
 
         // jwa is 'jangka waktu akad'
         $('.jwa_'+jwa).prop('selected', true)
