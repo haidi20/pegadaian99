@@ -21,11 +21,6 @@
 
         $('#modal-prosedur').modal('show');
 
-        if(type == 'biaya_titip'){
-            var keterangan = 'Total : Rp. 0 (0 minggu)'
-            $('#keterangan_total').html(keterangan)
-        }
-
         akad_prosedur(id, type)
     }
 
@@ -244,15 +239,21 @@
         // condition word 'harian' or 'mingguan'
         if(data.opsi_pembayaran == 1){
             $('#keterangan_waktu_ke').html('Pembayaran Hari Ke:')
+
+            var keterangan = 'Total : Rp. 0 (0 Hari)'
+            $('#keterangan_total').html(keterangan)
         }else{
             $('#keterangan_waktu_ke').html('Pembayaran Minggu Ke:')
+
+            var keterangan = 'Total : Rp. 0 (0 Minggu)'
+            $('#keterangan_total').html(keterangan)
         }
 
         from = data.waktu_sudah + 1;
         until = data.waktu_sudah + data.waktu_tertunggak;
 
         if(type == 'pelunasan'){
-            total_pelunasan(data, until)
+            total_pelunasan(data, from, until)
         }
 
         //set value
@@ -269,7 +270,7 @@
         execution_checkbox(from, until, type)
     }
 
-    function total_pelunasan(data, waktu_ke)
+    function total_pelunasan(data, from, until)
     {
         var bt_tertunggak   = Number(data.bt_tertunggak_biasa);
         var nilai_pencairan = Number(data.nilai_pencairan);
@@ -280,7 +281,15 @@
         $('.total').html(': '+format_total)
         $('.nominal_total').val(total)
 
-        var keterangan = 'Total : '+format_total+' ('+waktu_ke+' minggu)'
+        if(data.opsi_pembayaran == 1){
+            var satuan_waktu = 'Hari';
+        }else if(data.opsi_pembayaran == 7 || data.opsi_pembayaran == 15){
+            var satuan_waktu = 'Minggu';
+        }
+
+        waktu_ke = (until + 1) - from;
+
+        var keterangan = 'Total : '+format_total+' ('+waktu_ke+' '+satuan_waktu+')'
         $('#keterangan_total').html(keterangan)
     }
 
@@ -301,7 +310,7 @@
                     disabled = 'disabled';
                 }
             }else if(type == 'pelunasan'){
-                disabled = '';
+                disabled = 'disabled';
             }
 
             checkbox = checkbox + '<div class="checkbox-color checkbox-success checkbox'+until+'">';
