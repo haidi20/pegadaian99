@@ -331,7 +331,7 @@
                                                                 @foreach($paymentOption as $index => $item)
                                                                     <div class="radio radio-inline" >
                                                                         <label>
-                                                                            <input type="radio" class="op_{{$item['value']}}" name="opsi_pembayaran" checked value="{{$item['value']}}" >
+                                                                            <input type="radio" class="op_{{$item['value']}}" name="opsi_pembayaran" onClick="opsi_pembayaran({{$item['value']}})" value="{{$item['value']}}" >
                                                                             <i class="helper"></i>{{$item['text']}}
                                                                         </label>
                                                                     </div>
@@ -368,5 +368,10 @@
             </div>
         </div>
     </div>
+
+    <input type="hidden" class="data-margin">
+    <input type="hidden" class="data-potongan">
+    <input type="hidden" class="data-opsi_pembayaran">
+    <input type="hidden" class="data-penyusutan">
 </div>
 

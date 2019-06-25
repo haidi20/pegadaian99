@@ -312,29 +312,29 @@
         $('.checkbox').html(checkbox)
     }
 
+    //'TOMBOL AKAD ULANG'
     function akad_ulang(id)
     {
         $('#modal-akad-ulang').modal('show')
 
         // 'untuk mendapatkan data akad terlebih dahulu'
         akad_prosedur(id, 'akad_ulang')
-
-        $('.penyusutan').on('keyup', function(){
-            this.value = formatRupiah(this.value);
-        });
     }
 
     function modal_akad_ulang(data, type)
     {
-        // console.log(data)
+        console.log(data)
 
         $.each(data, function(index, item){
             kondisi_jenis_barang(index, item);
 
             var name = '.data-'+index;
 
-            if(index == 'nilai_tafsir' || index == 'nilai_pencairan'){
+            if(index == 'nilai_tafsir'){
                 $(name).html(': Rp.'+formatRupiah(item.toString()));
+            }else if(index == 'nilai_pencairan'){
+                $(name).html(': Rp.'+formatRupiah(item.toString()));
+                $('.data-penyusutan').val(item)
             }else if(index == 'biaya_titip' || index == 'jml_bt_yang_dibayar'){
                 $(name).html(': Rp.'+formatRupiah(item.toString()));
             }else if(index == 'biaya_admin'){
@@ -343,18 +343,16 @@
                 $(name).html(': '+moment(item).format('DD-MM-Y'));
             }else if(index == 'bt_tertunggak'){
                 $(name).html(': Rp.'+formatRupiah(item.toString()));
-            }else if(index == 'kelengkapan'){
-                $(name).html(': '+item);
-                // var words = item.split(' ');
-
-                // console.log(words)
             }else{
                 $(name).text(': '+item);
+                // for set default value note* don't remove this.
+                $(name).val(item);
             }
         });
 
-        opsi_pembayaran(data)
-        jangka_waktu_akad(data)
+        keyup_penyusutan()
+        opsi_pembayaran(data.opsi_pembayaran)
+        jangka_waktu_akad(data.jangka_waktu_akad)
     }
 
     function kondisi_jenis_barang(title, value)
@@ -374,23 +372,84 @@
         $('.name-kelengkapan_barang_tiga').html(barang_tiga);
     }
 
-    function opsi_pembayaran(data)
+
+    function opsi_pembayaran(value)
     {
-        var data    = data.opsi_pembayaran;
+        // if 'opsi pembayaran' default value
+        $('.op_'+value).prop('checked', true);
+        // if 'opsi pembayaran' onClick 
+        $('.data-opsi_pembayaran').val(value);
+        biaya_titip(value, 'opsi_pembayaran');
+    } 
 
-        $('.op_'+data).prop('checked', true);
-    }
-
-    function jangka_waktu_akad(data)
+    function jangka_waktu_akad(value)
     {
-        var jwa = data.jangka_waktu_akad;
-
         // jwa is 'jangka waktu akad'
-        $('.jwa_'+jwa).prop('selected', true)
+        $('.jwa_'+value).prop('selected', true);
     }
 
+    function keyup_penyusutan()
+    {
+        $('.penyusutan').on('keyup', function(){
+            this.value = formatRupiah(this.value);  
+
+            var penyusutan = this.value.replace(",","").replace(".","").replace(".","").replace(".","").replace(".","");
+            penyusutan = penyusutan == 0 ? 0 : penyusutan;
+
+            $('.data-penyusutan').val(penyusutan);
+            biaya_titip(penyusutan, 'penyusutan');
+        });        
+    }
+
+    // value == 'nilai penyusutan'
+    // option between 'penyusutan' and 'opsi pembayaran'
+    function biaya_titip(value, option)
+    {        
+        // 'margin == persenan'
+        var margin              = $('.data-margin').val() / 100;
+        var potongan            = $('.data-potongan').val();
+
+        if(option == 'penyusutan'){
+            var penyusutan      = value;
+        }else{
+            var penyusutan      = $('.data-penyusutan').val()
+        }
+
+        if(option == 'opsi_pembayaran'){
+            var opsi_pembayaran = value;
+        }else{
+            var opsi_pembayaran = $('.data-opsi_pembayaran').val()
+        }
+
+        if(opsi_pembayaran == 1){
+            var biaya_titip = (penyusutan * margin - potongan) / 2 / 7
+        }else if(opsi_pembayaran == 7){
+            var biaya_titip = (penyusutan * margin - potongan) / 2
+        }else if (opsi_pembayaran == 15){
+            var biaya_titip = penyusutan * margin 
+        }
+
+        // condition for negatif number of 'biaya titip'
+        biaya_titip = biaya_titip <= 0 ? 0 : biaya_titip
+
+        if(biaya_titip >= 1000 && biaya_titip != 0){
+            thousand_bt             = 1000
+        }else{
+            thousand_bt             = 1
+        }
+
+        biaya_titip     = format_nominal(biaya_titip)
+        biaya_titip     = biaya_titip.replace("Rp", "")
+        biaya_titip     = Math.ceil(biaya_titip) * thousand_bt
+        var nominal_biaya_titip     = formatRupiah(biaya_titip.toString())  
+
+        // console.log(nominal_biaya_titip)
+        $('.data-nominal_biaya_titip').html(': Rp.'+nominal_biaya_titip);
+    }
+
+    //'TOMBOL AKAD LELANG'
     function lelang(id)
     {
-        $('#modal-lelang').modal('show')
+        $('#modal-lelang').modal('show');
     }
 </script>
