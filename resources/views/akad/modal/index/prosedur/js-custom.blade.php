@@ -310,7 +310,7 @@
                     disabled = 'disabled';
                 }
             }else if(type == 'pelunasan'){
-                disabled = 'disabled';
+                disabled = '';
             }
 
             checkbox = checkbox + '<div class="checkbox-color checkbox-success checkbox'+until+'">';
