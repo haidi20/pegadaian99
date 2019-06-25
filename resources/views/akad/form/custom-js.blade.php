@@ -103,7 +103,7 @@
         $('#marhun_bih').on('keyup' ,function(){
             this.value = formatRupiah(this.value)
 
-            var marhun_bih = this.value.replace(",","").replace(".","").replace(".","").replace(".","")
+            var marhun_bih = this.value.replace(",","").replace(".","").replace(".","").replace(".","").replace(".","")
 
             marhun_bih = marhun_bih == 0 ? 0 : marhun_bih
 
@@ -360,10 +360,10 @@
         // formula 'opsi_pembayaran'
         if(opsi_pembayaran == 1){
             var biaya_titip = (marhun_bih * persenan - potongan) / 2 / 7
+        }else if(opsi_pembayaran == 7){
+            var biaya_titip = (marhun_bih * persenan - potongan) / 2
         }else if (opsi_pembayaran == 15){
             var biaya_titip = marhun_bih * persenan 
-        }else{
-            var biaya_titip = (marhun_bih * persenan - potongan) / 2
         }
 
         // condition for negatif number of 'biaya titip'

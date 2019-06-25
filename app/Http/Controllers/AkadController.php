@@ -69,6 +69,8 @@ class AkadController extends Controller
         $findAkad = $this->akad->joinNasabah()->find(request('id'));
 
         // overwrite some field
+        $findAkad['margin']                     = $this->setting->baseBranch()->jenisBarang($findAkad->jenis_barang)->value('margin');
+        $findAkad['potongan']                   = $this->setting->baseBranch()->jenisBarang($findAkad->jenis_barang)->value('potongan'); 
         $findAkad['bt_terbayar']                = $findAkad->data_tunggakan->totalTerbayar;
         $findAkad['waktu_sudah']                = $findAkad->data_tunggakan->waktu_sudah;
         $findAkad['biaya_admin']                = $findAkad->nominal_biaya_admin;
@@ -79,7 +81,7 @@ class AkadController extends Controller
         $findAkad['bt_tertunggak_biasa']        = $findAkad->data_tunggakan->nominalBiasa;
         $findAkad['nominal_biaya_titip']        = $findAkad->nominal_biaya_titip; 
         $findAkad['nominal_nilai_tafsir']       = $findAkad->nominal_nilai_tafsir; 
-        $findAkad['nominal_nilai_pencairan']    = $findAkad->nominal_nilai_pencairan; 
+        $findAkad['nominal_nilai_pencairan']    = $findAkad->nominal_nilai_pencairan;
 
         return $findAkad;
     }
