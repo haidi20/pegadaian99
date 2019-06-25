@@ -350,6 +350,7 @@
             }
         });
         $('.default-biaya_admin').val(data.biaya_admin);
+        $('.default-bt_tertunggak').val(data.bt_tertunggak);
 
         keyup_penyusutan()
         opsi_pembayaran(data.opsi_pembayaran)
@@ -409,6 +410,8 @@
         // 'margin == persenan'
         var margin              = $('.data-margin').val() / 100;
         var potongan            = $('.data-potongan').val();
+        var tunggakan           = $('.default-bt_tertunggak').val().replace(".", "").replace(".", "");
+        tunggakan               = Number(tunggakan);
         var biaya_admin         = $('.default-biaya_admin').val().replace("Rp", "").replace(".", "").replace(".", "");
         biaya_admin             = Number(biaya_admin);
 
@@ -450,8 +453,9 @@
 
         $('.data-nominal_biaya_titip').html(': Rp.'+nominal_biaya_titip);
 
-        var total = penyusutan + biaya_titip + biaya_admin;
-        $('.total_pembayaran').html(total);
+        var total = penyusutan + biaya_titip + biaya_admin + tunggakan;
+        total = formatRupiah(total.toString());
+        $('.total_pembayaran').html(': Rp.'+total);
     }
 
     //'TOMBOL AKAD LELANG'
