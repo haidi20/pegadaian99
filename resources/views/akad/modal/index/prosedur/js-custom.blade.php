@@ -250,7 +250,7 @@
         until = data.waktu_sudah + data.waktu_tertunggak;
 
         if(type == 'pelunasan'){
-            total_pembayaran(data, until)
+            total_pelunasan(data, until)
         }
 
         //set value
@@ -266,7 +266,7 @@
         execution_checkbox(from, until, type)
     }
 
-    function total_pembayaran(data, waktu_ke)
+    function total_pelunasan(data, waktu_ke)
     {
         var bt_tertunggak   = Number(data.bt_tertunggak_biasa);
         var nilai_pencairan = Number(data.nilai_pencairan);
@@ -349,6 +349,7 @@
                 $(name).val(item);
             }
         });
+        $('.default-biaya_admin').val(data.biaya_admin);
 
         keyup_penyusutan()
         opsi_pembayaran(data.opsi_pembayaran)
@@ -408,43 +409,49 @@
         // 'margin == persenan'
         var margin              = $('.data-margin').val() / 100;
         var potongan            = $('.data-potongan').val();
+        var biaya_admin         = $('.default-biaya_admin').val().replace("Rp", "").replace(".", "").replace(".", "");
+        biaya_admin             = Number(biaya_admin);
 
         if(option == 'penyusutan'){
             var penyusutan      = value;
         }else{
-            var penyusutan      = $('.data-penyusutan').val()
+            var penyusutan      = $('.data-penyusutan').val();
         }
+        penyusutan = Number(penyusutan);
 
         if(option == 'opsi_pembayaran'){
             var opsi_pembayaran = value;
         }else{
-            var opsi_pembayaran = $('.data-opsi_pembayaran').val()
+            var opsi_pembayaran = $('.data-opsi_pembayaran').val();
         }
 
         if(opsi_pembayaran == 1){
-            var biaya_titip = (penyusutan * margin - potongan) / 2 / 7
+            var biaya_titip = (penyusutan * margin - potongan) / 2 / 7;
         }else if(opsi_pembayaran == 7){
-            var biaya_titip = (penyusutan * margin - potongan) / 2
+            var biaya_titip = (penyusutan * margin - potongan) / 2;
         }else if (opsi_pembayaran == 15){
-            var biaya_titip = penyusutan * margin 
+            var biaya_titip = penyusutan * margin ;
         }
 
         // condition for negatif number of 'biaya titip'
-        biaya_titip = biaya_titip <= 0 ? 0 : biaya_titip
+        biaya_titip = biaya_titip <= 0 ? 0 : biaya_titip;
 
         if(biaya_titip >= 1000 && biaya_titip != 0){
-            thousand_bt             = 1000
+            thousand_bt             = 1000;
         }else{
-            thousand_bt             = 1
+            thousand_bt             = 1;
         }
 
-        biaya_titip     = format_nominal(biaya_titip)
-        biaya_titip     = biaya_titip.replace("Rp", "")
-        biaya_titip     = Math.ceil(biaya_titip) * thousand_bt
-        var nominal_biaya_titip     = formatRupiah(biaya_titip.toString())  
+        biaya_titip     = format_nominal(biaya_titip);
+        biaya_titip     = biaya_titip.replace("Rp", "");
+        biaya_titip     = Math.ceil(biaya_titip) * thousand_bt;
+        biaya_titip     = Number(biaya_titip);
+        var nominal_biaya_titip     = formatRupiah(biaya_titip.toString());
 
-        // console.log(nominal_biaya_titip)
         $('.data-nominal_biaya_titip').html(': Rp.'+nominal_biaya_titip);
+
+        var total = penyusutan + biaya_titip + biaya_admin;
+        $('.total_pembayaran').html(total);
     }
 
     //'TOMBOL AKAD LELANG'
