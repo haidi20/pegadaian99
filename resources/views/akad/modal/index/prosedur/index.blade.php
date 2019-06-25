@@ -348,6 +348,10 @@
                                                         <td>Biaya Administrasi</td>
                                                         <td class="data-biaya_admin"></td>
                                                     </tr>
+                                                    <tr>
+                                                        <td>Total Pembayaran</td>
+                                                        <td class="total_pembayaran"></td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -371,7 +375,8 @@
 
     <input type="hidden" class="data-margin">
     <input type="hidden" class="data-potongan">
-    <input type="hidden" class="data-opsi_pembayaran">
     <input type="hidden" class="data-penyusutan">
+    <input type="hidden" class="default-biaya_admin">
+    <input type="hidden" class="data-opsi_pembayaran">
 </div>
 
