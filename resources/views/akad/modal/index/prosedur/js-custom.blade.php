@@ -388,4 +388,9 @@
         // jwa is 'jangka waktu akad'
         $('.jwa_'+jwa).prop('selected', true)
     }
+
+    function lelang(id)
+    {
+        $('#modal-lelang').modal('show')
+    }
 </script>

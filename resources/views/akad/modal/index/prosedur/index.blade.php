@@ -117,6 +117,63 @@
     <input type="hidden" class="default_until_checkbox">
 </div>
 
+<div class="modal fade" id="modal-lelang"  tabindex="-1" aria-hidden="true" style='z-index:10000;' role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Akad Lelang</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="view-info">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="general-info">
+                                <div class="row" id="data-detail">
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="table-responsive">
+                                            <table class="table m-0">
+                                                <tbody id="table-detail-one">
+                                                    <tr>
+                                                        <td>Pinjaman</td>
+                                                        <td class="">: Rp.1.000.000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tunggakan</td>
+                                                        <td class="">: Rp.315.000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Administrasi Lelang</td>
+                                                        <td class="">: Rp.10.000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Total</td>
+                                                        <td class="">: Rp.1.325.000</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- end of table col-lg-6 -->
+                                </div>
+                                <!-- end of row -->
+                            </div>
+                            <!-- end of general info -->
+                        </div>
+                        <!-- end of col-lg-12 -->
+                    </div>
+                </div>
+                <!-- end of view-info -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-success waves-effect " data-dismiss="modal">Keluar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="modal-akad-ulang"  tabindex="-1" aria-hidden="true" style='z-index:10000;' role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -307,7 +364,7 @@
                 <!-- end of view-info -->
             </div>
             <div class="modal-footer">
-                <button type="button" id="proses" onClick="process()" class="btn btn-default btn-success waves-effect " data-dismiss="modal">Proses</button>
+                <button type="button" class="btn btn-default btn-success waves-effect " data-dismiss="modal">Keluar</button>
             </div>
         </div>
     </div>
