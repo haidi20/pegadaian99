@@ -378,5 +378,6 @@
     <input type="hidden" class="data-penyusutan">
     <input type="hidden" class="default-biaya_admin">
     <input type="hidden" class="data-opsi_pembayaran">
+    <input type="hidden" class="default-bt_tertunggak">
 </div>
 
