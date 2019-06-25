@@ -66,7 +66,7 @@
             }           
         });
         checked = Number(checked) + 2;
-        console.log(checked)
+
         if(until >= checked){
             disabled = 'disabled';
         }else{
@@ -96,8 +96,8 @@
         var opsi_pembayaran = $('.opsi_pembayaran').val()
 
         var selanjutnya = parseInt(value) + 1
-        var biaya_titip = $('.bt_7_hari').text()
-        var biaya_titip = parseInt(biaya_titip)
+        var biaya_titip = $('.bt_7_hari').val()
+        biaya_titip = Number(biaya_titip)
 
         // condition if checkbox nothing checked 'waktu_ke' set value 0
         if($('#checkbox'+from).prop('checked') == true){
@@ -225,6 +225,8 @@
     {
         var from, until;
 
+        console.log(data);
+
         // condition show/hide word Rp on some item
         $.each(data, function(index, item){
             var name = '.'+index;
@@ -258,6 +260,7 @@
         $('.from_checkbox').val(from)
         $('.until_checkbox').val(until)
         $('.id_akad').val(data.id_akad)
+        $('.bt_7_hari').val(data.bt_7_hari);
         $('.default_until_checkbox').val(until)
         $('.nilai_pencairan').val(data.nilai_pencairan)
         $('.opsi_pembayaran').val(data.opsi_pembayaran)
