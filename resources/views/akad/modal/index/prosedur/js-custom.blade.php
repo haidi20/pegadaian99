@@ -255,8 +255,14 @@
         var keterangan = 'Total : Rp. 0 (0 '+satuan_waktu+')'
         $('#keterangan_total_bt').html(keterangan)
 
-        from = data.waktu_sudah + 1;
-        until = data.waktu_sudah + data.waktu_tertunggak;
+        // 'status tertunggak == 1 di anggap lunas'
+        if(data.status_tunggakan == 1){
+            from = 0;
+            until = 0;
+        }else if (data.status_tunggakan == 0){
+            from = data.waktu_sudah + 1;
+            until = data.waktu_sudah + data.waktu_tertunggak;
+        }
 
         if(type == 'pelunasan'){
             total_pelunasan(data, from, until)
@@ -294,7 +300,8 @@
             var satuan_waktu = 'Minggu';
         }
 
-        waktu_ke = (until + 1) - from;
+        // 'jika from == 0, maka status tunggakan di anggap lunas'
+        waktu_ke = from == 0 ? 0 : (until + 1) - from;
         bt_tertunggak = formatRupiah(bt_tertunggak.toString());
 
         var keterangan_bt = 'Total B.Titip : '+bt_tertunggak+' ('+waktu_ke+' '+satuan_waktu+')';
@@ -314,25 +321,30 @@
 
         // console.log(from, until)
 
-        for (i; i <= until; i++) {
-            // condition if type is 'pelunasan' all checkbox checklist
-            if(type == 'biaya_titip'){
-                if(i > from){
-                    disabled = 'disabled';
+        // 'agar jika sudah lunas biaya titip, maka tidak muncul checkbox'
+        if(from > 0){
+            for (i; i <= until; i++) {
+                // condition if type is 'pelunasan' all checkbox checklist
+                if(type == 'biaya_titip'){
+                    if(i > from){
+                        disabled = 'disabled';
+                    }
+                }else if(type == 'pelunasan'){
+                    disabled = '';
                 }
-            }else if(type == 'pelunasan'){
-                disabled = '';
+
+                checkbox = checkbox + '<div class="checkbox-color checkbox-success checkbox'+until+'">';
+                checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" class="checkbox'+until+'" '+checked+' '+disabled+' value="'+i+'" onCLick="condition_disabled('+i+')">';
+                checkbox = checkbox + '<label for="checkbox'+i+'" class="checkbox'+until+'">';
+                checkbox = checkbox + i;
+                checkbox = checkbox + '</label>';
+                checkbox = checkbox + '</div>'; 
             }
 
-            checkbox = checkbox + '<div class="checkbox-color checkbox-success checkbox'+until+'">';
-            checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" class="checkbox'+until+'" '+checked+' '+disabled+' value="'+i+'" onCLick="condition_disabled('+i+')">';
-            checkbox = checkbox + '<label for="checkbox'+i+'" class="checkbox'+until+'">';
-            checkbox = checkbox + i;
-            checkbox = checkbox + '</label>';
-            checkbox = checkbox + '</div>'; 
+            $('.checkbox').html(checkbox);
+        }else{
+            $('.checkbox').empty();
         }
-
-        $('.checkbox').html(checkbox)
     }
 
     //'TOMBOL AKAD ULANG'

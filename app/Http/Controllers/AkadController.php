@@ -77,6 +77,7 @@ class AkadController extends Controller
         $findAkad['nilai_tafsir']               = $findAkad->nilai_tafsir; 
         $findAkad['bt_tertunggak']              = $findAkad->data_tunggakan->nominal;
         $findAkad['nilai_pencairan']            = $findAkad->nilai_pencairan; 
+        $findAkad['status_tunggakan']           = $findAkad->data_tunggakan->status_tunggakan;
         $findAkad['waktu_tertunggak']           = $findAkad->data_tunggakan->waktu_tertunggak; 
         $findAkad['bt_tertunggak_biasa']        = $findAkad->data_tunggakan->nominalBiasa;
         $findAkad['nominal_biaya_titip']        = $findAkad->nominal_biaya_titip; 
@@ -117,16 +118,14 @@ class AkadController extends Controller
 
             $saldo_cabang = $this->saldo_cabang->where('id_cabang', $dataAkad->value('id_cabang'));
 
-            // $tambah_saldo = $saldo_cabang->
+            $tambah_saldo = $saldo_cabang->value('total_saldo') + request('nilai_pencairan');
 
-            // $saldo_cabang->update([
-
-            // ]);
-
-            return $saldo_cabang;
+            $saldo_cabang->update([
+                'total_saldo' => $tambah_saldo,
+            ]);
         }
         
-        // $this->insert_bea_titip($dataAkad->first(), $keterangan);
+        $this->insert_bea_titip($dataAkad->first(), $keterangan);
     }
 
     public function insert_data()
