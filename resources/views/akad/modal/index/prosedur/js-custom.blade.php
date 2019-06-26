@@ -6,6 +6,8 @@
         if(type == 'pelunasan'){
             // show word 'total'
             $('#pelunasan').css('display', '')
+            // show 'keterangan total'
+            $('#keterangan_total').show()
             // change title modal = 'pelunasan'
             $('.prosedur-title').html('Pelunasan')
             // active button 'bayar'
@@ -13,6 +15,8 @@
         }else if(type == 'biaya_titip'){
              // hide word 'total'
             $('#pelunasan').css('display', 'none')
+            // hide 'keterangan total'
+            $('#keterangan_total').css('display', 'none')
              // change title modal = 'Pembayaran Biaya Titip'
             $('.prosedur-title').html('Pembayaran Biaya Titip')
             // disabled button 'bayar'
@@ -129,7 +133,7 @@
         }
 
         var keterangan = 'Total : Rp. '+nominal+' ('+waktu_ke+' minggu)'
-        $('#keterangan_total').html(keterangan)
+        $('#keterangan_total_bt').html(keterangan)
     }
 
     function bayar()
@@ -167,7 +171,7 @@
         }).then((action) => {
             if (action) {
                 $.ajax({
-                    url: '{{url("akad/ajax/bayar-biaya-titip")}}',
+                    url: '{{url("akad/ajax/bayar-akad")}}',
                     type: 'GET',
                     cache: false,
                     data:{
@@ -176,13 +180,16 @@
                         id_akad:id_akad, 
                         type:type_button,
                         bt_7_hari:nominal, 
+                        nilai_pencairan:nilai_pencairan,
                     },
                     success:function(result){	
-                        swal("Pembayaran Biaya Titip Telah Berhasil", {
-                            icon: "success",
-                        });
+                        console.log(result);
 
-                        window.location.href = '{{route("akad.nasabah-akad")}}';
+                        // swal("Pembayaran Biaya Titip Telah Berhasil", {
+                        //     icon: "success",
+                        // });
+
+                        // window.location.href = '{{route("akad.nasabah-akad")}}';
                     },
                     error:function(xhr, ajaxOptions, thrownError){
                         console.log(thrownError)
@@ -238,16 +245,15 @@
 
         // condition word 'harian' or 'mingguan'
         if(data.opsi_pembayaran == 1){
-            $('#keterangan_waktu_ke').html('Pembayaran Hari Ke:')
-
-            var keterangan = 'Total : Rp. 0 (0 Hari)'
-            $('#keterangan_total').html(keterangan)
-        }else{
-            $('#keterangan_waktu_ke').html('Pembayaran Minggu Ke:')
-
-            var keterangan = 'Total : Rp. 0 (0 Minggu)'
-            $('#keterangan_total').html(keterangan)
+            var satuan_waktu = 'Hari';
+        }else if(data.opsi_pembayaran == 7 || data.opsi_pembayaran == 15){
+            var satuan_waktu = 'Minggu';
         }
+
+        $('#keterangan_waktu_ke').html('Pembayaran '+satuan_waktu+' Ke:')
+
+        var keterangan = 'Total : Rp. 0 (0 '+satuan_waktu+')'
+        $('#keterangan_total_bt').html(keterangan)
 
         from = data.waktu_sudah + 1;
         until = data.waktu_sudah + data.waktu_tertunggak;
@@ -276,10 +282,11 @@
         var nilai_pencairan = Number(data.nilai_pencairan);
         // 'rumus total di pelunasan'
         var total = nilai_pencairan + bt_tertunggak;
-        var format_total = 'Rp. '+formatRupiah(total.toString())
+        var format_total = 'Rp. '+formatRupiah(total.toString());
 
-        $('.total').html(': '+format_total)
-        $('.nominal_total').val(total)
+        // this class show when button 'pelunasan' active
+        $('.total').html(': '+format_total);
+        $('.nominal_total').val(total);
 
         if(data.opsi_pembayaran == 1){
             var satuan_waktu = 'Hari';
@@ -288,9 +295,13 @@
         }
 
         waktu_ke = (until + 1) - from;
+        bt_tertunggak = formatRupiah(bt_tertunggak.toString());
 
-        var keterangan = 'Total : '+format_total+' ('+waktu_ke+' '+satuan_waktu+')'
-        $('#keterangan_total').html(keterangan)
+        var keterangan_bt = 'Total B.Titip : '+bt_tertunggak+' ('+waktu_ke+' '+satuan_waktu+')';
+        $('#keterangan_total_bt').html(keterangan_bt);
+
+        var keterangan = 'Total Pembayaran : '+format_total;
+        $('#keterangan_total').html(keterangan);
     }
 
     // type is between 'pelunasan' and 'biaya titip'

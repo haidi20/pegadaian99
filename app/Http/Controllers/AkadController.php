@@ -96,7 +96,8 @@ class AkadController extends Controller
         return $biaya_titip;
     }
 
-    public function bayar_biaya_titip()
+    //'untuk tombol bayar biaya titip dan tombol pelunasan'
+    public function bayar_akad()
     {
         $dataAkad = $this->akad->where('id_akad', request('id_akad'));
 
@@ -109,13 +110,23 @@ class AkadController extends Controller
         }
 
         if(request('type') == 'pelunasan'){
-            //'status akad menjadi lunas'
+            // 'status akad menjadi lunas'
             $updateAkad = $dataAkad->update([
                 'status' => 'Lunas'
             ]);
+
+            $saldo_cabang = $this->saldo_cabang->where('id_cabang', $dataAkad->value('id_cabang'));
+
+            // $tambah_saldo = $saldo_cabang->
+
+            // $saldo_cabang->update([
+
+            // ]);
+
+            return $saldo_cabang;
         }
         
-        $this->insert_bea_titip($dataAkad->first(), $keterangan);
+        // $this->insert_bea_titip($dataAkad->first(), $keterangan);
     }
 
     public function insert_data()
