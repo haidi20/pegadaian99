@@ -183,13 +183,13 @@
                         nilai_pencairan:nilai_pencairan,
                     },
                     success:function(result){	
-                        console.log(result);
+                        // console.log(result);
 
-                        // swal("Pembayaran Biaya Titip Telah Berhasil", {
-                        //     icon: "success",
-                        // });
+                        swal("Pembayaran Biaya Titip Telah Berhasil", {
+                            icon: "success",
+                        });
 
-                        // window.location.href = '{{route("akad.nasabah-akad")}}';
+                        window.location.href = '{{route("akad.nasabah-akad")}}';
                     },
                     error:function(xhr, ajaxOptions, thrownError){
                         console.log(thrownError)

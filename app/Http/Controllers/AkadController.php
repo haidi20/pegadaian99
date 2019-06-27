@@ -116,13 +116,12 @@ class AkadController extends Controller
                 'status' => 'Lunas'
             ]);
 
-            $saldo_cabang = $this->saldo_cabang->where('id_cabang', $dataAkad->value('id_cabang'));
+            $id_cabang = $dataAkad->value('id_cabang');
+            $nilai_pencairan = request('nilai_pencairan');
 
-            $tambah_saldo = $saldo_cabang->value('total_saldo') + request('nilai_pencairan');
+            $data = (object) compact('id_cabang', 'nilai_pencairan');
 
-            $saldo_cabang->update([
-                'total_saldo' => $tambah_saldo,
-            ]);
+            $this->insert_saldo_cabang($data, 'tambah');
         }
         
         $this->insert_bea_titip($dataAkad->first(), $keterangan);
@@ -582,7 +581,7 @@ class AkadController extends Controller
         // insert data to other table
         $bea_titip                    = $this->insert_bea_titip($akad);
         $kas_cabang                   = $this->insert_kas_cabang($akad);
-        $saldo_cabang                 = $this->insert_saldo_cabang($akad);
+        $saldo_cabang                 = $this->insert_saldo_cabang($akad, 'kurang');
 
         $log_akad                     = $this->insert_log_akad($akad);
         $log_kas_cabang               = $this->insert_log_kas_cabang($akad, $nasabah);
@@ -659,15 +658,17 @@ class AkadController extends Controller
         }   
     }
 
-    public function insert_saldo_cabang($data)
+    public function insert_saldo_cabang($data, $condition)
     {
-        $findSaldoCabang = $this->saldo_cabang->where('id_cabang', $data->id_cabang)->first();
+        $saldoCabang = $this->saldo_cabang->where('id_cabang', $data->id_cabang);
 
-        // add up 'total saldo' with new income 'biaya admin' 
-        $marhunBih = $findSaldoCabang->total_saldo - $data->nilai_pencairan;
+        if($condition == 'tambah'){
+            $marhunBih = $saldoCabang->value('total_saldo') + $data->nilai_pencairan;
+        }else if($condition == 'kurang'){
+            $marhunBih = $saldoCabang->value('total_saldo') - $data->nilai_pencairan;
+        }
 
-        $kasCabang = $this->saldo_cabang->where('id_cabang', $data->id_cabang);
-        $kasCabang->update(['total_saldo' => $marhunBih]);
+        $saldoCabang->update(['total_saldo' => $marhunBih]);
     }
 
     public function insert_log_akad($akad)
