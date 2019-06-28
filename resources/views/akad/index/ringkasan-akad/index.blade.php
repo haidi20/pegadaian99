@@ -46,7 +46,7 @@
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4 class="">Ringkasana Akad</h4>
+                    <h4 class="">Ringkasan Harian</h4>
                     {{-- <span>Rincian Dana</span> --}}
                 </div>
             </div>
@@ -54,61 +54,6 @@
     </div>
 </div>
 <div class="page-body">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-block">
-                    <div class="sub-title">
-                        <h6>Realisasi Pinjaman</h6>
-                        <div class="view-info">
-                            <div class="row">
-                                <div class="col-lg-12 col-sm-12">
-                                    <div class="general-info">
-                                        <div class="row" id="data-realisasi-pinjaman">
-                                            <div class="col-sm-12 col-md-3">
-                                                <div class="">
-                                                    <table class="table m-0">
-                                                        <tbody id="table-detail-one">
-                                                            <tr>
-                                                                <td>Akad Baru </td>
-                                                                <td class="akad_baru">: </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Akad Ulang </td>
-                                                                <td class="akad_ulang">: </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <br><br>
-                                                    <table class="table m-0">
-                                                        <tbody id="table-detail-one">
-                                                            <tr>
-                                                                <td>Pendapatan B. Titip</td>
-                                                                <td>:</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>pendapatan B. Admin</td>
-                                                                <td>:</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <!-- end of table col-lg-6 -->
-                                        </div>
-                                        <!-- end of row -->
-                                    </div>
-                                    <!-- end of general info -->
-                                </div>
-                                <!-- end of col-lg-12 -->
-                            </div>
-                            <!-- end of row -->
-                        </div>
-                    </div> 
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
@@ -176,6 +121,61 @@
                     {{-- {!! $data->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}                    --}}
                 </div>
             </div> 
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="sub-title">
+                    <h6>Realisasi Pinjaman</h6>
+                    <div class="view-info">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12">
+                                <div class="general-info">
+                                    <div class="row" id="data-realisasi-pinjaman">
+                                        <div class="col-sm-12 col-md-3">
+                                            <div class="">
+                                                <table class="table m-0">
+                                                    <tbody id="table-detail-one">
+                                                        <tr>
+                                                            <td>Akad Baru </td>
+                                                            <td class="akad_baru">: </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Akad Ulang </td>
+                                                            <td class="akad_ulang">: </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <br><br>
+                                                <table class="table m-0">
+                                                    <tbody id="table-detail-one">
+                                                        <tr>
+                                                            <td>Pendapatan B. Titip</td>
+                                                            <td>:</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>pendapatan B. Admin</td>
+                                                            <td>:</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- end of table col-lg-6 -->
+                                    </div>
+                                    <!-- end of row -->
+                                </div>
+                                <!-- end of general info -->
+                            </div>
+                            <!-- end of col-lg-12 -->
+                        </div>
+                        <!-- end of row -->
+                    </div>
+                </div> 
+            </div>
         </div>
     </div>
 </div>

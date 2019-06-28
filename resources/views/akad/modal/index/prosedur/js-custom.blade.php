@@ -366,18 +366,20 @@
             var name = '.data-'+index;
 
             if(index == 'nilai_tafsir'){
-                $(name).html(': Rp.'+formatRupiah(item.toString()));
+                $(name).text(': Rp.'+formatRupiah(item.toString()));
             }else if(index == 'nilai_pencairan'){
-                $(name).html(': Rp.'+formatRupiah(item.toString()));
+                $(name).text(': Rp.'+formatRupiah(item.toString()));
                 $('.data-penyusutan').val(item)
             }else if(index == 'biaya_titip' || index == 'jml_bt_yang_dibayar'){
-                $(name).html(': Rp.'+formatRupiah(item.toString()));
+                $(name).text(': Rp.'+formatRupiah(item.toString()));
             }else if(index == 'biaya_admin'){
-                $(name).html(': Rp.'+formatRupiah(item.toString()));
-            }else if(index == 'tanggal_lahir' || index == 'tanggal_akad' || index == 'tanggal_jatuh_tempo'){
-                $(name).html(': '+moment(item).format('DD-MM-Y'));
+                $(name).text(': Rp.'+formatRupiah(item.toString()));
+            }else if(index == 'tanggal_lahir' || index == 'tanggal_akad'){
+                $(name).text(': '+moment(item).format('DD-MM-Y'));
+            }else if(index == 'tanggal_jatuh_tempo'){
+                // action in function 'tanggal jaltuh tempo' below
             }else if(index == 'bt_tertunggak'){
-                $(name).html(': Rp.'+formatRupiah(item.toString()));
+                $(name).text(': Rp.'+formatRupiah(item.toString()));
             }else{
                 $(name).text(': '+item);
                 // for set default value note* don't remove this.
@@ -387,9 +389,18 @@
         $('.default-biaya_admin').val(data.biaya_admin);
         $('.default-bt_tertunggak').val(data.bt_tertunggak);
 
-        keyup_penyusutan()
-        opsi_pembayaran(data.opsi_pembayaran)
-        jangka_waktu_akad(data.jangka_waktu_akad)
+        keyup_penyusutan();
+        opsi_pembayaran(data.opsi_pembayaran);
+        jangka_waktu_akad(data.jangka_waktu_akad);
+        tanggal_jatuh_tempo(data.jangka_waktu_akad, 'default');
+    }
+
+    // tjt = 'tanggal jatuh tempo'
+    function tanggal_jatuh_tempo(waktu, option)
+    {
+        var tjt = moment().add(waktu, 'days').format('DD-MM-Y');
+
+        $('.data-tanggal_jatuh_tempo').text(': '+tjt);
     }
 
     function kondisi_jenis_barang(title, value)
@@ -423,6 +434,14 @@
     {
         // jwa is 'jangka waktu akad'
         $('.jwa_'+value).prop('selected', true);
+
+        $('.data-jangka_waktu_akad').val(value);
+
+        $('#jangka_waktu_akad').change(function(){
+            var waktu = $(this).children("option:selected").val();
+            
+            tanggal_jatuh_tempo(waktu, 'pilih_jangka_waktu_akad');
+        });
     }
 
     function keyup_penyusutan()

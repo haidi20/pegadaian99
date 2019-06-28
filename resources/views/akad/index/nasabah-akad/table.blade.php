@@ -184,7 +184,7 @@
                                                 <td>: Rp. {{$infoTotal->totalTunggakan}}</td>
                                             </tr>
                                             <tr>
-                                                <td>Total tunggakan jatuh tempo </td>
+                                                <td>Total tunggakan jatuh tempo hari ini </td>
                                                 <td>: Rp. {{$infoTotal->totalTunggakanJatuhTempo}}</td>
                                             </tr>
                                         </tbody>

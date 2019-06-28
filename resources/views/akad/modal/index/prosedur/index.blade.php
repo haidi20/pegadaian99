@@ -247,11 +247,11 @@
                                                                 <div class="col-sm-12 col-md-6">
                                                                     <select name="jangka_waktu_akad" id="jangka_waktu_akad" class="form-control">
                                                                         @foreach($listTime as $index => $item)
-                                                                        <option value="{{$item['value']}}" class="jwa_{{$item['value']}}">
+                                                                            <option value="{{$item['value']}}" class="jwa_{{$item['value']}}" >
                                                                                 {{$item['text']}}
-                                                                        </option>
+                                                                            </option>
                                                                         @endforeach
-                                                                    </select> 
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -388,5 +388,6 @@
     <input type="hidden" class="default-biaya_admin">
     <input type="hidden" class="data-opsi_pembayaran">
     <input type="hidden" class="default-bt_tertunggak">
+    <input type="hidden" class="data-jangka_waktu_akad">
 </div>
 

@@ -238,7 +238,7 @@ class Akad extends Model
             $data['nominal'] = $nominal;
 
             if($data->waktu_tertunggak == 0){
-                $info   = 'Lunas Biaya Titip';
+                $info   = 'Rp. 0';
                 
                 // '1 di anggap lunas'
                 $status_tunggakan = 1;
