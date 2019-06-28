@@ -238,9 +238,15 @@ class Akad extends Model
             $data['nominal'] = $nominal;
 
             if($data->waktu_tertunggak == 0){
-                $info   = 'Lunas Biaya Titip';
+                $info   = 'Rp. 0';
+                
+                // '1 di anggap lunas'
+                $status_tunggakan = 1;
             }else{
                 $info   = 'Rp. '.$data->nominal.' ('.$data->waktu_tertunggak.' '.$keterangan.')';
+                
+                // '0 di anggap belum lunas'
+                $status_tunggakan = 0;
             }
 
             // $info = $jarak_waktu;
@@ -254,7 +260,7 @@ class Akad extends Model
 
             return (object) compact(
                 'info', 'nominal', 'jatuhTempo', 'totalTerbayar',
-                'waktu_sudah', 'waktu_tertunggak', 'nominalBiasa'
+                'waktu_sudah', 'waktu_tertunggak', 'nominalBiasa', 'status_tunggakan'
             );
         }else{
             $keterangan = $this->opsi_pembayaran == 1 ? 'harian' : 'periode';
@@ -265,11 +271,12 @@ class Akad extends Model
             $waktu_sudah        = 0;
             $totalTerbayar      = 0;
             $nominalBiasa       = 0;
+            $status_tunggakan   = 0; 
             $waktu_tertunggak   = 0;
 
             return (object) compact(
                 'info', 'nominal', 'jatuhTempo', 'totalTerbayar',
-                'waktu_sudah', 'waktu_tertunggak', 'nominalBiasa'
+                'waktu_sudah', 'waktu_tertunggak', 'nominalBiasa', 'status_tunggakan'
             );
         }
     }

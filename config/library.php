@@ -70,21 +70,26 @@ return [
 							'route'	=> 'akad.nasabah-akad',
 						],
 						1 => [
+							'url'	=> 'akad/ringkasan-akad',
+							'name'	=> 'Ringkasan Akad',
+							'route'	=> 'akad.ringkasan-akad',
+						],
+						2 => [
 							'url'	=> 'akad/akad-jatuh-tempo',
 							'name'	=> 'Akad Jatuh Tempo',
 							'route'	=> 'akad.akad-jatuh-tempo',
 						],
-						2 => [
+						3 => [
 							'url'	=> 'akad/pelunasan-lelang',
 							'name'	=> 'Pelunasan dan Lelang',
 							'route'	=> 'akad.pelunasan-lelang',
 						],
-						3 => [
+						4 => [
 							'url'	=> 'akad/lokasi-distribusi',
 							'name'	=> 'Lokasi / Distribusi',
 							'route'	=> 'akad.lokasi-distribusi',
 						],
-						4 => [
+						5 => [
 							'url'	=> 'akad/maintenance',
 							'name'	=> 'Maintenance',
 							'route'	=> 'akad.maintenance',

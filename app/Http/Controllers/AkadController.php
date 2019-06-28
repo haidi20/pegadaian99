@@ -77,6 +77,7 @@ class AkadController extends Controller
         $findAkad['nilai_tafsir']               = $findAkad->nilai_tafsir; 
         $findAkad['bt_tertunggak']              = $findAkad->data_tunggakan->nominal;
         $findAkad['nilai_pencairan']            = $findAkad->nilai_pencairan; 
+        $findAkad['status_tunggakan']           = $findAkad->data_tunggakan->status_tunggakan;
         $findAkad['waktu_tertunggak']           = $findAkad->data_tunggakan->waktu_tertunggak; 
         $findAkad['bt_tertunggak_biasa']        = $findAkad->data_tunggakan->nominalBiasa;
         $findAkad['nominal_biaya_titip']        = $findAkad->nominal_biaya_titip; 
@@ -96,7 +97,8 @@ class AkadController extends Controller
         return $biaya_titip;
     }
 
-    public function bayar_biaya_titip()
+    //'untuk tombol bayar biaya titip dan tombol pelunasan'
+    public function bayar_akad()
     {
         $dataAkad = $this->akad->where('id_akad', request('id_akad'));
 
@@ -109,13 +111,30 @@ class AkadController extends Controller
         }
 
         if(request('type') == 'pelunasan'){
-            //'status akad menjadi lunas'
+            // 'status akad menjadi lunas'
             $updateAkad = $dataAkad->update([
                 'status' => 'Lunas'
             ]);
+
+            $id_cabang = $dataAkad->value('id_cabang');
+            $nilai_pencairan = request('nilai_pencairan');
+
+            $data = (object) compact('id_cabang', 'nilai_pencairan');
+
+            $this->insert_saldo_cabang($data, 'tambah');
         }
         
         $this->insert_bea_titip($dataAkad->first(), $keterangan);
+    }
+
+    public function akad_ulang()
+    {
+
+    }
+
+    public function akad_lelang()
+    {
+        
     }
 
     public function insert_data()
@@ -148,7 +167,6 @@ class AkadController extends Controller
         $tujuh          = $this->tujuh();
         $limaBelas      = $this->limaBelas();
         $seluruhData    = $this->seluruhData();
-        $ringkasanHarian= $this->ringkasanHarian();
 
         $column             = config('library.column.akad_nasabah.list_akad_nasabah');
         // 'waktu akad' example 'selutuh data, harian, 7 hari, 15 hari, ringkasan harian'
@@ -161,7 +179,7 @@ class AkadController extends Controller
         return $this->template('akad.index.nasabah-akad.index', compact(
             'dateRange', 'menu', 'subMenu', 'jangkaWaktuAkad', 'listTime',
             'column', 'detailJenisBarang', 'waktuAkad', 'paymentOption',
-            'seluruhData', 'harian', 'tujuh', 'limaBelas', 'ringkasanHarian'
+            'seluruhData', 'harian', 'tujuh', 'limaBelas'
         ));
     }
 
@@ -225,31 +243,31 @@ class AkadController extends Controller
         return (object) compact('data', 'dateRange', 'infoTotal'); 
     }
 
-    public function ringkasanHarian()
-    {
-        $data       = [];
-        $dateNow    = Carbon::now()->format('Y-m-d');
+    // public function ringkasanHarian()
+    // {
+    //     $data       = [];
+    //     $dateNow    = Carbon::now()->format('Y-m-d');
 
-        $akadBaru   = $this->akad->baseBranch();
-        $akadBaru   = $akadBaru->where('tanggal_akad', $dateNow);
-        $akadBaru   = $akadBaru->baseStatusAkad('baru');
+    //     $akadBaru   = $this->akad->baseBranch();
+    //     $akadBaru   = $akadBaru->where('tanggal_akad', $dateNow);
+    //     $akadBaru   = $akadBaru->baseStatusAkad('baru');
 
-        $akadUlang  = $this->akad->baseBranch();
-        $akadUlang  = $akadUlang->where('tanggal_akad', $dateNow);
-        $akadUlang  = $akadUlang->baseStatusAkad('ulang');
+    //     $akadUlang  = $this->akad->baseBranch();
+    //     $akadUlang  = $akadUlang->where('tanggal_akad', $dateNow);
+    //     $akadUlang  = $akadUlang->baseStatusAkad('ulang');
 
-        $biayaTitip = (object) [
-            'akadBaru' => 'Rp. '.nominal($akadBaru->sum('bt_7_hari')),
-            'akadUlang' => 'Rp. '.nominal($akadUlang->sum('bt_7_hari')),
-        ];
+    //     $biayaTitip = (object) [
+    //         'akadBaru' => 'Rp. '.nominal($akadBaru->sum('bt_7_hari')),
+    //         'akadUlang' => 'Rp. '.nominal($akadUlang->sum('bt_7_hari')),
+    //     ];
 
-        $biayaAdmin = (object) [
-            'akadBaru' => 'Rp. '.nominal($akadBaru->sum('biaya_admin')),
-            'akadUlang' => 'Rp. '.nominal($akadUlang->sum('biaya_admin')),
-        ];
+    //     $biayaAdmin = (object) [
+    //         'akadBaru' => 'Rp. '.nominal($akadBaru->sum('biaya_admin')),
+    //         'akadUlang' => 'Rp. '.nominal($akadUlang->sum('biaya_admin')),
+    //     ];
 
-        return (object) compact('biayaTitip', 'biayaAdmin');
-    }
+    //     return (object) compact('biayaTitip', 'biayaAdmin');
+    // }
 
     public function infoTotal($akad, $nameTab = null)
     {
@@ -408,6 +426,24 @@ class AkadController extends Controller
 
         return $this->template('akad.index.maintenance', compact(
             'nameTables', 'data', 'column'
+        ));
+    }
+
+    public function ringkasan_akad()
+    {
+        // name menu for active menu header
+        $menu    = 'database';
+        $subMenu = 'akad';
+
+        $listTime           = config('library.form.akad.list_time');
+        $waktuAkad          = config('library.special.nasabah_akad.waktu_akad');
+        $paymentOption      = config('library.form.akad.payment_option');
+        $jangkaWaktuAkad    = config('library.special.nasabah_akad.jangka_waktu_akad');
+        $detailJenisBarang  = config('library.special.nasabah_akad.detail_jenis_barang');
+        
+        return $this->template('akad.index.ringkasan-akad.index', compact(
+            'menu', 'subMenu', 'listTime', 'waktuAkad', 'paymentOption', 
+            'jangkaWaktuAkad', 'detailJenisBarang'
         ));
     }
 
@@ -572,7 +608,7 @@ class AkadController extends Controller
         // insert data to other table
         $bea_titip                    = $this->insert_bea_titip($akad);
         $kas_cabang                   = $this->insert_kas_cabang($akad);
-        $saldo_cabang                 = $this->insert_saldo_cabang($akad);
+        $saldo_cabang                 = $this->insert_saldo_cabang($akad, 'kurang');
 
         $log_akad                     = $this->insert_log_akad($akad);
         $log_kas_cabang               = $this->insert_log_kas_cabang($akad, $nasabah);
@@ -649,15 +685,17 @@ class AkadController extends Controller
         }   
     }
 
-    public function insert_saldo_cabang($data)
+    public function insert_saldo_cabang($data, $condition)
     {
-        $findSaldoCabang = $this->saldo_cabang->where('id_cabang', $data->id_cabang)->first();
+        $saldoCabang = $this->saldo_cabang->where('id_cabang', $data->id_cabang);
 
-        // add up 'total saldo' with new income 'biaya admin' 
-        $marhunBih = $findSaldoCabang->total_saldo - $data->nilai_pencairan;
+        if($condition == 'tambah'){
+            $marhunBih = $saldoCabang->value('total_saldo') + $data->nilai_pencairan;
+        }else if($condition == 'kurang'){
+            $marhunBih = $saldoCabang->value('total_saldo') - $data->nilai_pencairan;
+        }
 
-        $kasCabang = $this->saldo_cabang->where('id_cabang', $data->id_cabang);
-        $kasCabang->update(['total_saldo' => $marhunBih]);
+        $saldoCabang->update(['total_saldo' => $marhunBih]);
     }
 
     public function insert_log_akad($akad)

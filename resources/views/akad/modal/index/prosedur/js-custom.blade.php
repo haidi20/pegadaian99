@@ -6,6 +6,8 @@
         if(type == 'pelunasan'){
             // show word 'total'
             $('#pelunasan').css('display', '')
+            // show 'keterangan total'
+            $('#keterangan_total').show()
             // change title modal = 'pelunasan'
             $('.prosedur-title').html('Pelunasan')
             // active button 'bayar'
@@ -13,6 +15,8 @@
         }else if(type == 'biaya_titip'){
              // hide word 'total'
             $('#pelunasan').css('display', 'none')
+            // hide 'keterangan total'
+            $('#keterangan_total').css('display', 'none')
              // change title modal = 'Pembayaran Biaya Titip'
             $('.prosedur-title').html('Pembayaran Biaya Titip')
             // disabled button 'bayar'
@@ -129,7 +133,7 @@
         }
 
         var keterangan = 'Total : Rp. '+nominal+' ('+waktu_ke+' minggu)'
-        $('#keterangan_total').html(keterangan)
+        $('#keterangan_total_bt').html(keterangan)
     }
 
     function bayar()
@@ -167,7 +171,7 @@
         }).then((action) => {
             if (action) {
                 $.ajax({
-                    url: '{{url("akad/ajax/bayar-biaya-titip")}}',
+                    url: '{{url("akad/ajax/bayar-akad")}}',
                     type: 'GET',
                     cache: false,
                     data:{
@@ -176,8 +180,11 @@
                         id_akad:id_akad, 
                         type:type_button,
                         bt_7_hari:nominal, 
+                        nilai_pencairan:nilai_pencairan,
                     },
                     success:function(result){	
+                        // console.log(result);
+
                         swal("Pembayaran Biaya Titip Telah Berhasil", {
                             icon: "success",
                         });
@@ -238,19 +245,24 @@
 
         // condition word 'harian' or 'mingguan'
         if(data.opsi_pembayaran == 1){
-            $('#keterangan_waktu_ke').html('Pembayaran Hari Ke:')
-
-            var keterangan = 'Total : Rp. 0 (0 Hari)'
-            $('#keterangan_total').html(keterangan)
-        }else{
-            $('#keterangan_waktu_ke').html('Pembayaran Minggu Ke:')
-
-            var keterangan = 'Total : Rp. 0 (0 Minggu)'
-            $('#keterangan_total').html(keterangan)
+            var satuan_waktu = 'Hari';
+        }else if(data.opsi_pembayaran == 7 || data.opsi_pembayaran == 15){
+            var satuan_waktu = 'Minggu';
         }
 
-        from = data.waktu_sudah + 1;
-        until = data.waktu_sudah + data.waktu_tertunggak;
+        $('#keterangan_waktu_ke').html('Pembayaran '+satuan_waktu+' Ke:')
+
+        var keterangan = 'Total : Rp. 0 (0 '+satuan_waktu+')'
+        $('#keterangan_total_bt').html(keterangan)
+
+        // 'status tertunggak == 1 di anggap lunas'
+        if(data.status_tunggakan == 1){
+            from = 0;
+            until = 0;
+        }else if (data.status_tunggakan == 0){
+            from = data.waktu_sudah + 1;
+            until = data.waktu_sudah + data.waktu_tertunggak;
+        }
 
         if(type == 'pelunasan'){
             total_pelunasan(data, from, until)
@@ -276,10 +288,11 @@
         var nilai_pencairan = Number(data.nilai_pencairan);
         // 'rumus total di pelunasan'
         var total = nilai_pencairan + bt_tertunggak;
-        var format_total = 'Rp. '+formatRupiah(total.toString())
+        var format_total = 'Rp. '+formatRupiah(total.toString());
 
-        $('.total').html(': '+format_total)
-        $('.nominal_total').val(total)
+        // this class show when button 'pelunasan' active
+        $('.total').html(': '+format_total);
+        $('.nominal_total').val(total);
 
         if(data.opsi_pembayaran == 1){
             var satuan_waktu = 'Hari';
@@ -287,10 +300,15 @@
             var satuan_waktu = 'Minggu';
         }
 
-        waktu_ke = (until + 1) - from;
+        // 'jika from == 0, maka status tunggakan di anggap lunas'
+        waktu_ke = from == 0 ? 0 : (until + 1) - from;
+        bt_tertunggak = formatRupiah(bt_tertunggak.toString());
 
-        var keterangan = 'Total : '+format_total+' ('+waktu_ke+' '+satuan_waktu+')'
-        $('#keterangan_total').html(keterangan)
+        var keterangan_bt = 'Total B.Titip : '+bt_tertunggak+' ('+waktu_ke+' '+satuan_waktu+')';
+        $('#keterangan_total_bt').html(keterangan_bt);
+
+        var keterangan = 'Total Pembayaran : '+format_total;
+        $('#keterangan_total').html(keterangan);
     }
 
     // type is between 'pelunasan' and 'biaya titip'
@@ -303,25 +321,30 @@
 
         // console.log(from, until)
 
-        for (i; i <= until; i++) {
-            // condition if type is 'pelunasan' all checkbox checklist
-            if(type == 'biaya_titip'){
-                if(i > from){
-                    disabled = 'disabled';
+        // 'agar jika sudah lunas biaya titip, maka tidak muncul checkbox'
+        if(from > 0){
+            for (i; i <= until; i++) {
+                // condition if type is 'pelunasan' all checkbox checklist
+                if(type == 'biaya_titip'){
+                    if(i > from){
+                        disabled = 'disabled';
+                    }
+                }else if(type == 'pelunasan'){
+                    disabled = '';
                 }
-            }else if(type == 'pelunasan'){
-                disabled = '';
+
+                checkbox = checkbox + '<div class="checkbox-color checkbox-success checkbox'+until+'">';
+                checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" class="checkbox'+until+'" '+checked+' '+disabled+' value="'+i+'" onCLick="condition_disabled('+i+')">';
+                checkbox = checkbox + '<label for="checkbox'+i+'" class="checkbox'+until+'">';
+                checkbox = checkbox + i;
+                checkbox = checkbox + '</label>';
+                checkbox = checkbox + '</div>'; 
             }
 
-            checkbox = checkbox + '<div class="checkbox-color checkbox-success checkbox'+until+'">';
-            checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" class="checkbox'+until+'" '+checked+' '+disabled+' value="'+i+'" onCLick="condition_disabled('+i+')">';
-            checkbox = checkbox + '<label for="checkbox'+i+'" class="checkbox'+until+'">';
-            checkbox = checkbox + i;
-            checkbox = checkbox + '</label>';
-            checkbox = checkbox + '</div>'; 
+            $('.checkbox').html(checkbox);
+        }else{
+            $('.checkbox').empty();
         }
-
-        $('.checkbox').html(checkbox)
     }
 
     //'TOMBOL AKAD ULANG'
@@ -343,18 +366,20 @@
             var name = '.data-'+index;
 
             if(index == 'nilai_tafsir'){
-                $(name).html(': Rp.'+formatRupiah(item.toString()));
+                $(name).text(': Rp.'+formatRupiah(item.toString()));
             }else if(index == 'nilai_pencairan'){
-                $(name).html(': Rp.'+formatRupiah(item.toString()));
+                $(name).text(': Rp.'+formatRupiah(item.toString()));
                 $('.data-penyusutan').val(item)
             }else if(index == 'biaya_titip' || index == 'jml_bt_yang_dibayar'){
-                $(name).html(': Rp.'+formatRupiah(item.toString()));
+                $(name).text(': Rp.'+formatRupiah(item.toString()));
             }else if(index == 'biaya_admin'){
-                $(name).html(': Rp.'+formatRupiah(item.toString()));
-            }else if(index == 'tanggal_lahir' || index == 'tanggal_akad' || index == 'tanggal_jatuh_tempo'){
-                $(name).html(': '+moment(item).format('DD-MM-Y'));
+                $(name).text(': Rp.'+formatRupiah(item.toString()));
+            }else if(index == 'tanggal_lahir' || index == 'tanggal_akad'){
+                $(name).text(': '+moment(item).format('DD-MM-Y'));
+            }else if(index == 'tanggal_jatuh_tempo'){
+                // action in function 'tanggal jaltuh tempo' below
             }else if(index == 'bt_tertunggak'){
-                $(name).html(': Rp.'+formatRupiah(item.toString()));
+                $(name).text(': Rp.'+formatRupiah(item.toString()));
             }else{
                 $(name).text(': '+item);
                 // for set default value note* don't remove this.
@@ -364,9 +389,18 @@
         $('.default-biaya_admin').val(data.biaya_admin);
         $('.default-bt_tertunggak').val(data.bt_tertunggak);
 
-        keyup_penyusutan()
-        opsi_pembayaran(data.opsi_pembayaran)
-        jangka_waktu_akad(data.jangka_waktu_akad)
+        keyup_penyusutan();
+        opsi_pembayaran(data.opsi_pembayaran);
+        jangka_waktu_akad(data.jangka_waktu_akad);
+        tanggal_jatuh_tempo(data.jangka_waktu_akad, 'default');
+    }
+
+    // tjt = 'tanggal jatuh tempo'
+    function tanggal_jatuh_tempo(waktu, option)
+    {
+        var tjt = moment().add(waktu, 'days').format('DD-MM-Y');
+
+        $('.data-tanggal_jatuh_tempo').text(': '+tjt);
     }
 
     function kondisi_jenis_barang(title, value)
@@ -400,6 +434,14 @@
     {
         // jwa is 'jangka waktu akad'
         $('.jwa_'+value).prop('selected', true);
+
+        $('.data-jangka_waktu_akad').val(value);
+
+        $('#jangka_waktu_akad').change(function(){
+            var waktu = $(this).children("option:selected").val();
+            
+            tanggal_jatuh_tempo(waktu, 'pilih_jangka_waktu_akad');
+        });
     }
 
     function keyup_penyusutan()

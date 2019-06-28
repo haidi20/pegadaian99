@@ -61,7 +61,6 @@
         var dataTabs = [
             'seluruh_data', 'harian',
             'tujuh_hari', 'lima_belas_hari',
-            'ringkasan_harian'
         ];
 
         for(var i = 0; i < dataTabs.length; i++){
@@ -172,15 +171,6 @@
                                             15 Hari
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link {{active_tab('ringkasan_harian', request('name_tab'))}}" 
-                                        data-toggle="tab" 
-                                        href="#ringkasan_harian" 
-                                        onClick="removeActive('ringkasan_harian')" 
-                                        role="tab">
-                                            Ringkasan Harian
-                                    </a>
-                                </li>
                             </ul>
                             <!-- Tab panes -->
                             {{-- <form method="get"> --}}
@@ -212,9 +202,6 @@
                                         'dateRange' => $limaBelas->dateRange,
                                         'infoTotal' => $limaBelas->infoTotal
                                     ])
-                                </div>
-                                <div class="tab-pane {{active_tab('ringkasan_harian', request('name_tab'))}}" id="ringkasan_harian" role="tabpanel">
-                                    @include('akad.index.nasabah-akad.table-ringkasan_harian')
                                 </div>
                             </div>
                             {{-- </form> --}}

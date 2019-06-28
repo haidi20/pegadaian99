@@ -1,3 +1,4 @@
+{{-- 'modal prosedur untuk tombol bayar b.Titip dan tombol pelunasan' --}}
 <div class="modal fade" id="modal-prosedur"  tabindex="-1" aria-hidden="true" style='z-index:10000;' role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -87,7 +88,8 @@
                 <br>
                 <div class="row">
                     <div class="col-sm-12 col-md-6 pl-4">
-                        <h5 id="keterangan_total">Total : Rp. 0 (0 minggu) </h5>
+                        <h5 id="keterangan_total_bt">Total B.Titip : Rp. 0 (0 minggu) </h5> <br>
+                        <h5 id="keterangan_total" style="display:none">Total Pembayaran : Rp. 0 </h5>
                     </div>
                 </div>
                 <br>
@@ -101,7 +103,7 @@
             </div>
             
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-success waves-effect " data-dismiss="modal">Oke</button>
+                <button type="button" class="btn btn-default btn-success waves-effect " data-dismiss="modal">Keluar</button>
             </div>
         </div>
     </div>
@@ -245,11 +247,11 @@
                                                                 <div class="col-sm-12 col-md-6">
                                                                     <select name="jangka_waktu_akad" id="jangka_waktu_akad" class="form-control">
                                                                         @foreach($listTime as $index => $item)
-                                                                        <option value="{{$item['value']}}" class="jwa_{{$item['value']}}">
+                                                                            <option value="{{$item['value']}}" class="jwa_{{$item['value']}}" >
                                                                                 {{$item['text']}}
-                                                                        </option>
+                                                                            </option>
                                                                         @endforeach
-                                                                    </select> 
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -352,6 +354,13 @@
                                                         <td>Total Pembayaran</td>
                                                         <td class="total_pembayaran"></td>
                                                     </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="#" class="btn btn-sm btn-info bayar" onClick="bayar()">
+                                                                Bayar
+                                                            </a>
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -379,5 +388,6 @@
     <input type="hidden" class="default-biaya_admin">
     <input type="hidden" class="data-opsi_pembayaran">
     <input type="hidden" class="default-bt_tertunggak">
+    <input type="hidden" class="data-jangka_waktu_akad">
 </div>
 
