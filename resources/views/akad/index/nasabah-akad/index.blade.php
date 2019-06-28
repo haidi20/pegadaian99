@@ -12,6 +12,10 @@
     .col-md-1half {
         margin-left:15px;
     }
+    .data-nasabah{
+        font-weight: bold;
+        font-size: 16px;
+    }
 </style>
 @endsection
 
