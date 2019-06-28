@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
 		Route::get('/pelunasan-lelang', 'AkadController@pelunasan_lelang')->name('akad.pelunasan-lelang');
 		Route::get('/lokasi-distribusi', 'AkadController@lokasi_distribusi')->name('akad.lokasi-distribusi');
 		Route::get('/maintenance', 'AkadController@maintenance')->name('akad.maintenance');
+		Route::get('/ringkasan-akad', 'AkadController@ringkasan_akad')->name('akad.ringkasan-akad');
 
 		Route::get('/change-checklist/{id}', 'AkadController@change_checklist')->name('akad.change-checklist');
 		Route::get('/change-location/{id}/{type}', 'AkadController@change_location')->name('akad.change-location');

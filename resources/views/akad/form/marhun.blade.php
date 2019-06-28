@@ -41,6 +41,12 @@
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
+                                        <input type="radio" name="detail_jenis_barang" id="laptop" value="laptop" checked>
+                                        <i class="helper"></i>Laptop / PC
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
                                         <input type="radio" name="detail_jenis_barang" value="kamera">
                                         <i class="helper"></i>Kamera
                                     </label>

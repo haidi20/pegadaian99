@@ -127,6 +127,16 @@ class AkadController extends Controller
         $this->insert_bea_titip($dataAkad->first(), $keterangan);
     }
 
+    public function akad_ulang()
+    {
+
+    }
+
+    public function akad_lelang()
+    {
+        
+    }
+
     public function insert_data()
     {
         $data = request('data');
@@ -157,7 +167,6 @@ class AkadController extends Controller
         $tujuh          = $this->tujuh();
         $limaBelas      = $this->limaBelas();
         $seluruhData    = $this->seluruhData();
-        $ringkasanHarian= $this->ringkasanHarian();
 
         $column             = config('library.column.akad_nasabah.list_akad_nasabah');
         // 'waktu akad' example 'selutuh data, harian, 7 hari, 15 hari, ringkasan harian'
@@ -170,7 +179,7 @@ class AkadController extends Controller
         return $this->template('akad.index.nasabah-akad.index', compact(
             'dateRange', 'menu', 'subMenu', 'jangkaWaktuAkad', 'listTime',
             'column', 'detailJenisBarang', 'waktuAkad', 'paymentOption',
-            'seluruhData', 'harian', 'tujuh', 'limaBelas', 'ringkasanHarian'
+            'seluruhData', 'harian', 'tujuh', 'limaBelas'
         ));
     }
 
@@ -234,31 +243,31 @@ class AkadController extends Controller
         return (object) compact('data', 'dateRange', 'infoTotal'); 
     }
 
-    public function ringkasanHarian()
-    {
-        $data       = [];
-        $dateNow    = Carbon::now()->format('Y-m-d');
+    // public function ringkasanHarian()
+    // {
+    //     $data       = [];
+    //     $dateNow    = Carbon::now()->format('Y-m-d');
 
-        $akadBaru   = $this->akad->baseBranch();
-        $akadBaru   = $akadBaru->where('tanggal_akad', $dateNow);
-        $akadBaru   = $akadBaru->baseStatusAkad('baru');
+    //     $akadBaru   = $this->akad->baseBranch();
+    //     $akadBaru   = $akadBaru->where('tanggal_akad', $dateNow);
+    //     $akadBaru   = $akadBaru->baseStatusAkad('baru');
 
-        $akadUlang  = $this->akad->baseBranch();
-        $akadUlang  = $akadUlang->where('tanggal_akad', $dateNow);
-        $akadUlang  = $akadUlang->baseStatusAkad('ulang');
+    //     $akadUlang  = $this->akad->baseBranch();
+    //     $akadUlang  = $akadUlang->where('tanggal_akad', $dateNow);
+    //     $akadUlang  = $akadUlang->baseStatusAkad('ulang');
 
-        $biayaTitip = (object) [
-            'akadBaru' => 'Rp. '.nominal($akadBaru->sum('bt_7_hari')),
-            'akadUlang' => 'Rp. '.nominal($akadUlang->sum('bt_7_hari')),
-        ];
+    //     $biayaTitip = (object) [
+    //         'akadBaru' => 'Rp. '.nominal($akadBaru->sum('bt_7_hari')),
+    //         'akadUlang' => 'Rp. '.nominal($akadUlang->sum('bt_7_hari')),
+    //     ];
 
-        $biayaAdmin = (object) [
-            'akadBaru' => 'Rp. '.nominal($akadBaru->sum('biaya_admin')),
-            'akadUlang' => 'Rp. '.nominal($akadUlang->sum('biaya_admin')),
-        ];
+    //     $biayaAdmin = (object) [
+    //         'akadBaru' => 'Rp. '.nominal($akadBaru->sum('biaya_admin')),
+    //         'akadUlang' => 'Rp. '.nominal($akadUlang->sum('biaya_admin')),
+    //     ];
 
-        return (object) compact('biayaTitip', 'biayaAdmin');
-    }
+    //     return (object) compact('biayaTitip', 'biayaAdmin');
+    // }
 
     public function infoTotal($akad, $nameTab = null)
     {
@@ -417,6 +426,24 @@ class AkadController extends Controller
 
         return $this->template('akad.index.maintenance', compact(
             'nameTables', 'data', 'column'
+        ));
+    }
+
+    public function ringkasan_akad()
+    {
+        // name menu for active menu header
+        $menu    = 'database';
+        $subMenu = 'akad';
+
+        $listTime           = config('library.form.akad.list_time');
+        $waktuAkad          = config('library.special.nasabah_akad.waktu_akad');
+        $paymentOption      = config('library.form.akad.payment_option');
+        $jangkaWaktuAkad    = config('library.special.nasabah_akad.jangka_waktu_akad');
+        $detailJenisBarang  = config('library.special.nasabah_akad.detail_jenis_barang');
+        
+        return $this->template('akad.index.ringkasan-akad.index', compact(
+            'menu', 'subMenu', 'listTime', 'waktuAkad', 'paymentOption', 
+            'jangkaWaktuAkad', 'detailJenisBarang'
         ));
     }
 
