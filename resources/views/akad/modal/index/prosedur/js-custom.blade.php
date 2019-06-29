@@ -93,12 +93,14 @@
         var from            = $('.from_checkbox').val();
         var until           = $('.until_checkbox').val();
         var opsi_pembayaran = $('.opsi_pembayaran').val();
+        var nilai_pencairan = $('.nilai_pencairan').val();
 
         var selanjutnya = parseInt(value) + 1;
         var biaya_titip = $('.bt_7_hari').val();
         biaya_titip = Number(biaya_titip);
 
         // condition if checkbox nothing checked 'waktu_ke' set value 0
+        // and active / disabled button 'bayar'
         if($('#checkbox'+from).prop('checked') == true){
             var waktu_ke = value - (from - 1);
 
@@ -112,40 +114,45 @@
         // condition if checkbox not checked and then 'melakukan pengurangan pada jumlah waktu dan biaya titip'
         if($('#checkbox'+value).prop('checked') == false){
             if(waktu_ke != 0){
-                var nominal = (biaya_titip * waktu_ke) - biaya_titip;
+                var biaya_titip = (biaya_titip * waktu_ke) - biaya_titip;
                 waktu_ke = waktu_ke - 1;
             }else{
-                var nominal = 0;
+                var biaya_titip = 0;
             }
         }else{
             // 'rumus biaya titip dikalikan dengan jumlah hari/minggu di pilih'
-            var nominal = biaya_titip * waktu_ke;
+            var biaya_titip = biaya_titip * waktu_ke;
         }
+
+        // condition word 'harian' or 'mingguan'
+        if(opsi_pembayaran == 1){
+            var satuan_waktu = 'Hari';
+        }else if(opsi_pembayaran == 7 || opsi_pembayaran == 15){
+            var satuan_waktu = 'Minggu';
+        }
+
+        var format_total = Number(nilai_pencairan) + Number(biaya_titip);
+        format_total = formatRupiah(format_total.toString());
+        var keterangan_total = 'Total Pembayaran : Rp. '+format_total;
+        $('#keterangan_total').html(keterangan_total);
 
         // insert data to tag input
-        $('.nominal_total').val(nominal)
-        nominal = formatRupiah(nominal.toString())
+        $('.nominal_total').val(format_total);
+        biaya_titip = formatRupiah(biaya_titip.toString());
 
-        // condition if thix checkbox not checklist, can next chexkbox disabled
-        if($('#checkbox'+selanjutnya).attr('disabled')){
-            $('#checkbox'+selanjutnya).removeAttr('disabled');
-            $('#checkbox4').prop('checked');
-        }else{
-            $('#checkbox'+selanjutnya).prop('disabled', true);
-        }
-
-        var keterangan = 'Total B.Titip : Rp. '+nominal+' ('+waktu_ke+' minggu)'
-        $('#keterangan_total_bt').html(keterangan)
+        var ket_biaya_titip = 'Total B.Titip : Rp. '+biaya_titip+' ('+waktu_ke+' '+satuan_waktu+')';
+        $('#keterangan_total_bt').html(ket_biaya_titip);
 
         let checked = '';
         $('input[type=checkbox]').each(function () {
             if (this.checked){
-                checked = $(this).val();
+                sum_checked = $(this).val();
             }           
         });
-        checked = Number(checked);
-        console.log(checked, value, selanjutnya);
-        if(checked > value){
+        sum_checked = Number(sum_checked);
+        
+        // for if click checkbox, so next checkbox remove checklist and disabled
+        if(sum_checked > value){
             let i = value + 1;
             for(i; i <= until; i++){
                 let checkbox = '';
@@ -157,6 +164,14 @@
                 $('.checkbox-'+i).empty();
                 $('.checkbox-'+i).html(checkbox);
             }
+        }else{
+            // condition if thix checkbox not checklist, can next chexkbox disabled
+            if($('#checkbox'+selanjutnya).attr('disabled')){
+                $('#checkbox'+selanjutnya).removeAttr('disabled');
+            }else{
+                $('#checkbox'+selanjutnya).prop('disabled', true);
+            }
+
         }
     }
 
@@ -316,10 +331,10 @@
         var nilai_pencairan = Number(data.nilai_pencairan);
         // 'rumus total di pelunasan'
         var total = nilai_pencairan + bt_tertunggak;
-        var format_total = 'Rp. '+formatRupiah(total.toString());
+        var format_total = formatRupiah(total.toString());
 
         // this class show when button 'pelunasan' active
-        $('.total').html(': '+format_total);
+        $('.total').html(': Rp. '+format_total);
         $('.nominal_total').val(total);
 
         if(data.opsi_pembayaran == 1){
@@ -332,10 +347,10 @@
         waktu_ke = from == 0 ? 0 : (until + 1) - from;
         bt_tertunggak = formatRupiah(bt_tertunggak.toString());
 
-        var keterangan_bt = 'Total B.Titip : '+bt_tertunggak+' ('+waktu_ke+' '+satuan_waktu+')';
+        var keterangan_bt = 'Total B.Titip : Rp. '+bt_tertunggak+' ('+waktu_ke+' '+satuan_waktu+')';
         $('#keterangan_total_bt').html(keterangan_bt);
 
-        var keterangan = 'Total Pembayaran : '+format_total;
+        var keterangan = 'Total Pembayaran : Rp. '+format_total;
         $('#keterangan_total').html(keterangan);
     }
 
