@@ -220,7 +220,11 @@
                     }
                 });
             }else {
-                swal("Your imaginary file is safe!");
+                swal({
+                    title: "Pemberitahuan",
+                    text: "Oke, jika sudah benar silahkan klik tombol bayar",
+                    icon: "warning",
+                });
             }
         });
     }
