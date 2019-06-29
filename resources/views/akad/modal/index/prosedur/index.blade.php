@@ -231,10 +231,19 @@
                                                         <td class="data-tanggal_lahir"></td>
                                                     </tr>
                                                 </tbody>
-                                                <tbody id="table-detail-one" class="custom-akad-ulang">
+                                                <tbody class="custom-akad-ulang">
                                                     <tr>
-                                                        <td class="title-form">Data Perwakilan / Wali :</td>
+                                                        <td class="title-form">
+                                                            <div class="checkbox-color checkbox-success checkbox-wali">
+                                                                <input type="checkbox" name="checkbox_wali" id="checkbox_wali" value="0" onClick="info_wali()">
+                                                                <label for="checkbox_wali" class="checkbox-wali">
+                                                                    Data Perwakilan / Wali :
+                                                                </label>
+                                                            </div>
+                                                        </td>
                                                     </tr>
+                                                </tbody>
+                                                <tbody id="table-wali" class="custom-akad-ulang" style="display:none">
                                                     <tr>
                                                         <td>Nama Lengkap</td>
                                                         <td>

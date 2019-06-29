@@ -535,6 +535,24 @@
         $('.total_pembayaran').html(': Rp.'+total);
     }
 
+    function info_wali()
+    {
+        let form_wali       = $('#table-wali');
+        let checkbox_wali   = $('#checkbox_wali');
+
+        if(checkbox_wali.val() == 0){
+            form_wali.css('display', '');
+
+            checkbox_wali.val(1);
+        }else{
+            form_wali.css('display', 'none');
+
+            checkbox_wali.val(0);
+        }
+
+        console.log(checkbox_wali.val());
+    }
+
     //'TOMBOL AKAD LELANG'
     function lelang(id)
     {
