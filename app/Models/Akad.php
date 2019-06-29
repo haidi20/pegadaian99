@@ -116,9 +116,10 @@ class Akad extends Model
     }
 
     // for can fetch data nasabah use left join
-    public function scopeJoinNasabah($query)
+    public function scopeJoinNasabah($query, $status = 'bersangkutan')
     {
-        return $query->leftJoin('nasabah', 'akad.key_nasabah', '=', 'nasabah.key_nasabah');
+        return $query->leftJoin('nasabah', 'akad.key_nasabah', '=', 'nasabah.key_nasabah')
+                     ->where('nasabah.status_nasabah', $status);
     }
 
     public function scopeMaintenance($query)

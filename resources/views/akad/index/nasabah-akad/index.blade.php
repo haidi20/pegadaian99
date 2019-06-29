@@ -12,9 +12,12 @@
     .col-md-1half {
         margin-left:15px;
     }
-    .data-nasabah{
-        font-weight: bold;
+    .custom-akad-ulang{
+        font-weight: 510;
         font-size: 16px;
+    }
+    .custom-akad-ulang .title-form{
+        font-weight: bold;
     }
 </style>
 @endsection
