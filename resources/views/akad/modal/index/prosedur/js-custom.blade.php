@@ -199,7 +199,7 @@
         });
 
         swal({
-            title: "Mengingatkan!",
+            title: "Peringatan!",
             text: 'Yakin melakukan pembayaran sebesar Rp. '+format_nominal+' ?',
             icon: "warning",
             // showCancelButton: true,
@@ -397,6 +397,49 @@
 
         // 'untuk mendapatkan data akad terlebih dahulu'
         akad_prosedur(id, 'akad_ulang')
+    }
+
+    //au is 'akad ulang'
+    function selanjutnya_au()
+    {
+        var check           = $('.form-akad-ulang')[0];
+        var show_swal       = '';
+        var checkbox_wali   = $('#checkbox_wali').val();
+
+        if(checkbox_wali == 1){
+            if(!check.checkValidity()){
+                check.reportValidity();
+                show_swal = 0;
+            }else{
+                show_swal = 1;
+            }
+        }else{
+            show_swal = 1;
+        }
+
+        if(show_swal == 1){
+            swal({
+                title: "Peringatan!",
+                text: 'Anda yakin data sudah benar ?',
+                icon: "warning",
+                // showCancelButton: true,
+                // confirmButtonClass: "btn-danger",
+                buttons: ["Tidak", "Ya"],
+                cancel: true,
+                confirm: true,
+            }).then((action) => {
+                if (action) {
+                    // 
+                }else {
+                    swal({
+                        title: "Pemberitahuan!",
+                        text: "Oke, jika sudah benar silahkan klik tombol bayar",
+                        icon: "success",
+                    });
+                }
+            });
+        }
+        
     }
 
     function modal_akad_ulang(data, type)
