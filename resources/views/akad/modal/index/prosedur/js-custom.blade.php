@@ -90,29 +90,29 @@
 
     function condition_disabled(value)
     {
-        var from            = $('.from_checkbox').val()
-        var until           = $('.until_checkbox').val()
-        var opsi_pembayaran = $('.opsi_pembayaran').val()
+        var from            = $('.from_checkbox').val();
+        var until           = $('.until_checkbox').val();
+        var opsi_pembayaran = $('.opsi_pembayaran').val();
 
-        var selanjutnya = parseInt(value) + 1
-        var biaya_titip = $('.bt_7_hari').val()
-        biaya_titip = Number(biaya_titip)
+        var selanjutnya = parseInt(value) + 1;
+        var biaya_titip = $('.bt_7_hari').val();
+        biaya_titip = Number(biaya_titip);
 
         // condition if checkbox nothing checked 'waktu_ke' set value 0
         if($('#checkbox'+from).prop('checked') == true){
             var waktu_ke = value - (from - 1);
 
-            $('.bayar').removeClass('disabled')
+            $('.bayar').removeClass('disabled');
         }else{
             var waktu_ke = 0;
 
-            $('.bayar').addClass('disabled')
+            $('.bayar').addClass('disabled');
         }
 
         // condition if checkbox not checked and then 'melakukan pengurangan pada jumlah waktu dan biaya titip'
         if($('#checkbox'+value).prop('checked') == false){
             if(waktu_ke != 0){
-                var nominal = (biaya_titip * waktu_ke) - biaya_titip
+                var nominal = (biaya_titip * waktu_ke) - biaya_titip;
                 waktu_ke = waktu_ke - 1;
             }else{
                 var nominal = 0;
@@ -122,18 +122,42 @@
             var nominal = biaya_titip * waktu_ke;
         }
 
+        // insert data to tag input
         $('.nominal_total').val(nominal)
-
         nominal = formatRupiah(nominal.toString())
 
+        // condition if thix checkbox not checklist, can next chexkbox disabled
         if($('#checkbox'+selanjutnya).attr('disabled')){
-            $('#checkbox'+selanjutnya).removeAttr('disabled')
+            $('#checkbox'+selanjutnya).removeAttr('disabled');
+            $('#checkbox4').prop('checked');
         }else{
-            $('#checkbox'+selanjutnya).prop('disabled', true)
+            $('#checkbox'+selanjutnya).prop('disabled', true);
         }
 
-        var keterangan = 'Total : Rp. '+nominal+' ('+waktu_ke+' minggu)'
+        var keterangan = 'Total B.Titip : Rp. '+nominal+' ('+waktu_ke+' minggu)'
         $('#keterangan_total_bt').html(keterangan)
+
+        let checked = '';
+        $('input[type=checkbox]').each(function () {
+            if (this.checked){
+                checked = $(this).val();
+            }           
+        });
+        checked = Number(checked);
+        console.log(checked, value, selanjutnya);
+        if(checked > value){
+            let i = value + 1;
+            for(i; i <= until; i++){
+                let checkbox = '';
+                checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" class="checkbox'+i+'" disabled value="'+i+'" onCLick="condition_disabled('+i+')">';
+                checkbox = checkbox + '<label for="checkbox'+i+'" class="checkbox'+i+'">';
+                checkbox = checkbox + i;
+                checkbox = checkbox + '</label>';
+
+                $('.checkbox-'+i).empty();
+                $('.checkbox-'+i).html(checkbox);
+            }
+        }
     }
 
     function bayar()
@@ -333,9 +357,9 @@
                     disabled = '';
                 }
 
-                checkbox = checkbox + '<div class="checkbox-color checkbox-success checkbox'+until+'">';
-                checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" class="checkbox'+until+'" '+checked+' '+disabled+' value="'+i+'" onCLick="condition_disabled('+i+')">';
-                checkbox = checkbox + '<label for="checkbox'+i+'" class="checkbox'+until+'">';
+                checkbox = checkbox + '<div class="checkbox-color checkbox-success checkbox-'+i+'">';
+                checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" class="checkbox'+i+'" '+checked+' '+disabled+' value="'+i+'" onCLick="condition_disabled('+i+')">';
+                checkbox = checkbox + '<label for="checkbox'+i+'" class="checkbox'+i+'">';
                 checkbox = checkbox + i;
                 checkbox = checkbox + '</label>';
                 checkbox = checkbox + '</div>'; 
@@ -395,12 +419,11 @@
         tanggal_jatuh_tempo(data.jangka_waktu_akad, 'default');
     }
 
-    // tjt = 'tanggal jatuh tempo'
     function tanggal_jatuh_tempo(waktu, option)
     {
-        var tjt = moment().add(waktu, 'days').format('DD-MM-Y');
+        var tanggal_jatuh_tempo = moment().add(waktu, 'days').format('DD-MM-Y');
 
-        $('.data-tanggal_jatuh_tempo').text(': '+tjt);
+        $('.data-tanggal_jatuh_tempo').text(': '+tanggal_jatuh_tempo);
     }
 
     function kondisi_jenis_barang(title, value)
