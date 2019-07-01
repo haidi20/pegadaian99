@@ -180,11 +180,11 @@
                                                 <td>: Rp. {{$infoTotal->totalPinjaman}}</td>
                                             </tr>
                                             <tr>
-                                                <td>Total tunggakan </td>
+                                                <td>Total Tunggakan </td>
                                                 <td>: Rp. {{$infoTotal->totalTunggakan}}</td>
                                             </tr>
                                             <tr>
-                                                <td>Total tunggakan jatuh tempo hari ini </td>
+                                                <td>Total Tunggakan Jatuh Tempo Hari Ini </td>
                                                 <td>: Rp. {{$infoTotal->totalTunggakanJatuhTempo}}</td>
                                             </tr>
                                         </tbody>
