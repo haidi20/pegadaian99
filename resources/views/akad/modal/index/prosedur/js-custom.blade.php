@@ -398,14 +398,30 @@
         var checkbox_wali   = $('.checkbox-wali');
         var html_input_wali = '<input type="checkbox" name="checkbox_wali" id="checkbox_wali" value="0" onClick="info_wali()">';
 
-        $('#modal-akad-ulang').modal('show')
+        $('#modal-akad-ulang').modal('show');
 
+        // first remove tag input 'nasabah wali'
         input_wali.remove();
+        // add tag input for checkbox 'nasabah wali'
         checkbox_wali.prepend(html_input_wali);
+        // can default form 'nasabah wali' hide
         table_wali.css('display', 'none');
 
+        empty_form_wali();
+
         // 'untuk mendapatkan data akad terlebih dahulu'
-        akad_prosedur(id, 'akad_ulang')
+        akad_prosedur(id, 'akad_ulang');
+    }
+
+    function empty_form_wali()
+    {
+        var name_form_wali = [
+            'nama_lengkap', 'alamat', 'kota', 'no_telp', 'no_identitas',
+        ];
+
+        for(var i = 0; i <= name_form_wali.length; i++){
+            $('#'+name_form_wali[i]).val('');
+        }
     }
 
     //au is 'akad ulang'
