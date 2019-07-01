@@ -138,7 +138,7 @@
                                     <div class="col-sm-12 col-md-12">
                                         <div class="table-responsive">
                                             <table class="table m-0">
-                                                <tbody id="table-detail-one" class="custom-akad-ulang">
+                                                <tbody id="table-nasabah" class="custom-akad-ulang step-one">
                                                     <tr>
                                                         <td class="title-form">Data Nasabah :</td>
                                                     </tr>
@@ -175,7 +175,7 @@
                                                         <td class="data-tanggal_lahir"></td>
                                                     </tr>
                                                 </tbody>
-                                                <tbody class="custom-akad-ulang">
+                                                <tbody id="title-form-wali" class="custom-akad-ulang step-one">
                                                     <tr>
                                                         <td class="title-form">
                                                             <div class="checkbox-color checkbox-success checkbox-wali">
@@ -187,7 +187,7 @@
                                                         </td>
                                                     </tr>
                                                 </tbody>
-                                                <tbody id="table-wali" class="custom-akad-ulang" style="display:none">
+                                                <tbody id="table-wali" class="custom-akad-ulang step-one" style="display:none">
                                                     <tr>
                                                         <td>Nama Lengkap</td>
                                                         <td>
@@ -301,7 +301,7 @@
                                                         </td>
                                                     </tr>
                                                 </tbody>
-                                                <tbody id="table-detail-two" class="custom-akad-ulang" style="display:none">
+                                                <tbody id="table-barang" class="custom-akad-ulang step-two" style="display:none">
                                                     <tr>
                                                         <td>NO. ID</td>
                                                         <td class="data-no_id"></td>
@@ -443,8 +443,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-danger waves-effect" data-dismiss="modal">Keluar</button>
-                <button type="button" class="btn btn-default btn-success waves-effect" onClick="selanjutnya_au()">Selanjutnya</button>
+                <button type="button" class="btn btn-default btn-danger waves-effect" id="exit" data-dismiss="modal">Keluar</button>
+                <button type="button" class="btn btn-default btn-info waves-effect" id="previous" onClick="action_au('previous')" style="display:none">Sebelumnya</button>
+                <button type="button" class="btn btn-default btn-success waves-effect" id="next" onClick="action_au('next')">Selanjutnya</button>
             </div>
             </form>
         </div>

@@ -425,21 +425,31 @@
     }
 
     //au is 'akad ulang'
-    function selanjutnya_au()
+    function action_au(type)
     {
         var check           = $('.form-akad-ulang')[0];
         var show_swal       = '';
         var checkbox_wali   = $('#checkbox_wali').val();
 
-        if(checkbox_wali == 1){
-            if(!check.checkValidity()){
-                check.reportValidity();
-                show_swal = 0;
+        // condition if checkbox active and then some form empty, can show notif
+        condition_form_wali(type);
+    }
+
+    function condition_form_wali(type)
+    {
+        if(type == 'next'){
+            if(checkbox_wali == 1){
+                if(!check.checkValidity()){
+                    check.reportValidity();
+                    show_swal = 0;
+                }else{
+                    show_swal = 1;
+                }
             }else{
                 show_swal = 1;
             }
-        }else{
-            show_swal = 1;
+        }else if(type == 'previous'){
+            show_swal = 0;
         }
 
         if(show_swal == 1){
@@ -454,7 +464,8 @@
                 confirm: true,
             }).then((action) => {
                 if (action) {
-                    // 
+                    // if type is next
+                    condition_step_au(type);
                 }else {
                     swal({
                         title: "Pemberitahuan!",
@@ -464,7 +475,22 @@
                 }
             });
         }
+
+        if(type == 'previous'){
+            condition_step_au(type);
+        }
+    }
+
+    function condition_step_au(type)
+    {
+        var exit        = $('#exit');
+        var previous    = $('#previous');
         
+        if(type == 'next'){
+            previous.show();
+        }else if(type == 'previous'){
+            previous.hide();
+        }
     }
 
     function modal_akad_ulang(data, type)
