@@ -432,10 +432,10 @@
         var checkbox_wali   = $('#checkbox_wali').val();
 
         // condition if checkbox active and then some form empty, can show notif
-        condition_form_wali(type);
+        condition_form_wali(type, check, checkbox_wali);
     }
 
-    function condition_form_wali(type)
+    function condition_form_wali(type, check, checkbox_wali)
     {
         if(type == 'next'){
             if(checkbox_wali == 1){
@@ -483,13 +483,28 @@
 
     function condition_step_au(type)
     {
-        var exit        = $('#exit');
-        var previous    = $('#previous');
+        var exit            = $('#exit');
+        var previous        = $('#previous');
+        var step_one        = $('.step-one');
+        var step_two        = $('.step-two');
+        var checkbox_wali   = $('#checkbox_wali');
+        var step_one_wali   = $('.step-one-wali');
         
         if(type == 'next'){
             previous.show();
+            step_two.show();
+            step_one.hide();
+            step_one_wali.hide();
         }else if(type == 'previous'){
             previous.hide();
+            step_two.hide();
+            step_one.show();
+
+            if(checkbox_wali.val() == 0){
+                step_one_wali.hide();
+            }else if(checkbox_wali.val() == 1){
+                step_one_wali.css('display', '');
+            }
         }
     }
 
@@ -650,8 +665,8 @@
 
     function info_wali()
     {
-        let form_wali       = $('#table-wali');
-        let checkbox_wali   = $('#checkbox_wali');
+        var form_wali       = $('#table-wali');
+        var checkbox_wali   = $('#checkbox_wali');
 
         if(checkbox_wali.val() == 0){
             form_wali.css('display', '');

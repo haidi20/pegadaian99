@@ -187,7 +187,7 @@
                                                         </td>
                                                     </tr>
                                                 </tbody>
-                                                <tbody id="table-wali" class="custom-akad-ulang step-one" style="display:none">
+                                                <tbody id="table-wali" class="custom-akad-ulang step-one-wali" style="display:none">
                                                     <tr>
                                                         <td>Nama Lengkap</td>
                                                         <td>
