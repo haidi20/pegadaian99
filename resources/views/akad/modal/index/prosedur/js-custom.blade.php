@@ -407,6 +407,7 @@
         // can default form 'nasabah wali' hide
         table_wali.css('display', 'none');
 
+        condition_step_au();
         empty_form_wali();
 
         // 'untuk mendapatkan data akad terlebih dahulu'
@@ -481,7 +482,7 @@
         }
     }
 
-    function condition_step_au(type)
+    function condition_step_au(type = null)
     {
         var exit            = $('#exit');
         var previous        = $('#previous');
@@ -495,7 +496,7 @@
             step_two.show();
             step_one.hide();
             step_one_wali.hide();
-        }else if(type == 'previous'){
+        }else if(type == 'previous' || type == null){
             previous.hide();
             step_two.hide();
             step_one.show();
@@ -513,36 +514,31 @@
         console.log(data)
 
         $.each(data, function(index, item){
-            kondisi_jenis_barang(index, item);
-
             var name = '.data-'+index;
 
-            if(index == 'nilai_tafsir'){
+            if(index == 'nilai_tafsir' || index == 'nilai_pencairan'){
                 $(name).text(': Rp.'+formatRupiah(item.toString()));
-            }else if(index == 'nilai_pencairan'){
-                $(name).text(': Rp.'+formatRupiah(item.toString()));
-                $('.data-penyusutan').val(item)
             }else if(index == 'biaya_titip' || index == 'jml_bt_yang_dibayar'){
-                $(name).text(': Rp.'+formatRupiah(item.toString()));
-            }else if(index == 'biaya_admin'){
                 $(name).text(': Rp.'+formatRupiah(item.toString()));
             }else if(index == 'tanggal_lahir' || index == 'tanggal_akad'){
                 $(name).text(': '+moment(item).format('DD-MM-Y'));
-            }else if(index == 'tanggal_jatuh_tempo'){
-                // action in function 'tanggal jaltuh tempo' below
-            }else if(index == 'bt_tertunggak'){
+            }else if(index == 'bt_tertunggak' || index == 'biaya_admin'){
                 $(name).text(': Rp.'+formatRupiah(item.toString()));
             }else{
+                item = item == null ? '-' : item;
                 $(name).text(': '+item);
                 // for set default value note* don't remove this.
                 $(name).val(item);
             }
+
+            kondisi_jenis_barang(index, item);
         });
         $('.default-biaya_admin').val(data.biaya_admin);
         $('.default-bt_tertunggak').val(data.bt_tertunggak);
+        $('.data-sisa_pinjaman').text(': Rp. '+formatRupiah(data.nilai_pencairan));
 
-        keyup_penyusutan();
-        opsi_pembayaran(data.opsi_pembayaran);
+        keyup_penyusutan(data.nilai_pencairan);
+        payment_option(data.opsi_pembayaran);
         jangka_waktu_akad(data.jangka_waktu_akad);
         tanggal_jatuh_tempo(data.jangka_waktu_akad, 'default');
     }
@@ -572,7 +568,7 @@
     }
 
 
-    function opsi_pembayaran(value)
+    function payment_option(value)
     {
         // if 'opsi pembayaran' default value
         $('.op_'+value).prop('checked', true);
@@ -595,7 +591,7 @@
         });
     }
 
-    function keyup_penyusutan()
+    function keyup_penyusutan(nilai_pencairan)
     {
         $('.penyusutan').on('keyup', function(){
             this.value = formatRupiah(this.value);  
@@ -603,13 +599,31 @@
             var penyusutan = this.value.replace(",","").replace(".","").replace(".","").replace(".","").replace(".","");
             penyusutan = penyusutan == 0 ? 0 : penyusutan;
 
-            $('.data-penyusutan').val(penyusutan);
-            biaya_titip(penyusutan, 'penyusutan');
+            var sisa_pinjaman = nilai_pencairan - penyusutan;
+            var negative = condition_negative(sisa_pinjaman);
+            var nominal_sisa_pinjaman = formatRupiah(sisa_pinjaman.toString());
+
+            $('.data-sisa_pinjaman').text(': Rp. '+negative+nominal_sisa_pinjaman);
+            $('.data-sisa_pinjaman').val(sisa_pinjaman);
+            biaya_titip(sisa_pinjaman, 'sisa_pinjaman');
         });        
+
+        console.log(nilai_pencairan);
     }
 
-    // value == 'nilai penyusutan'
-    // option between 'penyusutan' and 'opsi pembayaran'
+    function condition_negative(sisa_pinjaman)
+    {
+        if(sisa_pinjaman >=0){
+            $('.data-sisa_pinjaman').css('color', 'black');
+            return '';
+        }else{
+            $('.data-sisa_pinjaman').css('color', 'red');
+            return '-';
+        }
+    }
+
+    // value == 'nilai sisa_pinjaman atau opsi pembyaran'
+    // option between 'sisa_pinjaman' and 'opsi pembayaran'
     function biaya_titip(value, option)
     {        
         // 'margin == persenan'
@@ -620,12 +634,12 @@
         var biaya_admin         = $('.default-biaya_admin').val().replace("Rp", "").replace(".", "").replace(".", "");
         biaya_admin             = Number(biaya_admin);
 
-        if(option == 'penyusutan'){
-            var penyusutan      = value;
+        if(option == 'sisa_pinjaman'){
+            var sisa_pinjaman      = value;
         }else{
-            var penyusutan      = $('.data-penyusutan').val();
+            var sisa_pinjaman      = $('.data-sisa_pinjaman').val();
         }
-        penyusutan = Number(penyusutan);
+        sisa_pinjaman = Number(sisa_pinjaman);
 
         if(option == 'opsi_pembayaran'){
             var opsi_pembayaran = value;
@@ -634,11 +648,11 @@
         }
 
         if(opsi_pembayaran == 1){
-            var biaya_titip = (penyusutan * margin - potongan) / 2 / 7;
+            var biaya_titip = (sisa_pinjaman * margin - potongan) / 2 / 7;
         }else if(opsi_pembayaran == 7){
-            var biaya_titip = (penyusutan * margin - potongan) / 2;
+            var biaya_titip = (sisa_pinjaman * margin - potongan) / 2;
         }else if (opsi_pembayaran == 15){
-            var biaya_titip = penyusutan * margin ;
+            var biaya_titip = sisa_pinjaman * margin ;
         }
 
         // condition for negatif number of 'biaya titip'
@@ -658,7 +672,7 @@
 
         $('.data-nominal_biaya_titip').html(': Rp.'+nominal_biaya_titip);
 
-        var total = penyusutan + biaya_titip + biaya_admin + tunggakan;
+        var total = sisa_pinjaman + biaya_titip + biaya_admin + tunggakan;
         total = formatRupiah(total.toString());
         $('.total_pembayaran').html(': Rp.'+total);
     }

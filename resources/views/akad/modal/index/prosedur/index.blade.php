@@ -311,7 +311,7 @@
                                                         {{-- <td class="data-jangka_waktu_akad"></td> --}}
                                                         <td>
                                                             <div class="form-group row">
-                                                                <div class="col-sm-12 col-md-6">
+                                                                <div class="col-sm-12 col-md-4">
                                                                     <select name="jangka_waktu_akad" id="jangka_waktu_akad" class="form-control">
                                                                         @foreach($listTime as $index => $item)
                                                                             <option value="{{$item['value']}}" class="jwa_{{$item['value']}}" >
@@ -391,6 +391,10 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
+                                                        <td>Sisa Pinjaman</td>
+                                                        <td class="data-sisa_pinjaman">:</td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>Opsi Pembayaran</td>
                                                         {{-- setting show / hide use jquery  --}}
                                                         <td>
@@ -400,7 +404,7 @@
                                                                 @foreach($paymentOption as $index => $item)
                                                                     <div class="radio radio-inline" >
                                                                         <label>
-                                                                            <input type="radio" class="op_{{$item['value']}}" name="opsi_pembayaran" onClick="opsi_pembayaran({{$item['value']}})" value="{{$item['value']}}" >
+                                                                            <input type="radio" class="op_{{$item['value']}}" name="opsi_pembayaran" onClick="payment_option({{$item['value']}})" value="{{$item['value']}}" >
                                                                             <i class="helper"></i>{{$item['text']}}
                                                                         </label>
                                                                     </div>
@@ -453,7 +457,7 @@
 
     <input type="hidden" class="data-margin">
     <input type="hidden" class="data-potongan">
-    <input type="hidden" class="data-penyusutan">
+    <input type="hidden" class="data-sisa_pinjaman">
     <input type="hidden" class="default-biaya_admin">
     <input type="hidden" class="data-opsi_pembayaran">
     <input type="hidden" class="default-bt_tertunggak">
