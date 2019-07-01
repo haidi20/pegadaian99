@@ -393,7 +393,16 @@
     //'TOMBOL AKAD ULANG'
     function akad_ulang(id)
     {
+        var input_wali      = $('.checkbox-wali input');
+        var table_wali      = $('#table-wali');
+        var checkbox_wali   = $('.checkbox-wali');
+        var html_input_wali = '<input type="checkbox" name="checkbox_wali" id="checkbox_wali" value="0" onClick="info_wali()">';
+
         $('#modal-akad-ulang').modal('show')
+
+        input_wali.remove();
+        checkbox_wali.prepend(html_input_wali);
+        table_wali.css('display', 'none');
 
         // 'untuk mendapatkan data akad terlebih dahulu'
         akad_prosedur(id, 'akad_ulang')
@@ -611,8 +620,6 @@
 
             checkbox_wali.val(0);
         }
-
-        console.log(checkbox_wali.val());
     }
 
     //'TOMBOL AKAD LELANG'

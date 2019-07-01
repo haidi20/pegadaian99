@@ -180,7 +180,7 @@
                                                         <td class="title-form">
                                                             <div class="checkbox-color checkbox-success checkbox-wali">
                                                                 <input type="checkbox" name="checkbox_wali" id="checkbox_wali" value="0" onClick="info_wali()">
-                                                                <label for="checkbox_wali" class="checkbox-wali">
+                                                                <label for="checkbox_wali">
                                                                     Data Perwakilan / Wali :
                                                                 </label>
                                                             </div>
