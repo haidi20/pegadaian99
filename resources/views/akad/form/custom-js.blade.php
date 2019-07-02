@@ -159,7 +159,7 @@
     }
 
     /* determine 'biaya titp yang dibayar'
-    * value is nilai from 'jangka waktu akad' and 'opsi pembayaran' 
+    * value from 'jangka waktu akad' and 'opsi pembayaran' 
     * option for condition between 'jangka waktu akad' and 'opsi pembayaran'
     */
     function bt_yang_dibayar(value = null, option = null)

@@ -549,10 +549,10 @@ class AkadController extends Controller
         /*
         * format code 'nomor id'
         * c99-04-021019-01
-`       * 'kode citra99 - nomor cabang - tanggal akad - akad yang keberapa pada hari itu'
+        * 'kode citra99 - nomor cabang - tanggal akad - akad yang keberapa pada hari itu'
         * format code 'nomor id akad ulang'
         * c99-04-021019-AU-01
-`       * 'kode citra99 - nomor cabang - tanggal akad - kode akad ulang - akad ulang yang sudah keberapa'
+        * 'kode citra99 - nomor cabang - tanggal akad - kode akad ulang - akad ulang yang sudah keberapa'
         */
 
         $codeNoId       = 'C99-'.$this->infoCabang()->nomorCabang.'-'.Carbon::now()->format('dmy');

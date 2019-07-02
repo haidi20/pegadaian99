@@ -570,12 +570,21 @@
     }
 
 
-    function payment_option(value)
+    function payment_option(value, option = null)
     {
-        // if 'opsi pembayaran' default value
-        $('.op_'+value).prop('checked', true);
-        // if 'opsi pembayaran' onClick 
-        $('.data-opsi_pembayaran').val(value);
+        if(option == null){
+            // if 'opsi pembayaran' default value
+            $('.op_'+value).prop('checked', true);
+            // if 'opsi pembayaran' onClick 
+            $('.data-opsi_pembayaran').val(value);
+        }else if(option == 'jangka_waktu_akad'){
+            if(value == 7){
+                $('#op_15').hide();
+            }else{
+                $('#op_15').show();
+            }
+        }
+
         biaya_titip(value, 'opsi_pembayaran');
     } 
 
@@ -590,6 +599,8 @@
             var waktu = $(this).children("option:selected").val();
             
             tanggal_jatuh_tempo(waktu, 'pilih_jangka_waktu_akad');
+
+            payment_option(waktu, 'jangka_waktu_akad');
         });
     }
 
@@ -743,7 +754,7 @@
                 swal({
                     title: "Pemberitahuan",
                     text: "Oke, jika sudah benar silahkan klik tombol bayar",
-                    icon: "success",
+                    icon: "warning",
                 });
             }
         });

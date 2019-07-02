@@ -314,7 +314,7 @@
                                                                 <div class="col-sm-12 col-md-4">
                                                                     <select name="jangka_waktu_akad" id="jangka_waktu_akad" class="form-control">
                                                                         @foreach($listTime as $index => $item)
-                                                                            <option value="{{$item['value']}}" class="jwa_{{$item['value']}}" >
+                                                                            <option value="{{$item['value']}}" class="jwa_{{$item['value']}}">
                                                                                 {{$item['text']}}
                                                                             </option>
                                                                         @endforeach
@@ -402,10 +402,10 @@
                                                                 :
                                                                 {{-- setting show / hide use jquery  --}}
                                                                 @foreach($paymentOption as $index => $item)
-                                                                    <div class="radio radio-inline" >
+                                                                    <div class="radio radio-inline" id="op_{{$item['value']}}" > 
                                                                         <label>
-                                                                            <input type="radio" class="op_{{$item['value']}}" name="opsi_pembayaran" onClick="payment_option({{$item['value']}})" value="{{$item['value']}}" >
-                                                                            <i class="helper"></i>{{$item['text']}}
+                                                                            <input type="radio" class="op_{{$item['value']}}" name="opsi_pembayaran" onClick="payment_option('{{$item['value']}}')" value="{{$item['value']}}">
+                                                                            <i class="helper"></i> {{$item['text']}}
                                                                         </label>
                                                                     </div>
                                                                 @endforeach

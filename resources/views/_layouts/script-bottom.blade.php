@@ -35,6 +35,7 @@
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
 <script async src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{{-- <script async src="js/sweet-alert"></script> --}}
 {{-- <script async src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script> --}}
 <script>
   window.dataLayer = window.dataLayer || [];
