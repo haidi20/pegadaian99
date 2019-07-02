@@ -418,6 +418,25 @@
                                                         <td class="data-nominal_biaya_titip"></td>
                                                     </tr>
                                                     <tr>
+                                                        <td>Biaya Titip yang Dibayar</td>
+                                                        <td>
+                                                            <div class="form-group row">
+                                                                <div class="ml-3">
+                                                                    <select name="bt_yang_dibayar" id="bt_yang_dibayar" class="form-control" >
+                                                                        {{-- execution in jquery --}}
+                                                                    </select> 
+                                                                    <input type="hidden" id="nilai_bt_yang_dibayar">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Jumlah Biaya Titip yang Dibayar</td>
+                                                        <td class="jml_bt_yang_dibayar">
+                                                        :
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>Biaya Administrasi</td>
                                                         <td class="data-biaya_admin"></td>
                                                     </tr>

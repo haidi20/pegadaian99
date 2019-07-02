@@ -171,7 +171,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="bt_yang_dibayar">Biaya Titip yang Dibayar</label>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="ml-3">
                             <select name="bt_yang_dibayar" id="bt_yang_dibayar" class="form-control" >
                                 {{-- @for($i = 0; $i <= 7; $i++)
                                     <option value="{{$i}}">{{$i}}</option>
