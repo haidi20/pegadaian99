@@ -175,7 +175,7 @@
         }
     }
 
-    function bayar()
+    function bayar_bt_pelunasan()
     {
         var from            = $('.from_checkbox').val()
         var id_akad         = $('.id_akad').val()
@@ -535,6 +535,8 @@
         });
         $('.default-biaya_admin').val(data.biaya_admin);
         $('.default-bt_tertunggak').val(data.bt_tertunggak);
+        $('#penyusutan').val('');
+        $('.data-sisa_pinjaman').val(data.nilai_pencairan);
         $('.data-sisa_pinjaman').text(': Rp. '+formatRupiah(data.nilai_pencairan));
 
         keyup_penyusutan(data.nilai_pencairan);
@@ -600,6 +602,7 @@
             penyusutan = penyusutan == 0 ? 0 : penyusutan;
 
             var sisa_pinjaman = nilai_pencairan - penyusutan;
+            $('.data-nominal_total').val(sisa_pinjaman);
             var negative = condition_negative(sisa_pinjaman);
             var nominal_sisa_pinjaman = formatRupiah(sisa_pinjaman.toString());
 
@@ -607,17 +610,18 @@
             $('.data-sisa_pinjaman').val(sisa_pinjaman);
             biaya_titip(sisa_pinjaman, 'sisa_pinjaman');
         });        
-
-        console.log(nilai_pencairan);
     }
 
+    // 'jika sisa pinjaman menjadi nominalnya positif atau negatif'
     function condition_negative(sisa_pinjaman)
     {
         if(sisa_pinjaman >=0){
             $('.data-sisa_pinjaman').css('color', 'black');
+            $('.bayar').removeClass('disabled');
             return '';
         }else{
             $('.data-sisa_pinjaman').css('color', 'red');
+            $('.bayar').addClass('disabled');
             return '-';
         }
     }
@@ -673,6 +677,7 @@
         $('.data-nominal_biaya_titip').html(': Rp.'+nominal_biaya_titip);
 
         var total = sisa_pinjaman + biaya_titip + biaya_admin + tunggakan;
+        $('.data-nominal_total').val(total);
         total = formatRupiah(total.toString());
         $('.total_pembayaran').html(': Rp.'+total);
     }
@@ -691,6 +696,57 @@
 
             checkbox_wali.val(0);
         }
+    }
+
+    function bayar_akad_ulang()
+    {
+        var total = $('.data-nominal_total').val();
+        var format_total = formatRupiah(total.toString());
+
+        swal({
+            title: "Peringatan!",
+            text: 'Yakin melakukan pembayaran sebesar Rp. '+format_total+' ?',
+            icon: "warning",
+            // showCancelButton: true,
+            // confirmButtonClass: "btn-danger",
+            buttons: ["Tidak", "Ya"],
+            cancel: true,
+            confirm: true,
+        }).then((action) => {
+            if (action) {
+                // $.ajax({
+                //     url: '{{url("akad/ajax/bayar-akad")}}',
+                //     type: 'GET',
+                //     cache: false,
+                //     data:{
+                //         from:from, 
+                //         until:until,
+                //         id_akad:id_akad, 
+                //         type:type_button,
+                //         bt_7_hari:nominal, 
+                //         nilai_pencairan:nilai_pencairan,
+                //     },
+                //     success:function(result){	
+                //         // console.log(result);
+
+                //         swal("Pembayaran Biaya Titip Telah Berhasil", {
+                //             icon: "success",
+                //         });
+
+                //         window.location.href = '{{route("akad.nasabah-akad")}}';
+                //     },
+                //     error:function(xhr, ajaxOptions, thrownError){
+                //         console.log(thrownError)
+                //     }
+                // });
+            }else {
+                swal({
+                    title: "Pemberitahuan",
+                    text: "Oke, jika sudah benar silahkan klik tombol bayar",
+                    icon: "success",
+                });
+            }
+        });
     }
 
     //'TOMBOL AKAD LELANG'
