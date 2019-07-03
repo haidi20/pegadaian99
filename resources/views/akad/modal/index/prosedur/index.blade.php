@@ -476,6 +476,7 @@
 
     <input type="hidden" class="data-margin">
     <input type="hidden" class="data-potongan">
+    <input type="hidden" class="data-biaya_titip">
     <input type="hidden" class="data-nominal_total">
     <input type="hidden" class="data-sisa_pinjaman">
     <input type="hidden" class="default-biaya_admin">

@@ -511,7 +511,7 @@
 
     function modal_akad_ulang(data, type)
     {
-        console.log(data)
+        // console.log(data)
 
         $.each(data, function(index, item){
             var name = '.data-'+index;
@@ -543,6 +543,7 @@
         payment_option(data.opsi_pembayaran);
         jangka_waktu_akad(data.jangka_waktu_akad);
         tanggal_jatuh_tempo(data.jangka_waktu_akad, 'default');
+        bt_yang_dibayar(data, 'default');
     }
 
     function tanggal_jatuh_tempo(waktu, option)
@@ -575,17 +576,25 @@
         if(option == null){
             // if 'opsi pembayaran' default value
             $('.op_'+value).prop('checked', true);
+
             // if 'opsi pembayaran' onClick 
             $('.data-opsi_pembayaran').val(value);
         }else if(option == 'jangka_waktu_akad'){
             if(value == 7){
                 $('#op_15').hide();
+                // 'agar yg checked yg berdasarkan di pilih'
+                $('.data-opsi_pembayaran').val(value);
+                $('#op_'+value+' label input').prop('checked', true)
             }else{
                 $('#op_15').show();
             }
         }
 
+        console.log('op default = '+$('.data-opsi_pembayaran').val());
+        
         biaya_titip(value, 'opsi_pembayaran');
+
+        bt_yang_dibayar(value, 'opsi_pembayaran');
     } 
 
     function jangka_waktu_akad(value)
@@ -593,14 +602,16 @@
         // jwa is 'jangka waktu akad'
         $('.jwa_'+value).prop('selected', true);
 
-        $('.data-jangka_waktu_akad').val(value);
-
         $('#jangka_waktu_akad').change(function(){
             var waktu = $(this).children("option:selected").val();
+
+            $('.data-jangka_waktu_akad').val(waktu);
             
             tanggal_jatuh_tempo(waktu, 'pilih_jangka_waktu_akad');
 
             payment_option(waktu, 'jangka_waktu_akad');
+
+            bt_yang_dibayar(waktu, 'jangka_waktu_akad');
         });
     }
 
@@ -691,6 +702,79 @@
         $('.data-nominal_total').val(total);
         total = formatRupiah(total.toString());
         $('.total_pembayaran').html(': Rp.'+total);
+    }
+
+    function bt_yang_dibayar(value, option = null)
+    {
+        var maks        = '';
+        var tagOptions  = [];
+
+        if(option == 'jangka_waktu_akad'){
+            var jangka_waktu_akad = value;
+        }else if(option == 'default'){
+            var jangka_waktu_akad = value.jangka_waktu_akad;
+        }else{
+            var jangka_waktu_akad = $('.data-jangka_waktu_akad').val();
+        }
+
+        if(option == 'opsi_pembayaran'){
+            var opsi_pembayaran = value;
+        }else if(option == 'default'){
+            console.log('default ikut juga');
+            var opsi_pembayaran = value.opsi_pembayaran;
+        }else{
+            var opsi_pembayaran = $('.data-opsi_pembayaran').val();
+        }
+
+        if(jangka_waktu_akad == 7){
+            if(opsi_pembayaran == 1){
+                maks = 7;
+            }else if(opsi_pembayaran == 7){
+                maks = 1;
+            }
+        }else if(jangka_waktu_akad == 15){
+            if(opsi_pembayaran == 1){
+                maks = 15;
+            }else if(opsi_pembayaran == 7){
+                maks = 2;
+            }
+            else if(opsi_pembayaran == 15){
+                maks = 1;
+            }
+        }else if(jangka_waktu_akad == 30){
+            if(opsi_pembayaran == 1){
+                maks = 15;
+            }else if(opsi_pembayaran == 7){
+                maks = 4;
+            }
+            else if(opsi_pembayaran == 15){
+                maks = 2;
+            }
+        }else if(jangka_waktu_akad == 60){
+            if(opsi_pembayaran == 1){
+                maks = 15;
+            }else if(opsi_pembayaran == 7){
+                maks = 9;
+            }
+            else if(opsi_pembayaran == 15){
+                maks = 4;
+            }
+        }
+
+        for(var i = 0; i <= maks; i++){
+            if(i == 0){
+                tagOptions = tagOptions + '<option value="'+i+'" selected>'+i+'</option>';
+
+                //set value 'nilai biaya titip yang dibayar' 0
+                $('#nilai_bt_yang_dibayar').val(0);
+            }else{
+                tagOptions = tagOptions + '<option value="'+i+'">'+i+'</option>';
+            }
+        }
+
+        $('#bt_yang_dibayar').html(tagOptions);
+
+        console.log('jwa = '+jangka_waktu_akad, 'op = '+opsi_pembayaran);
     }
 
     function info_wali()
