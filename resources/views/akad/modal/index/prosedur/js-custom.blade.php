@@ -539,8 +539,12 @@
         $('.data-sisa_pinjaman').val(data.nilai_pencairan);
         $('.data-sisa_pinjaman').text(': Rp. '+formatRupiah(data.nilai_pencairan));
 
-        keyup_penyusutan(data.nilai_pencairan);
+        // 'setiap membuka akad ulang opsi pembayaran 15 terbuka'
+        $('#op_15').show();
+
         payment_option(data.opsi_pembayaran);
+        bt_yang_dibayar();
+        keyup_penyusutan(data.nilai_pencairan);
         jangka_waktu_akad(data.jangka_waktu_akad);
         tanggal_jatuh_tempo(data.jangka_waktu_akad, 'default');
         bt_yang_dibayar(data, 'default');
@@ -704,10 +708,25 @@
         $('.total_pembayaran').html(': Rp.'+total);
     }
 
-    function bt_yang_dibayar(value, option = null)
+    function bt_yang_dibayar(value = null, option = null)
     {
         var maks        = '';
         var tagOptions  = [];
+
+        if(option == 'default'){
+            // condition if 'biaya titip yang dibayar' choose value number
+            $('#bt_yang_dibayar').change(function(){
+                var value = $(this).children("option:selected").val();
+
+                console.log(value);
+
+                // determine 'biaya titip'
+                // biaya_titip(value, 'bt_yang_dibayar');
+
+                // determine 'bt_minggu_ke'
+                // bt_minggu_ke(value);
+            });
+        }
 
         if(option == 'jangka_waktu_akad'){
             var jangka_waktu_akad = value;
@@ -720,7 +739,6 @@
         if(option == 'opsi_pembayaran'){
             var opsi_pembayaran = value;
         }else if(option == 'default'){
-            console.log('default ikut juga');
             var opsi_pembayaran = value.opsi_pembayaran;
         }else{
             var opsi_pembayaran = $('.data-opsi_pembayaran').val();
@@ -766,7 +784,7 @@
                 tagOptions = tagOptions + '<option value="'+i+'" selected>'+i+'</option>';
 
                 //set value 'nilai biaya titip yang dibayar' 0
-                $('#nilai_bt_yang_dibayar').val(0);
+                // $('#nilai_bt_yang_dibayar').val(0);
             }else{
                 tagOptions = tagOptions + '<option value="'+i+'">'+i+'</option>';
             }
@@ -774,7 +792,7 @@
 
         $('#bt_yang_dibayar').html(tagOptions);
 
-        console.log('jwa = '+jangka_waktu_akad, 'op = '+opsi_pembayaran);
+        // console.log('jwa = '+jangka_waktu_akad, 'op = '+opsi_pembayaran);
     }
 
     function info_wali()
