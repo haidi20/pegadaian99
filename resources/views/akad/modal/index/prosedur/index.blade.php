@@ -180,6 +180,7 @@
                                                         <td class="title-form">
                                                             <div class="checkbox-color checkbox-success checkbox-wali">
                                                                 <input type="checkbox" name="checkbox_wali" id="checkbox_wali" value="0" onClick="info_wali()">
+                                                                
                                                                 <label for="checkbox_wali">
                                                                     Data Perwakilan / Wali :
                                                                 </label>
@@ -194,6 +195,7 @@
                                                             <div class="form-group row">
                                                                 <div class="col-sm-10">
                                                                     <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap" required>
+                                                                    <input type="hidden" name="checkbox_wali" class="checkbox_wali_value" value="0">
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -469,20 +471,21 @@
                 <button type="button" class="btn btn-default btn-info waves-effect" id="previous" onClick="action_au('previous')" style="display:none">Sebelumnya</button>
                 <button type="button" class="btn btn-default btn-success waves-effect" id="next" onClick="action_au('next')">Selanjutnya</button>
             </div>
+
+            <input type="hidden" class="data-margin" name="data-margin">
+            <input type="hidden" class="data-id_akad" name="data-id_akad">
+            <input type="hidden" class="data-potongan" name="data-potongan">
+            <input type="hidden" class="data-biaya_titip" name="data-biaya_titip">
+            <input type="hidden" class="data-nominal_total" name="data-nominal_total">
+            <input type="hidden" class="data-sisa_pinjaman" name="data-sisa_pinjaman">
+            <input type="hidden" class="default-biaya_admin" name="default-biaya_admin">
+            <input type="hidden" class="data-opsi_pembayaran" name="data-opsi_pembayaran">
+            <input type="hidden" class="data-bt_yang_dibayar" name="data-bt_yang_dibayar">
+            <input type="hidden" class="default-bt_tertunggak" name="default-bt_tertunggak">
+            <input type="hidden" class="data-jangka_waktu_akad" name="data-jangka_waktu_akad">
             </form>
         </div>
     </div>
-
-    <input type="hidden" class="data-margin">
-    <input type="hidden" class="data-potongan">
-    <input type="hidden" class="data-biaya_titip">
-    <input type="hidden" class="data-nominal_total">
-    <input type="hidden" class="data-sisa_pinjaman">
-    <input type="hidden" class="default-biaya_admin">
-    <input type="hidden" class="data-opsi_pembayaran">
-    <input type="hidden" class="default-bt_tertunggak">
-    <input type="hidden" class="data-jangka_waktu_akad">
-    <input type="hidden" class="data-bt_yang_dibayar">
 </div>
 
 <div class="modal fade" id="modal-lelang"  tabindex="-1" aria-hidden="true" style='z-index:10000;' role="dialog">

@@ -533,6 +533,7 @@
 
             kondisi_jenis_barang(index, item);
         });
+        $('.data-id_akad').val(data.id_akad);
         $('.default-biaya_admin').val(data.biaya_admin);
         $('.default-bt_tertunggak').val(data.bt_tertunggak);
         $('#penyusutan').val('');
@@ -833,21 +834,28 @@
         var form_wali       = $('#table-wali');
         var checkbox_wali   = $('#checkbox_wali');
 
+        var checkbox_wali_value   = $('.checkbox_wali_value');
+
         if(checkbox_wali.val() == 0){
             form_wali.css('display', '');
 
             checkbox_wali.val(1);
+            checkbox_wali_value.val(1);
         }else{
             form_wali.css('display', 'none');
 
             checkbox_wali.val(0);
+            checkbox_wali_value.val(0);
         }
     }
 
     function bayar_akad_ulang()
     {
-        var total = $('.data-nominal_total').val();
-        var format_total = formatRupiah(total.toString());
+        var data            = $('.form-akad-ulang').serializeArray(); 
+        var total           = $('.data-nominal_total').val();
+        var format_total    = formatRupiah(total.toString());
+
+        console.log(data);
 
         swal({
             title: "Peringatan!",
