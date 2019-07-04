@@ -446,6 +446,16 @@
                                                         <td class="total_pembayaran"></td>
                                                     </tr>
                                                     <tr>
+                                                        <td>Status Maintenance </td>
+                                                        <td class="data-status_maintenance"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Laporan Maintenance</td>
+                                                        <td>
+                                                            <textarea rows="5" cols="3" class="form-control data-laporan_maintenance" id="laporan_maintenance" name="laporan_maintenance" disabled></textarea>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>
                                                             <a href="#" class="btn btn-sm btn-info bayar" onClick="bayar_akad_ulang()">
                                                                 Bayar

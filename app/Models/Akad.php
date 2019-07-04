@@ -184,6 +184,11 @@ class Akad extends Model
         return 'Rp. '.nominal($this->nilai_pencairan);
     }
 
+    public function getStatusMaintenanceAttribute()
+    {
+        return $this->maintenance == 0 ? 'Belum Diperiksa' : 'Sudah Diperiksa';
+    }
+
     public function getDataTunggakanAttribute()
     {
         $biaya_titip = Biaya_titip::where('no_id', $this->no_id)->get();

@@ -811,9 +811,6 @@
 
         // 'rumus jumlah biaya titip yang dibayar'
         var jml_bt_yang_dibayar = biaya_titip * bt_yang_dibayar
-        console.log(' bt dibayar = '+bt_yang_dibayar);
-        console.log(' biaya titip = '+biaya_titip);
-        console.log(' sisa pinjaman = '+sisa_pinjaman);
 
         var nominal_biaya_titip     = formatRupiah(biaya_titip.toString());
 
@@ -855,8 +852,6 @@
         var total           = $('.data-nominal_total').val();
         var format_total    = formatRupiah(total.toString());
 
-        console.log(data);
-
         swal({
             title: "Peringatan!",
             text: 'Yakin melakukan pembayaran sebesar Rp. '+format_total+' ?',
@@ -868,31 +863,26 @@
             confirm: true,
         }).then((action) => {
             if (action) {
-                // $.ajax({
-                //     url: '{{url("akad/ajax/bayar-akad")}}',
-                //     type: 'GET',
-                //     cache: false,
-                //     data:{
-                //         from:from, 
-                //         until:until,
-                //         id_akad:id_akad, 
-                //         type:type_button,
-                //         bt_7_hari:nominal, 
-                //         nilai_pencairan:nilai_pencairan,
-                //     },
-                //     success:function(result){	
-                //         // console.log(result);
+                $.ajax({
+                    url: '{{url("akad/ajax/bayar-akad-ulang")}}',
+                    type: 'GET',
+                    cache: false,
+                    data:{
+                        data:data,
+                    },
+                    success:function(result){	
+                        console.log(result);
 
-                //         swal("Pembayaran Biaya Titip Telah Berhasil", {
-                //             icon: "success",
-                //         });
+                        // swal("Pembayaran Biaya Titip Telah Berhasil", {
+                        //     icon: "success",
+                        // });
 
-                //         window.location.href = '{{route("akad.nasabah-akad")}}';
-                //     },
-                //     error:function(xhr, ajaxOptions, thrownError){
-                //         console.log(thrownError)
-                //     }
-                // });
+                        // window.location.href = '{{route("akad.nasabah-akad")}}';
+                    },
+                    error:function(xhr, ajaxOptions, thrownError){
+                        console.log(thrownError)
+                    }
+                });
             }else {
                 swal({
                     title: "Pemberitahuan",

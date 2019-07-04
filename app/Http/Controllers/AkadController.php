@@ -80,6 +80,7 @@ class AkadController extends Controller
         $findAkad['nilai_pencairan']            = $findAkad->nilai_pencairan; 
         $findAkad['status_tunggakan']           = $findAkad->data_tunggakan->status_tunggakan;
         $findAkad['waktu_tertunggak']           = $findAkad->data_tunggakan->waktu_tertunggak; 
+        $findAkad['status_maintenance']         = $findAkad->status_maintenance;
         $findAkad['bt_tertunggak_biasa']        = $findAkad->data_tunggakan->nominalBiasa;
         $findAkad['nominal_biaya_titip']        = $findAkad->nominal_biaya_titip; 
         $findAkad['nominal_nilai_tafsir']       = $findAkad->nominal_nilai_tafsir; 
@@ -130,7 +131,14 @@ class AkadController extends Controller
 
     public function akad_ulang()
     {
+        $data = request('data');
+        $akad_ulang = [];
 
+        foreach ($data as $index => $item) {
+            $akad_ulang[$item['name']] = $item['value'];
+        }
+
+        return $akad_ulang;
     }
 
     public function akad_lelang()
