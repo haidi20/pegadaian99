@@ -404,7 +404,7 @@
                                                                 @foreach($paymentOption as $index => $item)
                                                                     <div class="radio radio-inline" id="op_{{$item['value']}}" > 
                                                                         <label>
-                                                                            <input type="radio" class="op_{{$item['value']}}" name="opsi_pembayaran" onClick="payment_option('{{$item['value']}}')" value="{{$item['value']}}">
+                                                                            <input type="radio" class="op_{{$item['value']}}" name="opsi_pembayaran" onClick="click_payment_option('{{$item['value']}}')" value="{{$item['value']}}">
                                                                             <i class="helper"></i> {{$item['text']}}
                                                                         </label>
                                                                     </div>
@@ -425,7 +425,6 @@
                                                                     <select name="bt_yang_dibayar" id="bt_yang_dibayar" class="form-control" >
                                                                         {{-- execution in jquery --}}
                                                                     </select> 
-                                                                    <input type="hidden" id="nilai_bt_yang_dibayar">
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -483,6 +482,7 @@
     <input type="hidden" class="data-opsi_pembayaran">
     <input type="hidden" class="default-bt_tertunggak">
     <input type="hidden" class="data-jangka_waktu_akad">
+    <input type="hidden" class="data-bt_yang_dibayar">
 </div>
 
 <div class="modal fade" id="modal-lelang"  tabindex="-1" aria-hidden="true" style='z-index:10000;' role="dialog">

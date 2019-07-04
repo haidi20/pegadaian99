@@ -511,7 +511,7 @@
 
     function modal_akad_ulang(data, type)
     {
-        // console.log(data)
+        console.log(data)
 
         $.each(data, function(index, item){
             var name = '.data-'+index;
@@ -540,7 +540,11 @@
         $('.data-sisa_pinjaman').text(': Rp. '+formatRupiah(data.nilai_pencairan));
 
         // 'setiap membuka akad ulang opsi pembayaran 15 terbuka'
-        $('#op_15').show();
+        if(data.jangka_waktu_akad <= 7){
+            $('#op_15').hide();
+        }else{
+            $('#op_15').show();
+        }
 
         payment_option(data.opsi_pembayaran);
         bt_yang_dibayar();
@@ -574,27 +578,37 @@
         $('.name-kelengkapan_barang_tiga').html(barang_tiga);
     }
 
-
-    function payment_option(value, option = null)
+    function click_payment_option(value, option = null)
     {
-        if(option == null){
-            // if 'opsi pembayaran' default value
-            $('.op_'+value).prop('checked', true);
+        // console.log('nilai opsi pembayaran = '+value);
 
-            // if 'opsi pembayaran' onClick 
-            $('.data-opsi_pembayaran').val(value);
-        }else if(option == 'jangka_waktu_akad'){
+        if(option == 'jangka_waktu_akad'){
             if(value == 7){
                 $('#op_15').hide();
                 // 'agar yg checked yg berdasarkan di pilih'
-                $('.data-opsi_pembayaran').val(value);
-                $('#op_'+value+' label input').prop('checked', true)
+                // $('.data-opsi_pembayaran').val(value);
+                // $('#op_'+value+' label input').prop('checked', true)
             }else{
                 $('#op_15').show();
             }
         }
 
-        console.log('op default = '+$('.data-opsi_pembayaran').val());
+        // if 'opsi pembayaran' default value
+        $('.op_'+value).prop('checked', true);
+
+        // if 'opsi pembayaran' onClick 
+        $('.data-opsi_pembayaran').val(value);
+
+        biaya_titip(value, 'opsi_pembayaran');
+
+        bt_yang_dibayar(value, 'opsi_pembayaran');
+    }
+
+    // MASIH BERMASALAH 
+    function payment_option(value, option = null)
+    {
+        $('#op_'+value+' label input').prop('checked', true)
+        $('.data-opsi_pembayaran').val(value);
         
         biaya_titip(value, 'opsi_pembayaran');
 
@@ -613,7 +627,7 @@
             
             tanggal_jatuh_tempo(waktu, 'pilih_jangka_waktu_akad');
 
-            payment_option(waktu, 'jangka_waktu_akad');
+            click_payment_option(waktu, 'jangka_waktu_akad');
 
             bt_yang_dibayar(waktu, 'jangka_waktu_akad');
         });
@@ -634,6 +648,7 @@
 
             $('.data-sisa_pinjaman').text(': Rp. '+negative+nominal_sisa_pinjaman);
             $('.data-sisa_pinjaman').val(sisa_pinjaman);
+
             biaya_titip(sisa_pinjaman, 'sisa_pinjaman');
         });        
     }
@@ -652,62 +667,6 @@
         }
     }
 
-    // value == 'nilai sisa_pinjaman atau opsi pembyaran'
-    // option between 'sisa_pinjaman' and 'opsi pembayaran'
-    function biaya_titip(value, option)
-    {        
-        // 'margin == persenan'
-        var margin              = $('.data-margin').val() / 100;
-        var potongan            = $('.data-potongan').val();
-        var tunggakan           = $('.default-bt_tertunggak').val().replace(".", "").replace(".", "");
-        tunggakan               = Number(tunggakan);
-        var biaya_admin         = $('.default-biaya_admin').val().replace("Rp", "").replace(".", "").replace(".", "");
-        biaya_admin             = Number(biaya_admin);
-
-        if(option == 'sisa_pinjaman'){
-            var sisa_pinjaman      = value;
-        }else{
-            var sisa_pinjaman      = $('.data-sisa_pinjaman').val();
-        }
-        sisa_pinjaman = Number(sisa_pinjaman);
-
-        if(option == 'opsi_pembayaran'){
-            var opsi_pembayaran = value;
-        }else{
-            var opsi_pembayaran = $('.data-opsi_pembayaran').val();
-        }
-
-        if(opsi_pembayaran == 1){
-            var biaya_titip = (sisa_pinjaman * margin - potongan) / 2 / 7;
-        }else if(opsi_pembayaran == 7){
-            var biaya_titip = (sisa_pinjaman * margin - potongan) / 2;
-        }else if (opsi_pembayaran == 15){
-            var biaya_titip = sisa_pinjaman * margin ;
-        }
-
-        // condition for negatif number of 'biaya titip'
-        biaya_titip = biaya_titip <= 0 ? 0 : biaya_titip;
-
-        if(biaya_titip >= 1000 && biaya_titip != 0){
-            thousand_bt             = 1000;
-        }else{
-            thousand_bt             = 1;
-        }
-
-        biaya_titip     = format_nominal(biaya_titip);
-        biaya_titip     = biaya_titip.replace("Rp", "");
-        biaya_titip     = Math.ceil(biaya_titip) * thousand_bt;
-        biaya_titip     = Number(biaya_titip);
-        var nominal_biaya_titip     = formatRupiah(biaya_titip.toString());
-
-        $('.data-nominal_biaya_titip').html(': Rp.'+nominal_biaya_titip);
-
-        var total = sisa_pinjaman + biaya_titip + biaya_admin + tunggakan;
-        $('.data-nominal_total').val(total);
-        total = formatRupiah(total.toString());
-        $('.total_pembayaran').html(': Rp.'+total);
-    }
-
     function bt_yang_dibayar(value = null, option = null)
     {
         var maks        = '';
@@ -718,13 +677,12 @@
             $('#bt_yang_dibayar').change(function(){
                 var value = $(this).children("option:selected").val();
 
-                console.log(value);
+                if($('.data-bt_yang_dibayar').val() != 0){
+                    $('.data-bt_yang_dibayar').val(value);
+                }
 
                 // determine 'biaya titip'
-                // biaya_titip(value, 'bt_yang_dibayar');
-
-                // determine 'bt_minggu_ke'
-                // bt_minggu_ke(value);
+                biaya_titip(value, 'bt_yang_dibayar');
             });
         }
 
@@ -784,7 +742,7 @@
                 tagOptions = tagOptions + '<option value="'+i+'" selected>'+i+'</option>';
 
                 //set value 'nilai biaya titip yang dibayar' 0
-                // $('#nilai_bt_yang_dibayar').val(0);
+                $('.data-bt_yang_dibayar').val(0);
             }else{
                 tagOptions = tagOptions + '<option value="'+i+'">'+i+'</option>';
             }
@@ -793,6 +751,81 @@
         $('#bt_yang_dibayar').html(tagOptions);
 
         // console.log('jwa = '+jangka_waktu_akad, 'op = '+opsi_pembayaran);
+    }
+
+    // value == 'nilai sisa_pinjaman, opsi pembyaran, dan biaya titip yang dibayar'
+    // option between 'sisa_pinjaman, opsi pembayaran dan biaya titip yang dibayar'
+    function biaya_titip(value, option)
+    {        
+        // 'margin == persenan'
+        var margin              = $('.data-margin').val() / 100;
+        var potongan            = $('.data-potongan').val();
+        var tunggakan           = $('.default-bt_tertunggak').val().replace(".", "").replace(".", "");
+        tunggakan               = Number(tunggakan);
+        var biaya_admin         = $('.default-biaya_admin').val().replace("Rp", "").replace(".", "").replace(".", "");
+        biaya_admin             = Number(biaya_admin);
+
+        if(option == 'sisa_pinjaman'){
+            var sisa_pinjaman      = value;
+        }else{
+            var sisa_pinjaman      = $('.data-sisa_pinjaman').val();
+        }
+        sisa_pinjaman = Number(sisa_pinjaman);
+
+        if(option == 'opsi_pembayaran'){
+            var opsi_pembayaran = value;
+        }else{
+            var opsi_pembayaran = $('.data-opsi_pembayaran').val();
+        }
+
+        if(option == 'bt_yang_dibayar'){
+            var bt_yang_dibayar = value;
+        }else{
+            var bt_yang_dibayar = $('.data-bt_yang_dibayar').val();
+        }
+
+        // console.log('biaya titip yang dibayar = '+bt_yang_dibayar);
+
+        if(opsi_pembayaran == 1){
+            var biaya_titip = (sisa_pinjaman * margin - potongan) / 2 / 7;
+        }else if(opsi_pembayaran == 7){
+            var biaya_titip = (sisa_pinjaman * margin - potongan) / 2;
+        }else if (opsi_pembayaran == 15){
+            var biaya_titip = sisa_pinjaman * margin ;
+        }
+
+        // condition for negatif number of 'biaya titip'
+        biaya_titip = biaya_titip <= 0 ? 0 : biaya_titip;
+
+        if(biaya_titip >= 1000 && biaya_titip != 0){
+            thousand_bt             = 1000;
+        }else{
+            thousand_bt             = 1;
+        }
+
+        biaya_titip     = format_nominal(biaya_titip);
+        biaya_titip     = biaya_titip.replace("Rp", "");
+        biaya_titip     = Math.ceil(biaya_titip) * thousand_bt;
+        biaya_titip     = Number(biaya_titip);
+
+        // 'rumus jumlah biaya titip yang dibayar'
+        var jml_bt_yang_dibayar = biaya_titip * bt_yang_dibayar
+        console.log(' bt dibayar = '+bt_yang_dibayar);
+        console.log(' biaya titip = '+biaya_titip);
+        console.log(' sisa pinjaman = '+sisa_pinjaman);
+
+        var nominal_biaya_titip     = formatRupiah(biaya_titip.toString());
+
+        $('.data-nominal_biaya_titip').html(': Rp.'+nominal_biaya_titip);
+
+        
+        var total = sisa_pinjaman + jml_bt_yang_dibayar + biaya_admin + tunggakan;
+        $('.data-nominal_total').val(total);
+        total = formatRupiah(total.toString());
+        $('.total_pembayaran').html(': Rp.'+total);
+
+        format_jml_bt_yang_dibayar     = formatRupiah(jml_bt_yang_dibayar.toString());
+        $('.jml_bt_yang_dibayar').html(': Rp. '+format_jml_bt_yang_dibayar);
     }
 
     function info_wali()
