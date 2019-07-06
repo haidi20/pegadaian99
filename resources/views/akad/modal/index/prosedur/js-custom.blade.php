@@ -649,8 +649,14 @@
 
             $('.data-sisa_pinjaman').text(': Rp. '+negative+nominal_sisa_pinjaman);
             $('.data-sisa_pinjaman').val(sisa_pinjaman);
+            $('.data-penyusutan').val(penyusutan);
 
-            biaya_titip(sisa_pinjaman, 'sisa_pinjaman');
+            var data = {
+                penyusutan,
+                sisa_pinjaman
+            }
+
+            biaya_titip(data, 'sisa_pinjaman');
         });        
     }
 
@@ -767,11 +773,14 @@
         biaya_admin             = Number(biaya_admin);
 
         if(option == 'sisa_pinjaman'){
-            var sisa_pinjaman      = value;
+            var penyusutan          = value.penyusutan;
+            var sisa_pinjaman       = value.sisa_pinjaman;
         }else{
-            var sisa_pinjaman      = $('.data-sisa_pinjaman').val();
+            var penyusutan          = $('.data-penyusutan').val();
+            var sisa_pinjaman       = $('.data-sisa_pinjaman').val();
         }
-        sisa_pinjaman = Number(sisa_pinjaman);
+        penyusutan      = Number(penyusutan);
+        sisa_pinjaman   = Number(sisa_pinjaman);
 
         if(option == 'opsi_pembayaran'){
             var opsi_pembayaran = value;
@@ -785,7 +794,7 @@
             var bt_yang_dibayar = $('.data-bt_yang_dibayar').val();
         }
 
-        // console.log('biaya titip yang dibayar = '+bt_yang_dibayar);
+        // console.log('sisa pinjaman = '+sisa_pinjaman);
 
         if(opsi_pembayaran == 1){
             var biaya_titip = (sisa_pinjaman * margin - potongan) / 2 / 7;
@@ -817,7 +826,7 @@
         $('.data-nominal_biaya_titip').html(': Rp.'+nominal_biaya_titip);
 
         
-        var total = sisa_pinjaman + jml_bt_yang_dibayar + biaya_admin + tunggakan;
+        var total = penyusutan + jml_bt_yang_dibayar + biaya_admin + tunggakan;
         $('.data-nominal_total').val(total);
         total = formatRupiah(total.toString());
         $('.total_pembayaran').html(': Rp.'+total);
