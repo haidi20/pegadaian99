@@ -129,16 +129,22 @@ class AkadController extends Controller
         $this->insert_bea_titip($dataAkad->first(), $keterangan);
     }
 
-    public function akad_ulang()
+    public function bayar_akad_ulang()
     {
         $data = request('data');
-        $akad_ulang = [];
+        $get_data = [];
 
         foreach ($data as $index => $item) {
-            $akad_ulang[$item['name']] = $item['value'];
+            $title = str_replace('data-', '', $item['name']);
+            $get_data[$title] = $item['value'];
         }
 
-        return $akad_ulang;
+        // if exist data 'wali nasabah'
+        if($get_data['checkbox_wali'] == 1){
+            $this->insert_nasabah($get_data);
+        }
+
+        return $akad = $this->akad->find($get_data['id_akad']);
     }
 
     public function akad_lelang()

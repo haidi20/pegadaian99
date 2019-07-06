@@ -511,7 +511,7 @@
 
     function modal_akad_ulang(data, type)
     {
-        console.log(data)
+        console.log(data);
 
         $.each(data, function(index, item){
             var name = '.data-'+index;
