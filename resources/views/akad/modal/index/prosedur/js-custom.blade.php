@@ -650,6 +650,7 @@
             $('.data-sisa_pinjaman').text(': Rp. '+negative+nominal_sisa_pinjaman);
             $('.data-sisa_pinjaman').val(sisa_pinjaman);
             $('.data-penyusutan').val(penyusutan);
+            $('#bt_yang_dibayar>option:eq(0)').prop('selected', true);
 
             var data = {
                 penyusutan,

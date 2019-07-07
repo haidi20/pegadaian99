@@ -144,7 +144,19 @@ class AkadController extends Controller
             $this->insert_nasabah($get_data);
         }
 
-        return $akad = $this->akad->find($get_data['id_akad']);
+        if($get_data['penyusutan'] > 0){
+            
+        }
+
+        $akad = $this->akad->find($get_data['id_akad']);
+
+        $id_cabang          = $akad->id_cabang;
+        $nilai_pencairan    = $get_data['penyusutan'];
+
+        $data = (object) compact('id_cabang', 'nilai_pencairan');
+
+        // return $data->id_cabang;
+        return $get_data;
     }
 
     public function akad_lelang()
@@ -701,6 +713,7 @@ class AkadController extends Controller
         }
     }
 
+    // 'kas admin'
     public function insert_kas_cabang($data)
     {
         $findKasCabang = $this->kas_cabang->where('id_cabang', $data->id_cabang)->first();
@@ -719,6 +732,8 @@ class AkadController extends Controller
         }   
     }
 
+    // 'kas saldo'
+    // condition between 'tambah dan kurang'
     public function insert_saldo_cabang($data, $condition)
     {
         $saldoCabang = $this->saldo_cabang->where('id_cabang', $data->id_cabang);
