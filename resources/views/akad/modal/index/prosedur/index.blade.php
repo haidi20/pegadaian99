@@ -487,13 +487,15 @@
             <input type="hidden" class="data-potongan" name="data-potongan">
             <input type="hidden" class="data-penyusutan" name="data-penyusutan">
             <input type="hidden" class="data-biaya_titip" name="data-biaya_titip">
-            <input type="hidden" class="data-nominal_total" name="data-nominal_total">
             <input type="hidden" class="data-sisa_pinjaman" name="data-sisa_pinjaman">
+            <input type="hidden" class="data-nominal_total" name="data-nominal_total">
+            <input type="hidden" class="data-biaya_admin_biasa" name="data-biaya_admin">
             <input type="hidden" class="default-biaya_admin" name="default-biaya_admin">
             <input type="hidden" class="data-opsi_pembayaran" name="data-opsi_pembayaran">
             <input type="hidden" class="data-bt_yang_dibayar" name="data-bt_yang_dibayar">
             <input type="hidden" class="default-bt_tertunggak" name="default-bt_tertunggak">
             <input type="hidden" class="data-jangka_waktu_akad" name="data-jangka_waktu_akad">
+            <input type="hidden" class="data-jml_bt_yang_dibayar" name="data-jml_bt_yang_dibayar">
             </form>
         </div>
     </div>

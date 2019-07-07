@@ -74,6 +74,7 @@ class AkadController extends Controller
         $findAkad['potongan']                   = $this->setting->baseBranch()->jenisBarang($findAkad->jenis_barang)->value('potongan'); 
         $findAkad['bt_terbayar']                = $findAkad->data_tunggakan->totalTerbayar;
         $findAkad['waktu_sudah']                = $findAkad->data_tunggakan->waktu_sudah;
+        $findAkad['biaya_admin_biasa']          = $findAkad->biaya_admin;
         $findAkad['biaya_admin']                = $findAkad->nominal_biaya_admin;
         $findAkad['nilai_tafsir']               = $findAkad->nilai_tafsir; 
         $findAkad['bt_tertunggak']              = $findAkad->data_tunggakan->nominal;
@@ -124,6 +125,7 @@ class AkadController extends Controller
             $data = (object) compact('id_cabang', 'nilai_pencairan');
 
             $this->insert_saldo_cabang($data, 'tambah');
+            //  JANGAN LUPA LOG_SALDO_CABANG
         }
         
         $this->insert_bea_titip($dataAkad->first(), $keterangan);
@@ -151,12 +153,15 @@ class AkadController extends Controller
         $akad = $this->akad->find($get_data['id_akad']);
 
         $id_cabang          = $akad->id_cabang;
+        $tertunggak         = remove_dot($get_data['default-bt_tertunggak']);
         $nilai_pencairan    = $get_data['penyusutan'];
+        $bt_yang_dibayar    = 
 
         $data = (object) compact('id_cabang', 'nilai_pencairan');
 
         // return $data->id_cabang;
         return $get_data;
+        // return $tertunggak;
     }
 
     public function akad_lelang()

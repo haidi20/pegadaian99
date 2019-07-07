@@ -579,6 +579,7 @@
         $('.name-kelengkapan_barang_tiga').html(barang_tiga);
     }
 
+    // option between 'jangka waktu akad' and 'default'
     function click_payment_option(value, option = null)
     {
         // console.log('nilai opsi pembayaran = '+value);
@@ -603,6 +604,14 @@
         biaya_titip(value, 'opsi_pembayaran');
 
         bt_yang_dibayar(value, 'opsi_pembayaran');
+
+        //'PENTING untuk JUMLAH BIAYA TITIP YANG DIBAYAR'
+        // 'ketika bt yg dibayar jadi 0'
+        // 'maka jumlah bt yg dibayar menjadi 0'
+        $('.jml_bt_yang_dibayar').html(': Rp. 0');
+        $('.data-jml_bt_yang_dibayar').val(0);
+
+        // console.log( 'ketika click op, bilai bt = '+$('.data-bt_yang_dibayar').val())
     }
 
     // MASIH BERMASALAH 
@@ -686,11 +695,14 @@
                 var value = $(this).children("option:selected").val();
 
                 if($('.data-bt_yang_dibayar').val() != 0){
-                    $('.data-bt_yang_dibayar').val(value);
+                   
                 }
 
                 // determine 'biaya titip'
                 biaya_titip(value, 'bt_yang_dibayar');
+
+                $('.data-bt_yang_dibayar').val(value);
+                // console.log('bt yang di bayar = '+value);
             });
         }
 
@@ -757,8 +769,6 @@
         }
 
         $('#bt_yang_dibayar').html(tagOptions);
-
-        // console.log('jwa = '+jangka_waktu_akad, 'op = '+opsi_pembayaran);
     }
 
     // value == 'nilai sisa_pinjaman, opsi pembyaran, dan biaya titip yang dibayar'
@@ -795,8 +805,6 @@
             var bt_yang_dibayar = $('.data-bt_yang_dibayar').val();
         }
 
-        // console.log('sisa pinjaman = '+sisa_pinjaman);
-
         if(opsi_pembayaran == 1){
             var biaya_titip = (sisa_pinjaman * margin - potongan) / 2 / 7;
         }else if(opsi_pembayaran == 7){
@@ -821,6 +829,7 @@
 
         // 'rumus jumlah biaya titip yang dibayar'
         var jml_bt_yang_dibayar = biaya_titip * bt_yang_dibayar
+        $('.data-jml_bt_yang_dibayar').val(jml_bt_yang_dibayar);
 
         var nominal_biaya_titip     = formatRupiah(biaya_titip.toString());
 
