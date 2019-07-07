@@ -155,13 +155,12 @@ class AkadController extends Controller
         $id_cabang          = $akad->id_cabang;
         $tertunggak         = remove_dot($get_data['default-bt_tertunggak']);
         $nilai_pencairan    = $get_data['penyusutan'];
-        $bt_yang_dibayar    = 
+        $jml_bt_yang_dibayar= $get_data['jml_bt_yang_dibayar']; 
 
         $data = (object) compact('id_cabang', 'nilai_pencairan');
 
         // return $data->id_cabang;
-        return $get_data;
-        // return $tertunggak;
+        return $tertunggak + $jml_bt_yang_dibayar;
     }
 
     public function akad_lelang()

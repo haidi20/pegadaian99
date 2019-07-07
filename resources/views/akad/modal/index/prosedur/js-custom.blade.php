@@ -553,6 +553,7 @@
         jangka_waktu_akad(data.jangka_waktu_akad);
         tanggal_jatuh_tempo(data.jangka_waktu_akad, 'default');
         bt_yang_dibayar(data, 'default');
+        condition_button_pay('disabled');
     }
 
     function tanggal_jatuh_tempo(waktu, option)
@@ -651,6 +652,19 @@
             var penyusutan = this.value.replace(",","").replace(".","").replace(".","").replace(".","").replace(".","");
             penyusutan = penyusutan == 0 ? 0 : penyusutan;
 
+            var number_penyusutan      = Number(penyusutan);
+            var number_nilai_pencairan = Number(nilai_pencairan);
+
+            if(number_penyusutan > 0){
+                if(number_penyusutan <= number_nilai_pencairan){
+                    condition_button_pay('active');
+                }else{
+                    condition_button_pay('disabled');
+                }
+            }else{
+                condition_button_pay('disabled');
+            }
+
             var sisa_pinjaman = nilai_pencairan - penyusutan;
             $('.data-nominal_total').val(sisa_pinjaman);
             var negative = condition_negative(sisa_pinjaman);
@@ -671,16 +685,28 @@
     }
 
     // 'jika sisa pinjaman menjadi nominalnya positif atau negatif'
+    // 
     function condition_negative(sisa_pinjaman)
     {
-        if(sisa_pinjaman >=0){
+        if(sisa_pinjaman > 0){
             $('.data-sisa_pinjaman').css('color', 'black');
-            $('.bayar').removeClass('disabled');
+            // condition_button_pay('active');
             return '';
         }else{
             $('.data-sisa_pinjaman').css('color', 'red');
-            $('.bayar').addClass('disabled');
+            // condition_button_pay('disabled');
             return '-';
+        }
+    }
+
+    // 'kondisi tombol bayar untuk bisa aktif atau terkunci'
+    // option between active and disabled
+    function condition_button_pay(option)
+    {
+        if(option == 'active'){
+            $('.bayar').removeClass('disabled');
+        }else if(option == 'disabled'){
+            $('.bayar').addClass('disabled');
         }
     }
 
