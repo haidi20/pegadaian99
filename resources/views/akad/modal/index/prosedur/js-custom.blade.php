@@ -636,15 +636,12 @@
         }
 
         if(value != 30 && value != 60){
-            console.log('tetap masuk');
             $('#op_'+value+' label input').prop('checked', true)
             $('.data-opsi_pembayaran').val(value);
 
             biaya_titip(value, 'opsi_pembayaran');
 
             bt_yang_dibayar(value, 'opsi_pembayaran');
-
-            console.log('nilai = '+value, 'option = '+option);
         }        
     } 
 
@@ -899,46 +896,13 @@
         var data            = $('.form-akad-ulang').serializeArray(); 
         var total           = $('.data-nominal_total').val();
         var format_total    = formatRupiah(total.toString());
+        var modal_akad_ulang= $('#modal-akad-ulang');
 
-        swal({
-            title: "Peringatan!",
-            text: 'Yakin melakukan pembayaran sebesar Rp. '+format_total+' ?',
-            icon: "warning",
-            // showCancelButton: true,
-            // confirmButtonClass: "btn-danger",
-            buttons: ["Tidak", "Ya"],
-            cancel: true,
-            confirm: true,
-        }).then((action) => {
-            if (action) {
-                $.ajax({
-                    url: '{{url("akad/ajax/bayar-akad-ulang")}}',
-                    type: 'GET',
-                    cache: false,
-                    data:{
-                        data:data,
-                    },
-                    success:function(result){	
-                        console.log(result);
-
-                        // swal("Pembayaran Biaya Titip Telah Berhasil", {
-                        //     icon: "success",
-                        // });
-
-                        // window.location.href = '{{route("akad.nasabah-akad")}}';
-                    },
-                    error:function(xhr, ajaxOptions, thrownError){
-                        console.log(thrownError)
-                    }
-                });
-            }else {
-                swal({
-                    title: "Pemberitahuan",
-                    text: "Oke, jika sudah benar silahkan klik tombol bayar",
-                    icon: "warning",
-                });
-            }
+        modal_akad_ulang.modal('hide');
+        modal_akad_ulang.on('hidden.bs.modal', function(){
+            $('#modal-akad-ulang-confirm').modal('show');
         });
+        
     }
 
     //'TOMBOL AKAD LELANG'
@@ -946,4 +910,44 @@
     {
         $('#modal-lelang').modal('show');
     }
+
+    // swal({
+    //         title: "Peringatan!",
+    //         text: 'Yakin melakukan pembayaran sebesar Rp. '+format_total+' ?',
+    //         icon: "warning",
+    //         // showCancelButton: true,
+    //         // confirmButtonClass: "btn-danger",
+    //         buttons: ["Tidak", "Ya"],
+    //         cancel: true,
+    //         confirm: true,
+    //     }).then((action) => {
+    //         if (action) {
+    //             $.ajax({
+    //                 url: '{{url("akad/ajax/bayar-akad-ulang")}}',
+    //                 type: 'GET',
+    //                 cache: false,
+    //                 data:{
+    //                     data:data,
+    //                 },
+    //                 success:function(result){	
+    //                     console.log(result);
+
+    //                     // swal("Pembayaran Biaya Titip Telah Berhasil", {
+    //                     //     icon: "success",
+    //                     // });
+
+    //                     // window.location.href = '{{route("akad.nasabah-akad")}}';
+    //                 },
+    //                 error:function(xhr, ajaxOptions, thrownError){
+    //                     console.log(thrownError)
+    //                 }
+    //             });
+    //         }else {
+    //             swal({
+    //                 title: "Pemberitahuan",
+    //                 text: "Oke, jika sudah benar silahkan klik tombol bayar",
+    //                 icon: "warning",
+    //             });
+    //         }
+    //     });
 </script>
