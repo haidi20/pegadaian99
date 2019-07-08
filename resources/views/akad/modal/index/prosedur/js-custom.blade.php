@@ -485,6 +485,7 @@
     function condition_step_au(type = null)
     {
         var exit            = $('#exit');
+        var next            = $('#next');
         var previous        = $('#previous');
         var step_one        = $('.step-one');
         var step_two        = $('.step-two');
@@ -492,11 +493,13 @@
         var step_one_wali   = $('.step-one-wali');
         
         if(type == 'next'){
+            next.hide();
             previous.show();
             step_two.show();
             step_one.hide();
             step_one_wali.hide();
         }else if(type == 'previous' || type == null){
+            next.show();
             previous.hide();
             step_two.hide();
             step_one.show();
@@ -918,8 +921,12 @@
 
         $.each(data, function(index, item){
             console.log(item);
-            $('.data-wali_'+item.name).text(': '+item.value);
-
+            if(item.name == 'alamat'){
+                $('.data-wali_'+item.name).text(item.value);
+            }else{
+                $('.data-wali_'+item.name).text(': '+item.value);
+            }
+            
             // for condition data 'wali nasabah'
             if(item.name == 'checkbox_wali' && item.value == 1){
                 $('.confirm-wali-akad-ulang').show();
