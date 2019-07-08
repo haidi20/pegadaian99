@@ -495,6 +495,7 @@
             <input type="hidden" class="data-bt_yang_dibayar" name="data-bt_yang_dibayar">
             <input type="hidden" class="default-bt_tertunggak" name="default-bt_tertunggak">
             <input type="hidden" class="data-jangka_waktu_akad" name="data-jangka_waktu_akad">
+            <input type="hidden" class="data-tanggal_jatuh_tempo" name="data-tanggal_jatuh_tempo">
             <input type="hidden" class="data-jml_bt_yang_dibayar" name="data-jml_bt_yang_dibayar">
             </form>
         </div>

@@ -141,16 +141,28 @@ class AkadController extends Controller
             $get_data[$title] = $item['value'];
         }
 
+        $akad = $this->akad->find($get_data['id_akad']);
+        $akad->status_akad          = 'ulang';
+        $akad->tanggal_akad         = Carbon::now()->format('Y-m-d');
+        $akad->opsi_pembayaran      = $get_data['opsi_pembayaran'];
+        $akad->jangka_waktu_akad    = $get_data['jangka_waktu_akad'];
+        $akad->tanggal_jatuh_tempo  = $get_data['tanggal_jatuh_tempo'];
+        // yg belum nilai pencairan
+        // yg belum terbilang
+        // yang belum no_id
+        // $akad->save();
+
         // if exist data 'wali nasabah'
         if($get_data['checkbox_wali'] == 1){
             $this->insert_nasabah($get_data);
         }
 
-        if($get_data['penyusutan'] > 0){
-            
-        }
-
-        $akad = $this->akad->find($get_data['id_akad']);
+        /*
+        / untuk yang biaya titip :
+        / 1. tunggakan di input ke table bea_titip dengan no_id lama
+        / 2. jumlah biaya titip input ke table bea_titip dengan no_id baru
+        / 3. (jumlah biaya titip + tunggakan) input ke table kas_cabang
+        */
 
         $id_cabang          = $akad->id_cabang;
         $tertunggak         = remove_dot($get_data['default-bt_tertunggak']);
@@ -160,7 +172,8 @@ class AkadController extends Controller
         $data = (object) compact('id_cabang', 'nilai_pencairan');
 
         // return $data->id_cabang;
-        return $tertunggak + $jml_bt_yang_dibayar;
+        // return $akad;
+        return $get_data;
     }
 
     public function akad_lelang()
@@ -665,6 +678,17 @@ class AkadController extends Controller
         $log_saldo_cabang             = $this->insert_log_saldo_cabang($akad, $nasabah);
     }
 
+    public function insert_log_akad($akad)
+    {
+        $logAkad = $this->log_akad;
+        $logAkad->no_id         = $akad->no_id;
+        $logAkad->status        = 'Belum Lunas';
+        $logAkad->tanggal_log   = $akad->tanggal_akad;
+        $logAkad->save();
+
+        return $logAkad;
+    }
+
     public function insert_nasabah($data)
     {
         $findNasabah = $this->nasabah->where('nama_lengkap', $data['nama_lengkap'])->first();
@@ -717,7 +741,7 @@ class AkadController extends Controller
         }
     }
 
-    // 'kas admin'
+    // start 'kas admin'
     public function insert_kas_cabang($data)
     {
         $findKasCabang = $this->kas_cabang->where('id_cabang', $data->id_cabang)->first();
@@ -736,7 +760,29 @@ class AkadController extends Controller
         }   
     }
 
-    // 'kas saldo'
+    public function insert_log_kas_cabang($akad, $nasabah)
+    {
+        //'marhun bih'
+        $marhunBih = new Log_kas_cabang;
+        $marhunBih->jenis               = 'kredit';
+        $marhunBih->jumlah              = $akad->nilai_pencairan;
+        $marhunBih->id_cabang           = $akad->id_cabang;
+        $marhunBih->keterangan          = 'AKAD A/N '.$nasabah->nama_lengkap;
+        $marhunBih->tanggal_log_kas     = $akad->tanggal_akad;
+        $marhunBih->save();
+
+        //'biaya admin'
+        $biayaAdmin = new Log_kas_cabang;
+        $biayaAdmin->jenis               = 'debit';
+        $biayaAdmin->jumlah              = $akad->biaya_admin;
+        $biayaAdmin->id_cabang           = $akad->id_cabang;
+        $biayaAdmin->keterangan          = 'B.ADM AKAD A/N '.$nasabah->nama_lengkap;
+        $biayaAdmin->tanggal_log_kas     = $akad->tanggal_akad;
+        $biayaAdmin->save();
+    }
+    // end 'kas admin'
+
+    // start 'kas saldo'
     // condition between 'tambah dan kurang'
     public function insert_saldo_cabang($data, $condition)
     {
@@ -749,17 +795,6 @@ class AkadController extends Controller
         }
 
         $saldoCabang->update(['total_saldo' => $marhunBih]);
-    }
-
-    public function insert_log_akad($akad)
-    {
-        $logAkad = $this->log_akad;
-        $logAkad->no_id         = $akad->no_id;
-        $logAkad->status        = 'Belum Lunas';
-        $logAkad->tanggal_log   = $akad->tanggal_akad;
-        $logAkad->save();
-
-        return $logAkad;
     }
 
     public function insert_log_saldo_cabang($akad, $nasabah)
@@ -782,26 +817,6 @@ class AkadController extends Controller
         $biayaAdmin->tanggal_log_saldo   = $akad->tanggal_akad;
         $biayaAdmin->save();
     }
-
-    public function insert_log_kas_cabang($akad, $nasabah)
-    {
-        //'marhun bih'
-        $marhunBih = new Log_kas_cabang;
-        $marhunBih->jenis               = 'kredit';
-        $marhunBih->jumlah              = $akad->nilai_pencairan;
-        $marhunBih->id_cabang           = $akad->id_cabang;
-        $marhunBih->keterangan          = 'AKAD A/N '.$nasabah->nama_lengkap;
-        $marhunBih->tanggal_log_kas   = $akad->tanggal_akad;
-        $marhunBih->save();
-
-        //'biaya admin'
-        $biayaAdmin = new Log_kas_cabang;
-        $biayaAdmin->jenis               = 'debit';
-        $biayaAdmin->jumlah              = $akad->biaya_admin;
-        $biayaAdmin->id_cabang           = $akad->id_cabang;
-        $biayaAdmin->keterangan          = 'B.ADM AKAD A/N '.$nasabah->nama_lengkap;
-        $biayaAdmin->tanggal_log_kas   = $akad->tanggal_akad;
-        $biayaAdmin->save();
-    }
+    // end 'kas saldo'
 
 }

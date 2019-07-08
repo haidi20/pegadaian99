@@ -558,9 +558,10 @@
 
     function tanggal_jatuh_tempo(waktu, option)
     {
-        var tanggal_jatuh_tempo = moment().add(waktu, 'days').format('DD-MM-Y');
+        var tanggal_jatuh_tempo = moment().add(waktu, 'days');
 
-        $('.data-tanggal_jatuh_tempo').text(': '+tanggal_jatuh_tempo);
+        $('.data-tanggal_jatuh_tempo').text(': '+tanggal_jatuh_tempo.format('DD-MM-Y'));
+        $('.data-tanggal_jatuh_tempo').val(tanggal_jatuh_tempo.format('Y-MM-DD'));
     }
 
     function kondisi_jenis_barang(title, value)
@@ -580,22 +581,27 @@
         $('.name-kelengkapan_barang_tiga').html(barang_tiga);
     }
 
+    function jangka_waktu_akad(value)
+    {
+        // jwa is 'jangka waktu akad'
+        $('.jwa_'+value).prop('selected', true);
+
+        $('#jangka_waktu_akad').change(function(){
+            var waktu = $(this).children("option:selected").val();
+
+            $('.data-jangka_waktu_akad').val(waktu);
+            
+            tanggal_jatuh_tempo(waktu, 'pilih_jangka_waktu_akad');
+
+            payment_option(waktu, 'jangka_waktu_akad');
+
+            bt_yang_dibayar(waktu, 'jangka_waktu_akad');
+        });
+    }
+
     // option between 'jangka waktu akad' and 'default'
     function click_payment_option(value, option = null)
     {
-        // console.log('nilai opsi pembayaran = '+value);
-
-        if(option == 'jangka_waktu_akad'){
-            if(value == 7){
-                $('#op_15').hide();
-                // 'agar yg checked yg berdasarkan di pilih'
-                // $('.data-opsi_pembayaran').val(value);
-                // $('#op_'+value+' label input').prop('checked', true)
-            }else{
-                $('#op_15').show();
-            }
-        }
-
         // if 'opsi pembayaran' default value
         $('.op_'+value).prop('checked', true);
 
@@ -615,34 +621,32 @@
         // console.log( 'ketika click op, bilai bt = '+$('.data-bt_yang_dibayar').val())
     }
 
-    // MASIH BERMASALAH 
+    // option is 'default' or 'jangka waktu akad'
     function payment_option(value, option = null)
     {
-        $('#op_'+value+' label input').prop('checked', true)
-        $('.data-opsi_pembayaran').val(value);
-        
-        biaya_titip(value, 'opsi_pembayaran');
+        if(option == 'jangka_waktu_akad'){
+            if(value == 7){
+                $('#op_15').hide();
+                // 'agar yg checked yg berdasarkan di pilih'
+                // $('.data-opsi_pembayaran').val(value);
+                // $('#op_'+value+' label input').prop('checked', true)
+            }else{
+                $('#op_15').show();
+            }
+        }
 
-        bt_yang_dibayar(value, 'opsi_pembayaran');
+        if(value != 30 && value != 60){
+            console.log('tetap masuk');
+            $('#op_'+value+' label input').prop('checked', true)
+            $('.data-opsi_pembayaran').val(value);
+
+            biaya_titip(value, 'opsi_pembayaran');
+
+            bt_yang_dibayar(value, 'opsi_pembayaran');
+
+            console.log('nilai = '+value, 'option = '+option);
+        }        
     } 
-
-    function jangka_waktu_akad(value)
-    {
-        // jwa is 'jangka waktu akad'
-        $('.jwa_'+value).prop('selected', true);
-
-        $('#jangka_waktu_akad').change(function(){
-            var waktu = $(this).children("option:selected").val();
-
-            $('.data-jangka_waktu_akad').val(waktu);
-            
-            tanggal_jatuh_tempo(waktu, 'pilih_jangka_waktu_akad');
-
-            click_payment_option(waktu, 'jangka_waktu_akad');
-
-            bt_yang_dibayar(waktu, 'jangka_waktu_akad');
-        });
-    }
 
     function keyup_penyusutan(nilai_pencairan)
     {
@@ -655,6 +659,9 @@
             var number_penyusutan      = Number(penyusutan);
             var number_nilai_pencairan = Number(nilai_pencairan);
 
+            //condition button pay
+            // condition if 'penyusutan' empty button pay disable
+            // condition if 'jumlah biaya 
             if(number_penyusutan > 0){
                 if(number_penyusutan <= number_nilai_pencairan){
                     condition_button_pay('active');
@@ -690,11 +697,9 @@
     {
         if(sisa_pinjaman > 0){
             $('.data-sisa_pinjaman').css('color', 'black');
-            // condition_button_pay('active');
             return '';
         }else{
             $('.data-sisa_pinjaman').css('color', 'red');
-            // condition_button_pay('disabled');
             return '-';
         }
     }
@@ -710,6 +715,7 @@
         }
     }
 
+    // option is 'jangka waktu akad, opsi pembayaran, dan default' 
     function bt_yang_dibayar(value = null, option = null)
     {
         var maks        = '';
@@ -720,15 +726,10 @@
             $('#bt_yang_dibayar').change(function(){
                 var value = $(this).children("option:selected").val();
 
-                if($('.data-bt_yang_dibayar').val() != 0){
-                   
-                }
-
                 // determine 'biaya titip'
                 biaya_titip(value, 'bt_yang_dibayar');
 
                 $('.data-bt_yang_dibayar').val(value);
-                // console.log('bt yang di bayar = '+value);
             });
         }
 
@@ -823,7 +824,9 @@
             var opsi_pembayaran = value;
         }else{
             var opsi_pembayaran = $('.data-opsi_pembayaran').val();
+            console.log('dapat dari data-');
         }
+        console.log('opsi_pembayaran = '+opsi_pembayaran);
 
         if(option == 'bt_yang_dibayar'){
             var bt_yang_dibayar = value;
