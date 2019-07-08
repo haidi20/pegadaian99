@@ -893,16 +893,40 @@
 
     function bayar_akad_ulang()
     {
-        var data            = $('.form-akad-ulang').serializeArray(); 
-        var total           = $('.data-nominal_total').val();
-        var format_total    = formatRupiah(total.toString());
-        var modal_akad_ulang= $('#modal-akad-ulang');
+        var data                    = $('.form-akad-ulang').serializeArray(); 
+        var total                   = $('.data-nominal_total').val();
+        var format_total            = formatRupiah(total.toString());
+        var modal_akad_ulang        = $('#modal-akad-ulang');
+        var modal_akad_ulang_confirm= $('#modal-akad-ulang-confirm');
+
+        insert_data_wali_nasabah(data);
 
         modal_akad_ulang.modal('hide');
         modal_akad_ulang.on('hidden.bs.modal', function(){
-            $('#modal-akad-ulang-confirm').modal('show');
+            modal_akad_ulang_confirm.modal('show');
         });
+        modal_akad_ulang_confirm.on('hidden.bs.modal', function(){
+            modal_akad_ulang.modal('show');
+        });
+
         
+    }
+
+    function insert_data_wali_nasabah(data)
+    {
+        console.log(data);
+
+        $.each(data, function(index, item){
+            console.log(item);
+            $('.data-wali_'+item.name).text(': '+item.value);
+
+            // for condition data 'wali nasabah'
+            if(item.name == 'checkbox_wali' && item.value == 1){
+                $('.confirm-wali-akad-ulang').show();
+            }else if(item.name == 'checkbox_wali' && item.value == 0){
+                $('.confirm-wali-akad-ulang').hide();
+            }
+        });
     }
 
     //'TOMBOL AKAD LELANG'

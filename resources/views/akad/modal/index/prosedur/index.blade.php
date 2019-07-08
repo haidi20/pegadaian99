@@ -554,6 +554,49 @@
                                                         <td class="data-tanggal_lahir"></td>
                                                     </tr>
                                                 </tbody>
+                                                <tbody class="confirm-wali-akad-ulang" style="display:none">
+                                                    <tr>
+                                                        <td>
+                                                            Data Perwakilan / Wali :
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody class="confirm-wali-akad-ulang" style="display:none">
+                                                    <tr>
+                                                        <td>Nama Lengkap</td>
+                                                        <td class="data-wali_nama_lengkap"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Jenis Kelamin</td>
+                                                        <td class="data-wali_jenis_kelamin"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Alamat</td>
+                                                        <td>
+                                                            <textarea rows="5" cols="3" class="form-control data-wali_alamat" id="wali_alamat" name="wali_alamat" disabled></textarea>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kota</td>
+                                                        <td class="data-wali_kota"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>No. Telp</td>
+                                                        <td class="data-wali_no_telp"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Jenis Identitas</td>
+                                                        <td class="data-wali_jenis_id"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>No. Identitas</td>
+                                                        <td class="data-wali_no_identitas"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tanggal Lahir</td>
+                                                        <td class="data-wali_tanggal_lahir"></td>
+                                                    </tr>
+                                                </tbody>
                                             </table>
                                         </div>
                                     </div>
@@ -657,7 +700,8 @@
                 <!-- end of view-info -->
             </div>
             <div class="modal-footer">
-                <button type="button" id="proses" onClick="process()" class="btn btn-default btn-success waves-effect " data-dismiss="modal">Proses</button>
+                <button type="button" class="btn btn-default btn-info waves-effect" data-dismiss="modal">Kembali</button>
+                <button type="button" id="proses" onClick="process()" class="btn btn-default btn-success waves-effect">Proses</button>
             </div>
         </div>
     </div>
