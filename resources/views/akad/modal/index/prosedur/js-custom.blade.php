@@ -905,22 +905,23 @@
         insert_data_wali_nasabah(data);
 
         modal_akad_ulang.modal('hide');
+        // modal_akad_ulang_confirm.modal('show');
         modal_akad_ulang.on('hidden.bs.modal', function(){
             modal_akad_ulang_confirm.modal('show');
         });
-        modal_akad_ulang_confirm.on('hidden.bs.modal', function(){
-            modal_akad_ulang.modal('show');
-        });
+        // modal_akad_ulang_confirm.on('hidden.bs.modal', function(){
+        //     modal_akad_ulang.modal('show');
+        // });
 
         
     }
 
     function insert_data_wali_nasabah(data)
     {
-        console.log(data);
+        // console.log(data);
 
         $.each(data, function(index, item){
-            console.log(item);
+            // console.log(item);
             if(item.name == 'alamat'){
                 $('.data-wali_'+item.name).text(item.value);
             }else{
@@ -933,6 +934,17 @@
             }else if(item.name == 'checkbox_wali' && item.value == 0){
                 $('.confirm-wali-akad-ulang').hide();
             }
+        });
+    }
+    
+    function button_back_confirm_au()
+    {
+        var modal_akad_ulang        = $('#modal-akad-ulang');
+        var modal_akad_ulang_confirm= $('#modal-akad-ulang-confirm');
+
+        // modal_akad_ulang_confirm.hide();
+        modal_akad_ulang_confirm.on('hidden.bs.modal', function(){
+            modal_akad_ulang.modal('show');
         });
     }
 
