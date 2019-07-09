@@ -19,6 +19,9 @@
     .custom-akad-ulang .title-form{
         font-weight: bold;
     }
+    .modal {
+  overflow-y:auto;
+}
 </style>
 @endsection
 

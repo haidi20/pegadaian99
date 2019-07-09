@@ -902,15 +902,19 @@
         var modal_akad_ulang        = $('#modal-akad-ulang');
         var modal_akad_ulang_confirm= $('#modal-akad-ulang-confirm');
 
-        insert_data_wali_nasabah(data);
+        $.each(data, function(index, item){
+            console.log(item);
 
+            insert_data_wali_nasabah(item);
+
+            insert_data_barang_au(item);
+        });       
+
+        //condition show/hide modal 'akad ulang' and modal confirm 'akad ulang'
         modal_akad_ulang.modal('hide');
-        // modal_akad_ulang_confirm.modal('show');
-        modal_akad_ulang.on('hidden.bs.modal', function(){
-            modal_akad_ulang_confirm.modal('show');
-        });
-        // modal_akad_ulang_confirm.on('hidden.bs.modal', function(){
-        //     modal_akad_ulang.modal('show');
+        modal_akad_ulang_confirm.modal('show');
+        // modal_akad_ulang.on('hidden.bs.modal', function(){
+        //     modal_akad_ulang_confirm.modal('show');
         // });
 
         
@@ -918,34 +922,51 @@
 
     function insert_data_wali_nasabah(data)
     {
-        // console.log(data);
+        // 'alamat tidak menggunakan ":" '
+        if(data.name == 'alamat'){
+            $('.data-wali_'+data.name).text(data.value);
+        }else{
+            $('.data-wali_'+data.name).text(': '+data.value);
+        }
+        
+        // for condition data 'wali nasabah'
+        if(data.name == 'checkbox_wali' && data.value == 1){
+            $('.table-detail-wali-au').show();
+        }else if(data.name == 'checkbox_wali' && data.value == 0){
+            $('.table-detail-wali-au').hide();
+        }
+    }
 
-        $.each(data, function(index, item){
-            // console.log(item);
-            if(item.name == 'alamat'){
-                $('.data-wali_'+item.name).text(item.value);
-            }else{
-                $('.data-wali_'+item.name).text(': '+item.value);
-            }
-            
-            // for condition data 'wali nasabah'
-            if(item.name == 'checkbox_wali' && item.value == 1){
-                $('.confirm-wali-akad-ulang').show();
-            }else if(item.name == 'checkbox_wali' && item.value == 0){
-                $('.confirm-wali-akad-ulang').hide();
-            }
-        });
+    function insert_data_barang_au(data)
+    {
+        $('.data-dinamis-'+data.name).text(': '+data.value);
     }
     
-    function button_back_confirm_au()
+    function button_back_confirm_au(option = null)
     {
+        var modal_akad_ulang        = $('#modal-akad-ulang');
+        // var modal_akad_ulang_confirm= $('#modal-akad-ulang-confirm');
+        var id = $('.data-id_akad').val();
+
+        // akad_ulang(id);
+
+        // modal_akad_ulang_confirm.modal('hide');
+        // modal_akad_ulang_confirm.on('hidden.bs.modal', function(){
+            modal_akad_ulang.modal('show');
+        // });
+    }
+
+    function close_all_modal()
+    {
+
         var modal_akad_ulang        = $('#modal-akad-ulang');
         var modal_akad_ulang_confirm= $('#modal-akad-ulang-confirm');
 
-        // modal_akad_ulang_confirm.hide();
-        modal_akad_ulang_confirm.on('hidden.bs.modal', function(){
-            modal_akad_ulang.modal('show');
-        });
+        modal_akad_ulang_confirm.modal('hide');
+        modal_akad_ulang.modal('hide');
+        // $('#modal-akad-ulang-confirm').on('hidden', function(){ 
+        //     $(this).empty(); 
+        // });
     }
 
     //'TOMBOL AKAD LELANG'

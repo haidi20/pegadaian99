@@ -611,6 +611,8 @@ class AkadController extends Controller
             $codeAu = $type == 'akad_ulang' ? '-AU' : null;
             $codeAu = $value.$codeAu;
 
+            //'total akad ulang ini dimaksudkan kepada jumlah akad ulang pada nasabah tersebut'
+            //'jika nasabah A telah melakukan akad ulang sebanyak 2x, maka total akad ulang sebanyak 2'
             $totalAkadUlang = $this->log_akad->where('no_id', 'LIKE', '%'.$codeAu.'%')->count();
             $totalAkadUlang = $totalAkadUlang + 1;
 

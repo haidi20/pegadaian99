@@ -124,7 +124,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Akad Ulang</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick="close_all_modal()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -484,6 +484,7 @@
 
             <input type="hidden" class="data-margin" name="data-margin">
             <input type="hidden" class="data-id_akad" name="data-id_akad">
+            <input type="hidden" class="data-no_id_au" name="data-no_id_au">
             <input type="hidden" class="data-potongan" name="data-potongan">
             <input type="hidden" class="data-penyusutan" name="data-penyusutan">
             <input type="hidden" class="data-biaya_titip" name="data-biaya_titip">
@@ -507,9 +508,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Konfirmasi Data</h4>
-                {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick="close_all_modal()">
                     <span aria-hidden="true">&times;</span>
-                </button> --}}
+                </button>
             </div>
             <div class="modal-body">
                 <div class="view-info">
@@ -520,7 +521,7 @@
                                     <div class="col-sm-12 col-md-6">
                                         <div class="table-responsive">
                                             <table class="table m-0">
-                                                <tbody id="table-detail-one">
+                                                <tbody id="table-detail-confirm-one">
                                                     <tr>
                                                         <td>Nama Lengkap</td>
                                                         <td class="data-nama_lengkap"></td>
@@ -554,14 +555,14 @@
                                                         <td class="data-tanggal_lahir"></td>
                                                     </tr>
                                                 </tbody>
-                                                <tbody class="confirm-wali-akad-ulang" style="display:none">
+                                                <tbody class="table-detail-confirm-wali-au" style="display:none">
                                                     <tr>
                                                         <td>
                                                             Data Perwakilan / Wali :
                                                         </td>
                                                     </tr>
                                                 </tbody>
-                                                <tbody class="confirm-wali-akad-ulang" style="display:none">
+                                                <tbody class="table-detail-confirm-wali-au" style="display:none">
                                                     <tr>
                                                         <td>Nama Lengkap</td>
                                                         <td class="data-wali_nama_lengkap"></td>
@@ -606,11 +607,11 @@
                                                 <tbody class="table-detail-two">
                                                     <tr>
                                                         <td>NO. ID</td>
-                                                        <td class="data-no_id"></td>
+                                                        <td class="data-no_id_au"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Jangka Waktu Akad</td>
-                                                        <td class="data-jangka_waktu_akad"></td>
+                                                        <td class="data-dinamis-jangka_waktu_akad"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Tanggal Akad</td>
@@ -700,7 +701,7 @@
                 <!-- end of view-info -->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-info waves-effect" data-dismiss="modal" onClick="button_back_confirm_au()">Kembali</button>
+                <button type="button" class="btn btn-default btn-info waves-effect" data-dismiss="modal" onClick="button_back_confirm_au('back')">Kembali</button>
                 <button type="button" id="proses" onClick="process()" class="btn btn-default btn-success waves-effect">Proses</button>
             </div>
         </div>
