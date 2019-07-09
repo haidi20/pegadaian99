@@ -112,6 +112,9 @@
                                 <a href="javascript:void(0)" class="btn btn-mini btn-warning" onClick="akad_ulang({{$item->id_akad}})">
                                     Akad Ulang
                                 </a>
+                                <a href="javascript:void(0)" class="btn btn-mini" style="background-color:blueviolet; color:white">
+                                    Perpanjangan
+                                </a>
                                 <a href="javascript:void(0)" class="btn btn-mini btn-info" onClick="lelang({{$item->id_akad}})">
                                     Lelang
                                 </a>
