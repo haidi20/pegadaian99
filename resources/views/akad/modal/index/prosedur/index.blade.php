@@ -663,7 +663,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Marhun Bih</td>
-                                                        <td class="data-dinamis-sisa_pinjaman"></td>
+                                                        <td class="data-sisa_pinjaman"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Opsi Pembayaran</td>

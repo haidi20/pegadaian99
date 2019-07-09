@@ -939,7 +939,7 @@
 
         if(data.name == 'nilai_tafsir' || data.name == 'nilai_pencairan'){
             $(name).text(': Rp.'+formatRupiah(value.toString()));
-        }else if(data.name == 'biaya_titip' || data.name == 'jml_bt_yang_dibayar'){
+        }else if(data.name == 'data-sisa_pinjaman' || data.name == 'jml_bt_yang_dibayar'){
             $(name).text(': Rp.'+formatRupiah(value.toString()));
         }else if(data.name == 'tanggal_lahir' || data.name == 'tanggal_akad'){
             $(name).text(': '+moment(value).format('DD-MM-Y'));
