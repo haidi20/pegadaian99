@@ -615,7 +615,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Tanggal Akad</td>
-                                                        <td class="data-tanggal_akad"></td>
+                                                        <td class="data-dinamis-tanggal_akad"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Tanggal Jatuh Tempo</td>
@@ -659,11 +659,11 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Taksiran Marhun</td>
-                                                        <td class="data-taksiran_marhun"></td>
+                                                        <td class="data-nilai_tafsir"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Marhun Bih</td>
-                                                        <td class="data-marhun_bih"></td>
+                                                        <td class="data-dinamis-sisa_pinjaman"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Opsi Pembayaran</td>

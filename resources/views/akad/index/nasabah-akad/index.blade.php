@@ -20,8 +20,8 @@
         font-weight: bold;
     }
     .modal {
-  overflow-y:auto;
-}
+        overflow-y:auto;
+    }
 </style>
 @endsection
 

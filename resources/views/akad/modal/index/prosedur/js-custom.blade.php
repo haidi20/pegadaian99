@@ -520,13 +520,13 @@
             var name = '.data-'+index;
 
             if(index == 'nilai_tafsir' || index == 'nilai_pencairan'){
-                $(name).text(': Rp.'+formatRupiah(item.toString()));
+                $(name).text(': Rp. '+formatRupiah(item.toString()));
             }else if(index == 'biaya_titip' || index == 'jml_bt_yang_dibayar'){
-                $(name).text(': Rp.'+formatRupiah(item.toString()));
+                $(name).text(': Rp. '+formatRupiah(item.toString()));
             }else if(index == 'tanggal_lahir' || index == 'tanggal_akad'){
                 $(name).text(': '+moment(item).format('DD-MM-Y'));
             }else if(index == 'bt_tertunggak' || index == 'biaya_admin'){
-                $(name).text(': Rp.'+formatRupiah(item.toString()));
+                $(name).text(': Rp. '+formatRupiah(item.toString()));
             }else{
                 item = item == null ? '-' : item;
                 $(name).text(': '+item);
@@ -824,9 +824,7 @@
             var opsi_pembayaran = value;
         }else{
             var opsi_pembayaran = $('.data-opsi_pembayaran').val();
-            console.log('dapat dari data-');
         }
-        console.log('opsi_pembayaran = '+opsi_pembayaran);
 
         if(option == 'bt_yang_dibayar'){
             var bt_yang_dibayar = value;
@@ -913,9 +911,6 @@
         //condition show/hide modal 'akad ulang' and modal confirm 'akad ulang'
         modal_akad_ulang.modal('hide');
         modal_akad_ulang_confirm.modal('show');
-        // modal_akad_ulang.on('hidden.bs.modal', function(){
-        //     modal_akad_ulang_confirm.modal('show');
-        // });
 
         
     }
@@ -939,7 +934,27 @@
 
     function insert_data_barang_au(data)
     {
-        $('.data-dinamis-'+data.name).text(': '+data.value);
+        var name = '.data-dinamis-'+data.name;
+        var value= data.value;
+
+        if(data.name == 'nilai_tafsir' || data.name == 'nilai_pencairan'){
+            $(name).text(': Rp.'+formatRupiah(value.toString()));
+        }else if(data.name == 'biaya_titip' || data.name == 'jml_bt_yang_dibayar'){
+            $(name).text(': Rp.'+formatRupiah(value.toString()));
+        }else if(data.name == 'tanggal_lahir' || data.name == 'tanggal_akad'){
+            $(name).text(': '+moment(value).format('DD-MM-Y'));
+        }else if(data.name == 'bt_tertunggak' || data.name == 'biaya_admin'){
+            $(name).text(': Rp.'+formatRupiah(value.toString()));
+        }else if(data.name == 'jangka_waktu_akad'){
+            $(name).text(': '+value+' Hari');
+        }else{
+            value = value == null ? '-' : value;
+            $(name).text(': '+value);
+            // for set default value note* don't remove this.
+            $(name).val(value);
+        }
+
+        $('.data-dinamis-tanggal_akad').text(': '+moment().format('DD-MM-Y'));
     }
     
     function button_back_confirm_au(option = null)
@@ -947,13 +962,8 @@
         var modal_akad_ulang        = $('#modal-akad-ulang');
         // var modal_akad_ulang_confirm= $('#modal-akad-ulang-confirm');
         var id = $('.data-id_akad').val();
-
-        // akad_ulang(id);
-
-        // modal_akad_ulang_confirm.modal('hide');
-        // modal_akad_ulang_confirm.on('hidden.bs.modal', function(){
-            modal_akad_ulang.modal('show');
-        // });
+        
+        modal_akad_ulang.modal('show');
     }
 
     function close_all_modal()
@@ -964,9 +974,6 @@
 
         modal_akad_ulang_confirm.modal('hide');
         modal_akad_ulang.modal('hide');
-        // $('#modal-akad-ulang-confirm').on('hidden', function(){ 
-        //     $(this).empty(); 
-        // });
     }
 
     //'TOMBOL AKAD LELANG'
