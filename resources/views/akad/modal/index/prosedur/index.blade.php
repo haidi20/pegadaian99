@@ -477,8 +477,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-danger waves-effect" id="exit" data-dismiss="modal">Keluar</button>
                 <button type="button" class="btn btn-default btn-info waves-effect" id="previous" onClick="action_au('previous')" style="display:none">Sebelumnya</button>
+                <button type="button" class="btn btn-default btn-danger waves-effect" id="exit" data-dismiss="modal">Keluar</button>
                 <button type="button" class="btn btn-default btn-success waves-effect" id="next" onClick="action_au('next')">Selanjutnya</button>
             </div>
 
@@ -486,6 +486,7 @@
             <input type="hidden" class="data-id_akad" name="data-id_akad">
             <input type="hidden" class="data-no_id_au" name="data-no_id_au">
             <input type="hidden" class="data-potongan" name="data-potongan">
+            <input type="hidden" class="data-terbilang" name="data-terbilang">
             <input type="hidden" class="data-penyusutan" name="data-penyusutan">
             <input type="hidden" class="data-biaya_titip" name="data-biaya_titip">
             <input type="hidden" class="data-sisa_pinjaman" name="data-sisa_pinjaman">

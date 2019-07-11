@@ -818,7 +818,12 @@
             var sisa_pinjaman       = $('.data-sisa_pinjaman').val();
         }
         penyusutan      = Number(penyusutan);
+
+        var rupiah = sisa_pinjaman == 0 ? '' : ' Rupiah';
+        $('.data-terbilang').val(terbilang(sisa_pinjaman)+rupiah);
+
         sisa_pinjaman   = Number(sisa_pinjaman);
+        
 
         if(option == 'opsi_pembayaran'){
             var opsi_pembayaran = value;
@@ -863,7 +868,6 @@
 
         $('.data-nominal_biaya_titip').html(': Rp.'+nominal_biaya_titip);
 
-        console.log('nilai penyusutan = '+ penyusutan);
         var total = penyusutan + jml_bt_yang_dibayar + biaya_admin + tunggakan;
         $('.data-nominal_total').val(total);
         total = formatRupiah(total.toString());
@@ -914,8 +918,6 @@
         //condition show/hide modal 'akad ulang' and modal confirm 'akad ulang'
         modal_akad_ulang.modal('hide');
         modal_akad_ulang_confirm.modal('show');
-
-        
     }
 
     function insert_data_wali_nasabah(data)
@@ -985,6 +987,49 @@
 
         modal_akad_ulang_confirm.modal('hide');
         modal_akad_ulang.modal('hide');
+    }
+
+    function process()
+    {
+        var data                    = $('.form-akad-ulang').serializeArray(); 
+        var total                   = $('.data-nominal_total').val();
+        var format_total            = formatRupiah(total.toString());
+        var modal_akad_ulang        = $('#modal-akad-ulang');
+        var modal_akad_ulang_confirm= $('#modal-akad-ulang-confirm');
+
+        var url_pdf             = '{{route("pdf")}}';
+        var url_print           = '{{route("print")}}';
+        var url_akad_ulang      = '{{url("akad/ajax/bayar-akad-ulang")}}';
+        // console.log(data);
+
+        // first insert data to table 'akad'
+        $.ajax({
+            url: url_akad_ulang,
+            type: 'POST',
+            cache: false,
+            data: {data: data},
+            success:function(result){
+                console.log(result);		
+                // swal({
+                //     title: "Pemberitahuan!",
+                //     text: "Data Akad Baru Berhasil!",
+                //     type: "success",
+                //     icon: "success",
+                // }).then(function() {
+                //     // if success, redirect to page 'database > data akad nasabah > nasabah akad'
+                //     window.location.href = '{{route("akad.nasabah-akad")}}';
+                // });
+                
+                // // new tab for print after than new tab again for PDF 
+                // $.redirect(url_print, {
+                //     data: data,
+                //     url_pdf: url_pdf
+                // }, "GET", "_blank");
+            },
+            error:function(xhr, ajaxOptions, thrownError){
+                console.log(thrownError)
+            }
+        });
     }
 
     //'TOMBOL AKAD LELANG'

@@ -139,22 +139,24 @@ class AkadController extends Controller
         foreach ($data as $index => $item) {
             $title = str_replace('data-', '', $item['name']);
             $get_data[$title] = $item['value'];
+            // $get_data[$item['name']] = $item['value'];
         }
 
         $akad = $this->akad->find($get_data['id_akad']);
+        $akad->no_id                = $get_data['no_id_au'];
+        $akad->terbilang            = $get_data['terbilang'];
+        $akad->bt_7_hari            = $get_data['biaya_titip'];
         $akad->status_akad          = 'ulang';
         $akad->tanggal_akad         = Carbon::now()->format('Y-m-d');
+        $akad->nilai_pencairan      = $get_data['sisa_pinjaman'];
         $akad->opsi_pembayaran      = $get_data['opsi_pembayaran'];
         $akad->jangka_waktu_akad    = $get_data['jangka_waktu_akad'];
         $akad->tanggal_jatuh_tempo  = $get_data['tanggal_jatuh_tempo'];
-        // yg belum nilai pencairan
-        // yg belum terbilang
-        // yang belum no_id
         // $akad->save();
 
         // if exist data 'wali nasabah'
         if($get_data['checkbox_wali'] == 1){
-            $this->insert_nasabah($get_data);
+            $this->insert_nasabah($get_data)->data;
         }
 
         /*
@@ -162,18 +164,24 @@ class AkadController extends Controller
         / 1. tunggakan di input ke table bea_titip dengan no_id lama
         / 2. jumlah biaya titip input ke table bea_titip dengan no_id baru
         / 3. (jumlah biaya titip + tunggakan) input ke table kas_cabang
+        / remove_dot($get_data['default-bt_tertunggak'])
         */
+        
+        $this->request['bt_7_hari']         = $get_data['jml_bt_yang_dibayar'];
+        $this->request['bt_yang_dibayar']   = $get_data['bt_yang_dibayar'];
 
-        $id_cabang          = $akad->id_cabang;
-        $tertunggak         = remove_dot($get_data['default-bt_tertunggak']);
-        $nilai_pencairan    = $get_data['penyusutan'];
-        $jml_bt_yang_dibayar= $get_data['jml_bt_yang_dibayar']; 
+        $this->insert_bea_titip($akad, 'default');
 
-        $data = (object) compact('id_cabang', 'nilai_pencairan');
+        // $id_cabang          = $akad->id_cabang;
+        // $tertunggak         = remove_dot($get_data['default-bt_tertunggak']);
+        // $nilai_pencairan    = $get_data['penyusutan'];
+        // $jml_bt_yang_dibayar= $get_data['jml_bt_yang_dibayar']; 
+
+        // $data = (object) compact('id_cabang', 'nilai_pencairan');
 
         // return $data->id_cabang;
-        // return $akad;
-        return $get_data;
+        return $akad;
+        // return $get_data;
     }
 
     public function akad_lelang()
@@ -671,7 +679,7 @@ class AkadController extends Controller
         $akad->save();
 
         // insert data to other table
-        $bea_titip                    = $this->insert_bea_titip($akad);
+        $bea_titip                    = $this->insert_bea_titip($akad, 'default');
         $kas_cabang                   = $this->insert_kas_cabang($akad);
         $saldo_cabang                 = $this->insert_saldo_cabang($akad, 'kurang');
 
@@ -717,10 +725,12 @@ class AkadController extends Controller
         return (object) compact('data');
     }
 
+    //'keterangan untuk pembayaran DARI hari/minggu KE hari/minggu berapa'
+    //'contoh KE 1 - 2'
     public function insert_bea_titip($data, $keterangan = null)
     {
         if(request('bt_yang_dibayar') >= 1){
-            if($keterangan == null){
+            if($keterangan == 'default'){
                 if(request('bt_yang_dibayar') == 1){
                     $keterangan = 'KE 1';
                 }else{
