@@ -555,14 +555,14 @@
                                                         <td class="data-tanggal_lahir"></td>
                                                     </tr>
                                                 </tbody>
-                                                <tbody class="table-detail-confirm-wali-au" style="display:none">
+                                                <tbody class="table-confirm-wali" style="display:none">
                                                     <tr>
                                                         <td>
                                                             Data Perwakilan / Wali :
                                                         </td>
                                                     </tr>
                                                 </tbody>
-                                                <tbody class="table-detail-confirm-wali-au" style="display:none">
+                                                <tbody class="table-confirm-wali" style="display:none">
                                                     <tr>
                                                         <td>Nama Lengkap</td>
                                                         <td class="data-wali_nama_lengkap"></td>
@@ -663,27 +663,35 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Marhun Bih</td>
-                                                        <td class="data-sisa_pinjaman"></td>
+                                                        <td class="data-dinamis-sisa_pinjaman"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Opsi Pembayaran</td>
-                                                        <td class="data-nilai_opsi_pembayaran"></td>
+                                                        <td class="data-dinamis-opsi_pembayaran"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Biaya Titip</td>
-                                                        <td class="data-biaya_titip"></td>
+                                                        <td class="data-dinamis-biaya_titip"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tunggakan Biaya Titip</td>
+                                                        <td class="data-dinamis-default-bt_tertunggak"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Biaya Titip yang Dibayar</td>
-                                                        <td class="data-bt_yang_dibayar"></td>
+                                                        <td class="data-dinamis-bt_yang_dibayar"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Jumlah Biaya Titip yang Dibayar</td>
-                                                        <td class="data-jml_bt_yang_dibayar"></td>
+                                                        <td class="data-dinamis-jml_bt_yang_dibayar"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Biaya Administrasi</td>
                                                         <td class="data-biaya_admin"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Total Pembayaran Akad Ulang</td>
+                                                        <td class="data-dinamis-nominal_total"></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

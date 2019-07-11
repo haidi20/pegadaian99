@@ -853,6 +853,7 @@
         biaya_titip     = biaya_titip.replace("Rp", "");
         biaya_titip     = Math.ceil(biaya_titip) * thousand_bt;
         biaya_titip     = Number(biaya_titip);
+        $('.data-biaya_titip').val(biaya_titip);
 
         // 'rumus jumlah biaya titip yang dibayar'
         var jml_bt_yang_dibayar = biaya_titip * bt_yang_dibayar
@@ -862,7 +863,7 @@
 
         $('.data-nominal_biaya_titip').html(': Rp.'+nominal_biaya_titip);
 
-        
+        console.log('nilai penyusutan = '+ penyusutan);
         var total = penyusutan + jml_bt_yang_dibayar + biaya_admin + tunggakan;
         $('.data-nominal_total').val(total);
         total = formatRupiah(total.toString());
@@ -872,6 +873,7 @@
         $('.jml_bt_yang_dibayar').html(': Rp. '+format_jml_bt_yang_dibayar);
     }
 
+    // for 'modal akad ulang yg PERTAMA' not confirm
     function info_wali()
     {
         var form_wali       = $('#table-wali');
@@ -900,8 +902,9 @@
         var modal_akad_ulang        = $('#modal-akad-ulang');
         var modal_akad_ulang_confirm= $('#modal-akad-ulang-confirm');
 
+        console.log(data);
         $.each(data, function(index, item){
-            console.log(item);
+            // console.log(item);
 
             insert_data_wali_nasabah(item);
 
@@ -926,27 +929,35 @@
         
         // for condition data 'wali nasabah'
         if(data.name == 'checkbox_wali' && data.value == 1){
-            $('.table-detail-wali-au').show();
+            $('.table-confirm-wali').show();
         }else if(data.name == 'checkbox_wali' && data.value == 0){
-            $('.table-detail-wali-au').hide();
+            $('.table-confirm-wali').hide();
         }
     }
 
     function insert_data_barang_au(data)
     {
-        var name = '.data-dinamis-'+data.name;
+        //'data yg sebelumnya ada tulisan "data-", mangkanya mau di hapus dulu pertamanya' 
+        var name = data.name.replace('data-', ''); 
+        name = '.data-dinamis-'+name;
         var value= data.value;
 
-        if(data.name == 'nilai_tafsir' || data.name == 'nilai_pencairan'){
-            $(name).text(': Rp.'+formatRupiah(value.toString()));
-        }else if(data.name == 'data-sisa_pinjaman' || data.name == 'jml_bt_yang_dibayar'){
-            $(name).text(': Rp.'+formatRupiah(value.toString()));
-        }else if(data.name == 'tanggal_lahir' || data.name == 'tanggal_akad'){
-            $(name).text(': '+moment(value).format('DD-MM-Y'));
-        }else if(data.name == 'bt_tertunggak' || data.name == 'biaya_admin'){
-            $(name).text(': Rp.'+formatRupiah(value.toString()));
-        }else if(data.name == 'jangka_waktu_akad'){
+        if(data.name == 'nilai_tafsir' || data.name == 'data-sisa_pinjaman'){
+            $(name).text(': Rp. '+formatRupiah(value.toString()));
+        }else if(data.name == 'data-biaya_titip' || data.name == 'data-jml_bt_yang_dibayar'){
+            $(name).text(': Rp. '+formatRupiah(value.toString()));
+        }else if(data.name == 'data-nominal_total' || data.name == 'default-bt_tertunggak'){
+            $(name).text(': Rp. '+formatRupiah(value.toString()));
+        }else if(data.name == 'default-bt_tertunggak'){
+            $(name).text(': Rp. '+value);
+        }else if(data.name == 'data-opsi_pembayaran'){
+            value = value == 1 ? 'Sehari' : value+' Hari';
+            $(name).text(': '+value);
+        }else if(data.name == 'data-jangka_waktu_akad'){
             $(name).text(': '+value+' Hari');
+        }else if(data.name == 'data-bt_yang_dibayar'){
+            var satuan = value == 0 ? '' : ' Kali'
+            $(name).text(': '+value+satuan);
         }else{
             value = value == null ? '-' : value;
             $(name).text(': '+value);
