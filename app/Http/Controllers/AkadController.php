@@ -152,31 +152,29 @@ class AkadController extends Controller
         $akad->opsi_pembayaran      = $get_data['opsi_pembayaran'];
         $akad->jangka_waktu_akad    = $get_data['jangka_waktu_akad'];
         $akad->tanggal_jatuh_tempo  = $get_data['tanggal_jatuh_tempo'];
-        // $akad->save();
+        $akad->save();
 
-        // $this->insert_log_akad($akad);
+        $this->insert_log_akad($akad);
 
-        // // if exist data 'wali nasabah'
-        // if($get_data['checkbox_wali'] == 1){
-        //     $nasabah = $this->insert_nasabah($get_data)->data;
-        // }else{
-        //     $nasabah = $this->nasabah->where('key_nasabah', $akad->key_nasabah)->first();
-        // }
+        // if exist data 'wali nasabah'
+        if($get_data['checkbox_wali'] == 1){
+            $nasabah = $this->insert_nasabah($get_data)->data;
+        }else{
+            $nasabah = $this->nasabah->where('key_nasabah', $akad->key_nasabah)->first();
+        }
 
-        // $this->insert_saldo_cabang($akad, 'tambah');
-        // $this->insert_log_saldo_cabang($akad, $nasabah);
+        $this->insert_saldo_cabang($akad, 'tambah');
+        $this->insert_log_saldo_cabang($akad, $nasabah);
         
-        // //table 'biaya titip'
-        // $this->request['bt_7_hari']         = $get_data['jml_bt_yang_dibayar'];
-        // $this->request['bt_yang_dibayar']   = $get_data['bt_yang_dibayar'];        
-        // $this->insert_bea_titip($akad, 'default');
+        //table 'biaya titip'
+        $this->request['bt_7_hari']         = $get_data['jml_bt_yang_dibayar'];
+        $this->request['bt_yang_dibayar']   = $get_data['bt_yang_dibayar'];        
+        $this->insert_bea_titip($akad, 'default');
 
-        // //'PENTING'
-        // //'untuk saat ini "insert kas cabang" hanya memasukkan biaya admin. tidak dengan biaya titip'
-        // $this->insert_kas_cabang($akad);
-        // $this->insert_log_kas_cabang($akad, $nasabah);
-
-        // SANGKUT DI PENGIRIMAN DATA KE PRINT OUT DAN PDF
+        //'PENTING'
+        //'untuk saat ini "insert kas cabang" hanya memasukkan biaya admin. tidak dengan biaya titip'
+        $this->insert_kas_cabang($akad);
+        $this->insert_log_kas_cabang($akad, $nasabah);
 
         $dataAkad = $this->akad->joinNasabah()->where('id_akad', $get_data['id_akad'])->first();
         $dataAkad['jml_bt_yang_dibayar'] = $get_data['jml_bt_yang_dibayar'];
