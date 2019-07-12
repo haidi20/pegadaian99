@@ -23,11 +23,20 @@ class CetakController extends Controller
         $data       = [];
         $input 		= $this->request->except('_token');
         $url_pdf    = $input['url_pdf'];
-        $input      = $input['data'];        
-        
-        foreach ($input as $index => $item) {
-            $data[$item['name']] = $item['value'];
+        $input      = $input['data']; 
+        if(request('type' != 'langsung')){            
+            foreach ($input as $index => $item) {
+                $data[$item['name']] = $item['value'];
+            }
+        }else{
+            $data = $input;
+            $data['marhun_bih'] = $data['nilai_pencairan'];
+            $data['taksiran_marhun'] = $data['nilai_tafsir'];
+            $data['nilai_opsi_pembayaran'] = $data['opsi_pembayaran'];
+            $data['biaya_titip'] = $data['bt_7_hari'];
         }
+
+        // return $data;
 
         return view('cetak.print', compact('data', 'url_pdf', 'input'));
     }

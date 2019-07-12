@@ -100,8 +100,8 @@
                             <td>{{$item->nama_barang}}</td>
                             <td>{{$item->nominal_nilai_pencairan}}</td>
                             <td>{{$item->data_tunggakan->info}}</td>
-                            <td>{{$item->tanggal_akad}}</td>
-                            <td>{{$item->tanggal_jatuh_tempo}}</td>
+                            <td>{{$item->format_tanggal_akad}}</td>
+                            <td>{{$item->format_tanggal_jatuh_tempo}}</td>
                             <td>
                                 <a href="javascript:void(0)" class="btn btn-mini btn-primary" onClick="prosedur({{$item->id_akad}}, 'biaya_titip')">
                                     Bayar B. Titip

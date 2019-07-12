@@ -151,6 +151,16 @@ class Akad extends Model
         return $query->orderBy($by, $sort);
     }
 
+    public function getFormatTanggalAkadAttribute()
+    {
+        return Carbon::parse($this->tanggal_akad)->format('d-m-Y');
+    }
+
+    public function getFormatTanggalJatuhTempoAttribute()
+    {
+        return Carbon::parse($this->tanggal_jatuh_tempo)->format('d-m-Y');
+    }
+
     public function getNamaTargetLokasiAttribute()
     {
         return $this->target_lokasi == 'kantor' ? 'KANTOR' : 'GUDANG'; 
@@ -207,13 +217,14 @@ class Akad extends Model
             $tanggal_sekarang = Carbon::now()->format('Y-m-d');
             
             // JANGAN DI HAPUS
-            // if($tanggal_sekarang >= $this->tanggal_jatuh_tempo){
-            //     $batas_waktu = $tanggal_sekarang;
-            // }else{
-            //     $batas_waktu = $this->tanggal_jatuh_tempo;
-            // }
+            if($tanggal_sekarang <= $this->tanggal_jatuh_tempo){
+                $batas_waktu = $tanggal_sekarang;
+            }else{
+                $batas_waktu = $this->tanggal_jatuh_tempo;
+            }
 
-            $batas_waktu = $this->tanggal_jatuh_tempo;
+            // $batas_waktu = $this->tanggal_jatuh_tempo;
+            // $batas_waktu = $tanggal_sekarang;
 
             $opsi_pembayaran = $this->opsi_pembayaran;
 
@@ -234,7 +245,8 @@ class Akad extends Model
             // 'jumlah minggu / hari yang sudah di bayar'
             $data['waktu_sudah'] = $totalTerbayar / $this->bt_7_hari;
             // 'jumlah minggu / hari yang belum dibayar'
-            $data['waktu_tertunggak'] = $jarak_waktu - $data->waktu_sudah;
+            $waktu_tertunggak = $jarak_waktu == 0 ? 0 : $jarak_waktu - $data->waktu_sudah;
+            $data['waktu_tertunggak'] = $waktu_tertunggak;
             $data['jarak_waktu'] = $jarak_waktu;    
             // 'jumlah uang yang harus dibayar' 
             $data['nominal'] = $data->waktu_tertunggak * $this->bt_7_hari;
@@ -244,7 +256,7 @@ class Akad extends Model
             $data['nominal'] = $nominal;
 
             if($data->waktu_tertunggak == 0){
-                $info   = 'Rp. 0';
+                $info   = 'Rp. 0 (0 '.$keterangan.')';
                 
                 // '1 di anggap lunas'
                 $status_tunggakan = 1;
@@ -265,7 +277,7 @@ class Akad extends Model
             $totalTerbayar      = nominal($totalTerbayar);
 
             return (object) compact(
-                'info', 'nominal', 'jatuhTempo', 'totalTerbayar',
+                'info', 'nominal', 'jatuhTempo', 'totalTerbayar', 'jarak_waktu',
                 'waktu_sudah', 'waktu_tertunggak', 'nominalBiasa', 'status_tunggakan'
             );
         }else{

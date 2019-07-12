@@ -1009,7 +1009,8 @@
             cache: false,
             data: {data: data},
             success:function(result){
-                console.log(result);		
+                console.log(result);
+                
                 // swal({
                 //     title: "Pemberitahuan!",
                 //     text: "Data Akad Baru Berhasil!",
@@ -1020,11 +1021,13 @@
                 //     window.location.href = '{{route("akad.nasabah-akad")}}';
                 // });
                 
-                // // new tab for print after than new tab again for PDF 
-                // $.redirect(url_print, {
-                //     data: data,
-                //     url_pdf: url_pdf
-                // }, "GET", "_blank");
+                // new tab for print after than new tab again for PDF 
+                // 'langsung agar tidak mengatur array data lagi'
+                $.redirect(url_print, {
+                    data: result,
+                    tyep: 'langsung',
+                    url_pdf: url_pdf
+                }, "GET", "_blank");
             },
             error:function(xhr, ajaxOptions, thrownError){
                 console.log(thrownError)

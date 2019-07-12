@@ -139,11 +139,11 @@ class AkadController extends Controller
         foreach ($data as $index => $item) {
             $title = str_replace('data-', '', $item['name']);
             $get_data[$title] = $item['value'];
-            // $get_data[$item['name']] = $item['value'];
         }
 
         $akad = $this->akad->find($get_data['id_akad']);
         $akad->no_id                = $get_data['no_id_au'];
+        $akad->status               = 'Belum Lunas';
         $akad->terbilang            = $get_data['terbilang'];
         $akad->bt_7_hari            = $get_data['biaya_titip'];
         $akad->status_akad          = 'ulang';
@@ -154,34 +154,38 @@ class AkadController extends Controller
         $akad->tanggal_jatuh_tempo  = $get_data['tanggal_jatuh_tempo'];
         // $akad->save();
 
-        // if exist data 'wali nasabah'
-        if($get_data['checkbox_wali'] == 1){
-            $this->insert_nasabah($get_data)->data;
-        }
+        // $this->insert_log_akad($akad);
 
-        /*
-        / untuk yang biaya titip :
-        / 1. tunggakan di input ke table bea_titip dengan no_id lama
-        / 2. jumlah biaya titip input ke table bea_titip dengan no_id baru
-        / 3. (jumlah biaya titip + tunggakan) input ke table kas_cabang
-        / remove_dot($get_data['default-bt_tertunggak'])
-        */
+        // // if exist data 'wali nasabah'
+        // if($get_data['checkbox_wali'] == 1){
+        //     $nasabah = $this->insert_nasabah($get_data)->data;
+        // }else{
+        //     $nasabah = $this->nasabah->where('key_nasabah', $akad->key_nasabah)->first();
+        // }
+
+        // $this->insert_saldo_cabang($akad, 'tambah');
+        // $this->insert_log_saldo_cabang($akad, $nasabah);
         
-        $this->request['bt_7_hari']         = $get_data['jml_bt_yang_dibayar'];
-        $this->request['bt_yang_dibayar']   = $get_data['bt_yang_dibayar'];
+        // //table 'biaya titip'
+        // $this->request['bt_7_hari']         = $get_data['jml_bt_yang_dibayar'];
+        // $this->request['bt_yang_dibayar']   = $get_data['bt_yang_dibayar'];        
+        // $this->insert_bea_titip($akad, 'default');
 
-        $this->insert_bea_titip($akad, 'default');
+        // //'PENTING'
+        // //'untuk saat ini "insert kas cabang" hanya memasukkan biaya admin. tidak dengan biaya titip'
+        // $this->insert_kas_cabang($akad);
+        // $this->insert_log_kas_cabang($akad, $nasabah);
 
-        // $id_cabang          = $akad->id_cabang;
-        // $tertunggak         = remove_dot($get_data['default-bt_tertunggak']);
-        // $nilai_pencairan    = $get_data['penyusutan'];
-        // $jml_bt_yang_dibayar= $get_data['jml_bt_yang_dibayar']; 
+        // SANGKUT DI PENGIRIMAN DATA KE PRINT OUT DAN PDF
 
-        // $data = (object) compact('id_cabang', 'nilai_pencairan');
+        $dataAkad = $this->akad->joinNasabah()->where('id_akad', $get_data['id_akad'])->first();
+        $dataAkad['jml_bt_yang_dibayar'] = $get_data['jml_bt_yang_dibayar'];
+        $dataAkad['bt_minggu_ke'] = $get_data['bt_yang_dibayar'];
+        // $data['kelengkapan'] =  trim( str_replace( PHP_EOL, ' ', $dataAkad['kelengkapan'] ) );
+        $searches = array("\r", "\n", "\r\n");
+        $dataAkad['kelengkapan'] =   str_replace($searches, " ", $dataAkad['kelengkapan']);
 
-        // return $data->id_cabang;
-        return $akad;
-        // return $get_data;
+        return $dataAkad;
     }
 
     public function akad_lelang()
@@ -219,6 +223,8 @@ class AkadController extends Controller
         $tujuh          = $this->tujuh();
         $limaBelas      = $this->limaBelas();
         $seluruhData    = $this->seluruhData();
+
+        // return $seluruhData->data[0]->data_tunggakan->waktu_tertunggak;
 
         $column             = config('library.column.akad_nasabah.list_akad_nasabah');
         // 'waktu akad' example 'selutuh data, harian, 7 hari, 15 hari, ringkasan harian'
@@ -688,11 +694,11 @@ class AkadController extends Controller
         $log_saldo_cabang             = $this->insert_log_saldo_cabang($akad, $nasabah);
     }
 
-    public function insert_log_akad($akad)
+    public function insert_log_akad($akad, $status = 'Belum Lunas')
     {
         $logAkad = $this->log_akad;
         $logAkad->no_id         = $akad->no_id;
-        $logAkad->status        = 'Belum Lunas';
+        $logAkad->status        = $status;
         $logAkad->tanggal_log   = $akad->tanggal_akad;
         $logAkad->save();
 
