@@ -181,7 +181,8 @@ class AkadController extends Controller
         $dataAkad['bt_minggu_ke'] = $get_data['bt_yang_dibayar'];
         // $data['kelengkapan'] =  trim( str_replace( PHP_EOL, ' ', $dataAkad['kelengkapan'] ) );
         $searches = array("\r", "\n", "\r\n");
-        $dataAkad['kelengkapan'] =   str_replace($searches, " ", $dataAkad['kelengkapan']);
+        $dataAkad['kekurangan']     =   str_replace($searches, " ", $dataAkad['kekurangan']);
+        $dataAkad['kelengkapan']    =   str_replace($searches, " ", $dataAkad['kelengkapan']);
 
         return $dataAkad;
     }

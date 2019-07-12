@@ -504,7 +504,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal-akad-ulang-confirm"  tabindex="-1" role="dialog">
+<div class="modal fade" id="modal-akad-ulang-confirm"  tabindex="-1" aria-hidden="true" style='z-index:10000;' role="dialog">
     <div class="modal-dialog" role="document" style="max-width: 80%">
         <div class="modal-content">
             <div class="modal-header">
