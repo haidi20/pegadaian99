@@ -737,26 +737,98 @@
                                             <table class="table m-0">
                                                 <tbody id="table-detail-one">
                                                     <tr>
+                                                        <td>Nama</td>
+                                                        <td class="">: </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Jaminan</td>
+                                                        <td class="">: </td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>Pinjaman</td>
-                                                        <td class="">: Rp.1.000.000</td>
+                                                        <td class="">: </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Tunggakan</td>
-                                                        <td class="">: Rp.315.000</td>
+                                                        <td>Biaya Titip</td>
+                                                        <td class="">: </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Administrasi Lelang</td>
-                                                        <td class="">: Rp.10.000</td>
+                                                        <td>Biaya Titip tertunggak</td>
+                                                        <td class="">: </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Admin Lelang</td>
+                                                        <td class="">: </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Total</td>
-                                                        <td class="">: Rp.1.325.000</td>
+                                                        <td class="">: </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-                                    <!-- end of table col-lg-6 -->
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="table-responsive">
+                                            <table class="table m-0">
+                                                <tbody id="table-detail-one">
+                                                    <tr>
+                                                        <td>Nilai Lenglang</td>
+                                                        <td class=""> 
+                                                            <input type="text" class="form-control" name="nilai_lelang" id="nilai_lelang" required>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Pengembalian</td>
+                                                        <td class="">
+                                                            <input type="text" class="form-control" name="pengembalian" id="pengembalian" disabled>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                <!-- end of table col-lg-6 -->
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 pl-4">
+                                        <a href="#" class="btn btn-sm btn-success" onClick="custom_checkbox('add')">
+                                            <i class="zmdi zmdi-plus"></i> Tambah
+                                        </a>
+                                        <a href="#" class="btn btn-sm btn-warning" onClick="custom_checkbox('delete')">
+                                            <i class="ion-minus-round"></i> Kurangi
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 pl-4">
+                                        <h4 id="keterangan_waktu_ke"></h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 pl-5">
+                                        <div class="form-group row">
+                                            <div class="col-sm-12 col-md-12 checkbox" >
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 pl-4">
+                                        <h5 id="keterangan_total_bt">Total B.Titip : Rp. 0 (0 minggu) </h5> <br>
+                                        <h5 id="keterangan_total" style="display:none">Total Pembayaran : Rp. 0 </h5>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 pl-4">
+                                        <a href="#" class="btn btn-sm btn-info bayar" onClick="bayar_bt_pelunasan()">
+                                            Lelang
+                                        </a>
+                                    </div>
                                 </div>
                                 <!-- end of row -->
                             </div>
