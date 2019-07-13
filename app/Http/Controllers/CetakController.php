@@ -169,12 +169,18 @@ class CetakController extends Controller
         $pdf->SetX(9);
         $pdf->setY(136, false);
         //Print centered cell with a text in it
+        if(session()->has('kelengkapan_garis_baru')){
+            $data['kelengkapan'] = session()->get('kelengkapan_garis_baru');
+        }
         $pdf->MultiCell(0, 5, $data['kelengkapan']);
 
         //kekurangan
         $pdf->SetX(88);
         $pdf->setY(136, false);
         //Print centered cell with a text in it
+        if(session()->has('kekurangan_garis_baru')){
+            $data['kekurangan'] = session()->get('kekurangan_garis_baru');
+        }
         $pdf->MultiCell(0, 5, $data['kekurangan']);
 
         //jangka waktu akad
@@ -208,37 +214,42 @@ class CetakController extends Controller
         $pdf->SetX(41);
         $pdf->setY(180, false);
         //Print centered cell with a text in it
+        $data['taksiran_marhun'] = nominal($data['taksiran_marhun']);
         $pdf->Cell(0, 0, $data['taksiran_marhun'], 0, 0, 'L');
 
         //biaya titip
         $pdf->SetX(125);
         $pdf->setY(180, false);
         //Print centered cell with a text in it
+        $data['biaya_titip'] = nominal($data['biaya_titip']);
         $pdf->Cell(0, 0, $data['biaya_titip'], 0, 0, 'L');
 
         //marhun bih
         $pdf->SetX(41);
         $pdf->setY(186, false);
         //Print centered cell with a text in it
+        $data['marhun_bih'] = nominal($data['marhun_bih']);
         $pdf->Cell(0, 0, $data['marhun_bih'], 0, 0, 'L');
 
         //administrasi
         $pdf->SetX(125);
         $pdf->setY(186, false);
         //Print centered cell with a text in it
+        $data['biaya_admin'] = nominal($data['biaya_admin']);
         $pdf->Cell(0, 0, $data['biaya_admin'], 0, 0, 'L');
 
         //total b titip
         $pdf->SetX(41);
         $pdf->setY(192, false);
         //Print centered cell with a text in it
+        $data['jml_bt_yang_dibayar'] = nominal($data['jml_bt_yang_dibayar']);
         $pdf->Cell(0, 0, $data['jml_bt_yang_dibayar'], 0, 0, 'L');
 
         //B adm Lelang
         $pdf->SetX(125);
         $pdf->setY(192, false);
         //Print centered cell with a text in it
-        $pdf->Cell(0, 0, $data['biaya_admin'], 0, 0, 'L');
+        $pdf->Cell(0, 0, 'belum tau', 0, 0, 'L');
 
         //terbilang
         $pdf->SetX(36);

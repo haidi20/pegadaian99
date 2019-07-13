@@ -235,6 +235,7 @@ label
                 key_nasabah: '{{$data["key_nasabah"]}}',
                 biaya_admin: '{{$data["biaya_admin"]}}',
                 kelengkapan: '{{$data["kelengkapan"]}}',
+                kelengkapan: '{{$data["kelengkapan"]}}',
                 nama_barang: '{{$data["nama_barang"]}}',
                 biaya_titip: '{{$data["biaya_titip"]}}',
                 nama_lengkap: '{{$data["nama_lengkap"]}}',

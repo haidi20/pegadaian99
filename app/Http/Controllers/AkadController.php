@@ -180,6 +180,8 @@ class AkadController extends Controller
         $dataAkad['jml_bt_yang_dibayar'] = $get_data['jml_bt_yang_dibayar'];
         $dataAkad['bt_minggu_ke'] = $get_data['bt_yang_dibayar'];
         // $data['kelengkapan'] =  trim( str_replace( PHP_EOL, ' ', $dataAkad['kelengkapan'] ) );
+        session()->put('kekurangan_garis_baru', $dataAkad['kekurangan']);
+        session()->put('kelengkapan_garis_baru', $dataAkad['kelengkapan']);
         $searches = array("\r", "\n", "\r\n");
         $dataAkad['kekurangan']     =   str_replace($searches, " ", $dataAkad['kekurangan']);
         $dataAkad['kelengkapan']    =   str_replace($searches, " ", $dataAkad['kelengkapan']);
@@ -638,20 +640,6 @@ class AkadController extends Controller
                 $value = $codeAu.'-'.$totalAkadUlang;
             }
         }
-
-        return (object) compact('value');
-    }
-
-    public function codeNoIdd($type = 'akad_baru')
-    {
-        /*
-        * format code 'nomor id'
-        * c99-04-021019-01
-        * 'kode citra99 - nomor cabang - tanggal akad - akad yang keberapa pada hari itu'
-        * format code 'nomor id akad ulang'
-        * c99-04-021019-01-AU-01
-        * 'kode citra99 - nomor cabang - tanggal akad - jumlah akad pada hari itu - kode akad ulang - akad ulang yang sudah keberapa pada nasabah tersebut'
-        */
 
         return (object) compact('value');
     }

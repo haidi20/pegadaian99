@@ -1011,15 +1011,15 @@
             success:function(result){
                 // console.log(result);
                 
-                swal({
-                    title: "Pemberitahuan!",
-                    text: "Data Akad Baru Berhasil!",
-                    type: "success",
-                    icon: "success",
-                }).then(function() {
-                    // if success, redirect to page 'database > data akad nasabah > nasabah akad'
-                    window.location.href = '{{route("akad.nasabah-akad")}}';
-                });
+                // swal({
+                //     title: "Pemberitahuan!",
+                //     text: "Data Akad Baru Berhasil!",
+                //     type: "success",
+                //     icon: "success",
+                // }).then(function() {
+                //     // if success, redirect to page 'database > data akad nasabah > nasabah akad'
+                //     window.location.href = '{{route("akad.nasabah-akad")}}';
+                // });
                 
                 // new tab for print after than new tab again for PDF 
                 // 'langsung agar tidak mengatur array data lagi'
