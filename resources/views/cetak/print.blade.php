@@ -114,24 +114,24 @@ label
         <br />
         <span id="id_label_uang">Uang Pinjaman</span>
         <span class="pull-right " style="margin-left: 237px">
-            : Rp. <span id="id_uang">{{$data['marhun_bih']}}</span>
+            : Rp. <span id="id_uang">{{nominal($data['marhun_bih'])}}</span>
         </span>
 
         <br />
         @if($data['nilai_opsi_pembayaran'] == 1)
             <span id="id_label_btitip">B. Titip Per harian</span>
             <span class="pull-right " style="margin-left: 218px">
-                : Rp. <span id="id_btitip">{{$data['jml_bt_yang_dibayar']}}</span>
+                : Rp. <span id="id_btitip">{{nominal($data['jml_bt_yang_dibayar'])}}</span>
             </span>
         @elseif($data['nilai_opsi_pembayaran'] == 7)
             <span id="id_label_btitip">B. Titip Per {{$data['nilai_opsi_pembayaran']}} Hari</span>
             <span class="pull-right " style="margin-left: 218px">
-                : Rp. <span id="id_btitip">{{$data['jml_bt_yang_dibayar']}}</span>
+                : Rp. <span id="id_btitip">{{nominal($data['jml_bt_yang_dibayar'])}}</span>
             </span>
         @elseif($data['nilai_opsi_pembayaran'] == 15)
             <span id="id_label_btitip">B. Titip Per {{$data['nilai_opsi_pembayaran']}} Hari</span>
             <span class="pull-right " style="margin-left: 210px">
-                : Rp. <span id="id_btitip">{{$data['jml_bt_yang_dibayar']}}</span>
+                : Rp. <span id="id_btitip">{{nominal($data['jml_bt_yang_dibayar'])}}</span>
             </span>
         @endif
     </p>
@@ -161,13 +161,13 @@ label
         <br />
         <span id="id_label_btitip">Pembayaran B. Titip</span>
         <span class="pull-right " style="margin-left: 204px">
-            : Rp. <span id="id_btitip">{{$data['biaya_titip']}}</span>
+            : Rp. <span id="id_btitip">{{nominal($data['biaya_titip'])}}</span>
         </span>
 
         <br />
         <span id="id_label_badmin">Pembayaran B. Admin</span>
         <span class="pull-right " style="margin-left: 190px">
-            : Rp. <span id="id_badmin">{{$data['biaya_admin']}}</span>
+            : Rp. <span id="id_badmin">{{nominal($data['biaya_admin'])}}</span>
         </span>
     </p>
     <label for="TANGGALJATUHTEMPO">

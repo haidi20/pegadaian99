@@ -614,8 +614,9 @@ class AkadController extends Controller
         */
         
         if($status_akad == 'ulang'){
+            //'agar bisa mengambil data c99-04-021019-01-AU-'
             $codeAu = substr($no_id, 0, 21);
-            $totalAkadUlang = $this->log_akad->where('no_id', 'LIKE', '%'.$no_id.'%')->count();
+            $totalAkadUlang = $this->log_akad->where('no_id', 'LIKE', '%'.$codeAu.'%')->count();
             $totalAkadUlang = $totalAkadUlang + 1;
             $value = $codeAu.$totalAkadUlang;
         }else if($status_akad == 'baru'){

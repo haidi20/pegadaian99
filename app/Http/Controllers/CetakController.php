@@ -36,6 +36,9 @@ class CetakController extends Controller
             $data['biaya_titip'] = $data['bt_7_hari'];
         }
 
+        $data['tanggal_akad']           = Carbon::parse($data['tanggal_akad'])->format('d-m-Y');
+        $data['tanggal_jatuh_tempo']    = Carbon::parse($data['tanggal_jatuh_tempo'])->format('d-m-Y');
+
         // return $data;
 
         return view('cetak.print', compact('data', 'url_pdf', 'input'));
