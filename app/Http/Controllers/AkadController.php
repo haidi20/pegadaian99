@@ -70,7 +70,7 @@ class AkadController extends Controller
 
         // overwrite some field
         $findAkad['margin']                     = $this->setting->baseBranch()->jenisBarang($findAkad->jenis_barang)->value('margin');
-        $findAkad['no_id_au']                   = $this->codeNoId('akad_ulang')->value;
+        $findAkad['no_id_au']                   = $this->codeNoId('akad_ulang', $findAkad->no_id, $findAkad->status_akad)->value;
         $findAkad['potongan']                   = $this->setting->baseBranch()->jenisBarang($findAkad->jenis_barang)->value('potongan'); 
         $findAkad['bt_terbayar']                = $findAkad->data_tunggakan->totalTerbayar;
         $findAkad['waktu_sudah']                = $findAkad->data_tunggakan->waktu_sudah;
@@ -600,37 +600,58 @@ class AkadController extends Controller
         ));
     }
 
-    public function codeNoId($type = 'akad_baru')
+    public function codeNoId($type = 'akad_baru', $no_id = null, $status_akad = null)
     {
         /*
         * format code 'nomor id'
         * c99-04-021019-01
         * 'kode citra99 - nomor cabang - tanggal akad - akad yang keberapa pada hari itu'
         * format code 'nomor id akad ulang'
-        * c99-04-021019-AU-01
-        * 'kode citra99 - nomor cabang - tanggal akad - kode akad ulang - akad ulang yang sudah keberapa'
+        * c99-04-021019-01-AU-01
+        * 'kode citra99 - nomor cabang - tanggal akad - jumlah akad pada hari itu - kode akad ulang - akad ulang yang sudah keberapa pada nasabah tersebut'
         */
-
-        $codeNoId       = 'C99-'.$this->infoCabang()->nomorCabang.'-'.Carbon::now()->format('dmy');
-
-        // 'mendapatkan jumlah akad ke-berapa pada hari ini'
-        $contractToday  = $this->log_akad->where('no_id', 'LIKE', '%'.$codeNoId.'%')->count();
-        $contractToday  = $contractToday + 1;
-        $contractToday  = $contractToday >= 10 ? '-0'.$contractToday : '-00'.$contractToday;
         
-        $value          = $codeNoId . $contractToday;
-
-        if($type == 'akad_ulang'){
-            $codeAu = $type == 'akad_ulang' ? '-AU' : null;
-            $codeAu = $value.$codeAu;
-
-            //'total akad ulang ini dimaksudkan kepada jumlah akad ulang pada nasabah tersebut'
-            //'jika nasabah A telah melakukan akad ulang sebanyak 2x, maka total akad ulang sebanyak 2'
-            $totalAkadUlang = $this->log_akad->where('no_id', 'LIKE', '%'.$codeAu.'%')->count();
+        if($status_akad == 'ulang'){
+            $codeAu = substr($no_id, 0, 21);
+            $totalAkadUlang = $this->log_akad->where('no_id', 'LIKE', '%'.$no_id.'%')->count();
             $totalAkadUlang = $totalAkadUlang + 1;
+            $value = $codeAu.$totalAkadUlang;
+        }else if($status_akad == 'baru'){
+            $codeNoId       = 'C99-'.$this->infoCabang()->nomorCabang.'-'.Carbon::now()->format('dmy');
 
-            $value = $codeAu.'-'.$totalAkadUlang;
+            // 'mendapatkan jumlah akad ke-berapa pada hari ini'
+            $contractToday  = $this->log_akad->where('no_id', 'LIKE', '%'.$codeNoId.'%')->count();
+            $contractToday  = $contractToday + 1;
+            $contractToday  = $contractToday >= 10 ? '-0'.$contractToday : '-00'.$contractToday;
+            
+            $value          = $codeNoId . $contractToday;
+
+            if($type == 'akad_ulang'){
+                $codeAu = $type == 'akad_ulang' ? '-AU' : null;
+                $codeAu = $value.$codeAu;
+
+                //'total akad ulang ini dimaksudkan kepada jumlah akad ulang pada nasabah tersebut'
+                //'jika nasabah A telah melakukan akad ulang sebanyak 2x, maka total akad ulang sebanyak 2'
+                $totalAkadUlang = $this->log_akad->where('no_id', 'LIKE', '%'.$codeAu.'%')->count();
+                $totalAkadUlang = $totalAkadUlang + 1;
+
+                $value = $codeAu.'-'.$totalAkadUlang;
+            }
         }
+
+        return (object) compact('value');
+    }
+
+    public function codeNoIdd($type = 'akad_baru')
+    {
+        /*
+        * format code 'nomor id'
+        * c99-04-021019-01
+        * 'kode citra99 - nomor cabang - tanggal akad - akad yang keberapa pada hari itu'
+        * format code 'nomor id akad ulang'
+        * c99-04-021019-01-AU-01
+        * 'kode citra99 - nomor cabang - tanggal akad - jumlah akad pada hari itu - kode akad ulang - akad ulang yang sudah keberapa pada nasabah tersebut'
+        */
 
         return (object) compact('value');
     }

@@ -711,7 +711,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-info waves-effect" data-dismiss="modal" onClick="button_back_confirm_au('back')">Kembali</button>
-                <button type="button" id="proses" onClick="process()" class="btn btn-default btn-success waves-effect">Proses</button>
+                <button type="button" onClick="process()" class="btn btn-default btn-success waves-effect">Proses</button>
             </div>
         </div>
     </div>
