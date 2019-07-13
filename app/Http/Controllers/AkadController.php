@@ -55,7 +55,7 @@ class AkadController extends Controller
         ]);
     }
 
-    /* code-code on data akad nasabah :
+    /* code-code base on data 'akad nasabah' :
     * na    = nasabah akad
     * ajt   = akad jatuh tempo
     * pl    = pelunasan dan lelang
@@ -613,6 +613,7 @@ class AkadController extends Controller
         * 'kode citra99 - nomor cabang - tanggal akad - jumlah akad pada hari itu - kode akad ulang - akad ulang yang sudah keberapa pada nasabah tersebut'
         */
         
+        //'akad ulang yang lebih dari 1'
         if($status_akad == 'ulang'){
             //'agar bisa mengambil data c99-04-021019-01-AU-'
             $codeAu = substr($no_id, 0, 21);
@@ -629,6 +630,7 @@ class AkadController extends Controller
             
             $value          = $codeNoId . $contractToday;
 
+            //'jika akad ulang pertama kali'
             if($type == 'akad_ulang'){
                 $codeAu = $type == 'akad_ulang' ? '-AU' : null;
                 $codeAu = $value.$codeAu;
