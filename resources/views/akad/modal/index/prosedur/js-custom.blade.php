@@ -143,20 +143,30 @@
         var ket_biaya_titip = 'Total B.Titip : Rp. '+biaya_titip+' ('+waktu_ke+' '+satuan_waktu+')';
         $('#keterangan_total_bt').html(ket_biaya_titip);
 
-        let checked = '';
+        // let checked = '';
+        var sum_checked;
         $('input[type=checkbox]').each(function () {
             if (this.checked){
-                sum_checked = $(this).val();
+                if($(this).val() < value){
+                    console.log('terceklis KURANG dari nilai');
+                    sum_checked = value;
+                }else{
+                    console.log('terceklis lebih dr nilai');
+                    sum_checked = $(this).val();
+                }
+                
             }           
         });
+        // until       = Number(until);
         sum_checked = Number(sum_checked);
-        
+        console.log(value + 1, until, sum_checked);
         // for if click checkbox, so next checkbox remove checklist and disabled
         if(sum_checked > value){
-            let i = value + 1;
+            var i = value + 1;
             for(i; i <= until; i++){
+                var disabled = 'disabled';
                 let checkbox = '';
-                checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" class="checkbox'+i+'" disabled value="'+i+'" onCLick="condition_disabled('+i+')">';
+                checkbox = checkbox + '<input id="checkbox'+i+'" type="checkbox" class="checkbox'+i+'" '+disabled+' value="'+i+'" onCLick="condition_disabled('+i+')">';
                 checkbox = checkbox + '<label for="checkbox'+i+'" class="checkbox'+i+'">';
                 checkbox = checkbox + i;
                 checkbox = checkbox + '</label>';
@@ -165,6 +175,20 @@
                 $('.checkbox-'+i).html(checkbox);
             }
         }else{
+            if($('#checkbox'+value).attr('checked')){
+                // console.log('ada checked');
+            }else{
+                // console.log('tidak ada checked');
+                let checkbox = '';
+                checkbox = checkbox + '<input id="checkbox'+value+'" type="checkbox" class="checkbox'+value+'" checked value="'+value+'" onCLick="condition_disabled('+value+')">';
+                checkbox = checkbox + '<label for="checkbox'+value+'" class="checkbox'+value+'">';
+                checkbox = checkbox + value;
+                checkbox = checkbox + '</label>';
+                $('.checkbox-'+value).empty();
+                $('.checkbox-'+value).html(checkbox);
+                // $('#checkbox'+value).prop('checked', true);
+                // $('#checkbox'+value).attr('checked', 'checked');
+            }
             // condition if thix checkbox not checklist, can next chexkbox disabled
             if($('#checkbox'+selanjutnya).attr('disabled')){
                 $('#checkbox'+selanjutnya).removeAttr('disabled');

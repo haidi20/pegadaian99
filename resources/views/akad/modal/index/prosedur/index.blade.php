@@ -818,8 +818,8 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6 pl-4">
-                                        <h5 id="keterangan_total_bt">Total B.Titip : Rp. 0 (0 minggu) </h5> <br>
-                                        <h5 id="keterangan_total" style="display:none">Total Pembayaran : Rp. 0 </h5>
+                                        {{-- <h5 id="keterangan_total_bt">Total B.Titip : Rp. 0 (0 minggu) </h5> <br>
+                                        <h5 id="keterangan_total" style="display:none">Total Pembayaran : Rp. 0 </h5> --}}
                                     </div>
                                 </div>
                                 <br>
@@ -838,6 +838,16 @@
                     </div>
                 </div>
                 <!-- end of view-info -->
+                {{-- information hidden --}}
+                <input type="hidden" class="id_akad">
+                <input type="hidden" class="bt_7_hari">
+                <input type="hidden" class="type_button">
+                <input type="hidden" class="nominal_total">
+                <input type="hidden" class="from_checkbox">
+                <input type="hidden" class="until_checkbox">
+                <input type="hidden" class="nilai_pencairan">
+                <input type="hidden" class="opsi_pembayaran">
+                <input type="hidden" class="default_until_checkbox">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-success waves-effect " data-dismiss="modal">Keluar</button>
