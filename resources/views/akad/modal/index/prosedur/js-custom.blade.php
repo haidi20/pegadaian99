@@ -148,21 +148,21 @@
         $('input[type=checkbox]').each(function () {
             if (this.checked){
                 if($(this).val() < value){
-                    console.log('terceklis KURANG dari nilai');
+                    // console.log('terceklis KURANG dari nilai');
                     sum_checked = value;
                 }else{
-                    console.log('terceklis lebih dr nilai');
+                    // console.log('terceklis lebih dr nilai');
                     sum_checked = $(this).val();
                 }
                 
             }           
         });
-        // until       = Number(until);
         sum_checked = Number(sum_checked);
         console.log(value + 1, until, sum_checked);
         // for if click checkbox, so next checkbox remove checklist and disabled
         if(sum_checked > value){
             var i = value + 1;
+            // console.log('masuk looping');
             for(i; i <= until; i++){
                 var disabled = 'disabled';
                 let checkbox = '';
@@ -179,8 +179,9 @@
                 // console.log('ada checked');
             }else{
                 // console.log('tidak ada checked');
-                let checkbox = '';
-                checkbox = checkbox + '<input id="checkbox'+value+'" type="checkbox" class="checkbox'+value+'" checked value="'+value+'" onCLick="condition_disabled('+value+')">';
+                var checked = 'checked';
+                var checkbox = '';
+                checkbox = checkbox + '<input id="checkbox'+value+'" type="checkbox" class="checkbox'+value+'" '+checked+' value="'+value+'" onCLick="condition_disabled('+value+')">';
                 checkbox = checkbox + '<label for="checkbox'+value+'" class="checkbox'+value+'">';
                 checkbox = checkbox + value;
                 checkbox = checkbox + '</label>';
@@ -277,10 +278,10 @@
             cache: false,
             data:{id:id},
             success:function(result){
-                if(type == 'pelunasan' || type == 'biaya_titip'){
-                    modal_prosedur(result, type)
+                if(type == 'pelunasan' || type == 'biaya_titip' || type == 'lelang'){
+                    modal_prosedur(result, type);
                 }else if(type == 'akad_ulang'){
-                    modal_akad_ulang(result, type)
+                    modal_akad_ulang(result, type);
                 }
             },
             error:function(xhr, ajaxOptions, thrownError){
@@ -307,7 +308,7 @@
                 value = item;
             }
 
-            $(name).html(': '+value) 
+            $(name).html(': '+value);
         });
 
         // condition word 'harian' or 'mingguan'
@@ -382,9 +383,15 @@
     function execution_checkbox(from, until, type)
     {
         var i           = from;
-        var checked     = type == 'pelunasan' ? 'checked' : '';
+        // var checked     = type == 'pelunasan' ? 'checked' : '';
         var disabled    = '';
         var checkbox    = '';
+
+        if(type == 'pelunasan' || type == 'lelang'){
+            var checked = 'checked';
+        }else{
+            var checked = '';
+        }
 
         // console.log(from, until)
 
@@ -396,7 +403,7 @@
                     if(i > from){
                         disabled = 'disabled';
                     }
-                }else if(type == 'pelunasan'){
+                }else if(type == 'pelunasan' || type == 'lelang'){
                     disabled = '';
                 }
 
@@ -1057,12 +1064,6 @@
                 console.log(thrownError)
             }
         });
-    }
-
-    //'TOMBOL AKAD LELANG'
-    function lelang(id)
-    {
-        $('#modal-lelang').modal('show');
     }
 
     // swal({
