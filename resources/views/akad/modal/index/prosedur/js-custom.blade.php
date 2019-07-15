@@ -3,24 +3,29 @@
     // type is between pelunasan and biaya titip
     function prosedur(id, type)
     {
-        if(type == 'pelunasan'){
+        if(type == 'pelunasan' || type == 'lelang'){
             // show word 'total'
-            $('#pelunasan').css('display', '')
+            $('#pelunasan').css('display', '');
             // show 'keterangan total'
-            $('#keterangan_total').show()
+            $('#keterangan_total').show();
             // change title modal = 'pelunasan'
-            $('.prosedur-title').html('Pelunasan')
+            if(type == 'pelunasan'){
+                var title = 'Pelunasan';
+            }else{
+                var title = 'Lelang';
+            }
+            $('.prosedur-title').html(title);
             // active button 'bayar'
             $('.bayar').removeClass('disabled')
         }else if(type == 'biaya_titip'){
              // hide word 'total'
-            $('#pelunasan').css('display', 'none')
+            $('#pelunasan').css('display', 'none');
             // hide 'keterangan total'
-            $('#keterangan_total').css('display', 'none')
+            $('#keterangan_total').css('display', 'none');
              // change title modal = 'Pembayaran Biaya Titip'
-            $('.prosedur-title').html('Pembayaran Biaya Titip')
+            $('.prosedur-title').html('Pembayaran Biaya Titip');
             // disabled button 'bayar'
-            $('.bayar').addClass('disabled')
+            $('.bayar').addClass('disabled');
         }
 
         $('#modal-prosedur').modal('show');
@@ -332,8 +337,16 @@
             until = data.waktu_sudah + data.waktu_tertunggak;
         }
 
-        if(type == 'pelunasan'){
+        if(type == 'pelunasan' || type == 'lelang'){
             total_pelunasan(data, from, until)
+        }
+
+        if(type == 'lelang'){
+            $('#form_lelang').show();
+
+            keyup_nilai_lelang();
+        }else{
+            $('#form_lelang').hide();
         }
 
         //set value
@@ -377,6 +390,15 @@
 
         var keterangan = 'Total Pembayaran : Rp. '+format_total;
         $('#keterangan_total').html(keterangan);
+    }
+
+    function keyup_nilai_lelang()
+    {
+        $('#nilai_lelang').on('keyup', function(){
+            var value = this.value;
+
+            this.value = formatRupiah(value.toString());
+        });
     }
 
     // type is between 'pelunasan' and 'biaya titip'

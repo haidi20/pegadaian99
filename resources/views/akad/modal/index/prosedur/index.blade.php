@@ -50,6 +50,34 @@
                                             </table>
                                         </div>
                                     </div>
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="">
+                                            <table class="table m-0">
+                                                <tbody id="form_lelang">
+                                                    <tr>
+                                                        <td>Nilai Lelang</td>
+                                                        <td>
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-addon" id="basic-addon1">Rp.</span>
+                                                                        <input type="text" class="form-control nilai_lelang" value="" name="nilai_lelang" id="nilai_lelang">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            {{-- <input type="text" class="form-control" name="nilai_lelang" id="nilai_lelang"> --}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Pengembalian</td>
+                                                        <td>
+                                                            <input type="text" class="form-control" name="nilai_pengembalian" id="nilai_pengembalian" disabled>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                     <!-- end of table col-lg-6 -->
                                 </div>
                                 <!-- end of row -->
