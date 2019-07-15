@@ -11,12 +11,14 @@
             // change title modal = 'pelunasan'
             if(type == 'pelunasan'){
                 var title = 'Pelunasan';
-            }else{
+                var disabled = 'disabled';
+            }else if(type == 'lelang'){
                 var title = 'Lelang';
+                var disabled = '';
             }
             $('.prosedur-title').html(title);
             // active button 'bayar'
-            $('.bayar').removeClass('disabled')
+            $('.bayar').removeClass(disabled);
         }else if(type == 'biaya_titip'){
              // hide word 'total'
             $('#pelunasan').css('display', 'none');
@@ -337,6 +339,7 @@
             until = data.waktu_sudah + data.waktu_tertunggak;
         }
 
+        // button 'pelunasan' and 'lelang'
         if(type == 'pelunasan' || type == 'lelang'){
             total_pelunasan(data, from, until)
         }
@@ -395,9 +398,26 @@
     function keyup_nilai_lelang()
     {
         $('#nilai_lelang').on('keyup', function(){
-            var value = this.value;
+            this.value = formatRupiah(this.value.toString());
+            var nilai_lelang = this.value.replace(",","").replace(".","").replace(".","").replace(".","").replace(".","");
+            // 'total yang harus di bayar oleh nasabah'
+            var total = $('.nominal_total').val();
+            var nilai_pengembalian = nilai_lelang - total;
+            $('#nominal_pengembalian').val(nilai_pengembalian);
+            
+            if(nilai_pengembalian < 0){
+                var negative = '-';
+                $('.bayar').addClass('disabled');
+            }else{
+                var negative = '';
+                $('.bayar').removeClass('disabled');
+            }
 
-            this.value = formatRupiah(value.toString());
+            console.log(nilai_pengembalian);
+            var nilai_pengembalian = formatRupiah(nilai_pengembalian.toString());
+            $('#nilai_pengembalian').val(negative+nilai_pengembalian);
+
+            
         });
     }
 
