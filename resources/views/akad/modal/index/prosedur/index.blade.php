@@ -42,6 +42,10 @@
                                                         <td>Biaya Titip Tertunggak </td>
                                                         <td class="bt_tertunggak"></td>
                                                     </tr>
+                                                    <tr>
+                                                        <td>Biaya Admin Lelang</td>
+                                                        <td class="biaya_admin"></td>
+                                                    </tr>
                                                     <tr id="pelunasan">
                                                         <td>Total </td>
                                                         <td class="total"></td>
@@ -131,7 +135,7 @@
                 <br>
                 <div class="row">
                     <div class="col-sm-12 col-md-6 pl-4">
-                        <a href="#" class="btn btn-sm btn-info bayar disabled" onClick="bayar_bt_pelunasan()">
+                        <a href="#" class="btn btn-sm btn-info bayar disabled" onClick="bayar_bt_pelunasan_lelang()">
                             Bayar
                         </a>
                     </div>
@@ -152,6 +156,7 @@
     <input type="hidden" class="until_checkbox">
     <input type="hidden" class="nilai_pencairan">
     <input type="hidden" class="opsi_pembayaran">
+    <input type="hidden" class="biaya_admin_biasa">
     <input type="hidden" class="default_until_checkbox">
 </div>
 

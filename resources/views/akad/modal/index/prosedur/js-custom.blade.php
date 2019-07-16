@@ -207,7 +207,7 @@
         }
     }
 
-    function bayar_bt_pelunasan()
+    function bayar_bt_pelunasan_lelang()
     {
         var from            = $('.from_checkbox').val()
         var id_akad         = $('.id_akad').val()
@@ -260,7 +260,8 @@
                             icon: "success",
                         });
 
-                        window.location.href = '{{route("akad.nasabah-akad")}}';
+                        // if success, can refresh this page
+                        location.reload();
                     },
                     error:function(xhr, ajaxOptions, thrownError){
                         console.log(thrownError)
@@ -341,15 +342,17 @@
 
         // button 'pelunasan' and 'lelang'
         if(type == 'pelunasan' || type == 'lelang'){
-            total_pelunasan(data, from, until)
+            total_pelunasan(data, from, until, type)
         }
 
         if(type == 'lelang'){
             $('#form_lelang').show();
+            $('.biaya_admin').show();
 
             keyup_nilai_lelang();
         }else{
             $('#form_lelang').hide();
+            $('.biaya_admin').hide();
         }
 
         //set value
@@ -366,12 +369,19 @@
         execution_checkbox(from, until, type)
     }
 
-    function total_pelunasan(data, from, until)
+    function total_pelunasan(data, from, until, type)
     {
         var bt_tertunggak   = Number(data.bt_tertunggak_biasa);
         var nilai_pencairan = Number(data.nilai_pencairan);
+        
+        if(type == 'lelang'){
+            var biaya_admin = Number(data.biaya_admin_biasa);
+        }else{
+            var biaya_admin = 0;
+        }
+
         // 'rumus total di pelunasan'
-        var total = nilai_pencairan + bt_tertunggak;
+        var total = nilai_pencairan + bt_tertunggak + biaya_admin;
         var format_total = formatRupiah(total.toString());
 
         // this class show when button 'pelunasan' active
