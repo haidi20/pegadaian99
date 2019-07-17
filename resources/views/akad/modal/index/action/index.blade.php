@@ -47,8 +47,46 @@
     </div>
 </div>
 
-<!-- Modal -->
 <div class="modal fade modal-flex" id="modal-review" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document" style="max-width:80%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Rician Nasabah</h4>
+                {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick="close_all_modal()">
+                    <span aria-hidden="true">&times;</span>
+                </button> --}}
+            </div>
+            <div class="modal-body">
+                {{-- <h6>Detail Nasabah</h6> --}}
+                @include('akad.modal.index.action.detail.detail-nasabah')
+            </div>
+            <div class="modal-header">
+                <h4 class="modal-title">Data Akad</h4>
+            </div>
+            <div class="modal-body">
+               {{-- <h6>Data Akad</h6> --}}
+               @include('akad.modal.index.action.detail.data-akad')
+            </div>
+            <div class="modal-header">
+                <h4 class="modal-title">Bea Titip</h4>
+            </div>
+            <div class="modal-body">
+                {{-- <h6>Bea Titip</h6> --}}
+                @include('akad.modal.index.action.detail.biaya-titip')
+            </div>
+            <div class="modal-header">
+                <h4 class="modal-title">Rincian Akad</h4>
+            </div>
+            <div class="modal-body">
+                {{-- <h6>Rincian Akad</h6> --}}
+                @include('akad.modal.index.action.detail.maintenance')
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade modal-flex" id="modal-revieww" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body">

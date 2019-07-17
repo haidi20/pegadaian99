@@ -209,13 +209,13 @@
 
     function bayar_bt_pelunasan_lelang()
     {
-        var from            = $('.from_checkbox').val()
-        var id_akad         = $('.id_akad').val()
-        var nominal         = $('.nominal_total').val()
-        var format_nominal  = formatRupiah(nominal.toString())
+        var from            = $('.from_checkbox').val();
+        var id_akad         = $('.id_akad').val();
+        var nominal         = $('.nominal_total').val();
+        var format_nominal  = formatRupiah(nominal.toString());
         // 'pendukung tombol pelunasan
-        var type_button     = $('.type_button').val()
-        var nilai_pencairan = $('.nilai_pencairan').val()
+        var type_button     = $('.type_button').val();
+        var nilai_pencairan = $('.nilai_pencairan').val();
 
         // 'agar bisa memasukkan hanya nilai biaya titip'
         if(type_button == 'pelunasan'){
