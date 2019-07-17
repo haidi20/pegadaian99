@@ -347,12 +347,12 @@
 
         if(type == 'lelang'){
             $('#form_lelang').show();
-            $('.biaya_admin').show();
+            $('#info-admin_lelang').show();
 
             keyup_nilai_lelang();
         }else{
             $('#form_lelang').hide();
-            $('.biaya_admin').hide();
+            $('#info-admin_lelang').hide();
         }
 
         //execute null on form lelang

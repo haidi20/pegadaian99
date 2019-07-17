@@ -42,9 +42,11 @@
                                                         <td>Biaya Titip Tertunggak </td>
                                                         <td class="bt_tertunggak"></td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr id="info-admin_lelang" style="display:none">
                                                         <td>Biaya Admin Lelang</td>
-                                                        <td class="biaya_admin"></td>
+                                                        <td >
+                                                            <input type="text" class="form-control nilai_admin_lelang" value="" name="nilai_admin_lelang" id="nilai_admin_lelang">
+                                                        </td>
                                                     </tr>
                                                     <tr id="pelunasan">
                                                         <td>Total </td>
