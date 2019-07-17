@@ -44,8 +44,15 @@
                                                     </tr>
                                                     <tr id="info-admin_lelang" style="display:none">
                                                         <td>Biaya Admin Lelang</td>
-                                                        <td >
-                                                            <input type="text" class="form-control nilai_admin_lelang" value="" name="nilai_admin_lelang" id="nilai_admin_lelang">
+                                                        <td>
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-addon" id="basic-addon1">Rp.</span>
+                                                                        <input type="text" class="form-control nilai_admin_lelang" value="" name="nilai_admin_lelang" id="nilai_admin_lelang">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                     <tr id="pelunasan">
@@ -68,10 +75,10 @@
                                                                     <div class="input-group">
                                                                         <span class="input-group-addon" id="basic-addon1">Rp.</span>
                                                                         <input type="text" class="form-control nilai_lelang" value="" name="nilai_lelang" id="nilai_lelang">
+                                                                        <input type="hidden" class="form-control" name="nominal_lelang" id="nominal_lelang">
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            {{-- <input type="text" class="form-control" name="nilai_lelang" id="nilai_lelang"> --}}
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -159,6 +166,8 @@
     <input type="hidden" class="nilai_pencairan">
     <input type="hidden" class="opsi_pembayaran">
     <input type="hidden" class="biaya_admin_biasa">
+    <input type="hidden" class="admin_lelang">
+    <input type="hidden" class="nilai_bt_tertunggak">
     <input type="hidden" class="default_until_checkbox">
 </div>
 

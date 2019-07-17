@@ -350,6 +350,7 @@
             $('#info-admin_lelang').show();
 
             keyup_nilai_lelang();
+            keyup_nilai_admin_lelang();
         }else{
             $('#form_lelang').hide();
             $('#info-admin_lelang').hide();
@@ -361,14 +362,15 @@
         $('#nominal_pengembalian').val('');
 
         //set value
-        $('.type_button').val(type)
-        $('.from_checkbox').val(from)
-        $('.until_checkbox').val(until)
-        $('.id_akad').val(data.id_akad)
+        $('.type_button').val(type);
+        $('.from_checkbox').val(from);
+        $('.until_checkbox').val(until);
+        $('.id_akad').val(data.id_akad);
         $('.bt_7_hari').val(data.bt_7_hari);
-        $('.default_until_checkbox').val(until)
-        $('.nilai_pencairan').val(data.nilai_pencairan)
-        $('.opsi_pembayaran').val(data.opsi_pembayaran)
+        $('.default_until_checkbox').val(until);
+        $('.nilai_pencairan').val(data.nilai_pencairan);
+        $('.opsi_pembayaran').val(data.opsi_pembayaran);
+        $('.nilai_bt_tertunggak').val(data.bt_tertunggak_biasa);
 
         // show checkbox base on time done pay and not yet pay
         execution_checkbox(from, until, type)
@@ -378,15 +380,9 @@
     {
         var bt_tertunggak   = Number(data.bt_tertunggak_biasa);
         var nilai_pencairan = Number(data.nilai_pencairan);
-        
-        if(type == 'lelang'){
-            var biaya_admin = Number(data.biaya_admin_biasa);
-        }else{
-            var biaya_admin = 0;
-        }
 
         // 'rumus total di pelunasan'
-        var total = nilai_pencairan + bt_tertunggak + biaya_admin;
+        var total = nilai_pencairan + bt_tertunggak
         var format_total = formatRupiah(total.toString());
 
         // this class show when button 'pelunasan' active
@@ -413,10 +409,13 @@
     function keyup_nilai_lelang()
     {
         $('#nilai_lelang').on('keyup', function(){
-            this.value = formatRupiah(this.value.toString());
-            var nilai_lelang = this.value.replace(",","").replace(".","").replace(".","").replace(".","").replace(".","");
             // 'total yang harus di bayar oleh nasabah'
             var total = $('.nominal_total').val();
+
+            this.value = formatRupiah(this.value.toString());
+            var nilai_lelang = this.value.replace(",","").replace(".","").replace(".","").replace(".","").replace(".","");
+            $('#nominal_lelang').val(nilai_lelang);
+            
             var nilai_pengembalian = nilai_lelang - total;
             $('#nominal_pengembalian').val(nilai_pengembalian);
             
@@ -428,11 +427,72 @@
                 $('.bayar').removeClass('disabled');
             }
 
-            console.log(nilai_pengembalian);
             var nilai_pengembalian = formatRupiah(nilai_pengembalian.toString());
             $('#nilai_pengembalian').val(negative+nilai_pengembalian);
 
             
+        });
+    }
+
+    function keyup_nilai_admin_lelang()
+    {
+        $('#nilai_admin_lelang').on('keyup', function(){
+            var nilai_lelang        = $('#nominal_lelang').val();
+            var nominal_total       = $('.nominal_total').val();
+            var from_checkbox       = $('.from_checkbox').val();
+            var until_checkbox      = $('.until_checkbox').val();
+            var opsi_pembayaran     = $('.opsi_pembayaran').val();
+            var nilai_pencairan     = $('.nilai_pencairan').val();
+            var nilai_bt_tertunggak = $('.nilai_bt_tertunggak').val();
+
+            this.value = formatRupiah(this.value.toString());
+            var nilai_admin_lelang = this.value.replace(",","").replace(".","").replace(".","").replace(".","").replace(".","");
+            $('.admin_lelang').val(nilai_admin_lelang);
+
+            // console.log(nilai_admin_lelang);
+            // 'rumus total di pelunasan'
+            var total = Number(nilai_pencairan) + Number(nilai_bt_tertunggak) + Number(nilai_admin_lelang);
+            var format_total = formatRupiah(total.toString());
+
+            // this class show when button 'pelunasan' active
+            $('.total').html(': Rp. '+format_total);
+            $('.nominal_total').val(total);
+
+            if(opsi_pembayaran == 1){
+                var satuan_waktu = 'Hari';
+            }else if(opsi_pembayaran == 7 || opsi_pembayaran == 15){
+                var satuan_waktu = 'Minggu';
+            }
+
+            // 'jika from == 0, maka status tunggakan di anggap lunas'
+            waktu_ke = from_checkbox == 0 ? 0 : (until_checkbox + 1) - from_checkbox;
+            nilai_bt_tertunggak = formatRupiah(nilai_bt_tertunggak.toString());
+
+            var keterangan_bt = 'Total B.Titip : Rp. '+nilai_bt_tertunggak+' ('+waktu_ke+' '+satuan_waktu+')';
+            $('#keterangan_total_bt').html(keterangan_bt);
+
+            var keterangan = 'Total Pembayaran : Rp. '+format_total;
+            $('#keterangan_total').html(keterangan);
+
+            if(nilai_lelang > 0){
+                // console.log(nilai_lelang, nominal_total);
+                var nilai_pengembalian = nilai_lelang - total;
+                $('#nominal_pengembalian').val(nilai_pengembalian);
+                
+                if(nilai_pengembalian < 0){
+                    var negative = '-';
+                    $('.bayar').addClass('disabled');
+                }else{
+                    var negative = '';
+                    $('.bayar').removeClass('disabled');
+                }
+                
+                var nilai_pengembalian = formatRupiah(nilai_pengembalian.toString());
+                $('#nilai_pengembalian').val(negative+nilai_pengembalian);
+            }else{
+                // $('#nominal_pengembalian').val(0);
+                // $('#nilai_pengembalian').val('');
+            }
         });
     }
 
