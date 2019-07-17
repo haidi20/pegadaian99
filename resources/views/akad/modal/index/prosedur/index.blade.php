@@ -497,9 +497,10 @@
                                                         <td class="total_pembayaran"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td></td>
+                                                        <td class="text-right">
                                                             <a href="#" class="btn btn-sm btn-info bayar" onClick="bayar_akad_ulang()">
-                                                                Bayar
+                                                                Proses
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -538,6 +539,7 @@
             <input type="hidden" class="data-bt_yang_dibayar" name="data-bt_yang_dibayar">
             <input type="hidden" class="default-bt_tertunggak" name="default-bt_tertunggak">
             <input type="hidden" class="data-jangka_waktu_akad" name="data-jangka_waktu_akad">
+            <input type="hidden" class="default-nilai_pencairan" name="default-nilai_pencairan">
             <input type="hidden" class="data-tanggal_jatuh_tempo" name="data-tanggal_jatuh_tempo">
             <input type="hidden" class="data-jml_bt_yang_dibayar" name="data-jml_bt_yang_dibayar">
             </form>
@@ -704,7 +706,15 @@
                                                         <td class="data-nilai_tafsir"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Marhun Bih</td>
+                                                        <td>Marhun Bih Sebelumnya</td>
+                                                        <td class="default-nilai_pencairan"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Penyusutan</td>
+                                                        <td class="data-dinamis-penyusutan"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Marhun Bih Saat Ini</td>
                                                         <td class="data-dinamis-sisa_pinjaman"></td>
                                                     </tr>
                                                     <tr>
@@ -731,9 +741,9 @@
                                                         <td>Biaya Administrasi</td>
                                                         <td class="data-biaya_admin"></td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr style="font-weight:bold">
                                                         <td>Total Pembayaran Akad Ulang</td>
-                                                        <td class="data-dinamis-nominal_total"></td>
+                                                        <td class="data-dinamis-nominal_total" ></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

@@ -355,6 +355,11 @@
             $('.biaya_admin').hide();
         }
 
+        //execute null on form lelang
+        $('#nilai_lelang').val('');
+        $('#nilai_pengembalian').val('');
+        $('#nominal_pengembalian').val('');
+
         //set value
         $('.type_button').val(type)
         $('.from_checkbox').val(from)
@@ -604,6 +609,7 @@
 
             if(index == 'nilai_tafsir' || index == 'nilai_pencairan'){
                 $(name).text(': Rp. '+formatRupiah(item.toString()));
+                $('.default-nilai_pencairan').val(item);
             }else if(index == 'biaya_titip' || index == 'jml_bt_yang_dibayar'){
                 $(name).text(': Rp. '+formatRupiah(item.toString()));
             }else if(index == 'tanggal_lahir' || index == 'tanggal_akad'){
@@ -1020,6 +1026,7 @@
         }
     }
 
+    //modal confirm akad ulang
     function insert_data_barang_au(data)
     {
         //'data yg sebelumnya ada tulisan "data-", mangkanya mau di hapus dulu pertamanya' 
@@ -1033,8 +1040,8 @@
             $(name).text(': Rp. '+formatRupiah(value.toString()));
         }else if(data.name == 'data-nominal_total' || data.name == 'default-bt_tertunggak'){
             $(name).text(': Rp. '+formatRupiah(value.toString()));
-        }else if(data.name == 'default-bt_tertunggak'){
-            $(name).text(': Rp. '+value);
+        }else if(data.name == 'data-penyusutan'){
+            $(name).text(': Rp. '+formatRupiah(value.toString()));
         }else if(data.name == 'data-opsi_pembayaran'){
             value = value == 1 ? 'Sehari' : value+' Hari';
             $(name).text(': '+value);
@@ -1043,6 +1050,8 @@
         }else if(data.name == 'data-bt_yang_dibayar'){
             var satuan = value == 0 ? '' : ' Kali'
             $(name).text(': '+value+satuan);
+        }else if(data.name == 'default-nilai_pencairan'){
+            $('.default-nilai_pencairan').text(': Rp. '+formatRupiah(value.toString()));
         }else{
             value = value == null ? '-' : value;
             $(name).text(': '+value);
