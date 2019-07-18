@@ -23,11 +23,15 @@
                     </ul>
                     <b>Kelengkapan :</b>
                     <ul >
-                        <li class="kelengkapan"></li>
+                        <li >
+                            <textarea rows="8" cols="3" class="form-control kelengkapan" id="kelengkapan" name="kelengkapan" disabled></textarea>
+                        </li>
                     </ul>
                     <b>Kekurangan :</b>
                     <ul >
-                        <li class="kekurangan"></li>
+                        <li >
+                            <textarea rows="8" cols="3" class="form-control kekurangan" id="kekurangan" name="kekurangan" disabled></textarea>
+                        </li>
                     </ul>
                 </td>
                 <td>

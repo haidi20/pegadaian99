@@ -23,10 +23,6 @@
                                         <th>No. Telp </th>
                                         <td class="no_telp"></td>
                                     </tr>
-                                    <tr>
-                                        <th>Jenis Id </th>
-                                        <td class="jenis_id"></td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -35,6 +31,10 @@
                         <div class="table-responsive">
                             <table class="table m-0" >
                                 <tbody id="table-detail-two">
+                                    <tr>
+                                        <th>Jenis Id </th>
+                                        <td class="jenis_id"></td>
+                                    </tr>
                                     <tr>
                                         <th>No Identitas </th>
                                         <td class="no_identitas"></td>
