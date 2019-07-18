@@ -91,6 +91,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                        <input type="hidden" class="id_akad" name="id_akad">
                     @forelse($data as $index => $item)
                         <tr>
                             <td>{{$index + 1}}</td>
@@ -129,6 +130,7 @@
                                     data-toggle="popover" 
                                     data-placement="left" 
                                     title="Print Menu"
+                                    onClick="get_id({{$item->id_akad}})"
                                     data-popover-content="#a2">
                                     <i class="zmdi zmdi-print"></i>
                                 </button>

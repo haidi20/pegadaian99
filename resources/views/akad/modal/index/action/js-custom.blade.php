@@ -5,19 +5,27 @@
         });
     });
 
+    function get_id(id)
+    {
+        $('.id_akad').val(id);
+    }
+
     function review(id, type)
     {        
         // for close popover on button "kwitansi biaya titip"
         $('[data-toggle="popover"]').popover('hide');
 
-        // for condition active base on button on table. between type is review or 'biaya titip'
-        condition_tab(type);
-
         // for empty data in table 'biaya titip'
         $('#table_biaya_titip').empty();
-        $('#table_rincian_akad').empty();   
+        $('#table_rincian_akad').empty(); 
 
-        akad_action(id, 'review');
+        if(type == 'biaya_titip'){
+            nomor_id = $('.id_akad').val();  
+        }else{
+            nomor_id = id;
+        }
+
+        akad_action(nomor_id, type);
 
         $('#modal-review').modal('show');
     }
@@ -61,7 +69,7 @@
             success:function(result){		
                 console.log(result)
 
-                if(type == 'review'){
+                if(type == 'review' || type == 'biaya_titip'){
                     modal_review(result)
                     fetch_data_biaya_titip(result)
                 }else if(type == 'edit'){
