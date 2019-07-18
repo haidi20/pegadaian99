@@ -51,7 +51,7 @@
                 <td>
                     <b>Nilai Tafsir :</b>
                     <ul >
-                        <li class="nilai_tafsir"></li>
+                        <li class="nominal_nilai_tafsir"></li>
                     </ul>
                     <b>Nilai Pencairan :</b>
                     <ul >

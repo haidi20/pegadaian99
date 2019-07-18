@@ -103,11 +103,13 @@
                 value = moment(item).format('DD-MM-Y');
             }else if(index == 'maintenance'){
                 value = item == 0 ? 'Belum Di Periksa' : 'Sudah Di Periksa';
+            }else if(index == 'jangka_waktu_akad'){
+                value = item + ' Hari';
             }else{
                 value = item;
             }
 
-            $(name).html(value) 
+            $(name).text(value) 
         });
 
         //condition for 'keterengan opsi pembayaran'
