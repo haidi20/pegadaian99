@@ -5,6 +5,8 @@
         });
     });
 
+    //'mendapatkan id pada tombol print bermasalah'
+    //'oleh karena itu taruh id tersebut di tag input'
     function get_id(id)
     {
         $('.id_akad').val(id);

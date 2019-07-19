@@ -95,12 +95,14 @@
         }
     }
 
+    //action when click checkbox
     function condition_disabled(value)
     {
         var from            = $('.from_checkbox').val();
         var until           = $('.until_checkbox').val();
         var opsi_pembayaran = $('.opsi_pembayaran').val();
         var nilai_pencairan = $('.nilai_pencairan').val();
+        var nilai_admin_lelang=$('#nilai_admin_lelang').val().replace(",","").replace(".","").replace(".","").replace(".","").replace(".","");
 
         var selanjutnya = parseInt(value) + 1;
         var biaya_titip = $('.bt_7_hari').val();
@@ -131,6 +133,12 @@
             var biaya_titip = biaya_titip * waktu_ke;
         }
 
+        if(nilai_admin_lelang <= 0){
+            admin_lelang = 0;
+        }else{
+            admin_lelang = nilai_admin_lelang;
+        }
+
         // condition word 'harian' or 'mingguan'
         if(opsi_pembayaran == 1){
             var satuan_waktu = 'Hari';
@@ -138,7 +146,7 @@
             var satuan_waktu = 'Minggu';
         }
 
-        var format_total = Number(nilai_pencairan) + Number(biaya_titip);
+        var format_total = Number(nilai_pencairan) + Number(biaya_titip) + Number(admin_lelang);
         format_total = formatRupiah(format_total.toString());
         var keterangan_total = 'Total Pembayaran : Rp. '+format_total;
         $('#keterangan_total').html(keterangan_total);
@@ -205,6 +213,8 @@
             }
 
         }
+
+        menentukan_pengembalian(format_total, 'total_pembayaran');
     }
 
     function bayar_bt_pelunasan_lelang()
@@ -358,8 +368,10 @@
 
         //execute null on form lelang
         $('#nilai_lelang').val('');
+        $('#nominal_lelang').val('');
         $('#nilai_pengembalian').val('');
         $('#nominal_pengembalian').val('');
+        $('#nilai_admin_lelang').val('');
 
         //set value
         $('.type_button').val(type);
@@ -410,28 +422,45 @@
     {
         $('#nilai_lelang').on('keyup', function(){
             // 'total yang harus di bayar oleh nasabah'
-            var total = $('.nominal_total').val();
+            var total = $('.nominal_total').val().replace(",","").replace(".","").replace(".","").replace(".","").replace(".","");
 
             this.value = formatRupiah(this.value.toString());
             var nilai_lelang = this.value.replace(",","").replace(".","").replace(".","").replace(".","").replace(".","");
             $('#nominal_lelang').val(nilai_lelang);
-            
-            var nilai_pengembalian = nilai_lelang - total;
-            $('#nominal_pengembalian').val(nilai_pengembalian);
-            
-            if(nilai_pengembalian < 0){
-                var negative = '-';
-                $('.bayar').addClass('disabled');
-            }else{
-                var negative = '';
-                $('.bayar').removeClass('disabled');
-            }
 
-            var nilai_pengembalian = formatRupiah(nilai_pengembalian.toString());
-            $('#nilai_pengembalian').val(negative+nilai_pengembalian);
-
-            
+            menentukan_pengembalian(nilai_lelang, 'nilai_lelang');
         });
+    }
+
+    // option between 'total pembayaran dan nilai lelang'
+    function menentukan_pengembalian(value, option)
+    {
+        if(option == 'total_pembayaran'){
+            total = value.replace(",","").replace(".","").replace(".","").replace(".","").replace(".","");
+        }else{
+            total = $('.nominal_total').val().replace(",","").replace(".","").replace(".","").replace(".","").replace(".","");
+        }
+
+        if(option == 'nilai_lelang'){
+            nilai_lelang = value;
+        }else{
+            nilai_lelang = $('#nominal_lelang').val();
+        }
+
+        console.log('total ='+total, 'nilai lelang ='+nilai_lelang);
+        var nilai_pengembalian = nilai_lelang - total;
+        $('#nominal_pengembalian').val(nilai_pengembalian);
+        
+        if(nilai_pengembalian < 0){
+            var negative = '-';
+            $('.bayar').addClass('disabled');
+        }else{
+            var negative = '';
+            $('.bayar').removeClass('disabled');
+        }
+
+        var nilai_pengembalian = formatRupiah(nilai_pengembalian.toString());
+        $('#nilai_pengembalian').val(negative+nilai_pengembalian);
     }
 
     function keyup_nilai_admin_lelang()

@@ -139,6 +139,7 @@
                     <div class="col-sm-12 col-md-6 pl-4">
                         <h5 id="keterangan_total_bt">Total B.Titip : Rp. 0 (0 minggu) </h5> <br>
                         <h5 id="keterangan_total" style="display:none">Total Pembayaran : Rp. 0 </h5>
+                        <input type="hidden" name="nominal_total_final" id="nominal_total_final">
                     </div>
                 </div>
                 <br>
