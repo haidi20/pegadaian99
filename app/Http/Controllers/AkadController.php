@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Akad;
+use App\Models\Refund;
 use App\Models\Nasabah;
 use App\Models\Setting;
 use App\Models\Kas_cabang;
@@ -24,6 +25,7 @@ class AkadController extends Controller
 {
     public function __construct(
     							Akad $akad,
+    							Refund $refund,
     							Nasabah $nasabah,
                                 Setting $setting,
     							Request $request,
@@ -37,6 +39,7 @@ class AkadController extends Controller
                             )
     {
     	$this->akad 		    = $akad;
+    	$this->refund 		    = $refund;
     	$this->nasabah 		    = $nasabah;
         $this->setting          = $setting;
     	$this->request  	    = $request;
@@ -100,10 +103,15 @@ class AkadController extends Controller
         return $biaya_titip;
     }
 
-    //'untuk tombol bayar biaya titip dan tombol pelunasan'
+    //'untuk tombol BIAYA TITIP dan tombol PELUNASAN'
     public function bayar_akad()
     {
-        $dataAkad = $this->akad->where('id_akad', request('id_akad'));
+        $type       = request('type');
+        $input      = $this->request->except('_token');
+
+        $dataAkad   = $this->akad->where('id_akad', request('id_akad'))->first();
+        $updateAkad = $this->akad->where('id_akad', request('id_akad'));
+        $dataNasabah= $this->nasabah->where('key_nasabah', $dataAkad->key_nasabah)->first();
 
         if(request('from') == request('until')){
             $keterangan = 'KE '.request('from');
@@ -113,22 +121,44 @@ class AkadController extends Controller
             $this->request['bt_yang_dibayar'] = request('from');
         }
 
-        if(request('type') == 'pelunasan'){
-            // 'status akad menjadi lunas'
-            $updateAkad = $dataAkad->update([
+        if($type == 'lelang'){
+            //'memperbaharui biaya admin dengan biaya admin lelang'
+            $updateAkad->update([
+                'biaya_admin' => request('admin_lelang'),
+            ]);            
+
+            $jumlah     = request('nilai_pengembalian');
+            $uraian     = 'Pembayaran Lelang';
+            $id_cabang  = $dataAkad->id_cabang;
+
+            $data       = (object) compact('jumlah', 'uraian', 'id_cabang');
+
+            $this->insert_refund($data);
+            $this->insert_kas_cabang($dataAkad);
+            $this->insert_log_kas_cabang($dataAkad, $dataNasabah);
+        }
+
+        if($type == 'pelunasan' || $type == 'lelang'){
+            // 'status akad menjadi lunas jika dari tombol pelunasan'
+            $updateAkad->update([
                 'status' => 'Lunas'
             ]);
 
-            $id_cabang = $dataAkad->value('id_cabang');
+            $id_cabang = $dataAkad->id_cabang;
             $nilai_pencairan = request('nilai_pencairan');
 
             $data = (object) compact('id_cabang', 'nilai_pencairan');
 
             $this->insert_saldo_cabang($data, 'tambah');
-            //  JANGAN LUPA LOG_SALDO_CABANG
+            $this->insert_log_saldo_cabang($dataAkad, $dataNasabah);
         }
         
+        //insert data 'biaya titip'
         $this->insert_bea_titip($dataAkad->first(), $keterangan);
+        
+        // return $input;
+        // return $data->id_cabang;
+        // return $updateAkad->first();
     }
 
     public function bayar_akad_ulang()
@@ -247,7 +277,7 @@ class AkadController extends Controller
         // name field 'tanggal jatuh tempo' for sorted
         $nameFieldSorted= 'akad.tanggal_akad';
         
-        $akad           = $this->akad->joinNasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
+        $akad           = $this->akad->belumLunas()->joinNasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
         $seluruhData    = $this->filter($akad, 'seluruh_data')->akad;
         $infoTotal      = $this->infoTotal($seluruhData, 'seluruh_data');
         $data           = $seluruhData->paginate(request('perpage', 10));
@@ -261,7 +291,7 @@ class AkadController extends Controller
     {
         $nameFieldSorted= 'akad.tanggal_akad';
         
-        $akad           = $this->akad->joinNasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
+        $akad           = $this->akad->belumLunas()->joinNasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
         $akad           = $akad->opsiPembayaran(1);
         $harian         = $this->filter($akad, 'harian')->akad;
         $infoTotal      = $this->infoTotal($harian);
@@ -276,7 +306,7 @@ class AkadController extends Controller
     {
         $nameFieldSorted= 'akad.tanggal_akad';
         
-        $akad           = $this->akad->joinNasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
+        $akad           = $this->akad->belumLunas()->joinNasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
         $akad           = $akad->opsiPembayaran(7);
         $tujuh          = $this->filter($akad, 'tujuh_hari')->akad;
         $infoTotal      = $this->infoTotal($tujuh);
@@ -291,7 +321,7 @@ class AkadController extends Controller
     {
         $nameFieldSorted= 'akad.tanggal_akad';
         
-        $akad           = $this->akad->joinNasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
+        $akad           = $this->akad->belumLunas()->joinNasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
         $akad           = $akad->opsiPembayaran(15);
         $limaBelas      = $this->filter($akad, 'lima_belas_hari')->akad;
         $infoTotal      = $this->infoTotal($limaBelas);
@@ -847,5 +877,17 @@ class AkadController extends Controller
         $biayaAdmin->save();
     }
     // end 'kas saldo'
+
+    public function insert_refund($data)
+    {
+        $refund = $this->refund;
+        $refund->tanggal    = Carbon::now()->format('Y-m-d');
+        $refund->jumlah     = $data->jumlah;
+        $refund->uraian     = $data->uraian;
+        $refund->id_cabang  = $data->id_cabang;
+        $refund->save();
+
+        // return $refund;
+    }
 
 }

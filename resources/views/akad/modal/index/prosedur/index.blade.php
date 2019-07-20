@@ -49,7 +49,7 @@
                                                                 <div class="col-sm-12">
                                                                     <div class="input-group">
                                                                         <span class="input-group-addon" id="basic-addon1">Rp.</span>
-                                                                        <input type="text" class="form-control nilai_admin_lelang" value="" name="nilai_admin_lelang" id="nilai_admin_lelang">
+                                                                        <input type="text" class="form-control nilai_admin_lelang" value="0" name="nilai_admin_lelang" id="nilai_admin_lelang">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -75,7 +75,7 @@
                                                                     <div class="input-group">
                                                                         <span class="input-group-addon" id="basic-addon1">Rp.</span>
                                                                         <input type="text" class="form-control nilai_lelang" value="" name="nilai_lelang" id="nilai_lelang">
-                                                                        <input type="hidden" class="form-control" name="nominal_lelang" id="nominal_lelang">
+                                                                        <input type="hidden" class="form-control" name="nominal_lelang" id="nominal_lelang" value="0">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -89,7 +89,7 @@
                                                                     <div class="input-group">
                                                                         <span class="input-group-addon" id="basic-addon1">Rp.</span>
                                                                         <input type="text" class="form-control" name="nilai_pengembalian" id="nilai_pengembalian" disabled>
-                                                                        <input type="hidden" class="form-control" name="nominal_pengembalian" id="nominal_pengembalian">
+                                                                        <input type="hidden" class="form-control" name="nominal_pengembalian" id="nominal_pengembalian" value="0">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -145,7 +145,7 @@
                 <br>
                 <div class="row">
                     <div class="col-sm-12 col-md-6 pl-4">
-                        <a href="#" class="btn btn-sm btn-info bayar disabled" onClick="bayar_bt_pelunasan_lelang()">
+                        <a href="#" class="btn btn-sm btn-info bayar disabled" onClick="bayar_prosedur()">
                             Bayar
                         </a>
                     </div>

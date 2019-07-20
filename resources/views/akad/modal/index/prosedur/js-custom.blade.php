@@ -11,14 +11,14 @@
             // change title modal = 'pelunasan'
             if(type == 'pelunasan'){
                 var title = 'Pelunasan';
-                var disabled = 'disabled';
+                var button_pay = 'active';
             }else if(type == 'lelang'){
                 var title = 'Lelang';
-                var disabled = '';
+                var button_pay = 'disabled';
             }
             $('.prosedur-title').html(title);
             // active button 'bayar'
-            $('.bayar').removeClass(disabled);
+            condition_button_pay(button_pay);
         }else if(type == 'biaya_titip'){
              // hide word 'total'
             $('#pelunasan').css('display', 'none');
@@ -27,7 +27,7 @@
              // change title modal = 'Pembayaran Biaya Titip'
             $('.prosedur-title').html('Pembayaran Biaya Titip');
             // disabled button 'bayar'
-            $('.bayar').addClass('disabled');
+            condition_button_pay('disabled');
         }
 
         $('#modal-prosedur').modal('show');
@@ -113,11 +113,11 @@
         if($('#checkbox'+from).prop('checked') == true){
             var waktu_ke = value - (from - 1);
 
-            $('.bayar').removeClass('disabled');
+            condition_button_pay('active');
         }else{
             var waktu_ke = 0;
 
-            $('.bayar').addClass('disabled');
+            condition_button_pay('disabled');
         }
 
         // condition if checkbox not checked and then 'melakukan pengurangan pada jumlah waktu dan biaya titip'
@@ -173,7 +173,6 @@
             }           
         });
         sum_checked = Number(sum_checked);
-        console.log(value + 1, until, sum_checked);
         // for if click checkbox, so next checkbox remove checklist and disabled
         if(sum_checked > value){
             var i = value + 1;
@@ -217,15 +216,20 @@
         menentukan_pengembalian(format_total, 'total_pembayaran');
     }
 
-    function bayar_bt_pelunasan_lelang()
+    //'untuk pembayaran biaya titip, pelunasan, dan lelang'
+    function bayar_prosedur()
     {
         var from            = $('.from_checkbox').val();
         var id_akad         = $('.id_akad').val();
         var nominal         = $('.nominal_total').val();
         var format_nominal  = formatRupiah(nominal.toString());
-        // 'pendukung tombol pelunasan
+        //'pendukung tombol pelunasan'
         var type_button     = $('.type_button').val();
         var nilai_pencairan = $('.nilai_pencairan').val();
+        //'pendukung tombol lelang'
+        var admin_lelang        = $('#nilai_admin_lelang').val().replace(",","").replace(".","").replace(".","").replace(".","").replace(".","");
+        var nilai_lelang        = $('#nominal_lelang').val();
+        var nilai_pengembalian  = $('#nominal_pengembalian').val();
 
         // 'agar bisa memasukkan hanya nilai biaya titip'
         if(type_button == 'pelunasan'){
@@ -256,12 +260,15 @@
                     type: 'GET',
                     cache: false,
                     data:{
-                        from:from, 
+                        from:from,
                         until:until,
                         id_akad:id_akad, 
                         type:type_button,
                         bt_7_hari:nominal, 
+                        nilai_lelang:nilai_lelang,
+                        admin_lelang:admin_lelang, 
                         nilai_pencairan:nilai_pencairan,
+                        nilai_pengembalian:nilai_pengembalian, 
                     },
                     success:function(result){	
                         // console.log(result);
@@ -435,6 +442,8 @@
     // option between 'total pembayaran dan nilai lelang'
     function menentukan_pengembalian(value, option)
     {
+        var type_button = $('.type_button').val();
+
         if(option == 'total_pembayaran'){
             total = value.replace(",","").replace(".","").replace(".","").replace(".","").replace(".","");
         }else{
@@ -447,16 +456,18 @@
             nilai_lelang = $('#nominal_lelang').val();
         }
 
-        console.log('total ='+total, 'nilai lelang ='+nilai_lelang);
         var nilai_pengembalian = nilai_lelang - total;
         $('#nominal_pengembalian').val(nilai_pengembalian);
         
-        if(nilai_pengembalian < 0){
-            var negative = '-';
-            $('.bayar').addClass('disabled');
-        }else{
-            var negative = '';
-            $('.bayar').removeClass('disabled');
+        //use condition type button for 'bayar biaya titip' can using
+        if(type_button == 'lelang'){
+            if(nilai_pengembalian < 0){
+                var negative = '-';
+                condition_button_pay('disabled');
+            }else{
+                var negative = '';
+                condition_button_pay('active');
+            }
         }
 
         var nilai_pengembalian = formatRupiah(nilai_pengembalian.toString());
@@ -510,10 +521,10 @@
                 
                 if(nilai_pengembalian < 0){
                     var negative = '-';
-                    $('.bayar').addClass('disabled');
+                    condition_button_pay('disabled');
                 }else{
                     var negative = '';
-                    $('.bayar').removeClass('disabled');
+                    condition_button_pay('active');
                 }
                 
                 var nilai_pengembalian = formatRupiah(nilai_pengembalian.toString());
@@ -1215,44 +1226,4 @@
             }
         });
     }
-
-    // swal({
-    //         title: "Peringatan!",
-    //         text: 'Yakin melakukan pembayaran sebesar Rp. '+format_total+' ?',
-    //         icon: "warning",
-    //         // showCancelButton: true,
-    //         // confirmButtonClass: "btn-danger",
-    //         buttons: ["Tidak", "Ya"],
-    //         cancel: true,
-    //         confirm: true,
-    //     }).then((action) => {
-    //         if (action) {
-    //             $.ajax({
-    //                 url: '{{url("akad/ajax/bayar-akad-ulang")}}',
-    //                 type: 'GET',
-    //                 cache: false,
-    //                 data:{
-    //                     data:data,
-    //                 },
-    //                 success:function(result){	
-    //                     console.log(result);
-
-    //                     // swal("Pembayaran Biaya Titip Telah Berhasil", {
-    //                     //     icon: "success",
-    //                     // });
-
-    //                     // window.location.href = '{{route("akad.nasabah-akad")}}';
-    //                 },
-    //                 error:function(xhr, ajaxOptions, thrownError){
-    //                     console.log(thrownError)
-    //                 }
-    //             });
-    //         }else {
-    //             swal({
-    //                 title: "Pemberitahuan",
-    //                 text: "Oke, jika sudah benar silahkan klik tombol bayar",
-    //                 icon: "warning",
-    //             });
-    //         }
-    //     });
 </script>
