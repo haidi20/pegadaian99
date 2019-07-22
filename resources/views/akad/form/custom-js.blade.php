@@ -21,6 +21,8 @@
 
         // for custom height form wizard
         custom_form_wizard()
+
+        jenis_barang_pilih('{{$jenis_barang}}')
     });
 
     function nama_lengkap_keyup()
@@ -397,13 +399,13 @@
         // value real 'persenan' from database
         var persenan_real = $('#persenan-real').val()
 
-        if(type == 'elektronik'){
+        if(type == 'Elektronik'){
             $('.kelengkapan_barang_satu').html('Type')
             $('.kelengkapan_barang_dua').html('Merk')
             $('.kelengkapan_barang_tiga').html('Imei / Nomor Serial')
             //hide / show 'detail jenis barang'
-            $('.detail-elektronik').css('display', '')
-            $('.detail-kendaraan').css('display', 'none')
+            $('.detail-elektronik').show()
+            $('.detail-kendaraan').hide()
             $('#smartphone').prop('checked', true)
             //insert value 'jenis_kendaraan'
             $('#nilai_jenis_barang').val('elektronik')
@@ -418,13 +420,13 @@
             // set value default 1
             var nilai_opsi_pembayaran = $('#nilai_opsi_pembayaran').val()
             bt_yang_dibayar(nilai_opsi_pembayaran, 'jenis_barang')
-        }else{
+        }else if(type == 'Kendaraan'){
             $('.kelengkapan_barang_satu').html('KT')
             $('.kelengkapan_barang_dua').html('Warna')
             $('.kelengkapan_barang_tiga').html('Nomor Rangka')
             //hide / show 'detail jenis barang'
-            $('.detail-elektronik').css('display', 'none');
-            $('.detail-kendaraan').css('display', '');
+            $('.detail-elektronik').hide();
+            $('.detail-kendaraan').show();
             $('#motor').prop('checked', true)
             //insert value 'jenis_kendaraan'
             $('#nilai_jenis_barang').val('kendaraan')

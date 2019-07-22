@@ -605,31 +605,74 @@ class AkadController extends Controller
 
     public function form($id = null)
     {
-        $menu = 'akad';
-        $subMenu = '';
+        if($id){
+            $menu = '';
+            $subMenu = '';
 
-        // value default 'tanggal akad' and 'tanggal jatuh tempo'
-    	$tanggal_akad	     = Carbon::now()->format('d-m-Y');
-    	$tanggal_jatuh_tempo = Carbon::now()->addDay('7')->format('d-m-Y');
+            $findAkad = $this->akad->find($id);
+            session()->flashInput($findAkad->toArray());
+
+            $noId = old('no_id');
+
+            $tanggal_akad           = Carbon::parse(old('tanggal_akad'))->format('d-m-Y');
+            $tanggal_jatuh_tempo    = Carbon::parse(old('tanggal_jatuh_tempo'))->format('d-m-Y');
+
+            $jenis_barang       = old('jenis_barang');
+            $kelengkapan_barang = $this->kelengkapan_barang($jenis_barang);
+        }else{
+            $menu = 'akad';
+            $subMenu = '';
+
+            $noId = $this->codeNoId()->value;
+
+            // value default 'tanggal akad' and 'tanggal jatuh tempo'
+            $tanggal_akad	     = Carbon::now()->format('d-m-Y');
+            $tanggal_jatuh_tempo = Carbon::now()->addDay('7')->format('d-m-Y');
+
+            $jenis_barang       = 'Elektronik';
+            $kelengkapan_barang = $this->kelengkapan_barang('Elektronik');
+        }
 
         // list time example : 1, 7, 15, 30, 60 days. for 'jangka_waktu_akad' and 'opsi_pembayaran'
         $listTime            = config('library.form.akad.list_time');
         $paymentOption       = config('library.form.akad.payment_option');
 
-        // 'margin dan potongan elektronik'
+        // 'margin dan potongan ELEKTRONIK'
         $margin_elektronik      = $this->setting->baseBranch()->jenisBarang('elektronik')->value('margin');
         $potongan_elektronik    = $this->setting->baseBranch()->jenisBarang('elektronik')->value('potongan');
 
-        // 'margin dan potongan kendaraan'
+        // 'margin dan potongan KENDARAAN'
         $margin_kendaraan       = $this->setting->baseBranch()->jenisBarang('kendaraan')->value('margin');
         $potongan_kendaraan     = $this->setting->baseBranch()->jenisBarang('kendaraan')->value('potongan');
 
-        $noId = $this->codeNoId()->value;
-
     	return $this->template('akad._form', compact(
-             'tanggal_akad', 'tanggal_jatuh_tempo', 'menu', 'subMenu', 'noId',
-            'listTime', 'paymentOption', 'potongan_kendaraan', 'potongan_elektronik', 'margin_kendaraan', 'margin_elektronik'
+            'tanggal_akad', 'tanggal_jatuh_tempo', 'menu', 'subMenu', 'noId', 'kelengkapan_barang',
+            'listTime', 'paymentOption', 'potongan_kendaraan', 'potongan_elektronik', 'margin_kendaraan', 
+            'margin_elektronik', 'jenis_barang'
         ));
+    }
+
+    public function kelengkapan_barang($jenis_barang)
+    {
+        switch ($jenis_barang) {
+            case 'Elektronik':
+                $satu = 'Type';
+                $dua  = 'Merk';
+                $tiga = 'Imei / Nomor Serial';
+                break;
+            case 'Kendaraan':
+                $satu = 'KT';
+                $dua  = 'Warna';
+                $tiga = 'Nomor Rangka';
+                break;
+            default:
+                $satu = 'Type';
+                $dua  = 'Merk';
+                $tiga = 'Imei / Nomor Serial';
+                break;
+        }
+
+        return (object) compact('satu', 'dua', 'tiga');
     }
 
     public function codeNoId($type = 'akad_baru', $no_id = null, $status_akad = null)

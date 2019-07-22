@@ -149,7 +149,7 @@
                                         </a>
                                     </div>
                                 </div>
-                                <a href="javascript:void(0)" onClick="edit_akad({{$item->id_akad}})" class="btn btn-mini btn-primary">
+                                <a href="{{route('akad.edit', $item->id_akad)}}" class="btn btn-mini btn-primary">
                                     <i class="icofont icofont-edit icofont-sm"></i>
                                 </a>
                             </td>

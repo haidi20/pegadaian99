@@ -15,13 +15,13 @@
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_barang" onClick="jenis_barang_pilih('elektronik')" value="elektronik" {{checked('elektronik', 'jenis_barang', 'elektronik')}}>
+                                        <input type="radio" name="jenis_barang" onClick="jenis_barang_pilih('Elektronik')" value="elektronik" {{checked('Elektronik', 'jenis_barang', 'Elektronik')}}>
                                         <i class="helper"></i>Elektronik
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="jenis_barang" onClick="jenis_barang_pilih('kendaraan')" value="kendaraan" {{checked('kendaran', 'jenis_barang', 'elektronik')}}>
+                                        <input type="radio" name="jenis_barang" onClick="jenis_barang_pilih('Kendaraan')" value="kendaraan" {{checked('Kendaraan', 'jenis_barang', 'Elektronik')}}>
                                         <i class="helper"></i>Kendaraan
                                     </label>
                                 </div>
@@ -35,31 +35,31 @@
                             <div class="form-radio detail-elektronik">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="detail_jenis_barang" id="smartphone" value="smartphone" checked>
+                                        <input type="radio" name="detail_jenis_barang" id="smartphone" value="smartphone" {{checked('smartphone', 'detail_jenis_barang', 'smartphone')}}>
                                         <i class="helper"></i>SmartPhone
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="detail_jenis_barang" id="laptop" value="laptop" checked>
+                                        <input type="radio" name="detail_jenis_barang" id="laptop" value="laptop" {{checked('laptop', 'detail_jenis_barang', 'smartphone')}}>
                                         <i class="helper"></i>Laptop / PC
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="detail_jenis_barang" value="kamera">
+                                        <input type="radio" name="detail_jenis_barang" value="kamera" {{checked('kamera', 'detail_jenis_barang', 'smartphone')}}>
                                         <i class="helper"></i>Kamera
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="detail_jenis_barang" value="tv">
+                                        <input type="radio" name="detail_jenis_barang" value="tv" {{checked('tv', 'detail_jenis_barang', 'smartphone')}}>
                                         <i class="helper"></i>TV
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="detail_jenis_barang" value="lain_lain">
+                                        <input type="radio" name="detail_jenis_barang" value="lain_lain" {{checked('lain_lain', 'detail_jenis_barang', 'smartphone')}}>
                                         <i class="helper"></i>Lain - Lain
                                     </label>
                                 </div>
@@ -67,13 +67,13 @@
                             <div class="form-radio detail-kendaraan" style="display:none">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="detail_jenis_barang" id="motor" value="motor">
+                                        <input type="radio" name="detail_jenis_barang" id="motor" value="motor" {{checked('motor', 'detail_jenis_barang', 'smartphone')}}>
                                         <i class="helper"></i>Motor
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="detail_jenis_barang" value="mobil">
+                                        <input type="radio" name="detail_jenis_barang" value="mobil" {{checked('mobil', 'detail_jenis_barang', 'smartphone')}}>
                                         <i class="helper"></i>Mobil
                                     </label>
                                 </div>
@@ -82,15 +82,15 @@
                         </div>
                     </div>
                     <div class="form-group row" id="item_elektronik" style="display:">
-                        <label class="col-sm-2 col-form-label kelengkapan_barang_satu" for="kelengkapan_barang_satu">Type</label>
+                        <label class="col-sm-2 col-form-label kelengkapan_barang_satu" for="kelengkapan_barang_satu">{{$kelengkapan_barang->satu}}</label>
                         <div class="col-sm-12 col-md-2">
                             <input type="text" class="form-control" name="kelengkapan_barang_satu" id="kelengkapan_barang_satu" value="{{old('kelengkapan_barang_satu')}}" required>
                         </div>
-                        <label class="col-sm-1 col-form-label kelengkapan_barang_dua" for="kelengkapan_barang_dua">Merk</label>
+                        <label class="col-sm-1 col-form-label kelengkapan_barang_dua" for="kelengkapan_barang_dua">{{$kelengkapan_barang->dua}}</label>
                         <div class="col-sm-12 col-md-2">
                             <input type="text" class="form-control" name="kelengkapan_barang_dua" id="kelengkapan_barang_dua" value="{{old('kelengkapan_barang_dua')}}" required>
                         </div>
-                        <label class="col-sm-2 col-form-label kelengkapan_barang_tiga" for="kelengkapan_barang_tiga">Imei / Nomor Serial</label>
+                        <label class="col-sm-2 col-form-label kelengkapan_barang_tiga" for="kelengkapan_barang_tiga">{{$kelengkapan_barang->tiga}}</label>
                         <div class="col-sm-12 col-md-3">
                             <input type="text" class="form-control" name="kelengkapan_barang_tiga" id="kelengkapan_barang_tiga" value="{{old('kelengkapan_barang_tiga')}}" required>
                         </div>
