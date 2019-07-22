@@ -120,25 +120,31 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="taksiran_marhun">Taksiran Marhun</label>
                         <div class="col-sm-10">
-                            <input 
-                                type="text" 
-                                class="form-control " 
-                                name="taksiran_marhun" 
-                                id="taksiran_marhun" 
-                                value=""
-                                required>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Rp.</span>
+                                <input 
+                                    type="text" 
+                                    class="form-control " 
+                                    name="taksiran_marhun" 
+                                    id="taksiran_marhun" 
+                                    value="{{nominal(old('nilai_tafsir'))}}"
+                                    required>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="marhun_bih">Marhun Bih</label>
                         <div class="col-sm-10">
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                name="marhun_bih" 
-                                id="marhun_bih" 
-                                value=""
-                                required>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Rp.</span>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    name="marhun_bih" 
+                                    id="marhun_bih" 
+                                    value="{{nominal(old('nilai_pencairan'))}}"
+                                    required>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">

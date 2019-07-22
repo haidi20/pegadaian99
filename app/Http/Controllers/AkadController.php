@@ -609,7 +609,7 @@ class AkadController extends Controller
             $menu = '';
             $subMenu = '';
 
-            $findAkad = $this->akad->find($id);
+            $findAkad = $this->akad->joinNasabah()->find($id);
             session()->flashInput($findAkad->toArray());
 
             $noId = old('no_id');
@@ -619,6 +619,8 @@ class AkadController extends Controller
 
             $jenis_barang       = old('jenis_barang');
             $kelengkapan_barang = $this->kelengkapan_barang($jenis_barang);
+
+            $opsi_pembayaran = old('opsi_pembayaran');
         }else{
             $menu = 'akad';
             $subMenu = '';
@@ -631,6 +633,8 @@ class AkadController extends Controller
 
             $jenis_barang       = 'Elektronik';
             $kelengkapan_barang = $this->kelengkapan_barang('Elektronik');
+
+            $opsi_pembayaran = 1;
         }
 
         // list time example : 1, 7, 15, 30, 60 days. for 'jangka_waktu_akad' and 'opsi_pembayaran'
@@ -648,7 +652,7 @@ class AkadController extends Controller
     	return $this->template('akad._form', compact(
             'tanggal_akad', 'tanggal_jatuh_tempo', 'menu', 'subMenu', 'noId', 'kelengkapan_barang',
             'listTime', 'paymentOption', 'potongan_kendaraan', 'potongan_elektronik', 'margin_kendaraan', 
-            'margin_elektronik', 'jenis_barang'
+            'margin_elektronik', 'jenis_barang', 'opsi_pembayaran'
         ));
     }
 
@@ -743,7 +747,12 @@ class AkadController extends Controller
 
         $nasabah = $this->insert_nasabah($data)->data;
 
-    	$akad 						  = $this->akad;
+        if($id){
+            $akad = $this->akad->find($id);
+        }else{
+            $akad = $this->akad;
+        }
+        
     	$akad->id_cabang 			  = $id_cabang;
     	$akad->no_id 				  = $data['no_id'];
     	$akad->key_nasabah 			  = $nasabah->key_nasabah;
@@ -766,16 +775,18 @@ class AkadController extends Controller
     	$akad->terbilang			  = $data['terbilang']; 
     	$akad->status				  = 'Belum Lunas';
     	$akad->status_lokasi    	  = 'kantor';
-        $akad->save();
+        // $akad->save();
 
         // insert data to other table
-        $bea_titip                    = $this->insert_bea_titip($akad, 'default');
-        $kas_cabang                   = $this->insert_kas_cabang($akad);
-        $saldo_cabang                 = $this->insert_saldo_cabang($akad, 'kurang');
+        // $bea_titip                    = $this->insert_bea_titip($akad, 'default');
+        // $kas_cabang                   = $this->insert_kas_cabang($akad);
+        // $saldo_cabang                 = $this->insert_saldo_cabang($akad, 'kurang');
 
-        $log_akad                     = $this->insert_log_akad($akad);
-        $log_kas_cabang               = $this->insert_log_kas_cabang($akad, $nasabah);
-        $log_saldo_cabang             = $this->insert_log_saldo_cabang($akad, $nasabah);
+        // $log_akad                     = $this->insert_log_akad($akad);
+        // $log_kas_cabang               = $this->insert_log_kas_cabang($akad, $nasabah);
+        // $log_saldo_cabang             = $this->insert_log_saldo_cabang($akad, $nasabah);
+
+        return $akad;
     }
 
     public function insert_log_akad($akad, $status = 'Belum Lunas')
