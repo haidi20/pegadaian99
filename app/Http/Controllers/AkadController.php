@@ -73,7 +73,7 @@ class AkadController extends Controller
 
         // overwrite some field
         $findAkad['margin']                     = $this->setting->baseBranch()->jenisBarang($findAkad->jenis_barang)->value('margin');
-        $findAkad['no_id_au']                   = $this->codeNoId('akad_ulang', $findAkad->no_id, $findAkad->status_akad)->value;
+        $findAkad['no_id_au']                   = $this->codeNoId('akad_ulang', $findAkad->status_akad, $findAkad->no_id)->value;
         $findAkad['potongan']                   = $this->setting->baseBranch()->jenisBarang($findAkad->jenis_barang)->value('potongan'); 
         $findAkad['bt_terbayar']                = $findAkad->data_tunggakan->totalTerbayar;
         $findAkad['waktu_sudah']                = $findAkad->data_tunggakan->waktu_sudah;
@@ -627,7 +627,7 @@ class AkadController extends Controller
             $menu = 'akad';
             $subMenu = '';
 
-            $noId = $this->codeNoId()->value;
+            $noId = $this->codeNoId('akad_baru', 'baru')->value;
 
             // value default 'tanggal akad' and 'tanggal jatuh tempo'
             $tanggal_akad	     = Carbon::now()->format('d-m-Y');
@@ -683,13 +683,13 @@ class AkadController extends Controller
         return (object) compact('satu', 'dua', 'tiga');
     }
 
-    public function codeNoId($type = 'akad_baru', $no_id = null, $status_akad = null)
+    public function codeNoId($type = 'akad_baru', $status_akad = null, $no_id = null)
     {
         /*
-        * format code 'nomor id'
+        * format code 'nomor id' :
         * c99-04-021019-01
         * 'kode citra99 - nomor cabang - tanggal akad - akad yang keberapa pada hari itu'
-        * format code 'nomor id akad ulang'
+        * format code 'nomor id akad ulang' :
         * c99-04-021019-01-AU-01
         * 'kode citra99 - nomor cabang - tanggal akad - jumlah akad pada hari itu - kode akad ulang - akad ulang yang sudah keberapa pada nasabah tersebut'
         */
@@ -701,7 +701,7 @@ class AkadController extends Controller
             $totalAkadUlang = $this->log_akad->where('no_id', 'LIKE', '%'.$codeAu.'%')->count();
             $totalAkadUlang = $totalAkadUlang + 1;
             $value = $codeAu.$totalAkadUlang;
-        }else if($status_akad == 'baru'){
+        }elseif($status_akad == 'baru'){
             $codeNoId       = 'C99-'.$this->infoCabang()->nomorCabang.'-'.Carbon::now()->format('dmy');
 
             // 'mendapatkan jumlah akad ke-berapa pada hari ini'
@@ -752,12 +752,17 @@ class AkadController extends Controller
         $nasabah = $this->insert_nasabah($data)->data;
 
         if($id){
-            $akad = $this->akad->find($id);
-
+            $akad   = $this->akad->find($id);
             $method = 'edit';
+
+            //'keperluan saldo cabang'
             session()->put('nilai_pencairan', $akad->nilai_pencairan);
+            
+            //'keperluang kas cabang'
+            session()->put('jenis_barang', $akad->jenis_barang);
+            session()->put('biaya_admin', $akad->biaya_admin);
         }else{
-            $akad = $this->akad;
+            $akad   = $this->akad;
             $method = 'create';
         }
         
@@ -786,19 +791,84 @@ class AkadController extends Controller
         $akad->save();
 
         // insert data to other table
-        // $bea_titip                    = $this->insert_bea_titip($akad, 'default');
-        // $kas_cabang                   = $this->insert_kas_cabang($akad, $method);
+        $bea_titip                    = $this->insert_bea_titip($akad, $method, 'default');
+        $kas_cabang                   = $this->insert_kas_cabang($akad, $method);
         $saldo_cabang                 = $this->insert_saldo_cabang($akad, 'kurang', $method);
 
-        // $log_akad                     = $this->insert_log_akad($akad);
-        // $log_kas_cabang               = $this->insert_log_kas_cabang($akad, $nasabah);
-        // $log_saldo_cabang             = $this->insert_log_saldo_cabang($akad, $nasabah);
+        if($method == 'create'){
+            $log_akad                     = $this->insert_log_akad($akad, 'Belum Lunas');
+            $log_kas_cabang               = $this->insert_log_kas_cabang($akad, $nasabah);
+            $log_saldo_cabang             = $this->insert_log_saldo_cabang($akad, $nasabah);
+        }        
+    }
 
-        return $saldo_cabang;
+    public function insert_log_akad($akad, $status)
+    {
+        $logAkad = $this->log_akad;
+        $logAkad->no_id         = $akad->no_id;
+        $logAkad->status        = $status;
+        $logAkad->tanggal_log   = $akad->tanggal_akad;
+        $logAkad->save();
+    }
+
+    public function insert_nasabah($data)
+    {
+        $findNasabah = $this->nasabah->where('nama_lengkap', $data['nama_lengkap'])->first();
+
+        if(!$findNasabah){
+            $nasabah 				= $this->nasabah;
+            $nasabah->key_nasabah 	= uniqid();
+            $nasabah->nama_lengkap	= $data['nama_lengkap'];
+            $nasabah->jenis_kelamin	= $data['jenis_kelamin'];
+            $nasabah->kota			= $data['kota'];
+            $nasabah->no_telp		= $data['no_telp'];
+            $nasabah->jenis_id		= $data['jenis_id'];
+            $nasabah->no_identitas	= $data['no_identitas'];
+            $nasabah->tanggal_lahir	= $data['tanggal_lahir'];
+            $nasabah->alamat		= $data['alamat'];
+            $nasabah->tanggal_daftar= Carbon::now()->format('Y-m-d');
+            $nasabah->save();
+
+            $data = $nasabah;
+        }else{
+            $data = $findNasabah;
+        }
+
+        return (object) compact('data');
+    }
+
+    //'keterangan untuk pembayaran DARI hari/minggu KE hari/minggu berapa'
+    //'contoh KE 1 - 2'
+    public function insert_bea_titip($data, $method, $keterangan = null)
+    {
+        if($method == 'create'){
+            if(request('bt_yang_dibayar') >= 1){
+                if($keterangan == 'default'){
+                    if(request('bt_yang_dibayar') == 1){
+                        $keterangan = 'KE 1';
+                    }else{
+                        $keterangan = 'KE 1-'.request('bt_yang_dibayar');
+                    }
+                }
+    
+                if(request('bt_7_hari')){
+                    $bt_7_hari = request('bt_7_hari');
+                }else{
+                    $bt_7_hari = $data->bt_7_hari;
+                }
+    
+                $biaya_titip                        = $this->biaya_titip;
+                $biaya_titip->no_id                 = $data->no_id;
+                $biaya_titip->keterangan            = $keterangan;
+                $biaya_titip->pembayaran            = $bt_7_hari;
+                $biaya_titip->tanggal_pembayaran    = Carbon::now()->format('Y-m-d');
+                $biaya_titip->save();
+            }
+        }
     }
 
     // start 'kas saldo'
-    // condition between 'tambah dan kurang'
+    // condition is between 'tambah dan kurang'
     public function insert_saldo_cabang($data, $condition, $method)
     {
         $saldoCabang = $this->saldo_cabang->where('id_cabang', $data->id_cabang);
@@ -850,89 +920,34 @@ class AkadController extends Controller
     }
     // end 'kas saldo'
 
-    public function insert_log_akad($akad, $status = 'Belum Lunas')
-    {
-        $logAkad = $this->log_akad;
-        $logAkad->no_id         = $akad->no_id;
-        $logAkad->status        = $status;
-        $logAkad->tanggal_log   = $akad->tanggal_akad;
-        $logAkad->save();
-
-        return $logAkad;
-    }
-
-    public function insert_nasabah($data)
-    {
-        $findNasabah = $this->nasabah->where('nama_lengkap', $data['nama_lengkap'])->first();
-
-        if(!$findNasabah){
-            $nasabah 				= $this->nasabah;
-            $nasabah->key_nasabah 	= uniqid();
-            $nasabah->nama_lengkap	= $data['nama_lengkap'];
-            $nasabah->jenis_kelamin	= $data['jenis_kelamin'];
-            $nasabah->kota			= $data['kota'];
-            $nasabah->no_telp		= $data['no_telp'];
-            $nasabah->jenis_id		= $data['jenis_id'];
-            $nasabah->no_identitas	= $data['no_identitas'];
-            $nasabah->tanggal_lahir	= $data['tanggal_lahir'];
-            $nasabah->alamat		= $data['alamat'];
-            $nasabah->tanggal_daftar= Carbon::now()->format('Y-m-d');
-            $nasabah->save();
-
-            $data = $nasabah;
-        }else{
-            $data = $findNasabah;
-        }
-
-        return (object) compact('data');
-    }
-
-    //'keterangan untuk pembayaran DARI hari/minggu KE hari/minggu berapa'
-    //'contoh KE 1 - 2'
-    public function insert_bea_titip($data, $keterangan = null)
-    {
-        if(request('bt_yang_dibayar') >= 1){
-            if($keterangan == 'default'){
-                if(request('bt_yang_dibayar') == 1){
-                    $keterangan = 'KE 1';
-                }else{
-                    $keterangan = 'KE 1-'.request('bt_yang_dibayar');
-                }
-            }
-
-            if(request('bt_7_hari')){
-                $bt_7_hari = request('bt_7_hari');
-            }else{
-                $bt_7_hari = $data->bt_7_hari;
-            }
-
-            $biaya_titip                        = $this->biaya_titip;
-            $biaya_titip->no_id                 = $data->no_id;
-            $biaya_titip->keterangan            = $keterangan;
-            $biaya_titip->pembayaran            = $bt_7_hari;
-            $biaya_titip->tanggal_pembayaran    = Carbon::now()->format('Y-m-d');
-            $biaya_titip->save();
-        }
-    }
-
     // start 'kas admin'
-    public function insert_kas_cabang($data, $condition = null)
+    public function insert_kas_cabang($data, $method)
     {
-        $findKasCabang = $this->kas_cabang->where('id_cabang', $data->id_cabang)->first();
+        $kasCabang      = $this->kas_cabang->where('id_cabang', $data->id_cabang);
+        $findKasCabang  = $this->kas_cabang->where('id_cabang', $data->id_cabang)->first();
 
-        if($condition == 'create'){
+        if($method == 'create'){
             if($findKasCabang){
                 // add up 'total kas' with new income 'biaya admin' 
-                $biayaAdmin = $findKasCabang->total_kas + $data->biaya_admin;
-    
-                $kasCabang = $this->kas_cabang->where('id_cabang', $data->id_cabang);
-                $kasCabang->update(['total_kas' => $biayaAdmin]);
+                $totalKas = $findKasCabang->total_kas + $data->biaya_admin;
+                
+                $kasCabang->update(['total_kas' => $totalKas]);
             }else{
                 $kasCabang = $this->kas_cabang;
                 $kasCabang->id_cabang  = $data->id_cabang;
                 $kasCabang->total_kas  = $data->biaya_admin;
                 $kasCabang->save();
             } 
+        }elseif($method == 'edit'){
+            $previous_type_item     = session()->get('jenis_barang');
+            $previous_admin_price   = session()->get('biaya_admin');
+
+            if($previous_type_item != $data->jenis_barang){
+                $totalKas = $findKasCabang->total_kas - $previous_admin_price;
+                $totalKas = $totalKas + $data->biaya_admin;
+
+                $kasCabang->update(['total_kas' => $totalKas]);
+            }
         }  
     }
 
