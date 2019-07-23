@@ -288,7 +288,7 @@
     function insert_akad_baru()
     {
         var data        = $('form').serializeArray();
-        var url_akad    = '{{route("akad.store")}}';
+        var url_akad    = '{{$action}}';
         var url_print   = '{{route("print")}}';
         var url_pdf     = '{{route("pdf")}}';
         // console.log(data);
@@ -303,7 +303,6 @@
                 swal({
                     title: "Pemberitahuan!",
                     text: "Data Akad Baru Berhasil!",
-                    type: "success",
                     icon: "success",
                 }).then(function() {
                     // if success, redirect to page 'database > data akad nasabah > nasabah akad'

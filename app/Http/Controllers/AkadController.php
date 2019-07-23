@@ -134,7 +134,7 @@ class AkadController extends Controller
             $data       = (object) compact('jumlah', 'uraian', 'id_cabang');
 
             $this->insert_refund($data);
-            $this->insert_kas_cabang($dataAkad);
+            $this->insert_kas_cabang($dataAkad, 'create');
             $this->insert_log_kas_cabang($dataAkad, $dataNasabah);
         }
 
@@ -621,6 +621,8 @@ class AkadController extends Controller
             $kelengkapan_barang = $this->kelengkapan_barang($jenis_barang);
 
             $opsi_pembayaran = old('opsi_pembayaran');
+
+            $action = route('akad.update', $id);
         }else{
             $menu = 'akad';
             $subMenu = '';
@@ -635,6 +637,8 @@ class AkadController extends Controller
             $kelengkapan_barang = $this->kelengkapan_barang('Elektronik');
 
             $opsi_pembayaran = 1;
+
+            $action = route('akad.store');
         }
 
         // list time example : 1, 7, 15, 30, 60 days. for 'jangka_waktu_akad' and 'opsi_pembayaran'
@@ -652,7 +656,7 @@ class AkadController extends Controller
     	return $this->template('akad._form', compact(
             'tanggal_akad', 'tanggal_jatuh_tempo', 'menu', 'subMenu', 'noId', 'kelengkapan_barang',
             'listTime', 'paymentOption', 'potongan_kendaraan', 'potongan_elektronik', 'margin_kendaraan', 
-            'margin_elektronik', 'jenis_barang', 'opsi_pembayaran'
+            'margin_elektronik', 'jenis_barang', 'opsi_pembayaran', 'action'
         ));
     }
 
@@ -749,8 +753,12 @@ class AkadController extends Controller
 
         if($id){
             $akad = $this->akad->find($id);
+
+            $condition = 'edit';
+            session()->put('nilai_pencairan', $akad->nilai_pencairan);
         }else{
             $akad = $this->akad;
+            $condition = 'create';
         }
         
     	$akad->id_cabang 			  = $id_cabang;
@@ -775,19 +783,101 @@ class AkadController extends Controller
     	$akad->terbilang			  = $data['terbilang']; 
     	$akad->status				  = 'Belum Lunas';
     	$akad->status_lokasi    	  = 'kantor';
-        // $akad->save();
+        $akad->save();
 
         // insert data to other table
         // $bea_titip                    = $this->insert_bea_titip($akad, 'default');
-        // $kas_cabang                   = $this->insert_kas_cabang($akad);
+        // $kas_cabang                   = $this->insert_kas_cabang($akad, $condition);
         // $saldo_cabang                 = $this->insert_saldo_cabang($akad, 'kurang');
 
         // $log_akad                     = $this->insert_log_akad($akad);
         // $log_kas_cabang               = $this->insert_log_kas_cabang($akad, $nasabah);
         // $log_saldo_cabang             = $this->insert_log_saldo_cabang($akad, $nasabah);
 
-        return $akad;
+        return $id;
     }
+
+    // start 'kas admin'
+    public function insert_kas_cabang($data, $condition = null)
+    {
+        $findKasCabang = $this->kas_cabang->where('id_cabang', $data->id_cabang)->first();
+
+        if($condition == 'create'){
+            if($findKasCabang){
+                // add up 'total kas' with new income 'biaya admin' 
+                $biayaAdmin = $findKasCabang->total_kas + $data->biaya_admin;
+    
+                $kasCabang = $this->kas_cabang->where('id_cabang', $data->id_cabang);
+                $kasCabang->update(['total_kas' => $biayaAdmin]);
+            }else{
+                $kasCabang = $this->kas_cabang;
+                $kasCabang->id_cabang  = $data->id_cabang;
+                $kasCabang->total_kas  = $data->biaya_admin;
+                $kasCabang->save();
+            } 
+        }elseif($condition == 'edit'){
+            
+        }  
+    }
+
+    public function insert_log_kas_cabang($akad, $nasabah)
+    {
+        //'marhun bih'
+        $marhunBih = new Log_kas_cabang;
+        $marhunBih->jenis               = 'kredit';
+        $marhunBih->jumlah              = $akad->nilai_pencairan;
+        $marhunBih->id_cabang           = $akad->id_cabang;
+        $marhunBih->keterangan          = 'AKAD A/N '.$nasabah->nama_lengkap;
+        $marhunBih->tanggal_log_kas     = $akad->tanggal_akad;
+        $marhunBih->save();
+
+        //'biaya admin'
+        $biayaAdmin = new Log_kas_cabang;
+        $biayaAdmin->jenis               = 'debit';
+        $biayaAdmin->jumlah              = $akad->biaya_admin;
+        $biayaAdmin->id_cabang           = $akad->id_cabang;
+        $biayaAdmin->keterangan          = 'B.ADM AKAD A/N '.$nasabah->nama_lengkap;
+        $biayaAdmin->tanggal_log_kas     = $akad->tanggal_akad;
+        $biayaAdmin->save();
+    }
+    // end 'kas admin'
+
+    // start 'kas saldo'
+    // condition between 'tambah dan kurang'
+    public function insert_saldo_cabang($data, $condition)
+    {
+        $saldoCabang = $this->saldo_cabang->where('id_cabang', $data->id_cabang);
+
+        if($condition == 'tambah'){
+            $marhunBih = $saldoCabang->value('total_saldo') + $data->nilai_pencairan;
+        }else if($condition == 'kurang'){
+            $marhunBih = $saldoCabang->value('total_saldo') - $data->nilai_pencairan;
+        }
+
+        $saldoCabang->update(['total_saldo' => $marhunBih]);
+    }
+
+    public function insert_log_saldo_cabang($akad, $nasabah)
+    {
+        //'marhun bih'
+        $marhunBih = new Log_saldo_cabang;
+        $marhunBih->jenis               = 'kredit';
+        $marhunBih->jumlah              = $akad->nilai_pencairan;
+        $marhunBih->id_cabang           = $akad->id_cabang;
+        $marhunBih->keterangan          = 'AKAD A/N '.$nasabah->nama_lengkap;
+        $marhunBih->tanggal_log_saldo   = $akad->tanggal_akad;
+        $marhunBih->save();
+
+        //'biaya admin'
+        $biayaAdmin = new Log_saldo_cabang;
+        $biayaAdmin->jenis               = 'debit';
+        $biayaAdmin->jumlah              = $akad->biaya_admin;
+        $biayaAdmin->id_cabang           = $akad->id_cabang;
+        $biayaAdmin->keterangan          = 'B.ADM AKAD A/N '.$nasabah->nama_lengkap;
+        $biayaAdmin->tanggal_log_saldo   = $akad->tanggal_akad;
+        $biayaAdmin->save();
+    }
+    // end 'kas saldo'
 
     public function insert_log_akad($akad, $status = 'Belum Lunas')
     {
@@ -854,83 +944,7 @@ class AkadController extends Controller
         }
     }
 
-    // start 'kas admin'
-    public function insert_kas_cabang($data)
-    {
-        $findKasCabang = $this->kas_cabang->where('id_cabang', $data->id_cabang)->first();
-
-        if($findKasCabang){
-            // add up 'total kas' with new income 'biaya admin' 
-            $biayaAdmin = $findKasCabang->total_kas + $data->biaya_admin;
-
-            $kasCabang = $this->kas_cabang->where('id_cabang', $data->id_cabang);
-            $kasCabang->update(['total_kas' => $biayaAdmin]);
-        }else{
-            $kasCabang = $this->kas_cabang;
-            $kasCabang->id_cabang  = $data->id_cabang;
-            $kasCabang->total_kas  = $data->biaya_admin;
-            $kasCabang->save();
-        }   
-    }
-
-    public function insert_log_kas_cabang($akad, $nasabah)
-    {
-        //'marhun bih'
-        $marhunBih = new Log_kas_cabang;
-        $marhunBih->jenis               = 'kredit';
-        $marhunBih->jumlah              = $akad->nilai_pencairan;
-        $marhunBih->id_cabang           = $akad->id_cabang;
-        $marhunBih->keterangan          = 'AKAD A/N '.$nasabah->nama_lengkap;
-        $marhunBih->tanggal_log_kas     = $akad->tanggal_akad;
-        $marhunBih->save();
-
-        //'biaya admin'
-        $biayaAdmin = new Log_kas_cabang;
-        $biayaAdmin->jenis               = 'debit';
-        $biayaAdmin->jumlah              = $akad->biaya_admin;
-        $biayaAdmin->id_cabang           = $akad->id_cabang;
-        $biayaAdmin->keterangan          = 'B.ADM AKAD A/N '.$nasabah->nama_lengkap;
-        $biayaAdmin->tanggal_log_kas     = $akad->tanggal_akad;
-        $biayaAdmin->save();
-    }
-    // end 'kas admin'
-
-    // start 'kas saldo'
-    // condition between 'tambah dan kurang'
-    public function insert_saldo_cabang($data, $condition)
-    {
-        $saldoCabang = $this->saldo_cabang->where('id_cabang', $data->id_cabang);
-
-        if($condition == 'tambah'){
-            $marhunBih = $saldoCabang->value('total_saldo') + $data->nilai_pencairan;
-        }else if($condition == 'kurang'){
-            $marhunBih = $saldoCabang->value('total_saldo') - $data->nilai_pencairan;
-        }
-
-        $saldoCabang->update(['total_saldo' => $marhunBih]);
-    }
-
-    public function insert_log_saldo_cabang($akad, $nasabah)
-    {
-        //'marhun bih'
-        $marhunBih = new Log_saldo_cabang;
-        $marhunBih->jenis               = 'kredit';
-        $marhunBih->jumlah              = $akad->nilai_pencairan;
-        $marhunBih->id_cabang           = $akad->id_cabang;
-        $marhunBih->keterangan          = 'AKAD A/N '.$nasabah->nama_lengkap;
-        $marhunBih->tanggal_log_saldo   = $akad->tanggal_akad;
-        $marhunBih->save();
-
-        //'biaya admin'
-        $biayaAdmin = new Log_saldo_cabang;
-        $biayaAdmin->jenis               = 'debit';
-        $biayaAdmin->jumlah              = $akad->biaya_admin;
-        $biayaAdmin->id_cabang           = $akad->id_cabang;
-        $biayaAdmin->keterangan          = 'B.ADM AKAD A/N '.$nasabah->nama_lengkap;
-        $biayaAdmin->tanggal_log_saldo   = $akad->tanggal_akad;
-        $biayaAdmin->save();
-    }
-    // end 'kas saldo'
+    
 
     public function insert_refund($data)
     {
