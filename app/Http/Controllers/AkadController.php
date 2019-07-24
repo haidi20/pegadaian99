@@ -33,9 +33,7 @@ class AkadController extends Controller
                                 Kas_cabang $kas_cabang,
                                 biaya_titip $biaya_titip,
                                 User_cabang $user_cabang,
-                                Log_kas_cabang $log_kas_cabang,
-                                Saldo_cabang $saldo_cabang,
-                                Log_saldo_cabang $log_saldo_cabang
+                                Saldo_cabang $saldo_cabang
                             )
     {
     	$this->akad 		    = $akad;
@@ -48,8 +46,6 @@ class AkadController extends Controller
         $this->biaya_titip      = $biaya_titip;
         $this->user_cabang      = $user_cabang;
         $this->saldo_cabang     = $saldo_cabang;
-        $this->log_kas_cabang   = $log_kas_cabang;
-        $this->log_saldo_cabang = $log_saldo_cabang;
 
         view()->share([
             'menu'          => 'database',
@@ -103,7 +99,7 @@ class AkadController extends Controller
         return $biaya_titip;
     }
 
-    //'untuk tombol BIAYA TITIP dan tombol PELUNASAN'
+    //'untuk tombol BIAYA TITIP, tombol PELUNASAN dan tombol LELANG'
     public function bayar_akad()
     {
         $type       = request('type');
@@ -152,13 +148,8 @@ class AkadController extends Controller
             $this->insert_saldo_cabang($data, 'tambah', 'create');
             $this->insert_log_saldo_cabang($dataAkad, $dataNasabah);
         }
-        
-        //insert data 'biaya titip'
-        $this->insert_bea_titip($dataAkad->first(), $keterangan);
-        
-        // return $input;
-        // return $data->id_cabang;
-        // return $updateAkad->first();
+
+        $this->insert_bea_titip($dataAkad, $keterangan, 'create');
     }
 
     public function bayar_akad_ulang()
@@ -199,7 +190,7 @@ class AkadController extends Controller
         //table 'biaya titip'
         $this->request['bt_7_hari']         = $get_data['jml_bt_yang_dibayar'];
         $this->request['bt_yang_dibayar']   = $get_data['bt_yang_dibayar'];        
-        $this->insert_bea_titip($akad, 'default');
+        $this->insert_bea_titip($akad, 'default', 'create');
 
         //'PENTING'
         //'untuk saat ini "insert kas cabang" hanya memasukkan biaya admin. tidak dengan biaya titip'
@@ -754,6 +745,7 @@ class AkadController extends Controller
         if($id){
             $akad   = $this->akad->find($id);
             $method = 'edit';
+            $status_akad = 'edit';
 
             //'keperluan saldo cabang'
             session()->put('nilai_pencairan', $akad->nilai_pencairan);
@@ -761,9 +753,11 @@ class AkadController extends Controller
             //'keperluang kas cabang'
             session()->put('jenis_barang', $akad->jenis_barang);
             session()->put('biaya_admin', $akad->biaya_admin);
+            session()->put('biaya_titip', $akad->bt_7_hari);
         }else{
             $akad   = $this->akad;
             $method = 'create';
+            $status_akad = 'baru';
         }
         
     	$akad->id_cabang 			  = $id_cabang;
@@ -786,14 +780,15 @@ class AkadController extends Controller
     	$akad->bt_ke			      = $data['bt_yang_dibayar']; 
     	$akad->biaya_admin			  = remove_dot($data['biaya_admin']); 
     	$akad->terbilang			  = $data['terbilang']; 
-    	$akad->status				  = 'Belum Lunas';
+        $akad->status				  = 'Belum Lunas';
+        $akad->status_akad            = $status_akad;
     	$akad->status_lokasi    	  = 'kantor';
         $akad->save();
 
         // insert data to other table
-        $bea_titip                    = $this->insert_bea_titip($akad, $method, 'default');
-        $kas_cabang                   = $this->insert_kas_cabang($akad, $method);
-        $saldo_cabang                 = $this->insert_saldo_cabang($akad, 'kurang', $method);
+        return $bea_titip                    = $this->insert_bea_titip($akad, 'default', $method);
+        // $kas_cabang                   = $this->insert_kas_cabang($akad, $method);
+        // $saldo_cabang                 = $this->insert_saldo_cabang($akad, 'kurang', $method);
 
         if($method == 'create'){
             $log_akad                     = $this->insert_log_akad($akad, 'Belum Lunas');
@@ -839,8 +834,21 @@ class AkadController extends Controller
 
     //'keterangan untuk pembayaran DARI hari/minggu KE hari/minggu berapa'
     //'contoh KE 1 - 2'
-    public function insert_bea_titip($data, $method, $keterangan = null)
+    public function insert_bea_titip($akad, $keterangan, $method)
     {
+        if($method == 'edit'){
+            $data = [];
+            $nominal_biaya_titip = session()->get('biaya_titip');
+            $biaya_titip = $this->biaya_titip->where('no_id', $akad->no_id)->get();
+
+            foreach ($biaya_titip as $index => $item) {
+                $total_yang_dibayar = $item->pembayaran / $nominal_biaya_titip;
+                $data[] = $item->pembayaran .' X '.$total_yang_dibayar;
+            }
+
+            return $data;
+        }
+
         if($method == 'create'){
             if(request('bt_yang_dibayar') >= 1){
                 if($keterangan == 'default'){
@@ -854,15 +862,17 @@ class AkadController extends Controller
                 if(request('bt_7_hari')){
                     $bt_7_hari = request('bt_7_hari');
                 }else{
-                    $bt_7_hari = $data->bt_7_hari;
+                    $bt_7_hari = $akad->bt_7_hari;
                 }
     
                 $biaya_titip                        = $this->biaya_titip;
-                $biaya_titip->no_id                 = $data->no_id;
+                $biaya_titip->no_id                 = $akad->no_id;
                 $biaya_titip->keterangan            = $keterangan;
                 $biaya_titip->pembayaran            = $bt_7_hari;
                 $biaya_titip->tanggal_pembayaran    = Carbon::now()->format('Y-m-d');
                 $biaya_titip->save();
+
+                return $biaya_titip;
             }
         }
     }

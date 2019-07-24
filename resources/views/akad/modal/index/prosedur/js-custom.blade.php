@@ -221,7 +221,7 @@
     {
         var from            = $('.from_checkbox').val();
         var id_akad         = $('.id_akad').val();
-        var nominal         = $('.nominal_total').val();
+        var nominal         = $('.nominal_total').val().replace(",","").replace(".","").replace(".","").replace(".","").replace(".","");
         var format_nominal  = formatRupiah(nominal.toString());
         //'pendukung tombol pelunasan'
         var type_button     = $('.type_button').val();
@@ -232,7 +232,7 @@
         var nilai_pengembalian  = $('#nominal_pengembalian').val();
 
         // 'agar bisa memasukkan hanya nilai biaya titip'
-        if(type_button == 'pelunasan'){
+        if(type_button == 'pelunasan' || type_button == 'biaya_titip'){
             nominal = nominal - nilai_pencairan;
         }
 
@@ -271,14 +271,14 @@
                         nilai_pengembalian:nilai_pengembalian, 
                     },
                     success:function(result){	
-                        // console.log(result);
+                        console.log(result);
 
                         swal("Pembayaran Biaya Titip Telah Berhasil", {
                             icon: "success",
                         });
 
                         // if success, can refresh this page
-                        location.reload();
+                        // location.reload();
                     },
                     error:function(xhr, ajaxOptions, thrownError){
                         console.log(thrownError)
