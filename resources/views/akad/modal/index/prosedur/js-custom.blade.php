@@ -240,7 +240,7 @@
             nominal = nominal - nilai_pencairan;
         }
 
-        if(type_button == 'perpanjangan'){
+        if(type_button == 'perpanjangan' || type_button == 'biaya_titip'){
             format_nominal = formatRupiah(nominal.toString());
         }
 
@@ -279,7 +279,6 @@
                         nilai_pengembalian:nilai_pengembalian, 
                     },
                     success:function(result){	
-                        // console.log(result);
 
                         swal("Pembayaran Biaya Titip Telah Berhasil", {
                             icon: "success",
@@ -328,7 +327,7 @@
     {
         var from, until;
 
-        console.log(data);
+        // console.log(data);
 
         // condition show/hide word Rp on some item
         $.each(data, function(index, item){
@@ -558,8 +557,6 @@
             var checked = '';
         }
 
-        console.log(from, until)
-
         // 'agar jika sudah lunas biaya titip, maka tidak muncul checkbox'
         if(from > 0){
             for (i; i <= until; i++) {
@@ -710,7 +707,7 @@
 
     function modal_akad_ulang(data, type)
     {
-        console.log(data);
+        // console.log(data);
 
         $.each(data, function(index, item){
             var name = '.data-'+index;
@@ -1103,7 +1100,7 @@
         var modal_akad_ulang        = $('#modal-akad-ulang');
         var modal_akad_ulang_confirm= $('#modal-akad-ulang-confirm');
 
-        console.log(data);
+        // console.log(data);
         $.each(data, function(index, item){
             // console.log(item);
 

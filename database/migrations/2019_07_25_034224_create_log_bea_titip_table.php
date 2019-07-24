@@ -13,14 +13,14 @@ class CreateLogBeaTitipTable extends Migration
      */
     public function up()
     {
-        Schema::create('log_bea_titip', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('no_id')->nullable();
-            $table->double('pembayaran')->default(0);
-            $table->dateTime('tanggal_pembayaran')->nullable();
-            $table->string('keterangan')->nullable();
-            $table->timestamps();
-        });
+        // Schema::create('log_bea_titip', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('no_id')->nullable();
+        //     $table->double('pembayaran')->default(0);
+        //     $table->dateTime('tanggal_pembayaran')->nullable();
+        //     $table->string('keterangan')->nullable();
+        //     $table->timestamps();
+        // });
     }
 
     /**

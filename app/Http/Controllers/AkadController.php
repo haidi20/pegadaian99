@@ -148,7 +148,7 @@ class AkadController extends Controller
             $data = (object) compact('id_cabang', 'nilai_pencairan');
 
             $this->insert_saldo_cabang($data, 'tambah', 'create');
-            $this->insert_log_saldo_cabang($dataAkad, $dataNasabah);
+            $this->insert_log_saldo_cabang($dataAkad, $dataNasabah, 'create');
         }
 
         if($type == 'perpanjangan'){
@@ -157,7 +157,7 @@ class AkadController extends Controller
                 'tanggal_jatuh_tempo' => $tanggal_jatuh_tempo,
             ]);
         }
-
+        
         $this->insert_bea_titip($dataAkad, $keterangan, 'create');
     }
 
@@ -255,7 +255,7 @@ class AkadController extends Controller
         $limaBelas      = $this->limaBelas();
         $seluruhData    = $this->seluruhData();
 
-        // return $seluruhData->data[0]->data_tunggakan->totalTerbayar;
+        // return $seluruhData->data[2]->data_tunggakan->waktu_tertunggak;
 
         $column             = config('library.column.akad_nasabah.list_akad_nasabah');
         // 'waktu akad' example 'selutuh data, harian, 7 hari, 15 hari, ringkasan harian'
