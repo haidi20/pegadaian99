@@ -218,7 +218,7 @@
 
     //'untuk pembayaran biaya titip, pelunasan, dan lelang'
     function bayar_prosedur()
-    {
+    {   
         var from            = $('.from_checkbox').val();
         var id_akad         = $('.id_akad').val();
         var nominal         = $('.nominal_total').val().replace(",","").replace(".","").replace(".","").replace(".","").replace(".","");
@@ -294,7 +294,7 @@
         });
     }
 
-    // type is between pelunasan and biaya titip
+    // type is between 'pelunasan', 'biaya titip', 'lelang', and 'akad ulang'
     function akad_prosedur(id, type)
     {
         $.ajax({

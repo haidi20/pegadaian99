@@ -838,15 +838,22 @@ class AkadController extends Controller
     {
         if($method == 'edit'){
             $data = [];
-            $nominal_biaya_titip = session()->get('biaya_titip');
+            $biaya_titip_lama = session()->get('biaya_titip');
             $biaya_titip = $this->biaya_titip->where('no_id', $akad->no_id)->get();
 
             foreach ($biaya_titip as $index => $item) {
-                $total_yang_dibayar = $item->pembayaran / $nominal_biaya_titip;
-                $data[] = $item->pembayaran .' X '.$total_yang_dibayar;
-            }
+                $total_yang_dibayar = $item->pembayaran / $biaya_titip_lama;
+                $total_yang_dibayar = number_format($total_yang_dibayar);
+                $perbaharui_biaya_titip = $total_yang_dibayar * $akad->bt_7_hari;
+                // $data[] = $item->pembayaran .' X '.$total_yang_dibayar;
+                // $data[] = 'biaya titip baru = '.$perbaharui_biaya_titip.', bt yg lama = '.$item->pembayaran. 
+                // ' X '. $total_yang_dibayar;
+                $bt_terbaru = $this->biaya_titip->where('id_bt', $item->id_bt)->first();
+                $bt_terbaru->update([
+                    'pembayaran' => $perbaharui_biaya_titip,
+                ]);
 
-            return $data;
+            }
         }
 
         if($method == 'create'){
