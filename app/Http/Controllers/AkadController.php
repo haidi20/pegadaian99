@@ -861,15 +861,18 @@ class AkadController extends Controller
                 $total_bt_baru[] = $bt_terbaru->pembayaran;
             }
 
+            $total_bt_baru          = array_sum($total_bt_baru);
             $total_biaya_titip_lama = array_sum($total_biaya_titip_lama);
+            
+            $status_log_edit = $this->compare_biaya_titip($total_biaya_titip_lama, $total_bt_baru);
 
             //'memasukkan total biaya titip lama'
             $log_edit_akad = Log_edit_akad::updateOrCreate(['no_id' => $akad->no_id]);
+            $log_edit_akad->status          = $status_log_edit;
             $log_edit_akad->tanggal_log     = Carbon::now()->format('Y-m-d'); 
             $log_edit_akad->total_bea_titip = $total_biaya_titip_lama;
             $log_edit_akad->save();
 
-            $total_bt_baru = array_sum($total_bt_baru);
             // return 'total bt baru = '.$total_bt_baru.', total bt yg lama = '.$log_edit_akad->total_bea_titip;
         }
 
@@ -898,6 +901,21 @@ class AkadController extends Controller
 
                 return $biaya_titip;
             }
+        }
+    }
+
+    public function compare_biaya_titip($lama, $baru)
+    {
+        if($lama > $baru){
+            $total = $lama - $baru;
+            $total = nominal($total);
+            return 'Kelebihan Sebesar Rp.'.$total;
+        }elseif($lama < $baru){
+            $total = $baru - $lama;
+            $total = nominal($total);
+            return 'Kurang Sebesar Rp.'.$total;
+        }else{
+            return 'sama';
         }
     }
 
