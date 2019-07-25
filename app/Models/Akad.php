@@ -236,7 +236,7 @@ class Akad extends Model
                 $jarak_waktu = ceil($jarak_waktu) + 1;
                 $keterangan  = 'Hari';
             }else{
-                $jarak_waktu = ceil($jarak_waktu);
+                $jarak_waktu = ceil($jarak_waktu) - 1;
                 $keterangan  = 'periode';
             }
 
@@ -246,7 +246,7 @@ class Akad extends Model
             // 'jumlah minggu / hari yang sudah di bayar'
             $data['waktu_sudah'] = $totalTerbayar / $this->bt_7_hari;
             // 'jumlah minggu / hari yang belum dibayar'
-            $waktu_tertunggak = $jarak_waktu == 0 ? 0 : $jarak_waktu - $data->waktu_sudah;
+            $waktu_tertunggak = $jarak_waktu == 0 ? 0 : $this->compare_time($jarak_waktu, $data->waktu_sudah);
             $data['waktu_tertunggak'] = $waktu_tertunggak;
             $data['jarak_waktu'] = $jarak_waktu;    
             // 'jumlah uang yang harus dibayar' 
@@ -297,6 +297,21 @@ class Akad extends Model
                 'info', 'nominal', 'jatuhTempo', 'totalTerbayar',
                 'waktu_sudah', 'waktu_tertunggak', 'nominalBiasa', 'status_tunggakan'
             );
+        }
+    }
+
+    public function compare_time($jarak_waktu, $waktu_sudah)
+    {
+        if($jarak_waktu > $waktu_sudah){
+            $total = $jarak_waktu - $waktu_sudah;
+            $total = nominal($total);
+            return $total;
+        }elseif($jarak_waktu < $waktu_sudah){
+            $total = $waktu_sudah - $jarak_waktu;
+            $total = nominal($total);
+            return $total;
+        }else{
+            return $waktu_sudah;
         }
     }
 }
