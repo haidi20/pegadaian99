@@ -13,9 +13,10 @@ use App\Models\Biaya_titip;
 use App\Models\User_cabang;
 use App\Models\Saldo_cabang;
 
-use App\Models\Log\Log_akad;
-use App\Models\Log\Log_kas_cabang;
-use App\Models\Log\Log_saldo_cabang;
+use App\Models\Logs\Log_akad;
+use App\Models\Logs\Log_edit_akad;
+use App\Models\Logs\Log_kas_cabang;
+use App\Models\Logs\Log_saldo_cabang;
 
 use Auth;
 use Terbilang;
@@ -838,22 +839,38 @@ class AkadController extends Controller
     {
         if($method == 'edit'){
             $data = [];
+            $total_biaya_titip_lama = [];
+
             $biaya_titip_lama = session()->get('biaya_titip');
             $biaya_titip = $this->biaya_titip->where('no_id', $akad->no_id)->get();
 
             foreach ($biaya_titip as $index => $item) {
+                $total_biaya_titip_lama[] = $item->pembayaran; 
+
+                //'untuk mendapatkan sudah berapa kali membayar pada biaya titip'
                 $total_yang_dibayar = $item->pembayaran / $biaya_titip_lama;
                 $total_yang_dibayar = number_format($total_yang_dibayar);
+                //'mengalikan dengan biaya titip yang baru'
                 $perbaharui_biaya_titip = $total_yang_dibayar * $akad->bt_7_hari;
-                // $data[] = $item->pembayaran .' X '.$total_yang_dibayar;
-                // $data[] = 'biaya titip baru = '.$perbaharui_biaya_titip.', bt yg lama = '.$item->pembayaran. 
-                // ' X '. $total_yang_dibayar;
+                //'memperbaharui biaya titip'
                 $bt_terbaru = $this->biaya_titip->where('id_bt', $item->id_bt)->first();
                 $bt_terbaru->update([
                     'pembayaran' => $perbaharui_biaya_titip,
                 ]);
 
+                $total_bt_baru[] = $bt_terbaru->pembayaran;
             }
+
+            $total_biaya_titip_lama = array_sum($total_biaya_titip_lama);
+
+            //'memasukkan total biaya titip lama'
+            $log_edit_akad = Log_edit_akad::updateOrCreate(['no_id' => $akad->no_id]);
+            $log_edit_akad->tanggal_log     = Carbon::now()->format('Y-m-d'); 
+            $log_edit_akad->total_bea_titip = $total_biaya_titip_lama;
+            $log_edit_akad->save();
+
+            $total_bt_baru = array_sum($total_bt_baru);
+            // return 'total bt baru = '.$total_bt_baru.', total bt yg lama = '.$log_edit_akad->total_bea_titip;
         }
 
         if($method == 'create'){
@@ -892,9 +909,9 @@ class AkadController extends Controller
 
         if($method == 'create'){
             if($condition == 'tambah'){
-                $marhunBih = $saldoCabang->value('total_saldo') + $data->nilai_pencairan;
+                $total_saldo = $saldoCabang->value('total_saldo') + $data->nilai_pencairan;
             }else if($condition == 'kurang'){
-                $marhunBih = $saldoCabang->value('total_saldo') - $data->nilai_pencairan;
+                $total_saldo = $saldoCabang->value('total_saldo') - $data->nilai_pencairan;
             }
         }elseif($method == 'edit'){
             $previous_price = session()->get('nilai_pencairan');
@@ -902,17 +919,17 @@ class AkadController extends Controller
             if($previous_price > $data->nilai_pencairan){
                 $nilai_pencairan = $previous_price - $data->nilai_pencairan;
 
-                $marhunBih = $saldoCabang->value('total_saldo') + $nilai_pencairan;
+                $total_saldo = $saldoCabang->value('total_saldo') + $nilai_pencairan;
             }elseif($previous_price < $data->nilai_pencairan){
                 $nilai_pencairan = $data->nilai_pencairan - $previous_price;
 
-                $marhunBih = $saldoCabang->value('total_saldo') - $nilai_pencairan;
+                $total_saldo = $saldoCabang->value('total_saldo') - $nilai_pencairan;
             }else{
-                $marhunBih = $saldoCabang->value('total_saldo');
+                $total_saldo = $saldoCabang->value('total_saldo');
             }
         }
 
-        $saldoCabang->update(['total_saldo' => $marhunBih]);
+        $saldoCabang->update(['total_saldo' => $total_saldo]);
     }
 
     public function insert_log_saldo_cabang($akad, $nasabah)

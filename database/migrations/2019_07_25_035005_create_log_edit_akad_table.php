@@ -17,6 +17,7 @@ class CreateLogEditAkadTable extends Migration
             $table->increments('id');
             $table->string('no_id')->nullable();
             $table->double('total_bea_titip')->default(0);
+            $table->string('status')->nullable();
             $table->date('tanggal_log')->nullable();
             $table->timestamps();
         });

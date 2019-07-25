@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\Log;
+namespace App\Models\Logs;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Log_kas_cabang extends Model
+class Log_saldo_cabang extends Model
 {
-    protected $table        = "log_kas_cabang";
+    protected $table        = "log_saldo_cabang";
     public $timestamps      = false;
     protected $primaryKey   = 'id_log_kas';
     // protected $guarded   = [];
@@ -16,6 +16,6 @@ class Log_kas_cabang extends Model
         'jenis',
         'keterangan',
         'jumlah',
-        'tanggal_log_kas',
+        'tanggal_log_saldo',
     ];
 }
