@@ -354,7 +354,7 @@
             until = 0;
         }else if (data.status_tunggakan == 0){
             from = data.waktu_sudah + 1;
-            until = data.waktu_sudah + data.waktu_tertunggak;
+            until = data.waktu_sudah + Number(data.waktu_tertunggak);
         }
 
         // button 'pelunasan' and 'lelang'
@@ -550,7 +550,7 @@
             var checked = '';
         }
 
-        // console.log(from, until)
+        console.log(from, until)
 
         // 'agar jika sudah lunas biaya titip, maka tidak muncul checkbox'
         if(from > 0){
