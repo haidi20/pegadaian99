@@ -10,9 +10,6 @@
         // for fetch nominal 'marhun_bih'
         marhun_bih_keyup()
 
-        // for default checked 'OPSI PEMBAYARAN HARIAN / 1'
-        $('#op_1, #op_7').css('display', '') 
-
         // condition option of form 'biaya titip yang dibayar'
         bt_yang_dibayar()
 
@@ -142,7 +139,7 @@
     // setting show / hide 'opsi pembayaran' base on 'jangka waktu akad'
     function paymentOption(time)
     {
-        if(time == 7){
+        if(time == 7 || time == 1){
             $('#op_15').css('display', 'none')
 
             $('#op_'+time+' label input').prop('checked', true)

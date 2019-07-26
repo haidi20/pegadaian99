@@ -153,7 +153,7 @@
                             <div class="form-radio">
                                 {{-- setting show / hide use jquery  --}}
                                 @foreach($paymentOption as $index => $item)
-                                    <div class="radio radio-inline" id="op_{{$item['value']}}" style="display: none">
+                                    <div class="radio radio-inline" id="op_{{$item['value']}}">
                                         <label>
                                             <input type="radio" name="opsi_pembayaran" onClick="kondisi_nilai_opsi_pembayaran('{{$item['value']}}')" value="{{$item['value']}}" {{checked($item['value'], 'opsi_pembayaran', 1)}}>
                                             <i class="helper"></i>{{$item['text']}}

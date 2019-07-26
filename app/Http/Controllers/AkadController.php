@@ -687,13 +687,13 @@ class AkadController extends Controller
         */
         
         //'akad ulang yang lebih dari 1'
-        if($status_akad == 'ulang'){
+        if($status_akad == 'ulang' || $status_akad == 'edit'){
             //'agar bisa mengambil data c99-04-021019-01-AU-'
             $codeAu = substr($no_id, 0, 21);
             $totalAkadUlang = $this->log_akad->where('no_id', 'LIKE', '%'.$codeAu.'%')->count();
             $totalAkadUlang = $totalAkadUlang + 1;
             $value = $codeAu.$totalAkadUlang;
-        }elseif($status_akad == 'baru'){
+        }elseif($status_akad == 'baru' || $status_akad == 'edit'){
             $codeNoId       = 'C99-'.$this->infoCabang()->nomorCabang.'-'.Carbon::now()->format('dmy');
 
             // 'mendapatkan jumlah akad ke-berapa pada hari ini'
@@ -771,7 +771,8 @@ class AkadController extends Controller
         $akad->kelengkapan_barang_satu= $data['kelengkapan_barang_satu']; 
         $akad->kelengkapan_barang_dua = $data['kelengkapan_barang_dua']; 
         $akad->kelengkapan_barang_tiga= $data['kelengkapan_barang_tiga']; 
-    	$akad->kekurangan			  = $data['kekurangan']; 
+        $akad->kekurangan			  = $data['kekurangan']; 
+        $akad->opsi_pembayaran        = $data['opsi_pembayaran'];
     	$akad->jangka_waktu_akad	  = number_format($data['jangka_waktu_akad']); 
     	$akad->tanggal_akad			  = Carbon::parse($data['tanggal_akad'])->format('Y-m-d'); 
     	$akad->tanggal_jatuh_tempo	  = Carbon::parse($data['tanggal_jatuh_tempo'])->format('Y-m-d'); 
