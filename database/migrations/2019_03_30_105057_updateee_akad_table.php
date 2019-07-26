@@ -30,6 +30,8 @@ class UpdateeeAkadTable extends Migration
             $table->string('kelengkapan_barang_satu')->nullable();
             $table->string('kelengkapan_barang_dua')->nullable();
             $table->string('kelengkapan_barang_tiga')->nullable();
+            $table->integer('opsi_pembayaran')->default(7);
+            $table->string('status_akad')->default('baru');
             $table->string('status_lokasi')->default('kantor');
             $table->string('target_lokasi')->default('gudang');
         });      
