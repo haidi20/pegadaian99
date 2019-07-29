@@ -104,7 +104,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Opsi Pembayaran</td>
-                                                        <td class="data-nilai_opsi_pembayaran"></td>
+                                                        <td class="data-opsi_pembayaran"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Biaya Titip</td>
