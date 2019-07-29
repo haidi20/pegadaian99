@@ -19,7 +19,7 @@
                             <div class="col-sm-12 col-md-8">
                                 <select name="jangka_waktu_akad" id="jangka_waktu_akad" class="form-control">
                                     @foreach($listTime as $index => $item)
-                                        <option value="{{$item['value']}}">
+                                        <option value="{{$item['value']}}" {{selected($item['value'], 'jangka_waktu_akad', 'old')}}>
                                                 {{$item['text']}}
                                         </option>
                                     @endforeach
@@ -52,28 +52,3 @@
         </div>
     </div>
 </div>
-
-@section('coba')
-<div class="col-sm-12 col-md-3">
-        <div class="card">
-           <div class="card-block">
-               
-               
-           </div>
-       </div>
-   </div>
-   <div class="col-sm-12 col-md-3">
-        <div class="card">
-           <div class="card-block">
-               
-           </div>
-       </div>
-   </div>
-   <div class="col-sm-12 col-md-3">
-        <div class="card">
-           <div class="card-block">
-               
-           </div>
-       </div>
-   </div>
-@endsection

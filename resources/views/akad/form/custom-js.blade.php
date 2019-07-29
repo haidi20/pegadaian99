@@ -466,31 +466,31 @@
     function insert_data_confirm(data)
     {
         $.each(data, function(index, item){
-            console.log(item.name, item.value);
             kondisi_jenis_barang(item);
 
             if(item.name == 'taksiran_marhun'){
-                $('.data-'+item.name).html(': Rp.'+item.value);
+                $('.data-'+item.name).text(': Rp.'+item.value);
             }else if(item.name == 'marhun_bih'){
-                $('.data-'+item.name).html(': Rp.'+item.value);
+                $('.data-'+item.name).text(': Rp.'+item.value);
             }else if(item.name == 'biaya_titip'){
-                $('.data-'+item.name).html(': Rp.'+item.value);
+                $('.data-'+item.name).text(': Rp.'+item.value);
             }else if(item.name == 'jml_bt_yang_dibayar'){
-                $('.data-'+item.name).html(': Rp.'+item.value);
+                $('.data-'+item.name).text(': Rp.'+item.value);
             }else if(item.name == 'biaya_admin'){
-                $('.data-'+item.name).html(': Rp.'+item.value);
+                $('.data-'+item.name).text(': Rp.'+item.value);
             }else if(item.name == 'tanggal_lahir'){
-                $('.data-'+item.name).html(': '+moment().add(item.value, 'days').format('DD-MM-Y'));
+                $('.data-'+item.name).text(': '+moment().add(item.value, 'days').format('DD-MM-Y'));
             }else if(item.name == 'jangka_waktu_akad' || item.name == 'opsi_pembayaran'){
                 if(item.value == 1){
                     var value = 'Sehari';
                 }else if(item.value > 1){
                     var value = item.value + ' Hari';
                 }
-
-                $('.data-'+item.name).html(': '+value);
+                $('.data-'+item.name).text(': '+value);
+            }else if(item.name == 'kelengkapan' || item.name == 'kekurangan'){
+                $('.data-'+item.name).text(item.value);
             }else{
-                $('.data-'+item.name).html(': '+item.value);
+                $('.data-'+item.name).text(': '+item.value);
             }
         });
     }

@@ -88,11 +88,15 @@
                                                 <tbody id="table-detail-two">
                                                     <tr>
                                                         <td>Kelengkapan Barang</td>
-                                                        <td class="data-kelengkapan"></td>
+                                                        <td>
+                                                            <textarea rows="5" cols="5" class="form-control data-kelengkapan" name="data-kelengkapan" disabled></textarea>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Kekurangan / Kerusakan Barang</td>
-                                                        <td class="data-kekurangan"></td>
+                                                        <td>
+                                                            <textarea rows="5" cols="5" class="form-control data-kekurangan" name="data-kekurangan" disabled></textarea>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Taksiran Marhun</td>
@@ -246,11 +250,15 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Kelengkapan Barang</td>
-                                                        <td class="data-kelengkapan"></td>
+                                                        <td>
+                                                            <textarea rows="5" cols="5" class="form-control data-kelengkapan" name="data-kelengkapan" disabled></textarea>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Kekurangan / Kerusakan Barang</td>
-                                                        <td class="data-kekurangan"></td>
+                                                        <td>
+                                                            <textarea rows="5" cols="5" class="form-control data-kekurangan" name="data-kekurangan" disabled></textarea>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Taksiran Marhun</td>
