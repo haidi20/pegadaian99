@@ -54,8 +54,8 @@ Route::middleware('auth')->group(function () {
 		Route::post('/update/{id}', 'CabangController@update')->name('cabang.update');
 	});
 	Route::group(['prefix' => 'cetak'], function(){
-		Route::get('/pdf', 'CetakController@pdf')->name('pdf');
-		Route::get('/print', 'CetakController@print')->name('print');
+		Route::get('/pdf', 'CetakController@pdf')->name('akad.pdf');
+		Route::get('/print', 'CetakController@print')->name('akad.print');
 	});
 	Route::group(['prefix' => 'nasabah'], function () {
 		Route::get('/', 'NasabahController@index')->name('nasabah.index');

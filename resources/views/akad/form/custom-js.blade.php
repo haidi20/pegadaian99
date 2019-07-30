@@ -286,8 +286,8 @@
     {
         var data        = $('form').serializeArray();
         var url_akad    = '{{$action}}';
-        var url_print   = '{{route("print")}}';
-        var url_pdf     = '{{route("pdf")}}';
+        var url_print   = '{{route("akad.print")}}';
+        var url_pdf     = '{{route("akad.pdf")}}';
         // console.log(data);
 
         // first insert data to table 'akad'
@@ -305,14 +305,14 @@
                     // if success, redirect to page 'database > data akad nasabah > nasabah akad'
                     // window.location.href = '{{route("akad.nasabah-akad")}}';
 
-                    console.log(result)
+                    // console.log(result)
                 });
                 
                 // new tab for print after than new tab again for PDF 
-                // $.redirect(url_print, {
-                //     data: data,
-                //     url_pdf: url_pdf
-                // }, "GET", "_blank");
+                $.redirect(url_print, {
+                    data: data,
+                    url_pdf: url_pdf
+                }, "GET", "_blank");
             },
             error:function(xhr, ajaxOptions, thrownError){
                 console.log(thrownError)

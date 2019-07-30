@@ -240,39 +240,32 @@ class Akad extends Model
                 $keterangan  = 'periode';
             }
 
-            $data['tanggal_akad'] = $this->tanggal_akad;
-            $data['tanggal_jatuh_tempo'] = $this->tanggal_jatuh_tempo;
-            $data['totalTerbayar'] = $totalTerbayar;
+            $tanggal_jatuh_tempo = $this->tanggal_jatuh_tempo;
             // 'jumlah minggu / hari yang sudah di bayar'
-            $data['waktu_sudah'] = $totalTerbayar / $this->bt_7_hari;
+            $waktu_sudah = $totalTerbayar / $this->bt_7_hari;
+            $waktu_sudah = floor($waktu_sudah);
             // 'jumlah minggu / hari yang belum dibayar'
-            $waktu_tertunggak = $jarak_waktu == 0 ? 0 : $this->compare_time($jarak_waktu, $data->waktu_sudah);
-            $data['waktu_tertunggak'] = $waktu_tertunggak;
-            $data['jarak_waktu'] = $jarak_waktu;    
+            $waktu_tertunggak = $jarak_waktu == 0 ? 0 : $this->compare_time($jarak_waktu, $waktu_sudah); 
             // 'jumlah uang yang harus dibayar' 
-            $data['nominal'] = $data->waktu_tertunggak * $this->bt_7_hari;
+            $nominal = $waktu_tertunggak * $this->bt_7_hari;
             // 'mendapatkan angka tunggakan seblum kasih format nominal'
-            $nominalBiasa = $data->nominal; 
-            $nominal  = nominal($data->nominal); 
-            $data['nominal'] = $nominal;
+            $nominalBiasa = $nominal; 
+            $nominal  = nominal($nominal);
 
-            if($data->waktu_tertunggak == 0){
+            if($waktu_tertunggak == 0){
                 $info   = 'Rp. 0 (0 '.$keterangan.')';
                 
                 // '1 di anggap lunas'
                 $status_tunggakan = 1;
             }else{
-                $info   = 'Rp. '.$data->nominal.' ('.$data->waktu_tertunggak.' '.$keterangan.')';
+                $info   = 'Rp. '.$nominal.' ('.$waktu_tertunggak.' '.$keterangan.')';
                 
                 // '0 di anggap belum lunas'
                 $status_tunggakan = 0;
             }
 
             // $info = $jarak_waktu;
-            $jatuhTempo = $this->tanggal_jatuh_tempo == $tanggal_sekarang ? $nominalBiasa : 0;
-            //about time done pay and not yet pay
-            $waktu_sudah        = $data->waktu_sudah;
-            $waktu_tertunggak   = $data->waktu_tertunggak;
+            $jatuhTempo = $tanggal_jatuh_tempo == $tanggal_sekarang ? $nominalBiasa : 0;
 
             //rewrite data
             $totalTerbayar      = nominal($totalTerbayar);

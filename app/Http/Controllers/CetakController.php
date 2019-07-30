@@ -24,16 +24,24 @@ class CetakController extends Controller
         $input 		= $this->request->except('_token');
         $url_pdf    = $input['url_pdf'];
         $input      = $input['data']; 
-        if(request('type' != 'langsung')){            
+        if(request('type') != 'langsung'){            
             foreach ($input as $index => $item) {
                 $data[$item['name']] = $item['value'];
             }
+
+            session()->put('kekurangan_garis_baru', $data['kekurangan']);
+            session()->put('kelengkapan_garis_baru', $data['kelengkapan']);
+            $searches = array("\r", "\n", "\r\n");
+            $data['kekurangan']     =   str_replace($searches, " ", $data['kekurangan']);
+            $data['kelengkapan']    =   str_replace($searches, " ", $data['kelengkapan']);
         }else{
             $data = $input;
-            $data['marhun_bih'] = $data['nilai_pencairan'];
-            $data['taksiran_marhun'] = $data['nilai_tafsir'];
+            $data['marhun_bih'] = nominal($data['nilai_pencairan']);
+            $data['taksiran_marhun'] = nominal($data['nilai_tafsir']);
             $data['nilai_opsi_pembayaran'] = $data['opsi_pembayaran'];
-            $data['biaya_titip'] = $data['bt_7_hari'];
+            $data['biaya_titip'] = nominal($data['bt_7_hari']);
+            $data['biaya_admin'] = nominal($data['biiaya_admin']);
+            $data['jml_bt_yang_dibayar'] = nominal($data['jml_bt_yang_dibayar']);
         }
 
         $data['tanggal_akad']           = Carbon::parse($data['tanggal_akad'])->format('d-m-Y');
@@ -217,35 +225,30 @@ class CetakController extends Controller
         $pdf->SetX(41);
         $pdf->setY(180, false);
         //Print centered cell with a text in it
-        $data['taksiran_marhun'] = nominal($data['taksiran_marhun']);
         $pdf->Cell(0, 0, $data['taksiran_marhun'], 0, 0, 'L');
 
         //biaya titip
         $pdf->SetX(125);
         $pdf->setY(180, false);
         //Print centered cell with a text in it
-        $data['biaya_titip'] = nominal($data['biaya_titip']);
         $pdf->Cell(0, 0, $data['biaya_titip'], 0, 0, 'L');
 
         //marhun bih
         $pdf->SetX(41);
         $pdf->setY(186, false);
         //Print centered cell with a text in it
-        $data['marhun_bih'] = nominal($data['marhun_bih']);
         $pdf->Cell(0, 0, $data['marhun_bih'], 0, 0, 'L');
 
         //administrasi
         $pdf->SetX(125);
         $pdf->setY(186, false);
         //Print centered cell with a text in it
-        $data['biaya_admin'] = nominal($data['biaya_admin']);
         $pdf->Cell(0, 0, $data['biaya_admin'], 0, 0, 'L');
 
         //total b titip
         $pdf->SetX(41);
         $pdf->setY(192, false);
         //Print centered cell with a text in it
-        $data['jml_bt_yang_dibayar'] = nominal($data['jml_bt_yang_dibayar']);
         $pdf->Cell(0, 0, $data['jml_bt_yang_dibayar'], 0, 0, 'L');
 
         //B adm Lelang
@@ -267,9 +270,10 @@ class CetakController extends Controller
         $pdf->Cell(0, 0, Auth::user()->username, 0, 0, 'L');
 
         //rahin
-        $pdf->SetX(282);
+        $pdf->SetX(280);
         $pdf->setY(204, false);
         //Print centered cell with a text in it
+        $pdf->SetFont('Arial','B',6);
         $pdf->Cell(0, 0, $data['nama_lengkap'], 0, 0, 'L');
         
         $pdf->Output("Surat-Akad-".$data['nama_lengkap']."-".$data['key_nasabah'].".pdf", "I");

@@ -201,7 +201,7 @@ class AkadController extends Controller
         $dataAkad = $this->akad->joinNasabah()->where('id_akad', $get_data['id_akad'])->first();
         $dataAkad['jml_bt_yang_dibayar'] = $get_data['jml_bt_yang_dibayar'];
         $dataAkad['bt_minggu_ke'] = $get_data['bt_yang_dibayar'];
-        // $data['kelengkapan'] =  trim( str_replace( PHP_EOL, ' ', $dataAkad['kelengkapan'] ) );
+        
         session()->put('kekurangan_garis_baru', $dataAkad['kekurangan']);
         session()->put('kelengkapan_garis_baru', $dataAkad['kelengkapan']);
         $searches = array("\r", "\n", "\r\n");
@@ -247,7 +247,7 @@ class AkadController extends Controller
         $limaBelas      = $this->limaBelas();
         $seluruhData    = $this->seluruhData();
 
-        // return $seluruhData->data[3]->data_tunggakan->waktu_tertunggak;
+        // return $seluruhData->data[0]->data_tunggakan->waktu_sudah;
 
         $column             = config('library.column.akad_nasabah.list_akad_nasabah');
         // 'waktu akad' example 'selutuh data, harian, 7 hari, 15 hari, ringkasan harian'
@@ -786,15 +786,15 @@ class AkadController extends Controller
     	$akad->status_lokasi    	  = 'kantor';
         $akad->save();
 
-        // insert data to other table
-        // $kas_cabang                   = $this->insert_kas_cabang($akad, $method);
-        // $bea_titip                    = $this->insert_bea_titip($akad, 'default', $method);
-        // $saldo_cabang                 = $this->insert_saldo_cabang($akad, 'kurang', $method);
+        // insert or edit data to other table
+        $bea_titip                    = $this->insert_bea_titip($akad, 'default', $method);
+        $kas_cabang                   = $this->insert_kas_cabang($akad, $method);
+        $saldo_cabang                 = $this->insert_saldo_cabang($akad, 'kurang', $method);
 
-        $log_kas_cabang                 = $this->insert_log_kas_cabang($akad, $nasabah, $method);
-        $log_saldo_cabang               = $this->insert_log_saldo_cabang($akad, $nasabah, $method);
+        $log_kas_cabang               = $this->insert_log_kas_cabang($akad, $nasabah, $method);
+        $log_saldo_cabang             = $this->insert_log_saldo_cabang($akad, $nasabah, $method);
         if($method == 'create'){
-            $log_akad                   = $this->insert_log_akad($akad, 'Belum Lunas');    
+            $log_akad                 = $this->insert_log_akad($akad, 'Belum Lunas');    
         }        
     }
 
@@ -874,9 +874,7 @@ class AkadController extends Controller
             $log_edit_akad->save();
 
             // return 'total bt baru = '.$total_bt_baru.', total bt yg lama = '.$log_edit_akad->total_bea_titip;
-        }
-
-        if($method == 'create'){
+        }elseif($method == 'create'){
             if(request('bt_yang_dibayar') >= 1){
                 if($keterangan == 'default'){
                     if(request('bt_yang_dibayar') == 1){
@@ -898,8 +896,6 @@ class AkadController extends Controller
                 $biaya_titip->pembayaran            = $bt_7_hari;
                 $biaya_titip->tanggal_pembayaran    = Carbon::now()->format('Y-m-d');
                 $biaya_titip->save();
-
-                return $biaya_titip;
             }
         }
     }
@@ -998,6 +994,8 @@ class AkadController extends Controller
             $biayaTitip->update([
                 'jumlah' => $akad->bt_7_hari,
             ]);
+
+            // return $biayaTitip->get();
        }
     }
     // end 'kas saldo'
