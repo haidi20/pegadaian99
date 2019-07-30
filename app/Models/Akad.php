@@ -218,7 +218,7 @@ class Akad extends Model
             $tanggal_sekarang = Carbon::now()->format('Y-m-d');
             
             // JANGAN DI HAPUS
-            if($tanggal_sekarang <= $this->tanggal_jatuh_tempo){
+            if($tanggal_sekarang < $this->tanggal_jatuh_tempo){
                 $batas_waktu = $tanggal_sekarang;
             }else{
                 $batas_waktu = $this->tanggal_jatuh_tempo;
@@ -236,7 +236,7 @@ class Akad extends Model
                 $jarak_waktu = ceil($jarak_waktu) + 1;
                 $keterangan  = 'Hari';
             }else{
-                $jarak_waktu = ceil($jarak_waktu) - 1;
+                $jarak_waktu = floor($jarak_waktu);
                 $keterangan  = 'periode';
             }
 
@@ -272,7 +272,8 @@ class Akad extends Model
 
             return (object) compact(
                 'info', 'nominal', 'jatuhTempo', 'totalTerbayar', 'jarak_waktu',
-                'waktu_sudah', 'waktu_tertunggak', 'nominalBiasa', 'status_tunggakan'
+                'waktu_sudah', 'waktu_tertunggak', 'nominalBiasa', 'status_tunggakan', 
+                'batas_waktu'
             );
         }else{
             $keterangan = $this->opsi_pembayaran == 1 ? 'harian' : 'periode';

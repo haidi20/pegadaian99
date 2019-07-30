@@ -116,7 +116,7 @@
                                 <a href="javascript:void(0)" class="btn btn-mini btn-info" onClick="prosedur({{$item->id_akad}}, 'lelang')">
                                     Lelang
                                 </a>
-                                <a href="javascript:void(0)" class="btn btn-mini" style="background-color:blueviolet; color:white">
+                                <a href="javascript:void(0)" class="btn btn-mini" style="background-color:blueviolet; color:white" onClick="prosedur({{$item->id_akad}}, 'perpanjangan')">
                                     Perpanjangan
                                 </a>
                             </td>

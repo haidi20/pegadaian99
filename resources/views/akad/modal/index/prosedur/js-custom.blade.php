@@ -3,13 +3,17 @@
     // type is between pelunasan and biaya titip
     function prosedur(id, type)
     {
-        if(type == 'pelunasan' || type == 'lelang'){
+        if(type == 'pelunasan' || type == 'lelang' || type == 'perpanjangan'){
             // show word 'total'
             $('#pelunasan').css('display', '');
             // show 'keterangan total'
-            $('#keterangan_total').show();
+            if(type == 'perpanjangan'){
+                $('#keterangan_total').hide();
+            }else{
+                $('#keterangan_total').show();
+            }
             // change title modal = 'pelunasan'
-            if(type == 'pelunasan'){
+            if(type == 'pelunasan' || type == 'perpanjangan'){
                 var title = 'Pelunasan';
                 var button_pay = 'active';
             }else if(type == 'lelang'){
@@ -232,8 +236,12 @@
         var nilai_pengembalian  = $('#nominal_pengembalian').val();
 
         // 'agar bisa memasukkan hanya nilai biaya titip'
-        if(type_button == 'pelunasan' || type_button == 'biaya_titip'){
+        if(type_button == 'pelunasan' || type_button == 'biaya_titip' || type_button == 'perpanjangan'){
             nominal = nominal - nilai_pencairan;
+        }
+
+        if(type_button == 'perpanjangan'){
+            format_nominal = formatRupiah(nominal.toString());
         }
 
         // 'untuk mendapatkan nilai checkbox yang tercentang'
@@ -271,14 +279,14 @@
                         nilai_pengembalian:nilai_pengembalian, 
                     },
                     success:function(result){	
-                        console.log(result);
+                        // console.log(result);
 
                         swal("Pembayaran Biaya Titip Telah Berhasil", {
                             icon: "success",
                         });
 
                         // if success, can refresh this page
-                        // location.reload();
+                        location.reload();
                     },
                     error:function(xhr, ajaxOptions, thrownError){
                         console.log(thrownError)
@@ -303,7 +311,7 @@
             cache: false,
             data:{id:id},
             success:function(result){
-                if(type == 'pelunasan' || type == 'biaya_titip' || type == 'lelang'){
+                if(type == 'pelunasan' || type == 'biaya_titip' || type == 'lelang' || type == 'perpanjangan'){
                     modal_prosedur(result, type);
                 }else if(type == 'akad_ulang'){
                     modal_akad_ulang(result, type);
@@ -358,7 +366,7 @@
         }
 
         // button 'pelunasan' and 'lelang'
-        if(type == 'pelunasan' || type == 'lelang'){
+        if(type == 'pelunasan' || type == 'lelang' || type == 'perpanjangan'){
             total_pelunasan(data, from, until, type)
         }
 
@@ -544,7 +552,7 @@
         var disabled    = '';
         var checkbox    = '';
 
-        if(type == 'pelunasan' || type == 'lelang'){
+        if(type == 'pelunasan' || type == 'lelang' || type == 'perpanjangan'){
             var checked = 'checked';
         }else{
             var checked = '';

@@ -286,8 +286,8 @@
     {
         var data        = $('form').serializeArray();
         var url_akad    = '{{$action}}';
-        var url_print   = '{{route("akad.print")}}';
-        var url_pdf     = '{{route("akad.pdf")}}';
+        var url_print   = '{{route("print")}}';
+        var url_pdf     = '{{route("pdf")}}';
         // console.log(data);
 
         // first insert data to table 'akad'

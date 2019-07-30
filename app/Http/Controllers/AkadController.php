@@ -100,7 +100,8 @@ class AkadController extends Controller
         return $biaya_titip;
     }
 
-    //'untuk tombol BIAYA TITIP, tombol PELUNASAN dan tombol LELANG'
+    //'untuk tombol BIAYA TITIP, tombol PELUNASAN,' 
+    //'tombol LELANG dan tombol PERPANJANGAN'
     public function bayar_akad()
     {
         $type       = request('type');
@@ -148,6 +149,13 @@ class AkadController extends Controller
 
             $this->insert_saldo_cabang($data, 'tambah', 'create');
             $this->insert_log_saldo_cabang($dataAkad, $dataNasabah);
+        }
+
+        if($type == 'perpanjangan'){
+            $tanggal_jatuh_tempo = Carbon::parse($dataAkad->tanggal_jatuh_tempo)->addDays(7)->format('Y-m-d');
+            $updateAkad->update([
+                'tanggal_jatuh_tempo' => $tanggal_jatuh_tempo,
+            ]);
         }
 
         $this->insert_bea_titip($dataAkad, $keterangan, 'create');
@@ -247,7 +255,7 @@ class AkadController extends Controller
         $limaBelas      = $this->limaBelas();
         $seluruhData    = $this->seluruhData();
 
-        // return $seluruhData->data[0]->data_tunggakan->waktu_sudah;
+        // return $seluruhData->data[0]->data_tunggakan->totalTerbayar;
 
         $column             = config('library.column.akad_nasabah.list_akad_nasabah');
         // 'waktu akad' example 'selutuh data, harian, 7 hari, 15 hari, ringkasan harian'
