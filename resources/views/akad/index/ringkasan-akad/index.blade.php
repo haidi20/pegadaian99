@@ -86,6 +86,10 @@
                                                             <td>Akad Ulang </td>
                                                             <td class="akad_ulang">: {{$akadUlang}}</td>
                                                         </tr>
+                                                        <tr>
+                                                            <td>Total Realisasi</td>
+                                                            <td>: {{$totalRealisasi}} </td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                                 <br><br>

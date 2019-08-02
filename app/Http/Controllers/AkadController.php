@@ -508,6 +508,10 @@ class AkadController extends Controller
 
         $akadBaru           = $this->totalPencairanAkad($dateNow, 'baru');
         $akadUlang          = $this->totalPencairanAkad($dateNow, 'ulang');
+        $totalRealisasi     = 'Rp.'.nominal($akadBaru->data + $akadUlang->data);
+        $akadBaru           = $akadBaru->nominal;
+        $akadUlang          = $akadUlang->nominal;
+
         $pendapatanBtitip   = $this->pendapatanBiaya($dateNow, 'bt_7_hari');
         $pendapatanBadmin   = $this->pendapatanBiaya($dateNow, 'biaya_admin');
 
@@ -522,7 +526,7 @@ class AkadController extends Controller
             'menu', 'subMenu', 'listTime', 'waktuAkad', 'paymentOption', 
             'jangkaWaktuAkad', 'detailJenisBarang', 'column', 'dataAkad',
             'dataPendapatan', 'akadBaru', 'akadUlang', 'pendapatanBtitip',
-            'pendapatanBadmin'
+            'pendapatanBadmin', 'totalRealisasi'
         ));
     }
 
@@ -552,14 +556,18 @@ class AkadController extends Controller
         return $akad;
     }
 
+    // for information 'akad baru' and 'akad ulang'
     public function totalPencairanAkad($dateNow, $statusAkad)
     {
-        $akadBaru   = $this->akad->baseBranch();
-        $akadBaru   = $akadBaru->where('tanggal_akad', $dateNow);
-        $akadBaru   = $akadBaru->baseStatusAkad($statusAkad);
-        $akadBaru   = $akadBaru->sum('nilai_pencairan');
+        $akad   = $this->akad->baseBranch();
+        $akad   = $akad->where('tanggal_akad', $dateNow);
+        $akad   = $akad->baseStatusAkad($statusAkad);
+        $akad   = $akad->sum('nilai_pencairan');
 
-        return 'Rp.'.nominal($akadBaru);
+        $data       = $akad;
+        $nominal    = 'Rp.'.nominal($akad);
+
+        return (object) compact('data', 'nominal');
     }
 
     public function pendapatanBiaya($dateNow, $typeCost)
