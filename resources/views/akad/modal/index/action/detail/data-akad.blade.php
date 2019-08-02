@@ -7,6 +7,7 @@
                 <th>Jangka Waktu</th>
                 <th>Info Biaya</th>
                 <th>Status Akad</th>
+                <th>Admin</th>
             </tr>
         </thead>
         <tbody>
@@ -68,6 +69,9 @@
                 </td>
                 <td class="status">
                     
+                </td>
+                <td class="username">
+                   
                 </td>
             </tr>
         </tbody>

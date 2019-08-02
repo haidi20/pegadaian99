@@ -245,7 +245,8 @@ class Akad extends Model
             $waktu_sudah = $totalTerbayar / $this->bt_7_hari;
             $waktu_sudah = floor($waktu_sudah);
             // 'jumlah minggu / hari yang belum dibayar'
-            $waktu_tertunggak = $jarak_waktu == 0 ? 0 : $jarak_waktu - $waktu_sudah;    
+            // $waktu_tertunggak = $jarak_waktu == 0 ? 0 : $waktu_sudah - $jarak_waktu;    
+            $waktu_tertunggak = $jarak_waktu == 0 ? 0 : $this->compare_time($jarak_waktu, $waktu_sudah);    
             // 'jumlah uang yang harus dibayar' 
             $nominal = $waktu_tertunggak * $this->bt_7_hari;
             // 'mendapatkan angka tunggakan seblum kasih format nominal'

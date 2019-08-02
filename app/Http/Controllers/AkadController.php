@@ -255,7 +255,7 @@ class AkadController extends Controller
         $limaBelas      = $this->limaBelas();
         $seluruhData    = $this->seluruhData();
 
-        // return $seluruhData->data[2]->data_tunggakan->waktu_tertunggak;
+        // return $seluruhData->data[0]->data_tunggakan->waktu_tertunggak;
 
         $column             = config('library.column.akad_nasabah.list_akad_nasabah');
         // 'waktu akad' example 'selutuh data, harian, 7 hari, 15 hari, ringkasan harian'
@@ -770,6 +770,7 @@ class AkadController extends Controller
         }
         
     	$akad->id_cabang 			  = $id_cabang;
+    	$akad->username 			  = Auth::user()->username;
     	$akad->no_id 				  = $data['no_id'];
     	$akad->key_nasabah 			  = $nasabah->key_nasabah;
     	$akad->nama_barang			  = $data['nama_barang']; 

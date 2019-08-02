@@ -25,6 +25,7 @@ class UpdateeeAkadTable extends Migration
 
         Schema::table('akad', function (Blueprint $table) {
             $table->integer('maintenance')->default(0);
+            $table->string('username')->nullable();
             $table->string('laporan_maintenance')->nullable();
             $table->string('detail_jenis_barang')->default('smartphone');
             $table->string('kelengkapan_barang_satu')->nullable();
