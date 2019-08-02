@@ -220,7 +220,7 @@ class Akad extends Model
             // JANGAN DI HAPUS
             if($tanggal_sekarang < $this->tanggal_jatuh_tempo){
                 $batas_waktu = $tanggal_sekarang;
-            }else{
+            }elseif($tanggal_sekarang >= $this->tanggal_jatuh_tempo){
                 $batas_waktu = $this->tanggal_jatuh_tempo;
             }
 
@@ -236,7 +236,7 @@ class Akad extends Model
                 $jarak_waktu = ceil($jarak_waktu) + 1;
                 $keterangan  = 'Hari';
             }else{
-                $jarak_waktu = floor($jarak_waktu);
+                $jarak_waktu = ceil($jarak_waktu);
                 $keterangan  = 'periode';
             }
 
@@ -303,9 +303,10 @@ class Akad extends Model
             $total = nominal($total);
             return $total;
         }elseif($jarak_waktu < $waktu_sudah){
-            $total = $waktu_sudah - $jarak_waktu;
-            $total = nominal($total);
-            return $total;
+            // $total = $waktu_sudah - $jarak_waktu;
+            // $total = nominal($total);
+            // return $total;
+            return 0;
         }else{
             return $waktu_sudah;
         }
