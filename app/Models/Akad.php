@@ -38,6 +38,11 @@ class Akad extends Model
         'status',
     ];
 
+    public function biaya_titip()
+    {
+        return $this->hasMany('App\Models\Biaya_titip', 'no_id', 'no_id');
+    }
+
     // for filter data between date variable start to variable $end field 'tanggal_jatuh_tempo'
     public function scopeFilterRange($query, $start, $end)
     {

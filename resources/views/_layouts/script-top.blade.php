@@ -34,3 +34,9 @@
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/css/style.css')}}">
 
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/css/jquery.mCustomScrollbar.css')}}">
+
+<style>
+    .col-md-1half {
+        margin-left:15px;
+    }
+</style>

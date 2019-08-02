@@ -91,7 +91,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                        <input type="hidden" class="id_akad" name="id_akad">
+                    <input type="hidden" class="id_akad" name="id_akad">
                     @forelse($data as $index => $item)
                         <tr>
                             <td>{{$index + 1}}</td>

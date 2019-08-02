@@ -247,15 +247,17 @@ class AkadController extends Controller
     public function nasabah_akad()
     {
         // name menu for active menu header
-        $menu    = 'database';
-        $subMenu = 'akad';
+        $menu           = 'database';
+        $subMenu        = 'akad';
+        $defaultNameTab = 'seluruh_data';
 
-        $harian         = $this->harian();
-        $tujuh          = $this->tujuh();
-        $limaBelas      = $this->limaBelas();
-        $seluruhData    = $this->seluruhData();
+        $harian         = $this->harian($defaultNameTab);
+        $tujuh          = $this->tujuh($defaultNameTab);
+        $limaBelas      = $this->limaBelas($defaultNameTab);
+        $seluruhData    = $this->seluruhData($defaultNameTab);
 
         // return $seluruhData->data[1]->data_tunggakan->jarak_waktu;
+        // return session()->get('note');
 
         $column             = config('library.column.akad_nasabah.list_akad_nasabah');
         // 'waktu akad' example 'selutuh data, harian, 7 hari, 15 hari, ringkasan harian'
@@ -272,91 +274,65 @@ class AkadController extends Controller
         ));
     }
 
-    public function seluruhData()
+    public function seluruhData($defaultNameTab)
     {
         // name field 'tanggal jatuh tempo' for sorted
         $nameFieldSorted= 'akad.tanggal_akad';
         
         $akad           = $this->akad->belumLunas()->joinNasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
-        $seluruhData    = $this->filter($akad, 'seluruh_data')->akad;
+        $seluruhData    = $this->filter($akad, $defaultNameTab, 'seluruh_data')->akad;
         $infoTotal      = $this->infoTotal($seluruhData, 'seluruh_data');
         $data           = $seluruhData->paginate(request('perpage', 10));
 
-        $dateRange      = $this->filter($akad, 'seluruh_data')->dateRange;
+        $dateRange      = $this->filter($akad, $defaultNameTab, 'seluruh_data')->dateRange;
 
         return (object) compact('data', 'dateRange', 'infoTotal'); 
     }
 
-    public function harian()
+    public function harian($defaultNameTab)
     {
         $nameFieldSorted= 'akad.tanggal_akad';
         
         $akad           = $this->akad->belumLunas()->joinNasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
         $akad           = $akad->opsiPembayaran(1);
-        $harian         = $this->filter($akad, 'harian')->akad;
+        $harian         = $this->filter($akad, $defaultNameTab, 'harian')->akad;
         $infoTotal      = $this->infoTotal($harian);
         $data           = $harian->paginate(request('perpage', 10));
 
-        $dateRange      = $this->filter($akad, 'harian')->dateRange;
+        $dateRange      = $this->filter($akad, $defaultNameTab, 'harian')->dateRange;
 
         return (object) compact('data', 'dateRange', 'infoTotal'); 
     }
 
-    public function tujuh()
+    public function tujuh($defaultNameTab)
     {
         $nameFieldSorted= 'akad.tanggal_akad';
         
         $akad           = $this->akad->belumLunas()->joinNasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
         $akad           = $akad->opsiPembayaran(7);
-        $tujuh          = $this->filter($akad, 'tujuh_hari')->akad;
+        $tujuh          = $this->filter($akad, $defaultNameTab, 'tujuh_hari')->akad;
         $infoTotal      = $this->infoTotal($tujuh);
         $data           = $tujuh->paginate(request('perpage', 10));
 
-        $dateRange      = $this->filter($akad, 'tujuh_hari')->dateRange;
+        $dateRange      = $this->filter($akad, $defaultNameTab, 'tujuh_hari')->dateRange;
 
         return (object) compact('data', 'dateRange', 'infoTotal'); 
     }
 
-    public function limaBelas()
+    public function limaBelas($defaultNameTab)
     {
         $nameFieldSorted= 'akad.tanggal_akad';
         
         $akad           = $this->akad->belumLunas()->joinNasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
         $akad           = $akad->opsiPembayaran(15);
-        $limaBelas      = $this->filter($akad, 'lima_belas_hari')->akad;
+        $limaBelas      = $this->filter($akad, $defaultNameTab, 'lima_belas_hari')->akad;
         $infoTotal      = $this->infoTotal($limaBelas);
         $data           = $limaBelas->paginate(request('perpage', 10));
 
-        $dateRange      = $this->filter($akad, 'lima_belas_hari')->dateRange;
+        $dateRange      = $this->filter($akad, $defaultNameTab, 'lima_belas_hari')->dateRange;
 
         return (object) compact('data', 'dateRange', 'infoTotal'); 
     }
-
-    // public function ringkasanHarian()
-    // {
-    //     $data       = [];
-    //     $dateNow    = Carbon::now()->format('Y-m-d');
-
-    //     $akadBaru   = $this->akad->baseBranch();
-    //     $akadBaru   = $akadBaru->where('tanggal_akad', $dateNow);
-    //     $akadBaru   = $akadBaru->baseStatusAkad('baru');
-
-    //     $akadUlang  = $this->akad->baseBranch();
-    //     $akadUlang  = $akadUlang->where('tanggal_akad', $dateNow);
-    //     $akadUlang  = $akadUlang->baseStatusAkad('ulang');
-
-    //     $biayaTitip = (object) [
-    //         'akadBaru' => 'Rp. '.nominal($akadBaru->sum('bt_7_hari')),
-    //         'akadUlang' => 'Rp. '.nominal($akadUlang->sum('bt_7_hari')),
-    //     ];
-
-    //     $biayaAdmin = (object) [
-    //         'akadBaru' => 'Rp. '.nominal($akadBaru->sum('biaya_admin')),
-    //         'akadUlang' => 'Rp. '.nominal($akadUlang->sum('biaya_admin')),
-    //     ];
-
-    //     return (object) compact('biayaTitip', 'biayaAdmin');
-    // }
 
     public function infoTotal($akad, $nameTab = null)
     {
@@ -524,6 +500,18 @@ class AkadController extends Controller
         $menu    = 'database';
         $subMenu = 'akad';
 
+        $dateNow            = Carbon::now()->format('Y-m-d');
+        $nameFieldSorted    = 'akad.tanggal_akad';
+        
+        $dataAkad           = $this->dataAkad($nameFieldSorted, $dateNow);
+        $dataPendapatan     = $this->dataPendapatan($nameFieldSorted, $dateNow);
+
+        $akadBaru           = $this->totalPencairanAkad($dateNow, 'baru');
+        $akadUlang          = $this->totalPencairanAkad($dateNow, 'ulang');
+        $pendapatanBtitip   = $this->pendapatanBiaya($dateNow, 'bt_7_hari');
+        $pendapatanBadmin   = $this->pendapatanBiaya($dateNow, 'biaya_admin');
+
+        $column             = config('library.column.akad_nasabah.list_akad_nasabah');
         $listTime           = config('library.form.akad.list_time');
         $waktuAkad          = config('library.special.nasabah_akad.waktu_akad');
         $paymentOption      = config('library.form.akad.payment_option');
@@ -532,8 +520,55 @@ class AkadController extends Controller
         
         return $this->template('akad.index.ringkasan-akad.index', compact(
             'menu', 'subMenu', 'listTime', 'waktuAkad', 'paymentOption', 
-            'jangkaWaktuAkad', 'detailJenisBarang'
+            'jangkaWaktuAkad', 'detailJenisBarang', 'column', 'dataAkad',
+            'dataPendapatan', 'akadBaru', 'akadUlang', 'pendapatanBtitip',
+            'pendapatanBadmin'
         ));
+    }
+
+    public function dataAkad($nameFieldSorted, $dateNow)
+    {
+        $akad   = $this->akad->belumLunas();
+        $akad   = $akad->joinNasabah();
+        $akad   = $akad->sorted($nameFieldSorted, 'desc');
+        $akad   = $akad->baseBranch();
+        $akad   = $akad->where('akad.tanggal_akad', $dateNow);
+        $akad   = $akad->paginate(request('perpage', 10));
+
+        return $akad;
+    }
+
+    public function dataPendapatan($nameFieldSorted, $dateNow)
+    {
+        $akad   = $this->akad->belumLunas();
+        $akad   = $akad->joinNasabah();
+        $akad   = $akad->sorted($nameFieldSorted, 'desc');
+        $akad   = $akad->baseBranch();
+        $akad   = $akad->whereHas('biaya_titip', function($q) use($dateNow){
+            $q->where('tanggal_pembayaran', $dateNow);
+        });
+        $akad   = $akad->paginate(request('perpage', 10));
+
+        return $akad;
+    }
+
+    public function totalPencairanAkad($dateNow, $statusAkad)
+    {
+        $akadBaru   = $this->akad->baseBranch();
+        $akadBaru   = $akadBaru->where('tanggal_akad', $dateNow);
+        $akadBaru   = $akadBaru->baseStatusAkad($statusAkad);
+        $akadBaru   = $akadBaru->sum('nilai_pencairan');
+
+        return 'Rp.'.nominal($akadBaru);
+    }
+
+    public function pendapatanBiaya($dateNow, $typeCost)
+    {
+        $akad   = $this->akad->baseBranch();
+        $akad   = $akad->where('tanggal_akad', $dateNow);
+        $akad   = $akad->sum($typeCost);
+
+        return 'Rp.'.nominal($akad);
     }
 
     public function change_checklist($id)
@@ -552,9 +587,11 @@ class AkadController extends Controller
     }
 
     //for filter data from perpage, and query in file view akad.index
-    public function filter($akad, $nameTab = null)
+    public function filter($akad, $defaultNameTab, $nameTab)
     {
-        if(request('name_tab', 'seluruh_data') == $nameTab){
+        $requestNameTab = request('name_tab') ? request('name_tab') : $defaultNameTab;
+
+        if($requestNameTab == $nameTab){
             if(request('daterange') != null){
                 $end    = carbon::parse(substr(request('daterange'), 13, 20));
                 $start  = carbon::parse(substr(request('daterange'), 1, 9));
@@ -580,10 +617,14 @@ class AkadController extends Controller
             if(request('jangka_waktu_akad')){
                 $akad   = $akad->jangkaWaktuAkad(request('jangka_waktu_akad'));
             }
+
+            session()->put('note', 'masuk kondisi');
         }else{
             // for default date in form filter date range
             $end        = Carbon::now()->day(30);
             $start      = Carbon::now()->day(1);
+
+            session()->put('note', 'masuk default');
         }
 
         // scope function filterRange

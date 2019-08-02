@@ -9,9 +9,6 @@
 <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/bootstrap-daterangepicker/css/daterangepicker.css')}}">
 
 <style>
-    .col-md-1half {
-        margin-left:15px;
-    }
     .custom-akad-ulang{
         font-weight: 510;
         font-size: 16px;
