@@ -17,7 +17,7 @@ Route::get('/', function () {
 });
 
 Route::get('/testip', function(){
-	return Request::ip();
+	return  $_SERVER['REMOTE_ADDR'];
 });
 
 Route::middleware('auth')->group(function () {
