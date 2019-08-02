@@ -17,7 +17,7 @@ Route::get('/', function () {
 });
 
 Route::get('/testip', function(){
-	return request()->ip();
+	return Request::ip();
 });
 
 Route::middleware('auth')->group(function () {
