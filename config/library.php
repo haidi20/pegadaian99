@@ -70,9 +70,9 @@ return [
 							'route'	=> 'akad.nasabah-akad',
 						],
 						1 => [
-							'url'	=> 'akad/ringkasan-akad',
-							'name'	=> 'Ringkasan Akad',
-							'route'	=> 'akad.ringkasan-akad',
+							'url'	=> 'akad/ringkasan-harian',
+							'name'	=> 'Ringkasan Harian',
+							'route'	=> 'akad.ringkasan-harian',
 						],
 						2 => [
 							'url'	=> 'akad/akad-jatuh-tempo',

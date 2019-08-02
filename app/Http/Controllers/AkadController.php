@@ -494,7 +494,7 @@ class AkadController extends Controller
         ));
     }
 
-    public function ringkasan_akad()
+    public function ringkasan_harian()
     {
         // name menu for active menu header
         $menu    = 'database';
