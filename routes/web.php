@@ -16,6 +16,10 @@ Route::get('/', function () {
 	// return view('dashboard');
 });
 
+Route::get('/testip', function(){
+	return request()->ip();
+});
+
 Route::middleware('auth')->group(function () {
 	Route::group(['prefix' => 'akad'], function () {
 		Route::get('/', 'AkadController@index')->name('akad.index');
