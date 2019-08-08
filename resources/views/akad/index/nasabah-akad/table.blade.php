@@ -1,82 +1,89 @@
 <form method="get">
-    <div class="row">
-        <div class="col-md-1half">
-             <div class="form-group">
-                {{-- Show &nbsp; --}}
-                <select name="perpage" id="perpage" class="form-control perpage">
-                    <option {{ selected(10, 'perpage', 'request')}}>10</option>
-                    <option {{ selected(25, 'perpage', 'request')}}>25</option>
-                    <option {{ selected(50, 'perpage', 'request')}}>50</option>
-                    <option {{ selected(100, 'perpage', 'request')}}>100</option>
-                </select> 
-                {{-- &nbsp; Entries --}}
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-3">
-            <div class="form-group">
-                <input type="text" name="daterange" id="date" class="form-control" value="{{$dateRange}}" />
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-7">
-            <div class="row">
-                <div class="col-sm-12 col-md-4">
-                    <div class="form-group">
-                        <select name="by" id="by" class="form-control">
-                            @foreach($column as $index => $item)
-                                <option value="{{$index}}" {{selected($index, 'by', 'request')}}>{{$item}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-4">
-                    <div class="input-group input-group-success">
-                        <span class="input-group-addon">
-                           <i class="icofont icofont-ui-search"></i>
-                        </span>
-                        <input type="text" name="q" id="q" value="{{ request('q') }}" class="form-control" placeholder="Search">
-                    </div>
+    @if($conditionFilter)
+        <div class="row">
+            <div class="col-md-1half">
+                <div class="form-group">
+                    {{-- Show &nbsp; --}}
+                    <select name="perpage" id="perpage" class="form-control perpage">
+                        <option {{ selected(10, 'perpage', 'request')}}>10</option>
+                        <option {{ selected(25, 'perpage', 'request')}}>25</option>
+                        <option {{ selected(50, 'perpage', 'request')}}>50</option>
+                        <option {{ selected(100, 'perpage', 'request')}}>100</option>
+                    </select> 
+                    {{-- &nbsp; Entries --}}
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12 col-md-4">
-            <div class="form-group">
-                <select name="detail_jenis_barang" id="detail_jenis_barang" class="form-control">
-                    @foreach($detailJenisBarang as $index => $item)
-                        <option value="{{$index}}" {{selected($index, 'detail_jenis_barang', 'request')}}>{{$item}}</option>
-                    @endforeach
-                </select>
+            <div class="col-sm-12 col-md-3">
+                <div class="form-group">
+                    <input type="text" name="daterange" id="date" class="form-control" value="{{$dateRange}}" />
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-7">
+                <div class="row">
+                    <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                            <select name="by" id="by" class="form-control">
+                                @foreach($column as $index => $item)
+                                    <option value="{{$index}}" {{selected($index, 'by', 'request')}}>{{$item}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                        <div class="input-group input-group-success">
+                            <span class="input-group-addon">
+                            <i class="icofont icofont-ui-search"></i>
+                            </span>
+                            <input type="text" name="q" id="q" value="{{ request('q') }}" class="form-control" placeholder="Search">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-4 opsi-pembayaran">
-            <div class="form-group">
-                <select name="opsi_pembayaran" id="opsi_pembayaran" class="form-control">
-                    @foreach($waktuAkad as $index => $item)
-                        <option value="{{$index}}" {{selected($index, 'opsi_pembayaran', 'request')}}>{{$item}}</option>
-                    @endforeach
-                </select>
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <div class="form-group">
+                    <select name="detail_jenis_barang" id="detail_jenis_barang" class="form-control">
+                        @foreach($detailJenisBarang as $index => $item)
+                            <option value="{{$index}}" {{selected($index, 'detail_jenis_barang', 'request')}}>{{$item}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4 opsi-pembayaran">
+                <div class="form-group">
+                    <select name="opsi_pembayaran" id="opsi_pembayaran" class="form-control">
+                        @foreach($waktuAkad as $index => $item)
+                            <option value="{{$index}}" {{selected($index, 'opsi_pembayaran', 'request')}}>{{$item}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4 jangka-waktu-akad">
+                <div class="form-group">
+                    <select name="jangka_waktu_akad" id="jangka_waktu_akad" class="form-control">
+                        @foreach($jangkaWaktuAkad as $index => $item)
+                            <option value="{{$index}}" {{selected($index, 'jangka_waktu_akad', 'request')}}>{{$item}}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-4 jangka-waktu-akad">
-            <div class="form-group">
-                <select name="jangka_waktu_akad" id="jangka_waktu_akad" class="form-control">
-                    @foreach($jangkaWaktuAkad as $index => $item)
-                        <option value="{{$index}}" {{selected($index, 'jangka_waktu_akad', 'request')}}>{{$item}}</option>
-                    @endforeach
-                </select>
+        <div class="row">
+            <div class="col-sm-12 col-md-2">
+                <button type="submit" class="btn btn-sm btn-primary" id="btn-search">Oke</button>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12 col-md-2">
-            <button type="submit" class="btn btn-sm btn-primary" id="btn-search">Oke</button>
-        </div>
-    </div>
-    <input type="hidden" class="name_tab" id="name_tab" name="name_tab" value="{{request('name_tab', 'seluruh_data')}}">
-    <input type="hidden" name="page" value="{{request('page')}}">
+        <input type="hidden" class="name_tab" id="name_tab" name="name_tab" value="{{request('name_tab', 'seluruh_data')}}">
+        <input type="hidden" name="page" value="{{request('page')}}">
+    @endif
 </form>
 <br>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <h3>{{$titleTable}}</h3>
+    </div>
+</div>
 <div class="row">
     <div class="col-sm-12 col-md-12">
         <div class="table-responsive dt-responsive">

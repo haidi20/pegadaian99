@@ -256,7 +256,11 @@ class AkadController extends Controller
         $limaBelas      = $this->limaBelas($defaultNameTab);
         $seluruhData    = $this->seluruhData($defaultNameTab);
 
-        // return $seluruhData->data[1]->data_tunggakan->jarak_waktu;
+        $oneMonthAgo    = $this->oneMonthAgo($defaultNameTab);
+        $twoMonthAgo    = $this->twoMonthAgo($defaultNameTab);
+        $treeMonthAgo   = $this->treeMonthAgo($defaultNameTab);
+
+        // $oneMonthAgo->data[1]->data_tunggakan->jarak_waktu;
         // return session()->get('note');
 
         $column             = config('library.column.akad_nasabah.list_akad_nasabah');
@@ -270,7 +274,8 @@ class AkadController extends Controller
         return $this->template('akad.index.nasabah-akad.index', compact(
             'dateRange', 'menu', 'subMenu', 'jangkaWaktuAkad', 'listTime',
             'column', 'detailJenisBarang', 'waktuAkad', 'paymentOption',
-            'seluruhData', 'harian', 'tujuh', 'limaBelas'
+            'seluruhData', 'harian', 'tujuh', 'limaBelas', 'oneMonthAgo',
+            'twoMonthAgo', 'treeMonthAgo'
         ));
     }
 
@@ -285,6 +290,51 @@ class AkadController extends Controller
         $data           = $seluruhData->paginate(request('perpage', 10));
 
         $dateRange      = $this->filter($akad, $defaultNameTab, 'seluruh_data')->dateRange;
+
+        return (object) compact('data', 'dateRange', 'infoTotal'); 
+    }
+
+    public function oneMonthAgo($defaultNameTab)
+    {
+        // name field 'tanggal jatuh tempo' for sorted
+        $nameFieldSorted= 'akad.tanggal_akad';
+        
+        $akad           = $this->akad->belumLunas()->joinNasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
+        $seluruhData    = $this->filter($akad, $defaultNameTab, 'seluruh_data', 'oneMonthAgo')->akad;
+        $infoTotal      = $this->infoTotal($seluruhData, 'seluruh_data');
+        $data           = $seluruhData->paginate(request('perpage', 10));
+
+        $dateRange      = $this->filter($akad, $defaultNameTab, 'seluruh_data', 'oneMonthAgo')->dateRange;
+
+        return (object) compact('data', 'dateRange', 'infoTotal'); 
+    }
+
+    public function twoMonthAgo($defaultNameTab)
+    {
+        // name field 'tanggal jatuh tempo' for sorted
+        $nameFieldSorted= 'akad.tanggal_akad';
+        
+        $akad           = $this->akad->belumLunas()->joinNasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
+        $seluruhData    = $this->filter($akad, $defaultNameTab, 'seluruh_data', 'twoMonthAgo')->akad;
+        $infoTotal      = $this->infoTotal($seluruhData, 'seluruh_data');
+        $data           = $seluruhData->paginate(request('perpage', 10));
+
+        $dateRange      = $this->filter($akad, $defaultNameTab, 'seluruh_data', 'twoMonthAgo')->dateRange;
+
+        return (object) compact('data', 'dateRange', 'infoTotal'); 
+    }
+
+    public function treeMonthAgo($defaultNameTab)
+    {
+        // name field 'tanggal jatuh tempo' for sorted
+        $nameFieldSorted= 'akad.tanggal_akad';
+        
+        $akad           = $this->akad->belumLunas()->joinNasabah()->sorted($nameFieldSorted, 'desc')->baseBranch();
+        $seluruhData    = $this->filter($akad, $defaultNameTab, 'seluruh_data', 'treeMonthAgo')->akad;
+        $infoTotal      = $this->infoTotal($seluruhData, 'seluruh_data');
+        $data           = $seluruhData->paginate(request('perpage', 10));
+
+        $dateRange      = $this->filter($akad, $defaultNameTab, 'seluruh_data', 'treeMonthAgo')->dateRange;
 
         return (object) compact('data', 'dateRange', 'infoTotal'); 
     }
@@ -595,19 +645,15 @@ class AkadController extends Controller
     }
 
     //for filter data from perpage, and query in file view akad.index
-    public function filter($akad, $defaultNameTab, $nameTab)
+    //typeTime for feature 'nasabah akad' 
+    //typeTime is month now, month yesterday, 2 month ago, and data" where status = 'Belum Lunas'
+    public function filter($akad, $defaultNameTab, $nameTab, $typeTime = null)
     {
         $requestNameTab = request('name_tab') ? request('name_tab') : $defaultNameTab;
 
         if($requestNameTab == $nameTab){
-            if(request('daterange') != null){
-                $end    = carbon::parse(substr(request('daterange'), 13, 20));
-                $start  = carbon::parse(substr(request('daterange'), 1, 9));
-            }else{
-                // for default date in form filter date range
-                $end        = Carbon::now()->day(30);
-                $start      = Carbon::now()->day(1);
-            }
+            $end    = $this->endStartDate($typeTime)->end;
+            $start  = $this->endStartDate($typeTime)->start;
     
             // if get data from input keyword 
             if(request('q')){
@@ -629,8 +675,8 @@ class AkadController extends Controller
             session()->put('note', 'masuk kondisi');
         }else{
             // for default date in form filter date range
-            $end        = Carbon::now()->day(30);
-            $start      = Carbon::now()->day(1);
+            $end    = $this->endStartDate($typeTime)->end;
+            $start  = $this->endStartDate($typeTime)->start;
 
             session()->put('note', 'masuk default');
         }
@@ -640,6 +686,28 @@ class AkadController extends Controller
         $dateRange  = $start->format('m/d/Y').' - '.$end->format('m/d/Y');
 
         return (object) compact('akad', 'dateRange');
+    }
+
+    public function endStartDate($typeTime = null)
+    {
+        if(request('daterange') != null){
+            $end    = carbon::parse(substr(request('daterange'), 13, 20));
+            $start  = carbon::parse(substr(request('daterange'), 1, 9));
+        }else if($typeTime == 'oneMonthAgo'){
+            $end        = Carbon::now()->subMonth(1)->day(30);
+            $start      = Carbon::now()->subMonth(1)->day(1);
+        }else if($typeTime == 'twoMonthAgo'){
+            $end        = Carbon::now()->subMonth(2)->day(30);
+            $start      = Carbon::now()->subMonth(2)->day(1);
+        }else if($typeTime == 'treeMonthAgo'){
+            $end        = Carbon::now()->subMonth(20)->day(30);
+            $start      = Carbon::now()->subMonth(3)->day(1);
+        }else{
+            $end        = Carbon::now()->day(30);
+            $start      = Carbon::now()->day(1);
+        }
+
+        return (object) compact('end', 'start');
     }
 
     public function create()

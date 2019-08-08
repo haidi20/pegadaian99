@@ -184,30 +184,62 @@
                             <div class="tab-content tabs card-block">
                                 <div class="tab-pane seluruh_data {{active_tab('seluruh_data', request('name_tab'))}}" id="seluruh_data" role="tabpanel">
                                     @include('akad.index.nasabah-akad.table', [
-                                        'data' => $seluruhData->data, 
-                                        'dateRange' => $seluruhData->dateRange,
-                                        'infoTotal' => $seluruhData->infoTotal
+                                        'data'              => $seluruhData->data, 
+                                        'dateRange'         => $seluruhData->dateRange,
+                                        'infoTotal'         => $seluruhData->infoTotal,
+                                        'titleTable'        => '',
+                                        'conditionFilter'   => true
+                                    ])
+                                    <div style="height:60px"></div>
+                                    @include('akad.index.nasabah-akad.table', [
+                                        'data'              => $oneMonthAgo->data, 
+                                        'dateRange'         => $oneMonthAgo->dateRange,
+                                        'infoTotal'         => $oneMonthAgo->infoTotal,
+                                        'titleTable'        => '1 Bulan Kemarin',
+                                        'conditionFilter'   => true
+                                    ])
+                                    <div style="height:60px"></div>
+                                    @include('akad.index.nasabah-akad.table', [
+                                        'data'              => $twoMonthAgo->data, 
+                                        'dateRange'         => $twoMonthAgo->dateRange,
+                                        'infoTotal'         => $twoMonthAgo->infoTotal,
+                                        'titleTable'        => '2 Bulan Kemarin',
+                                        'conditionFilter'   => true
+                                    ])
+                                    <div style="height:60px"></div>
+                                    @include('akad.index.nasabah-akad.table', [
+                                        'data'              => $treeMonthAgo->data, 
+                                        'dateRange'         => $treeMonthAgo->dateRange,
+                                        'infoTotal'         => $treeMonthAgo->infoTotal,
+                                        'titleTable'        => '3 Bulan Kemarin dan Seterusnya',
+                                        'conditionFilter'   => true
                                     ])
                                 </div>
                                 <div class="tab-pane {{active_tab('harian', request('name_tab'))}}" id="harian" role="tabpanel">
                                     @include('akad.index.nasabah-akad.table', [
-                                        'data' => $harian->data, 
-                                        'dateRange' => $harian->dateRange,
-                                        'infoTotal' => $harian->infoTotal
+                                        'data'              => $harian->data, 
+                                        'dateRange'         => $harian->dateRange,
+                                        'infoTotal'         => $harian->infoTotal,
+                                        'titleTable'        => '',
+                                        'conditionFilter'   => true
                                     ])
                                 </div>
                                 <div class="tab-pane {{active_tab('tujuh_hari', request('name_tab'))}}" id="tujuh_hari" role="tabpanel">
                                     @include('akad.index.nasabah-akad.table', [
-                                        'data' => $tujuh->data, 
-                                        'dateRange' => $tujuh->dateRange,
-                                        'infoTotal' => $tujuh->infoTotal
+                                        'data'              => $tujuh->data, 
+                                        'dateRange'         => $tujuh->dateRange,
+                                        'infoTotal'         => $tujuh->infoTotal,
+                                        'titleTable'        => '',
+                                        'conditionFilter'   => true
                                     ])
                                 </div>
                                 <div class="tab-pane {{active_tab('lima_belas_hari', request('name_tab'))}}" id="lima_belas_hari" role="tabpanel">
                                     @include('akad.index.nasabah-akad.table', [
-                                        'data' => $limaBelas->data, 
-                                        'dateRange' => $limaBelas->dateRange,
-                                        'infoTotal' => $limaBelas->infoTotal
+                                        'data'              => $limaBelas->data, 
+                                        'dateRange'         => $limaBelas->dateRange,
+                                        'infoTotal'         => $limaBelas->infoTotal,
+                                        'titleTable'        => '',
+                                        'conditionFilter'   => true
                                     ])
                                 </div>
                             </div>
