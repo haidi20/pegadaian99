@@ -707,15 +707,15 @@
 
     function modal_akad_ulang(data, type)
     {
-        // console.log(data);
+        console.log(data);
 
         $.each(data, function(index, item){
             var name = '.data-'+index;
-
+            // console.log(name, item)
             if(index == 'nilai_tafsir' || index == 'nilai_pencairan'){
                 $(name).text(': Rp. '+formatRupiah(item.toString()));
                 $('.default-nilai_pencairan').val(item);
-            }else if(index == 'biaya_titip' || index == 'jml_bt_yang_dibayar'){
+            }else if(index == 'bt_7_hari' || index == 'jml_bt_yang_dibayar'){
                 $(name).text(': Rp. '+formatRupiah(item.toString()));
             }else if(index == 'tanggal_lahir' || index == 'tanggal_akad'){
                 $(name).text(': '+moment(item).format('DD-MM-Y'));
@@ -1030,7 +1030,7 @@
         }else{
             var bt_yang_dibayar = $('.data-bt_yang_dibayar').val();
         }
-
+        console.log(sisa_pinjaman, margin, potongan);
         if(opsi_pembayaran == 1){
             var biaya_titip = (sisa_pinjaman * margin - potongan) / 2 / 7;
         }else if(opsi_pembayaran == 7){
@@ -1053,7 +1053,7 @@
         biaya_titip     = Math.ceil(biaya_titip) * thousand_bt;
         biaya_titip     = Number(biaya_titip);
         $('.data-biaya_titip').val(biaya_titip);
-
+        // console.log(biaya_titip, bt_yang_dibayar);
         // 'rumus jumlah biaya titip yang dibayar'
         var jml_bt_yang_dibayar = biaya_titip * bt_yang_dibayar
         $('.data-jml_bt_yang_dibayar').val(jml_bt_yang_dibayar);
@@ -1061,7 +1061,7 @@
         var nominal_biaya_titip     = formatRupiah(biaya_titip.toString());
 
         $('.data-nominal_biaya_titip').html(': Rp.'+nominal_biaya_titip);
-
+        // console.log(penyusutan, jml_bt_yang_dibayar, biaya_admin, tunggakan);
         var total = penyusutan + jml_bt_yang_dibayar + biaya_admin + tunggakan;
         $('.data-nominal_total').val(total);
         total = formatRupiah(total.toString());
@@ -1206,25 +1206,25 @@
             cache: false,
             data: {data: data},
             success:function(result){
-                // console.log(result);
+                console.log(result);
                 
-                swal({
-                    title: "Pemberitahuan!",
-                    text: "Data Akad Baru Berhasil!",
-                    type: "success",
-                    icon: "success",
-                }).then(function() {
-                    // if success, can refresh this page
-                    location.reload();
-                });
+                // swal({
+                //     title: "Pemberitahuan!",
+                //     text: "Data Akad Baru Berhasil!",
+                //     type: "success",
+                //     icon: "success",
+                // }).then(function() {
+                //     // if success, can refresh this page
+                //     location.reload();
+                // });
                 
-                // new tab for print after than new tab again for PDF 
-                // 'langsung agar tidak mengatur array data lagi'
-                $.redirect(url_print, {
-                    data: result,
-                    tyep: 'langsung',
-                    url_pdf: url_pdf
-                }, "GET", "_blank");
+                // // new tab for print after than new tab again for PDF 
+                // // 'langsung agar tidak mengatur array data lagi'
+                // $.redirect(url_print, {
+                //     data: result,
+                //     tyep: 'langsung',
+                //     url_pdf: url_pdf
+                // }, "GET", "_blank");
             },
             error:function(xhr, ajaxOptions, thrownError){
                 console.log(thrownError)

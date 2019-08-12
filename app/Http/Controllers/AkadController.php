@@ -63,15 +63,36 @@ class AkadController extends Controller
     * m     = maintenance
     */
 
+    public function transaksi()
+    {
+        $data = [];
+        $date = Akad::selectRaw("DATE_FORMAT(tanggal_akad, '%Y-%m') as month")->orderBy('tanggal_akad', 'desc')->distinct()->get();
+
+        foreach ($date as $item) {
+            $years = Carbon::parse($item->month)->format('Y');
+            $months = Carbon::parse($item->month)->format('m');
+            $count = $this->akad->whereYear('tanggal_akad', $years)->whereMonth('tanggal_akad', $months)->count();
+            $data[$item->month] = $count;
+        }
+
+        return $data;
+    }
+
     // start data ajax
     public function fetch_data()
     {
         $findAkad = $this->akad->joinNasabah()->find(request('id'));
 
+        $margin = $this->setting->baseBranch()->jenisBarang($findAkad->jenis_barang)->value('margin');
+        $margin = $margin ? $margin : 10;
+        
+        $potongan = $this->setting->baseBranch()->jenisBarang($findAkad->jenis_barang)->value('potongan'); 
+        $potongan = $potongan ? $potongan : 10000;
+
         // overwrite some field
-        $findAkad['margin']                     = $this->setting->baseBranch()->jenisBarang($findAkad->jenis_barang)->value('margin');
+        $findAkad['margin']                     = $margin;
         $findAkad['no_id_au']                   = $this->codeNoId('akad_ulang', $findAkad->status_akad, $findAkad->no_id)->value;
-        $findAkad['potongan']                   = $this->setting->baseBranch()->jenisBarang($findAkad->jenis_barang)->value('potongan'); 
+        $findAkad['potongan']                   = $potongan;
         $findAkad['bt_terbayar']                = $findAkad->data_tunggakan->totalTerbayar;
         $findAkad['waktu_sudah']                = $findAkad->data_tunggakan->waktu_sudah;
         $findAkad['biaya_admin_biasa']          = $findAkad->biaya_admin;
@@ -171,6 +192,8 @@ class AkadController extends Controller
             $get_data[$title] = $item['value'];
         }
 
+        return $get_data;
+
         $akad = $this->akad->find($get_data['id_akad']);
         $akad->no_id                = $get_data['no_id_au'];
         $akad->status               = 'Belum Lunas';
@@ -182,9 +205,9 @@ class AkadController extends Controller
         $akad->opsi_pembayaran      = $get_data['opsi_pembayaran'];
         $akad->jangka_waktu_akad    = $get_data['jangka_waktu_akad'];
         $akad->tanggal_jatuh_tempo  = $get_data['tanggal_jatuh_tempo'];
-        $akad->save();
+        // $akad->save();
 
-        $this->insert_log_akad($akad);
+        // $this->insert_log_akad($akad);
 
         // if exist data 'wali nasabah'
         if($get_data['checkbox_wali'] == 1){
@@ -193,18 +216,20 @@ class AkadController extends Controller
             $nasabah = $this->nasabah->where('key_nasabah', $akad->key_nasabah)->first();
         }
 
-        $this->insert_saldo_cabang($akad, 'tambah');
-        $this->insert_log_saldo_cabang($akad, $nasabah);
+        // $this->insert_saldo_cabang($akad, 'tambah');
+        // $this->insert_log_saldo_cabang($akad, $nasabah);
         
         //table 'biaya titip'
         $this->request['bt_7_hari']         = $get_data['jml_bt_yang_dibayar'];
         $this->request['bt_yang_dibayar']   = $get_data['bt_yang_dibayar'];        
-        $this->insert_bea_titip($akad, 'default', 'create');
+        // $this->insert_bea_titip($akad, 'default', 'create');
 
         //'PENTING'
         //'untuk saat ini "insert kas cabang" hanya memasukkan biaya admin. tidak dengan biaya titip'
-        $this->insert_kas_cabang($akad);
-        $this->insert_log_kas_cabang($akad, $nasabah);
+        // $this->insert_kas_cabang($akad);
+        // $this->insert_log_kas_cabang($akad, $nasabah);
+
+        // return $akad;
 
         $dataAkad = $this->akad->joinNasabah()->where('id_akad', $get_data['id_akad'])->first();
         $dataAkad['jml_bt_yang_dibayar'] = $get_data['jml_bt_yang_dibayar'];
@@ -217,11 +242,6 @@ class AkadController extends Controller
         $dataAkad['kelengkapan']    =   str_replace($searches, " ", $dataAkad['kelengkapan']);
 
         return $dataAkad;
-    }
-
-    public function akad_lelang()
-    {
-        
     }
 
     public function insert_data()

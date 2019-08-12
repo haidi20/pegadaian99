@@ -480,7 +480,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Biaya Titip</td>
-                                                        <td class="data-nominal_biaya_titip"></td>
+                                                        <td class="data-bt_7_hari"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Biaya Titip yang Dibayar</td>
@@ -542,7 +542,7 @@
             <input type="hidden" class="data-potongan" name="data-potongan">
             <input type="hidden" class="data-terbilang" name="data-terbilang">
             <input type="hidden" class="data-penyusutan" name="data-penyusutan">
-            <input type="hidden" class="data-biaya_titip" name="data-biaya_titip">
+            <input type="hidden" class="data-bt_7_hari" name="data-biaya_titip">
             <input type="hidden" class="data-sisa_pinjaman" name="data-sisa_pinjaman">
             <input type="hidden" class="data-nominal_total" name="data-nominal_total">
             <input type="hidden" class="data-biaya_admin_biasa" name="data-biaya_admin">

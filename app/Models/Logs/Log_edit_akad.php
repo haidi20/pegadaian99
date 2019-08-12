@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Log_edit_akad extends Model
 {
     protected $table        = "log_edit_akad";
-    public $timestamps      = false;
     protected $primaryKey   = 'id';
     // protected $guarded   = [];
     protected $fillable     = [

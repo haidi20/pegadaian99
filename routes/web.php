@@ -20,6 +20,8 @@ Route::get('/testip', function(){
 	return  $_SERVER['SERVER_ADDR'];
 });
 
+Route::get('/transaksi', 'AkadController@transaksi');
+
 Route::middleware('auth')->group(function () {
 	Route::group(['prefix' => 'akad'], function () {
 		Route::get('/', 'AkadController@index')->name('akad.index');
