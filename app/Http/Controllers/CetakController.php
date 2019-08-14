@@ -23,25 +23,29 @@ class CetakController extends Controller
         $data       = [];
         $input 		= $this->request->except('_token');
         $url_pdf    = $input['url_pdf'];
-        $input      = $input['data']; 
-        if(request('type') != 'langsung'){            
+        $input      = $input['data'];
+
+        // 'langsung agar tidak mengatur array data lagi'
+        if(request('type') == 'langsung'){            
+            $data = $input;
+            $data['marhun_bih'] = nominal($data['nilai_pencairan']);
+            $data['taksiran_marhun'] = nominal($data['nilai_tafsir']);
+            $data['nilai_opsi_pembayaran'] = $data['opsi_pembayaran'];
+            $data['biaya_titip'] = nominal($data['bt_7_hari']);
+            $data['biaya_admin'] = nominal($data['biaya_admin']);
+            $data['jml_bt_yang_dibayar'] = nominal($data['jml_bt_yang_dibayar']);
+        }else{
             foreach ($input as $index => $item) {
                 $data[$item['name']] = $item['value'];
             }
+
+            $data['marhun_bih'] = nominal($data['marhun_bih']);
 
             session()->put('kekurangan_garis_baru', $data['kekurangan']);
             session()->put('kelengkapan_garis_baru', $data['kelengkapan']);
             $searches = array("\r", "\n", "\r\n");
             $data['kekurangan']     =   str_replace($searches, " ", $data['kekurangan']);
             $data['kelengkapan']    =   str_replace($searches, " ", $data['kelengkapan']);
-        }else{
-            $data = $input;
-            $data['marhun_bih'] = nominal($data['nilai_pencairan']);
-            $data['taksiran_marhun'] = nominal($data['nilai_tafsir']);
-            $data['nilai_opsi_pembayaran'] = $data['opsi_pembayaran'];
-            $data['biaya_titip'] = nominal($data['bt_7_hari']);
-            $data['biaya_admin'] = nominal($data['biiaya_admin']);
-            $data['jml_bt_yang_dibayar'] = nominal($data['jml_bt_yang_dibayar']);
         }
 
         $data['tanggal_akad']           = Carbon::parse($data['tanggal_akad'])->format('d-m-Y');

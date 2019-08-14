@@ -1030,7 +1030,7 @@
         }else{
             var bt_yang_dibayar = $('.data-bt_yang_dibayar').val();
         }
-        console.log(sisa_pinjaman, margin, potongan);
+        // console.log(sisa_pinjaman, margin, potongan);
         if(opsi_pembayaran == 1){
             var biaya_titip = (sisa_pinjaman * margin - potongan) / 2 / 7;
         }else if(opsi_pembayaran == 7){
@@ -1206,25 +1206,25 @@
             cache: false,
             data: {data: data},
             success:function(result){
-                console.log(result);
+                // console.log(result);
                 
-                // swal({
-                //     title: "Pemberitahuan!",
-                //     text: "Data Akad Baru Berhasil!",
-                //     type: "success",
-                //     icon: "success",
-                // }).then(function() {
-                //     // if success, can refresh this page
-                //     location.reload();
-                // });
+                swal({
+                    title: "Pemberitahuan!",
+                    text: "Data Akad Baru Berhasil!",
+                    type: "success",
+                    icon: "success",
+                }).then(function() {
+                    // if success, can refresh this page
+                    location.reload();
+                });
                 
-                // // new tab for print after than new tab again for PDF 
-                // // 'langsung agar tidak mengatur array data lagi'
-                // $.redirect(url_print, {
-                //     data: result,
-                //     tyep: 'langsung',
-                //     url_pdf: url_pdf
-                // }, "GET", "_blank");
+                // new tab for print after than new tab again for PDF 
+                // 'langsung agar tidak mengatur array data lagi'
+                $.redirect(url_print, {
+                    data: result,
+                    type: 'langsung',
+                    url_pdf: url_pdf
+                }, "GET", "_blank");
             },
             error:function(xhr, ajaxOptions, thrownError){
                 console.log(thrownError)

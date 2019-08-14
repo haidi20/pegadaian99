@@ -15,6 +15,7 @@ use App\Models\Saldo_cabang;
 
 use App\Models\Logs\Log_akad;
 use App\Models\Logs\Log_edit_akad;
+use App\Models\Logs\Log_akad_ulang;
 use App\Models\Logs\Log_kas_cabang;
 use App\Models\Logs\Log_saldo_cabang;
 
@@ -192,8 +193,6 @@ class AkadController extends Controller
             $get_data[$title] = $item['value'];
         }
 
-        return $get_data;
-
         $akad = $this->akad->find($get_data['id_akad']);
         $akad->no_id                = $get_data['no_id_au'];
         $akad->status               = 'Belum Lunas';
@@ -205,9 +204,9 @@ class AkadController extends Controller
         $akad->opsi_pembayaran      = $get_data['opsi_pembayaran'];
         $akad->jangka_waktu_akad    = $get_data['jangka_waktu_akad'];
         $akad->tanggal_jatuh_tempo  = $get_data['tanggal_jatuh_tempo'];
-        // $akad->save();
+        $akad->save();
 
-        // $this->insert_log_akad($akad);
+        $this->insert_log_akad($akad, 'Belum Lunas');
 
         // if exist data 'wali nasabah'
         if($get_data['checkbox_wali'] == 1){
@@ -216,20 +215,26 @@ class AkadController extends Controller
             $nasabah = $this->nasabah->where('key_nasabah', $akad->key_nasabah)->first();
         }
 
-        // $this->insert_saldo_cabang($akad, 'tambah');
-        // $this->insert_log_saldo_cabang($akad, $nasabah);
+        // insert to 'log akad ulang'
+        $no_id  = $akad->no_id;
+        $debit  = $get_data['default-nilai_pencairan'];
+        $saldo  = remove_dot($this->infoCabang()->total_kas);
+        $kredit = $get_data['sisa_pinjaman'];
+        $this->insert_log_akad_ulang($debit, $kredit, $saldo, $no_id);
+
+        // insert about 'saldo cabang'
+        $this->insert_saldo_cabang($akad, 'tambah', 'create');
+        $this->insert_log_saldo_cabang($akad, $nasabah, 'edit');
         
         //table 'biaya titip'
         $this->request['bt_7_hari']         = $get_data['jml_bt_yang_dibayar'];
         $this->request['bt_yang_dibayar']   = $get_data['bt_yang_dibayar'];        
-        // $this->insert_bea_titip($akad, 'default', 'create');
+        $this->insert_bea_titip($akad, 'default', 'create');
 
         //'PENTING'
         //'untuk saat ini "insert kas cabang" hanya memasukkan biaya admin. tidak dengan biaya titip'
-        // $this->insert_kas_cabang($akad);
-        // $this->insert_log_kas_cabang($akad, $nasabah);
-
-        // return $akad;
+        $this->insert_kas_cabang($akad, 'create');
+        $this->insert_log_kas_cabang($akad, $nasabah, 'edit');
 
         $dataAkad = $this->akad->joinNasabah()->where('id_akad', $get_data['id_akad'])->first();
         $dataAkad['jml_bt_yang_dibayar'] = $get_data['jml_bt_yang_dibayar'];
@@ -1208,6 +1213,28 @@ class AkadController extends Controller
         $refund->save();
 
         // return $refund;
+    }
+
+    public function insert_log_akad_ulang($debit, $kredit, $saldo, $no_id)
+    {
+        $saldo = $debit + $saldo;
+
+        // debit
+        $akad_ulang_debit           = new Log_akad_ulang;
+        $akad_ulang_debit->no_id    = $no_id;
+        $akad_ulang_debit->debit    = $debit;
+        $akad_ulang_debit->saldo    = $saldo;
+        $akad_ulang_debit->kredit   = 0;
+        $akad_ulang_debit->save();
+
+        $akad_ulang_kredit          = new Log_akad_ulang;
+        $akad_ulang_kredit->no_id   = $no_id;
+        $akad_ulang_kredit->debit   = 0;
+        $akad_ulang_kredit->saldo   = $saldo - $kredit;
+        $akad_ulang_kredit->kredit  = $kredit;
+        $akad_ulang_kredit->save();
+
+        // return $akad_ulang_debit . $akad_ulang_kredit;
     }
 
 }

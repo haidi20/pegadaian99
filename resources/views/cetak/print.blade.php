@@ -114,7 +114,7 @@ label
         <br />
         <span id="id_label_uang">Uang Pinjaman</span>
         <span class="pull-right " style="margin-left: 237px">
-            : Rp. <span id="id_uang">{{nominal($data['marhun_bih'])}}</span>
+            : Rp. <span id="id_uang">{{$data['marhun_bih']}}</span>
         </span>
 
         <br />
