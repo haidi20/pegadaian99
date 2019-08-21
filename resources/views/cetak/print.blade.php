@@ -121,17 +121,17 @@ label
         @if($data['nilai_opsi_pembayaran'] == 1)
             <span id="id_label_btitip">B. Titip Per harian</span>
             <span class="pull-right " style="margin-left: 218px">
-                : Rp. <span id="id_btitip">{{nominal($data['jml_bt_yang_dibayar'])}}</span>
+                : Rp. <span id="id_btitip">{{nominal($data['biaya_titip'])}}</span>
             </span>
         @elseif($data['nilai_opsi_pembayaran'] == 7)
             <span id="id_label_btitip">B. Titip Per {{$data['nilai_opsi_pembayaran']}} Hari</span>
             <span class="pull-right " style="margin-left: 218px">
-                : Rp. <span id="id_btitip">{{nominal($data['jml_bt_yang_dibayar'])}}</span>
+                : Rp. <span id="id_btitip">{{nominal($data['biaya_titip'])}}</span>
             </span>
         @elseif($data['nilai_opsi_pembayaran'] == 15)
             <span id="id_label_btitip">B. Titip Per {{$data['nilai_opsi_pembayaran']}} Hari</span>
             <span class="pull-right " style="margin-left: 210px">
-                : Rp. <span id="id_btitip">{{nominal($data['jml_bt_yang_dibayar'])}}</span>
+                : Rp. <span id="id_btitip">{{nominal($data['biaya_titip'])}}</span>
             </span>
         @endif
     </p>
@@ -161,7 +161,7 @@ label
         <br />
         <span id="id_label_btitip">Pembayaran B. Titip</span>
         <span class="pull-right " style="margin-left: 204px">
-            : Rp. <span id="id_btitip">{{nominal($data['biaya_titip'])}}</span>
+            : Rp. <span id="id_btitip">{{nominal($data['jml_bt_yang_dibayar'])}}</span>
         </span>
 
         <br />
@@ -224,6 +224,7 @@ label
         
         if(data){
             $.redirect('{{$url_pdf}}', {
+                type: '{{$data["type"]}}',
                 kota: '{{$data["kota"]}}',
                 no_id: '{{$data["no_id"]}}',
                 alamat: '{{$data["alamat"]}}',

@@ -31,9 +31,10 @@ class CetakController extends Controller
             $data['marhun_bih'] = nominal($data['nilai_pencairan']);
             $data['taksiran_marhun'] = nominal($data['nilai_tafsir']);
             $data['nilai_opsi_pembayaran'] = $data['opsi_pembayaran'];
-            $data['biaya_titip'] = nominal($data['bt_7_hari']);
-            $data['biaya_admin'] = nominal($data['biaya_admin']);
-            $data['jml_bt_yang_dibayar'] = nominal($data['jml_bt_yang_dibayar']);
+            // $data['biaya_titip'] = nominal($data['bt_7_hari']);
+            $data['biaya_titip'] = $data['bt_7_hari'];
+            // $data['biaya_admin'] = nominal($data['biaya_admin']);
+            // $data['jml_bt_yang_dibayar'] = nominal($data['jml_bt_yang_dibayar']);
         }else{
             foreach ($input as $index => $item) {
                 $data[$item['name']] = $item['value'];
@@ -48,6 +49,7 @@ class CetakController extends Controller
             $data['kelengkapan']    =   str_replace($searches, " ", $data['kelengkapan']);
         }
 
+        $data['type']                   = request('type') ? request('type') : null;
         $data['tanggal_akad']           = Carbon::parse($data['tanggal_akad'])->format('d-m-Y');
         $data['tanggal_jatuh_tempo']    = Carbon::parse($data['tanggal_jatuh_tempo'])->format('d-m-Y');
 
@@ -235,7 +237,7 @@ class CetakController extends Controller
         $pdf->SetX(125);
         $pdf->setY(180, false);
         //Print centered cell with a text in it
-        $pdf->Cell(0, 0, $data['biaya_titip'], 0, 0, 'L');
+        $pdf->Cell(0, 0, $data['type'] == 'langsung' ? nominal($data['biaya_titip']) : $data['biaya_titip'], 0, 0, 'L');
 
         //marhun bih
         $pdf->SetX(41);
@@ -247,13 +249,13 @@ class CetakController extends Controller
         $pdf->SetX(125);
         $pdf->setY(186, false);
         //Print centered cell with a text in it
-        $pdf->Cell(0, 0, $data['biaya_admin'], 0, 0, 'L');
+        $pdf->Cell(0, 0, $data['type'] == 'langsung' ? nominal($data['biaya_admin']) : $data['biaya_admin'], 0, 0, 'L');
 
         //total b titip
         $pdf->SetX(41);
         $pdf->setY(192, false);
         //Print centered cell with a text in it
-        $pdf->Cell(0, 0, $data['jml_bt_yang_dibayar'], 0, 0, 'L');
+        $pdf->Cell(0, 0, $data['type'] == 'langsung' ? nominal($data['jml_bt_yang_dibayar']) : $data['jml_bt_yang_dibayar'], 0, 0, 'L');
 
         //B adm Lelang
         $pdf->SetX(125);
