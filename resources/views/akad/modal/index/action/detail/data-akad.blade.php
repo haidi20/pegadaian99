@@ -3,6 +3,7 @@
         <thead>
             <tr>
                 <th>No ID</th>
+                <th>Nama Nasabah</th>
                 <th>Barang Jaminan</th>
                 <th>Jangka Waktu</th>
                 <th>Info Biaya</th>
@@ -13,6 +14,7 @@
         <tbody>
             <tr>
                 <td class="no_id"></td>
+                <td class="nama_lengkap"></td>
                 <td>
                     <b>Nama Barang :</b>
                     <ul >
