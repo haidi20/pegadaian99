@@ -32,6 +32,6 @@ class Biaya_titip extends Model
 
     public function getNominalPembayaranAttribute()
     {
-        return nominal($this->pembayaran);
+        return $this->pembayaran;
     }
 }

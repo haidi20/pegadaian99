@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Bku;
 use App\Models\Akad;
+use App\Models\Biaya_titip;
 use App\Models\Administrasi;
 
 use Auth;
@@ -17,12 +18,14 @@ class PembayaranController extends Controller
     							Bku $bku,
     							Akad $akad,
                                 Request $request,
+    							Biaya_titip $biaya_titip,
                                 Administrasi $administrasi
                             )
     {
-    	$this->bku  	    = $bku;
+        $this->bku  	    = $bku;
     	$this->akad  	    = $akad;
         $this->request      = $request;
+        $this->biaya_titip  = $biaya_titip;
         $this->administrasi = $administrasi;
 
         view()->share([
@@ -32,7 +35,7 @@ class PembayaranController extends Controller
         ]);
     }
 
-    public function pembayaran()
+    public function pendapatan()
     {
         $biayaTitip    = $this->biaya_titip();
         $administrasi   = $this->administrasi();
@@ -50,8 +53,12 @@ class PembayaranController extends Controller
     // for table 'LIST BIAYA TITIP'
     public function biaya_titip()
     {
-        $akad = $this->akad->joinNasabah()->baseBranch();
+        $endDate    = Carbon::now();
+        $startDate  = Carbon::now()->startOfMonth();
+
+        $akad = $this->akad->joinNasabah()->joinBiayaTitip();
         $akad = $akad->sorted('tanggal_akad', 'desc');
+        $akad = $akad->whereBetween('tanggal_akad', [$startDate, $endDate]);
         $akad = $akad->paginate(10);
 
         return $akad;

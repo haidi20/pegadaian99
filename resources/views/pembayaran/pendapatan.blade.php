@@ -101,7 +101,7 @@
                                         <td>{{$item->no_id}}</td>
                                         <td></td>
                                         <td>{{$item->tanggal_akad}}</td>
-                                        <td>{{$item->nominal_biaya_titip}}</td>
+                                        <td>{{$item->nominal_pembayaran}}</td>
                                     </tr>
                                 @empty
                                 <tr>
@@ -178,24 +178,24 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @forelse($administrasi as $index => $item)
+                                {{-- @forelse($administrasi as $index => $item)
                                     <tr>
                                         <td>{{$index + 1}}</td>
                                         <td>{{$item->tanggal_akad}}</td>
-                                        <td>{{$item->nominal_biaya_admin}}</td>
+                                        <td>{{$item->nominal}}</td>
                                         <td></td>
                                     </tr>
                                 @empty
                                     <tr>
                                         <td colspan="11" align="center">No data available in table</td>
                                     </tr>
-                                @endforelse
+                                @endforelse --}}
                             </tbody>
                             {{-- <tfoot>
                             </tfoot> --}}
                         </table>
                     </div>
-                    {!! $administrasi->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}
+                    {{-- {!! $administrasi->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!} --}}
             </div>
         </div>
     </div>

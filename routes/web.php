@@ -79,7 +79,7 @@ Route::middleware('auth')->group(function () {
 	});
 	Route::group(['prefix' => 'pembayaran'], function () {
 		Route::get('/bku', 'PembayaranController@bku')->name('pembayaran.bku');
-		Route::get('/pendapatan', 'PembayaranController@pembayaran')->name('pembayaran.pendapatan');
+		Route::get('/pendapatan', 'PembayaranController@pendapatan')->name('pembayaran.pendapatan');
 	});
 	Route::group(['prefix' => 'permodalan'], function () {
 		// url create for 'tambah saldo' & 'refund saldo'
