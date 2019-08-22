@@ -719,17 +719,18 @@ class AkadController extends Controller
             $end    = carbon::parse(substr(request('daterange'), 13, 20));
             $start  = carbon::parse(substr(request('daterange'), 1, 9));
         }else if($typeTime == 'oneMonthAgo'){
-            $end        = Carbon::now()->subMonth(1)->day(30);
-            $start      = Carbon::now()->subMonth(1)->day(1);
+            $end        = Carbon::now()->subMonth(1)->endOfMonth();
+            $start      = Carbon::now()->subMonth(1)->startOfMonth();
         }else if($typeTime == 'twoMonthAgo'){
-            $end        = Carbon::now()->subMonth(2)->day(30);
-            $start      = Carbon::now()->subMonth(2)->day(1);
+            $end        = Carbon::now()->subMonth(2)->endOfMonth();
+            $start      = Carbon::now()->subMonth(2)->startOfMonth();
         }else if($typeTime == 'treeMonthAgo'){
-            $end        = Carbon::now()->subMonth(20)->day(30);
-            $start      = Carbon::now()->subMonth(3)->day(1);
+            $end        = Carbon::now()->subMonth(3)->endOfMonth();
+            $start      = Carbon::now()->subMonth(3)->startOfMonth();
         }else{
-            $end        = Carbon::now()->day(30);
-            $start      = Carbon::now()->day(1);
+            // $end        = Carbon::now()->startOfWeek();
+            $end        = Carbon::now();
+            $start      = Carbon::now()->startOfMonth();
         }
 
         return (object) compact('end', 'start');
