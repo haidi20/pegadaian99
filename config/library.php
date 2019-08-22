@@ -268,8 +268,6 @@ return [
 		'pendapatan' => [
 			'list_biaya_titip' => [
 				'nama_investor' => 'Nama',
-				'no_id' 		=> 'ID',
-				'jangka_waktu'	=> 'Jangka Waktu',
 				'tanggal_akad'  => 'Tanggal Akad',
 				'total_bt'		=> 'Total BT',
 			],

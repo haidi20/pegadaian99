@@ -57,8 +57,14 @@ class PembayaranController extends Controller
         $startDate  = Carbon::now()->startOfMonth();
 
         $akad = $this->akad->joinNasabah()->joinBiayaTitip();
+        // $akad = $akad->groupBy('nama_lengkap');
         $akad = $akad->sorted('tanggal_akad', 'desc');
         $akad = $akad->whereBetween('tanggal_akad', [$startDate, $endDate]);
+
+        if(request('by')){
+            $akad = $akad->where(request('by'), 'LIKE', '%'.request('q').'%');
+        }
+
         $akad = $akad->paginate(10);
 
         return $akad;

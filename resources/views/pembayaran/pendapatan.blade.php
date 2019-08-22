@@ -98,8 +98,6 @@
                                     <tr>
                                         <td>{{$index + 1}}</td>
                                         <td>{{$item->nama_lengkap}}</td>
-                                        <td>{{$item->no_id}}</td>
-                                        <td></td>
                                         <td>{{$item->tanggal_akad}}</td>
                                         <td>{{$item->nominal_pembayaran}}</td>
                                     </tr>
