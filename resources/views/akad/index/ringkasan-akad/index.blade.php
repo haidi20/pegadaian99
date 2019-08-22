@@ -55,8 +55,12 @@
 </div>
 <div class="page-body">
     @include('akad.index.ringkasan-akad.table', [
-        'title' => 'Data Akad',
-        'data' => $dataAkad,
+        'title' => 'Data Akad Baru',
+        'data' => $dataAkadBaru,
+    ])
+    @include('akad.index.ringkasan-akad.table', [
+        'title' => 'Data Akad Ulang',
+        'data' => $dataAkadUlang,
     ])
     @include('akad.index.ringkasan-akad.table', [
         'title' => 'Data Pendapatan', 

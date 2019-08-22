@@ -578,7 +578,8 @@ class AkadController extends Controller
         $dateNow            = Carbon::now()->format('Y-m-d');
         $nameFieldSorted    = 'akad.tanggal_akad';
         
-        $dataAkad           = $this->dataAkad($nameFieldSorted, $dateNow);
+        $dataAkadBaru       = $this->dataAkad($nameFieldSorted, $dateNow, 'baru');
+        $dataAkadUlang      = $this->dataAkad($nameFieldSorted, $dateNow, 'ulang');
         $dataPendapatan     = $this->dataPendapatan($nameFieldSorted, $dateNow);
 
         $akadBaru           = $this->totalPencairanAkad($dateNow, 'baru');
@@ -599,18 +600,19 @@ class AkadController extends Controller
         
         return $this->template('akad.index.ringkasan-akad.index', compact(
             'menu', 'subMenu', 'listTime', 'waktuAkad', 'paymentOption', 
-            'jangkaWaktuAkad', 'detailJenisBarang', 'column', 'dataAkad',
-            'dataPendapatan', 'akadBaru', 'akadUlang', 'pendapatanBtitip',
+            'jangkaWaktuAkad', 'detailJenisBarang', 'column', 'dataAkadBaru',
+            'dataAkadUlang', 'dataPendapatan', 'akadBaru', 'akadUlang', 'pendapatanBtitip',
             'pendapatanBadmin', 'totalRealisasi'
         ));
     }
 
-    public function dataAkad($nameFieldSorted, $dateNow)
+    public function dataAkad($nameFieldSorted, $dateNow, $status_akad)
     {
         $akad   = $this->akad->belumLunas();
+        $akad   = $akad->baseBranch();
+        $akad   = $akad->where('status_akad', $status_akad);
         $akad   = $akad->joinNasabah();
         $akad   = $akad->sorted($nameFieldSorted, 'desc');
-        $akad   = $akad->baseBranch();
         $akad   = $akad->where('akad.tanggal_akad', $dateNow);
         $akad   = $akad->paginate(request('perpage', 10));
 
