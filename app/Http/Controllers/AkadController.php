@@ -1043,15 +1043,33 @@ class AkadController extends Controller
                 }else{
                     $bt_7_hari = $akad->bt_7_hari;
                 }
+
+                $totalSaldo = $this->total_saldo_biaya_titip($bt_7_hari);
     
                 $biaya_titip                        = $this->biaya_titip;
                 $biaya_titip->no_id                 = $akad->no_id;
                 $biaya_titip->keterangan            = $keterangan;
                 $biaya_titip->pembayaran            = $bt_7_hari;
+                $biaya_titip->kredit                = 0;
+                $biaya_titip->saldo                 = $totalSaldo;
                 $biaya_titip->tanggal_pembayaran    = Carbon::now()->format('Y-m-d');
                 $biaya_titip->save();
             }
         }
+    }
+
+    public function total_saldo_biaya_titip($bt_7_hari)
+    {
+        $nomor_cabang = $this->infoCabang()->nomorCabang;
+
+        $totalSaldo = $this->akad->joinBiayaTitip();
+        $totalSaldo = $totalSaldo->selectRaw('sum(pembayaran) as total_pembayaran');
+        $totalSaldo = $totalSaldo->where('akad.no_id', 'like', '%c99-'.$nomor_cabang.'%');
+        $totalSaldo = $totalSaldo->whereMonth('tanggal_pembayaran', Carbon::now()->format('m'));
+        $totalSaldo = $totalSaldo->whereYear('tanggal_pembayaran', Carbon::now()->format('Y'));
+        $totalSaldo = $totalSaldo->value('total_pembayaran');
+
+        return $totalSaldo + $bt_7_hari;
     }
 
     public function compare_biaya_titip($lama, $baru)

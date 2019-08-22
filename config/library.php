@@ -269,7 +269,9 @@ return [
 			'list_biaya_titip' => [
 				'nama_investor' => 'Nama',
 				'tanggal_akad'  => 'Tanggal Akad',
-				'total_bt'		=> 'Total BT',
+				'total_bt'		=> 'Debit',
+				'kredit'		=> 'Kredit',
+				'saldo'			=> 'Saldo',
 			],
 			'list_biaya_administrasi' => [
 				'tanggal_transaksi' => 'Tanggal Transaksi',

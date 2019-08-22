@@ -15,6 +15,8 @@ class UpdateBeaTitipTable extends Migration
     {
         Schema::table('bea_titip', function (Blueprint $table) {
             // $table->integer('biaya_titip_ke')->default(0);
+            $table->double('kredit')->default(0);
+            $table->double('saldo')->default(0);
         });
     }
 

@@ -157,6 +157,21 @@ class Akad extends Model
         return $query->orderBy($by, $sort);
     }
 
+    public function getNominalPembayaranAttribute()
+    {
+        return 'Rp. '.nominal($this->total_pembayaran);
+    }
+
+    public function getNominalKreditAttribute()
+    {
+        return 'Rp. '.nominal($this->kredit);
+    }
+
+    public function getNominalSaldoAttribute()
+    {
+        return 'Rp. '.nominal($this->saldo);
+    }
+
     public function getFormatTanggalAkadAttribute()
     {
         return Carbon::parse($this->tanggal_akad)->format('d-m-Y');

@@ -37,8 +37,8 @@ class PembayaranController extends Controller
 
     public function pendapatan()
     {
-        $biayaTitip    = $this->biaya_titip();
-        $administrasi   = $this->administrasi();
+        $biayaTitip         = $this->biaya_titip();
+        $administrasi       = $this->administrasi();
 
         // list column 'list biaya titip' and 'list biaya administrasi'
         $columnBiayaTitip           = config('library.column.pendapatan.list_biaya_titip');
@@ -57,17 +57,17 @@ class PembayaranController extends Controller
         $startDate  = Carbon::now()->startOfMonth();
 
         $akad = $this->akad->joinNasabah()->joinBiayaTitip();
-        // $akad = $akad->groupBy('nama_lengkap');
-        $akad = $akad->sorted('tanggal_akad', 'desc');
+
+        $akad = $akad->groupBy('nama_lengkap');
+        $akad = $akad->sorted('no_id');
+        $akad = $akad->selectRaw('sum(pembayaran) as total_pembayaran, nama_lengkap, tanggal_akad, kredit, saldo, akad.no_id');
         $akad = $akad->whereBetween('tanggal_akad', [$startDate, $endDate]);
 
         if(request('by')){
             $akad = $akad->where(request('by'), 'LIKE', '%'.request('q').'%');
         }
 
-        $akad = $akad->paginate(10);
-
-        return $akad;
+        return $akad->paginate(10);
     }
 
     // for table 'LIST BIAYA ADMINISTRASI'

@@ -29,9 +29,4 @@ class Biaya_titip extends Model
     {
         return $query->orderBy($by, $sort);
     }
-
-    public function getNominalPembayaranAttribute()
-    {
-        return $this->pembayaran;
-    }
 }

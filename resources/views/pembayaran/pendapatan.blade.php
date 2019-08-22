@@ -100,6 +100,8 @@
                                         <td>{{$item->nama_lengkap}}</td>
                                         <td>{{$item->tanggal_akad}}</td>
                                         <td>{{$item->nominal_pembayaran}}</td>
+                                        <td>{{$item->nominal_kredit}}</td>
+                                        <td>{{$item->nominal_saldo}}</td>
                                     </tr>
                                 @empty
                                 <tr>
