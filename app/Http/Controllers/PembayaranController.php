@@ -62,18 +62,29 @@ class PembayaranController extends Controller
 
         $akad = $akad->groupBy('nama_lengkap');
         $akad = $akad->sorted('akad.no_id');
-        $akad = $akad->selectRaw('sum(pembayaran) as total_pembayaran, nama_lengkap, tanggal_akad, kredit, saldo, akad.no_id');
+        $akad = $akad->selectRaw('sum(pembayaran) as total_pembayaran, pembayaran, nama_lengkap, tanggal_akad, kredit, saldo, akad.no_id');
         $akad = $akad->whereBetween('tanggal_akad', [$startDate, $endDate]);
 
         if(request('by')){
             $akad = $akad->where(request('by'), 'LIKE', '%'.request('q').'%');
         }
 
-        $total  = 'Rp. '.nominal($akad->sum('pembayaran'));
         // $total = 10000;
         $data   = $akad->paginate(10);
+        $total  = $this->total_pembayaran($data);
 
         return (object) compact('total', 'data');
+    }
+
+    public function total_pembayaran($data)
+    {
+        $total = [];
+
+        foreach ($data as $index => $item) {
+            $total[] = $item->pembayaran;    
+        }
+
+        return 'Rp. '.nominal(array_sum($total));
     }
 
     // for table 'LIST BIAYA ADMINISTRASI'
