@@ -12,7 +12,8 @@
         "ramsey/uuid": "^3.8",
         "setasign/fpdf": "^1.8",
         "setasign/fpdi": "^2.2",
-        "riskihajar/terbilang": "^1.2"
+        "riskihajar/terbilang": "^1.2",
+        "sayeed/custom-migrate": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -2,7 +2,11 @@
 
 @section('script-bottom')
     <script>
-
+        $(function(){
+            $('#nominal').on('keyup' ,function(){
+                this.value = formatRupiah(this.value)
+            });
+        });
     </script>
 @endsection
 
@@ -44,7 +48,7 @@
                 <div class="card-block">
                      <!-- Row start -->
                     <div class="row">
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-md-1half">
                              <div class="form-group">
                                 {{-- Show &nbsp; --}}
                                 <select name="perpage" id="perpage" class="form-control">
@@ -56,6 +60,7 @@
                                 {{-- &nbsp; Entries --}}
                             </div>
                         </div>
+                        {{-- <div class="col-md-1"></div> --}}
                         <div class="col-sm-12 col-md-6 offset-md-4">
                             <div class="row">
                                 <div class="col-sm-12 col-md-3 offset-md-1">
@@ -94,7 +99,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @forelse($biayaTitip as $index => $item)
+                                @forelse($biayaTitip->data as $index => $item)
                                     <tr>
                                         <td>{{$index + 1}}</td>
                                         <td>{{$item->nama_lengkap}}</td>
@@ -109,11 +114,48 @@
                                 </tr>
                                 @endforelse
                             </tbody>
-                            {{-- <tfoot>
-                            </tfoot> --}}
+                            <tfoot>
+                                <tr>
+                                    <th colspan="5" style="text-align: right">Total</th>
+                                    <td>{{$biayaTitip->total}}</td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
-                   {!! $biayaTitip->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}                   
+                    {!! $biayaTitip->data->appends(Request::input())->render('vendor.pagination.bootstrap-4'); !!}    
+                    <form action="{{route('pembayaran.cair-pendapatan')}}" method="GET">
+                    <div class="row">
+                        <div class="offset-md-8">
+                            
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="nominal">Nominal</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">Rp.</span>
+                                        <input type="text" class="form-control autonumber" name="nominal" id="nominal">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="offset-md-8">
+                            
+                        </div>
+                        <div class="col-md-4" align="right">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="keterangan">Keterangan</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" name="keterangan" id="keterangan">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-info btn-sm">Kembali</button>
+                            <button type="submit" class="btn btn-success btn-sm">Proses</button>
+                        </div>
+                    </div>
+                    </form>                
                 </div>
             </div>
         </div>

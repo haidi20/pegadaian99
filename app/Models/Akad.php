@@ -157,6 +157,7 @@ class Akad extends Model
         return $query->orderBy($by, $sort);
     }
 
+    //start fetch from table bea_titip
     public function getNominalPembayaranAttribute()
     {
         return 'Rp. '.nominal($this->total_pembayaran);
@@ -171,6 +172,7 @@ class Akad extends Model
     {
         return 'Rp. '.nominal($this->saldo);
     }
+    //end fetch from table bea_titip
 
     public function getFormatTanggalAkadAttribute()
     {

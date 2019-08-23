@@ -40,6 +40,8 @@ class PembayaranController extends Controller
         $biayaTitip         = $this->biaya_titip();
         $administrasi       = $this->administrasi();
 
+        // return $biayaTitip->data;
+
         // list column 'list biaya titip' and 'list biaya administrasi'
         $columnBiayaTitip           = config('library.column.pendapatan.list_biaya_titip');
         $columnBiayaAdministrasi    = config('library.column.pendapatan.list_biaya_administrasi');
@@ -59,7 +61,7 @@ class PembayaranController extends Controller
         $akad = $this->akad->joinNasabah()->joinBiayaTitip();
 
         $akad = $akad->groupBy('nama_lengkap');
-        $akad = $akad->sorted('no_id');
+        $akad = $akad->sorted('akad.no_id');
         $akad = $akad->selectRaw('sum(pembayaran) as total_pembayaran, nama_lengkap, tanggal_akad, kredit, saldo, akad.no_id');
         $akad = $akad->whereBetween('tanggal_akad', [$startDate, $endDate]);
 
@@ -67,7 +69,11 @@ class PembayaranController extends Controller
             $akad = $akad->where(request('by'), 'LIKE', '%'.request('q').'%');
         }
 
-        return $akad->paginate(10);
+        $total  = 'Rp. '.nominal($akad->sum('pembayaran'));
+        // $total = 10000;
+        $data   = $akad->paginate(10);
+
+        return (object) compact('total', 'data');
     }
 
     // for table 'LIST BIAYA ADMINISTRASI'
@@ -78,6 +84,11 @@ class PembayaranController extends Controller
         $akad = $akad->paginate(10);
 
         return $akad;
+    }
+
+    public function cair_pendapatan()
+    {
+        return request('nominal');
     }
 
     public function bku()

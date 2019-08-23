@@ -181,6 +181,7 @@ return [
         // \Torann\GeoIP\GeoIPServiceProvider::class,
 
         Riskihajar\Terbilang\TerbilangServiceProvider::class,
+        Sayeed\CustomMigrate\CustomMigrateServiceProvider::class,
 
     ],
 
