@@ -17,6 +17,8 @@ class UpdateBeaTitipTable extends Migration
             // $table->integer('biaya_titip_ke')->default(0);
             $table->double('kredit')->default(0);
             $table->double('saldo')->default(0);
+            // menentukan logika tampil tidak di fungsi data pembayaran > pendapatan
+            $table->integer('status_pendapatan')->default(0);
         });
     }
 

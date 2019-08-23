@@ -117,7 +117,7 @@
                             <tfoot>
                                 <tr>
                                     <th colspan="5" style="text-align: right">Total</th>
-                                    <td>{{$biayaTitip->total}}</td>
+                                    <td>Rp. {{$biayaTitip->total}}</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -134,7 +134,8 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon1">Rp.</span>
-                                        <input type="text" class="form-control autonumber" name="nominal" id="nominal">
+                                        <input type="text" class="form-control autonumber" name="nominal" id="nominal" required>
+                                        <input type="hidden" name="total" value="{{$biayaTitip->total}}">
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +149,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="keterangan">Keterangan</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="keterangan" id="keterangan">
+                                    <input type="text" class="form-control" name="keterangan" id="keterangan" required>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-info btn-sm">Kembali</button>

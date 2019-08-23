@@ -60,6 +60,7 @@ class PembayaranController extends Controller
 
         $akad = $this->akad->joinNasabah()->joinBiayaTitip();
 
+        $akad = $akad->where('status_pendapatan', 0);
         $akad = $akad->groupBy('nama_lengkap');
         $akad = $akad->sorted('akad.no_id');
         $akad = $akad->selectRaw('sum(pembayaran) as total_pembayaran, pembayaran, nama_lengkap, tanggal_akad, kredit, saldo, akad.no_id');
@@ -84,7 +85,7 @@ class PembayaranController extends Controller
             $total[] = $item->pembayaran;    
         }
 
-        return 'Rp. '.nominal(array_sum($total));
+        return nominal(array_sum($total));
     }
 
     // for table 'LIST BIAYA ADMINISTRASI'
@@ -99,7 +100,36 @@ class PembayaranController extends Controller
 
     public function cair_pendapatan()
     {
-        return request('nominal');
+        $total      = remove_dot(request('total'));
+        $nominal    = remove_dot(request('nominal'));
+        $keterangan = remove_dot(request('keterangan'));
+
+        $hasil_total = $total - $nominal;
+
+        $nowYear    = Carbon::now()->format('Y');
+        $nowMonth   = Carbon::now()->format('m');
+
+        $no_id      = 'c99-'.$this->infoCabang()->nomorCabang.'-'.Carbon::now()->format('dmy');
+
+        $biaya_titip = $this->biaya_titip;
+        $biaya_titip = $biaya_titip->whereMonth('tanggal_pembayaran', $nowMonth);
+        $biaya_titip = $biaya_titip->whereYear('tanggal_pembayaran', $nowYear);
+        
+        $biaya_titip->update([
+            'status_pendapatan' => 1
+        ]);
+
+        $data_bt = $this->biaya_titip;
+        $data_bt->no_id                 = $no_id;
+        $data_bt->saldo                 = $hasil_total;
+        $data_bt->kredit                = $nominal;
+        $data_bt->pembayaran            = 0;
+        $data_bt->keterangan            = $keterangan;
+        $data_bt->status_pendapatan     = 1;
+        $data_bt->tanggal_pembayaran    = Carbon::now()->format('Y-m-d');
+        $data_bt->save();
+
+        return redirect()->back();
     }
 
     public function bku()
