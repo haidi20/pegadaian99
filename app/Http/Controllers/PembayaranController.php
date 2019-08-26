@@ -60,9 +60,9 @@ class PembayaranController extends Controller
 
         $akad = $this->akad->joinNasabah()->joinBiayaTitip();
 
-        $akad = $akad->where('status_pendapatan', 0);
+        // $akad = $akad->where('status_pendapatan', 0);
         $akad = $akad->groupBy('nama_lengkap');
-        $akad = $akad->sorted('akad.no_id');
+        $akad = $akad->sorted('akad.no_id', 'desc');
         $akad = $akad->selectRaw('sum(pembayaran) as total_pembayaran, pembayaran, nama_lengkap, tanggal_akad, kredit, saldo, akad.no_id');
         $akad = $akad->whereBetween('tanggal_akad', [$startDate, $endDate]);
 

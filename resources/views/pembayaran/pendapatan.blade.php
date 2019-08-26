@@ -102,21 +102,22 @@
                                 @forelse($biayaTitip->data as $index => $item)
                                     <tr>
                                         <td>{{$index + 1}}</td>
-                                        <td>{{$item->nama_lengkap}}</td>
                                         <td>{{$item->tanggal_akad}}</td>
+                                        <td>{{$item->nama_lengkap}}</td>
+                                        <td>{{$item->no_id}}</td>
                                         <td>{{$item->nominal_pembayaran}}</td>
                                         <td>{{$item->nominal_kredit}}</td>
                                         <td>{{$item->nominal_saldo}}</td>
                                     </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="11" align="center">No data available in table</td>
+                                    <td colspan="12" align="center">No data available in table</td>
                                 </tr>
                                 @endforelse
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th colspan="5" style="text-align: right">Total</th>
+                                    <th colspan="6" style="text-align: right">Total</th>
                                     <td>Rp. {{$biayaTitip->total}}</td>
                                 </tr>
                             </tfoot>
