@@ -74,12 +74,14 @@ class PembayaranController extends Controller
         
         $total  = $this->total_pembayaran($akad);
         
+        // set default last page
         if(request('page') == '') {
             $lastPage = $akad->paginate(10)->lastPage();
             Paginator::currentPageResolver(function() use ($lastPage) {
                 return $lastPage;
             });
         }
+        
         $data   = $akad->paginate(10);
 
         return (object) compact('total', 'data');

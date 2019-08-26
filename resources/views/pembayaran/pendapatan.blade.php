@@ -1,6 +1,28 @@
 @extends('_layouts.default')
 
+@section('script-top')
+    <!-- Range slider css -->
+    <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/seiyria-bootstrap-slider/css/bootstrap-slider.css')}}">
+    <!-- Date-time picker css -->
+    <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/assets/pages/advance-elements/css/bootstrap-datetimepicker.css')}}">
+    <!-- Date-range picker css  -->
+    <link rel="stylesheet" type="text/css" href="{{asset('adminty/files/bower_components/bootstrap-daterangepicker/css/daterangepicker.css')}}">
+@endsection
+
 @section('script-bottom')
+    <!-- Bootstrap date-time-picker js -->
+    <script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/moment-with-locales.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('adminty/files/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/bootstrap-datetimepicker.min.js')}}"></script>
+    <!-- Date-range picker js -->
+    <script type="text/javascript" src="{{asset('adminty/files/bower_components/bootstrap-daterangepicker/js/daterangepicker.js')}}"></script>
+    <!-- Date-dropper js -->
+    <script type="text/javascript" src="{{asset('adminty/files/bower_components/datedropper/js/datedropper.min.js')}}"></script>
+    <!-- Color picker js -->
+    <script type="text/javascript" src="{{asset('adminty/files/bower_components/spectrum/js/spectrum.js')}}"></script>
+    <script type="text/javascript" src="{{asset('adminty/files/bower_components/jscolor/js/jscolor.js')}}"></script>
+
+    <script type="text/javascript" src="{{asset('adminty/files/assets/pages/advance-elements/custom-picker.js')}}"></script>
     <script>
         $(function(){
             $('#nominal').on('keyup' ,function(){
@@ -60,8 +82,13 @@
                                 {{-- &nbsp; Entries --}}
                             </div>
                         </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group">
+                                <input type="text" name="daterange" id="date" class="form-control" value="" />
+                            </div>
+                        </div>
                         {{-- <div class="col-md-1"></div> --}}
-                        <div class="col-sm-12 col-md-6 offset-md-4">
+                        <div class="col-sm-12 col-md-6 offset-md-1">
                             <div class="row">
                                 <div class="col-sm-12 col-md-3 offset-md-1">
                                     <div class="form-group">
