@@ -55,23 +55,23 @@ class PembayaranController extends Controller
     // for table 'LIST BIAYA TITIP'
     public function biaya_titip()
     {
-        $sorting = 'akad.no_id';
-
         $endDate    = Carbon::now();
-        $startDate  = Carbon::now()->startOfMonth();
+        $startDate  = Carbon::now()->subMonths(3)->startOfMonth();
 
-        $akad = $this->akad->joinNasabah()->joinBiayaTitip();
+        $akad = $this->akad->baseBranch()->joinNasabah()->joinBiayaTitip();
 
-        // $akad = $akad->where('status_pendapatan', 0);
-        $akad = $akad->groupBy('nama_lengkap');
+        // $akad = $akad->where('status_pendapatan', 1);
+        $akad = $akad->sorted('tanggal_pembayaran', 'desc');
+        $akad = $akad->sorted('akad.no_id', 'desc');
+        $akad = $akad->groupBy('akad.no_id');
         $akad = $akad->selectRaw('sum(pembayaran) as total_pembayaran, pembayaran, nama_lengkap, tanggal_akad, kredit, saldo, akad.no_id');
         $akad = $akad->whereBetween('tanggal_akad', [$startDate, $endDate]);
 
         if(request('by')){
             $akad = $akad->where(request('by'), 'LIKE', '%'.request('q').'%');
         }
-        $akad   = $akad->sorted($sorting, 'desc');
-        $total  = $this->total_pembayaran($akad, $sorting);
+        
+        $total  = $this->total_pembayaran($akad);
         
         
         $data   = $akad->paginate(10);
@@ -79,7 +79,7 @@ class PembayaranController extends Controller
         return (object) compact('total', 'data');
     }
 
-    public function total_pembayaran($data, $sorting)
+    public function total_pembayaran($data)
     {
         $total = $data->first()->saldo; 
 
