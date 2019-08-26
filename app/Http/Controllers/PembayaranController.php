@@ -72,24 +72,26 @@ class PembayaranController extends Controller
             $akad = $akad->where(request('by'), 'LIKE', '%'.request('q').'%');
         }
         
-        $total  = $this->total_pembayaran($akad);
+        $total  = $this->total_pembayaran();
         
         // set default last page
-        if(request('page') == '') {
-            $lastPage = $akad->paginate(10)->lastPage();
-            Paginator::currentPageResolver(function() use ($lastPage) {
-                return $lastPage;
-            });
-        }
-        
-        $data   = $akad->paginate(10);
+        // if(request('page') == '') {
+        //     $lastPage = $akad->paginate(10)->lastPage();
+        //     Paginator::currentPageResolver(function() use ($lastPage) {
+        //         return $lastPage;
+        //     });
+        // }
+
+        $data   = $akad->get();
 
         return (object) compact('total', 'data');
     }
 
-    public function total_pembayaran($data)
+    public function total_pembayaran()
     {
-        $total = $data->first()->saldo; 
+        $total  = $this->akad->baseBranch()->joinBiayaTitip();
+        $total  = $total->sorted('tanggal_pembayaran', 'desc')->sorted('akad.no_id', 'desc');
+        $total  = $total->first()->saldo;
 
         return nominal($total);
     }
