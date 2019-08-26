@@ -95,7 +95,7 @@
                                 @foreach($columnBiayaTitip as $index => $item)
                                     <th>{{$item}}</th>
                                 @endforeach
-                                {{-- <th>action</th> --}}
+                                <th>action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -108,6 +108,14 @@
                                         <td>{{$item->nominal_pembayaran}}</td>
                                         <td>{{$item->nominal_kredit}}</td>
                                         <td>{{$item->nominal_saldo}}</td>
+                                        <td>
+                                            <a href="javascript:void(0)" class="btn btn-mini btn-primary">
+                                                Edit
+                                            </a>
+                                            <a href="javascript:void(0)" class="btn btn-mini btn-danger">
+                                                Reset
+                                            </a>
+                                        </td>
                                     </tr>
                                 @empty
                                 <tr>
@@ -118,7 +126,7 @@
                             <tfoot>
                                 <tr>
                                     <th colspan="6" style="text-align: right">Total</th>
-                                    <td>Rp. {{$biayaTitip->total}}</td>
+                                    <td colspan="2">Rp. {{$biayaTitip->total}}</td>
                                 </tr>
                             </tfoot>
                         </table>

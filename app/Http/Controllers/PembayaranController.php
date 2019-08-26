@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 use App\Models\Bku;
 use App\Models\Akad;
@@ -40,7 +41,7 @@ class PembayaranController extends Controller
         $biayaTitip         = $this->biaya_titip();
         $administrasi       = $this->administrasi();
 
-        // return $biayaTitip->total;
+        // return $biayaTitip->data;
 
         // list column 'list biaya titip' and 'list biaya administrasi'
         $columnBiayaTitip           = config('library.column.pendapatan.list_biaya_titip');
@@ -48,7 +49,7 @@ class PembayaranController extends Controller
 
     	return $this->template('pembayaran.pendapatan', compact(
             'columnBiayaTitip', 'columnBiayaAdministrasi', 
-            'administrasi', 'biayaTitip'
+            'administrasi', 'biayaTitip', 'page'
         ));
     }
 
@@ -73,7 +74,12 @@ class PembayaranController extends Controller
         
         $total  = $this->total_pembayaran($akad);
         
-        
+        if(request('page') == '') {
+            $lastPage = $akad->paginate(10)->lastPage();
+            Paginator::currentPageResolver(function() use ($lastPage) {
+                return $lastPage;
+            });
+        }
         $data   = $akad->paginate(10);
 
         return (object) compact('total', 'data');
