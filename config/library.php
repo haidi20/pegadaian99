@@ -267,7 +267,7 @@ return [
 		],
 		'pendapatan' => [
 			'list_biaya_titip' => [
-				'tanggal_akad'  => 'Tanggal Akad',
+				'tanggal_akad'  => 'Tanggal Transaksi',
 				'nama_investor' => 'Nama',
 				'no_id' 		=> 'Nomor ID',
 				'total_bt'		=> 'Debit',
