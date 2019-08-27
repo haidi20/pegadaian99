@@ -83,14 +83,16 @@
                      <!-- Row start -->
                     <div class="row">
                         <!-- perpage -->
-                        <div class="col-sm-12 col-md-3">
-                            <div class="form-group">
-                                <input type="text" name="daterange" id="date" class="form-control" value="" />
+                        <form action="{{route('pembayaran.pendapatan')}}">
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group">
+                                    <input type="text" name="daterange" id="date" class="form-control" value="{{$biayaTitip->dateRange}}" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm-2 col-md-2">
-                            <button type="submit" class="btn btn-success btn-sm" id="btn-search">Oke</button>
-                        </div>
+                            <div class="col-sm-2 col-md-2">
+                                <button type="submit" class="btn btn-success btn-sm" id="btn-search">Oke</button>
+                            </div>
+                        </form>
                         {{-- <div class="col-md-1"></div> --}}
                         {{-- <div class="col-sm-12 col-md-6 offset-md-1">
                             <div class="row">

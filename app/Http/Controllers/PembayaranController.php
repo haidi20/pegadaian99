@@ -41,7 +41,7 @@ class PembayaranController extends Controller
         $biayaTitip         = $this->biaya_titip();
         $administrasi       = $this->administrasi();
 
-        // return $biayaTitip->data;
+        // return $biayaTitip->dateRange;
 
         // list column 'list biaya titip' and 'list biaya administrasi'
         $columnBiayaTitip           = config('library.column.pendapatan.list_biaya_titip');
@@ -49,16 +49,13 @@ class PembayaranController extends Controller
 
     	return $this->template('pembayaran.pendapatan', compact(
             'columnBiayaTitip', 'columnBiayaAdministrasi', 
-            'administrasi', 'biayaTitip', 'page'
+            'administrasi', 'biayaTitip'
         ));
     }
 
     // for table 'LIST BIAYA TITIP'
     public function biaya_titip()
     {
-        $endDate    = Carbon::now();
-        $startDate  = Carbon::now()->subMonths(3)->startOfMonth();
-
         $akad = $this->akad->baseBranch()->joinNasabah()->joinBiayaTitip();
 
         // $akad = $akad->where('status_pendapatan', 1);
@@ -66,25 +63,26 @@ class PembayaranController extends Controller
         $akad = $akad->sorted('akad.no_id', 'desc');
         $akad = $akad->groupBy('akad.no_id');
         $akad = $akad->selectRaw('sum(pembayaran) as total_pembayaran, pembayaran, nama_lengkap, tanggal_akad, kredit, saldo, akad.no_id');
+
+        if(request('daterange')){
+            $endDate    = carbon::parse(substr(request('daterange'), 13, 20));
+            $startDate  = carbon::parse(substr(request('daterange'), 1, 9));
+        }else{
+            $endDate    = Carbon::now();
+            $startDate  = Carbon::now()->subMonths(3)->startOfMonth();
+        }
+
         $akad = $akad->whereBetween('tanggal_akad', [$startDate, $endDate]);
 
         if(request('by')){
             $akad = $akad->where(request('by'), 'LIKE', '%'.request('q').'%');
         }
         
-        $total  = $this->total_pembayaran();
-        
-        // set default last page
-        // if(request('page') == '') {
-        //     $lastPage = $akad->paginate(10)->lastPage();
-        //     Paginator::currentPageResolver(function() use ($lastPage) {
-        //         return $lastPage;
-        //     });
-        // }
+        $data       = $akad->get();
+        $total      = $this->total_pembayaran();
+        $dateRange  = $startDate->format('m/d/Y').' - '.$endDate->format('m/d/Y');
 
-        $data   = $akad->get();
-
-        return (object) compact('total', 'data');
+        return (object) compact('total', 'data', 'dateRange');
     }
 
     public function total_pembayaran()
@@ -157,3 +155,11 @@ class PembayaranController extends Controller
         ));
     }
 }
+
+// set default last page
+// if(request('page') == '') {
+//     $lastPage = $akad->paginate(10)->lastPage();
+//     Paginator::currentPageResolver(function() use ($lastPage) {
+//         return $lastPage;
+//     });
+// }
