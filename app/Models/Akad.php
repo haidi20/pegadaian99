@@ -160,7 +160,7 @@ class Akad extends Model
     //start fetch from table bea_titip
     public function getNominalPembayaranAttribute()
     {
-        return 'Rp. '.nominal($this->total_pembayaran);
+        return 'Rp. '.nominal($this->pembayaran);
     }
 
     public function getNominalKreditAttribute()

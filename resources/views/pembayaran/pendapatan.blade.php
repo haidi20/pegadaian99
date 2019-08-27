@@ -89,6 +89,13 @@
                                     <input type="text" name="daterange" id="date" class="form-control" value="{{$biayaTitip->dateRange}}" />
                                 </div>
                             </div>
+                            <div class="col-sm-12 col-md-3">
+                                <select name="type_money" id="type_money" class="form-control" >
+                                    <option value="all" {{ selected('all', 'type_money', 'request')}}>Semua Jenis Uang</option>
+                                    <option value="debit" {{ selected('debit', 'type_money', 'request')}}>Jenis Uang Masuk</option>
+                                    <option value="kredit" {{ selected('kredit', 'type_money', 'request')}}>Jenis Uang Keluar</option>
+                                </select> 
+                            </div>
                             <div class="col-sm-2 col-md-2">
                                 <button type="submit" class="btn btn-success btn-sm" id="btn-search">Oke</button>
                             </div>
@@ -158,7 +165,7 @@
                             </tbody>
                             <tr>
                                 <td colspan="6" style="text-align: right">Total</td>
-                                <td colspan="">Rp. {{$biayaTitip->total}}</td>
+                                <td colspan="2">Rp. {{$biayaTitip->total}}</td>
                             </tr>
                         </table>
                     </div>
@@ -193,7 +200,6 @@
                                     <input type="text" class="form-control" name="keterangan" id="keterangan" required>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-info btn-sm">Kembali</button>
                             <button type="submit" class="btn btn-success btn-sm">Proses</button>
                         </div>
                     </div>

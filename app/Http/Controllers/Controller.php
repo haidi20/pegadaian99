@@ -18,7 +18,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function template($file, $variable, $parameter = null)
+    public function template($file, $variable)
     {
     	$infoCabang = $this->infoCabang();
         $variable['infoCabang'] = (object) $infoCabang;

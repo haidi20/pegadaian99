@@ -61,9 +61,18 @@ class PembayaranController extends Controller
         // $akad = $akad->where('status_pendapatan', 1);
         $akad = $akad->sorted('tanggal_pembayaran', 'desc');
         $akad = $akad->sorted('akad.no_id', 'desc');
-        $akad = $akad->groupBy('akad.no_id');
-        $akad = $akad->selectRaw('sum(pembayaran) as total_pembayaran, pembayaran, nama_lengkap, tanggal_akad, kredit, saldo, akad.no_id');
+        $akad       = $this->filter($akad)->akad;
+        
+        $dateRange  = $this->filter($akad)->dateRange;
 
+        $data       = $akad->get();
+        $total      = $this->total_pembayaran();
+
+        return (object) compact('total', 'data', 'dateRange');
+    }
+
+    public function filter($akad)
+    {
         if(request('daterange')){
             $endDate    = carbon::parse(substr(request('daterange'), 13, 20));
             $startDate  = carbon::parse(substr(request('daterange'), 1, 9));
@@ -77,12 +86,18 @@ class PembayaranController extends Controller
         if(request('by')){
             $akad = $akad->where(request('by'), 'LIKE', '%'.request('q').'%');
         }
-        
-        $data       = $akad->get();
-        $total      = $this->total_pembayaran();
+
+        if(request()->has('type_money')){
+           if(request('type_money') == 'kredit'){
+               $akad = $akad->where('kredit', '!=', 0);
+           }elseif(request('type_money') == 'debit'){
+               $akad = $akad->where('pembayaran', '!=', 0);
+           }
+        }
+
         $dateRange  = $startDate->format('m/d/Y').' - '.$endDate->format('m/d/Y');
 
-        return (object) compact('total', 'data', 'dateRange');
+        return (object) compact('akad', 'dateRange');
     }
 
     public function total_pembayaran()
