@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 // components
-import Akad from './containers/akad';
+import Akad from './page/akad';
+import Layout from './page/_layouts';
 
 export default class Main extends Component {
     constructor() {
@@ -17,15 +18,9 @@ export default class Main extends Component {
         return (
             <Router>
                 <div>
-                    <nav>
-                        <ul>
-                            <li to="/">
-                                Akad
-                            </li>
-                        </ul>
-                    </nav>
+                    <Layout/>
 
-                    <Route path="/" component={Akad} />
+                    {/* <Route path="/" exact component={Akad} /> */}
                 </div>
             </Router>
         );
