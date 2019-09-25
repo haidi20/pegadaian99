@@ -16,12 +16,12 @@ export default class SideMenu extends Component {
     this.state = {
       menus: [
         {
-          link: '/akad',
+          link: '/',
           title: 'Akad Baru',
           icon: <AddIcon/>
         },
         {
-          link: '/',
+          link: '/cabang',
           title: 'Data Cabang',
           icon: <AccountBalanceIcon/>
         }

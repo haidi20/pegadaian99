@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from "react-router-dom";
 
 // components
-import Navbar from './page/_navbar';
+import Navbar from './pages/_navbar';
 
 export default class Main extends Component {
     constructor() {
