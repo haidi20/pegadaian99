@@ -17,9 +17,9 @@ mix.react('resources/js/app.js', 'public/js')
    .browserSync({
       proxy: 'e-pegadaian.test',
       files: [`C:/laragon/www/e-pegadaian/*.*`]
-   })
-   .webpackConfig({
-      plugins: [
-          new LiveReloadPlugin()
-      ]
-  });
+   });
+//    .webpackConfig({
+//       plugins: [
+//           new LiveReloadPlugin()
+//       ]
+//   });
