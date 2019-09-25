@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 // components
 import Akad from './page/akad';
-import Layout from './page/_layouts';
+import Navbar from './page/_navbar';
 
 export default class Main extends Component {
     constructor() {
@@ -18,9 +18,9 @@ export default class Main extends Component {
         return (
             <Router>
                 <div>
-                    <Layout/>
+                    <Navbar/>
 
-                    {/* <Route path="/" exact component={Akad} /> */}
+                    <Route path="/akad" exact component={Akad} />
                 </div>
             </Router>
         );
