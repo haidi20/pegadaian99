@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import Input from '../atoms/Input';
 import DropDown from '../atoms/Dropdown';
@@ -18,8 +18,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SimpleCard() {
+export default function TimeAkad() {
   const classes = useStyles();
+
+  const [state] = useState({
+    listJWA: ['7 Hari']
+  });
 
   return (
     <Card className={classes.card}>
@@ -31,7 +35,8 @@ export default function SimpleCard() {
             disabled={true}
           />
           <DropDown
-
+            label="Jangka Waktu Akad"
+            data={state.listJWA}
           />
         </div>
       </CardContent>
