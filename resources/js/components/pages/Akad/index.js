@@ -1,7 +1,7 @@
 import React from 'react';
 
 //page
-import BasePenafsiranAkad from '../../organisms/akad/BasePenafsiranAkad';
+import PenafsiranAkad from '../../organisms/akad/PenafsiranAkad';
 
 //material
 import { makeStyles } from '@material-ui/core/styles';
@@ -31,7 +31,7 @@ function getSteps() {
 function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
-      return <BasePenafsiranAkad />;
+      return <PenafsiranAkad />;
     case 1:
       return 'What is an ad group anyways?';
     default:
@@ -73,7 +73,7 @@ export default function HorizontalLabelPositionBelowStepper() {
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+            {getStepContent(activeStep)}
             <div>
               <Button
                 disabled={activeStep === 0}

@@ -23,10 +23,6 @@ const useStyles = makeStyles(theme => ({
 export default function NativeSelects(props) {
   const classes = useStyles();
   const {data, label} = props;
-  const [state, setState] = React.useState({
-    age: '',
-    name: 'hai',
-  });
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
 
@@ -41,58 +37,27 @@ export default function NativeSelects(props) {
     });
   };
 
-  console.log(props)
-
   return (
-    <div className={classes.root}>
-      {/* <FormControl className={classes.formControl}>
-        <InputLabel ref={inputLabel} htmlFor="outlined-age-native-simple">
-          {props.label}
-        </InputLabel>
-        <NativeSelect
-          defaultValue={30}
-          inputProps={{
-            name: 'name',
-            id: 'uncontrolled-native',
-          }}
-          style={{height: 45}}
-        >
-          <option value="" />
-          {
-            data.map((item, index) => {
-              return(
-                <option>{item}</option>
-              )
-            })
-          }
-        </NativeSelect>
-        <FormHelperText>Uncontrolled</FormHelperText>
-      </FormControl> */}
-      <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel style={{fontSize: 13}} ref={inputLabel} htmlFor="outlined-age-native-simple">
-          {label}
-        </InputLabel>
-        <Select
-          native
-          value={state.age}
-          // onChange={}
-          labelWidth={labelWidth}
-          // inputProps={{
-          //   name: 'age',
-          //   id: 'outlined-age-native-simple',
-          // }}
-          style={{height:65}}
-        >
-          <option value="" />
-          {
-            data.map((item, index) => {
-              return(
-                <option>{item}</option>
-              )
-            })
-          }
-        </Select>
-      </FormControl>
-    </div>
+    <FormControl variant="outlined" className={classes.formControl}>
+      <InputLabel style={{fontSize: 13}} ref={inputLabel} htmlFor="outlined-age-native-simple">
+        {label}
+      </InputLabel>
+      <Select
+        native
+        labelWidth={labelWidth}
+        style={{height:65}}
+      >
+        {
+          props.defaultNull ? <option value="" /> : ''
+        }
+        {
+          data.map((item, index) => {
+            return(
+              <option key={index} value={item.value}>{item.text}</option>
+            )
+          })
+        }
+      </Select>
+    </FormControl>
   );
 }

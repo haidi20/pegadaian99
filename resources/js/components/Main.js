@@ -16,9 +16,7 @@ export default class Main extends Component {
     render() {
         return (
             <Router>
-                <div>
-                    <Navbar/>    
-                </div>     
+                <Navbar/>       
             </Router>
         );
     }

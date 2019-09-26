@@ -1,33 +1,9 @@
 import React from 'react';
 import { fade, withStyles, makeStyles, createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
 import InputBase from '@material-ui/core/InputBase';
 import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
-import { green } from '@material-ui/core/colors';
-
-const CssTextField = withStyles({
-  root: {
-    '& label.Mui-focused': {
-      color: 'green',
-    },
-    '& .MuiInput-underline:after': {
-      borderBottomColor: 'green',
-    },
-    '& .MuiOutlinedInput-root': {
-      '& fieldset': {
-        borderColor: 'red',
-      },
-      '&:hover fieldset': {
-        borderColor: 'yellow',
-      },
-      '&.Mui-focused fieldset': {
-        borderColor: 'green',
-      },
-    },
-  },
-})(TextField);
 
 const BootstrapInput = withStyles(theme => ({
   root: {
@@ -64,31 +40,6 @@ const BootstrapInput = withStyles(theme => ({
   },
 }))(InputBase);
 
-const useStylesReddit = makeStyles(theme => ({
-  root: {
-    border: '1px solid #e2e2e1',
-    overflow: 'hidden',
-    borderRadius: 4,
-    backgroundColor: '#fcfcfb',
-    transition: theme.transitions.create(['border-color', 'box-shadow']),
-    '&:hover': {
-      backgroundColor: '#fff',
-    },
-    '&$focused': {
-      backgroundColor: '#fff',
-      boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
-      borderColor: theme.palette.primary.main,
-    },
-  },
-  focused: {},
-}));
-
-function RedditTextField(props) {
-  const classes = useStylesReddit();
-
-  return <TextField InputProps={{ classes, disableUnderline: true }} {...props} />;
-}
-
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -98,29 +49,6 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
   },
 }));
-
-const ValidationTextField = withStyles({
-  root: {
-    '& input:valid + fieldset': {
-      borderColor: 'green',
-      borderWidth: 2,
-    },
-    '& input:invalid + fieldset': {
-      borderColor: 'red',
-      borderWidth: 2,
-    },
-    '& input:valid:focus + fieldset': {
-      borderLeftWidth: 6,
-      padding: '4px !important', // override inline-style
-    },
-  },
-})(TextField);
-
-const theme = createMuiTheme({
-  palette: {
-    primary: green,
-  },
-});
 
 export default function Input(props) {
   const classes = useStyles();
