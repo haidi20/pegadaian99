@@ -126,16 +126,14 @@ export default function Input(props) {
   const classes = useStyles();
 
   return (
-    <form className={classes.root} noValidate>
-      <FormControl className={classes.margin}>
-        <InputLabel shrink htmlFor="bootstrap-input">
-          {props.label}
-        </InputLabel>
-        <BootstrapInput 
-          defaultValue={props.value} 
-          disabled={props.disabled}
-        />
-      </FormControl>
-    </form>
+    <FormControl className={classes.margin}>
+      <InputLabel shrink htmlFor="bootstrap-input">
+        {props.label}
+      </InputLabel>
+      <BootstrapInput 
+        defaultValue={props.value} 
+        disabled={props.disabled}
+      />
+    </FormControl>
   );
 }

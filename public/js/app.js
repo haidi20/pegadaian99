@@ -8473,6 +8473,22 @@ var NativeSelectInput = react__WEBPACK_IMPORTED_MODULE_2___default.a.forwardRef(
 
 /***/ }),
 
+/***/ "./node_modules/@material-ui/core/esm/NativeSelect/index.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/NativeSelect/index.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NativeSelect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NativeSelect */ "./node_modules/@material-ui/core/esm/NativeSelect/NativeSelect.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _NativeSelect__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+
+
+/***/ }),
+
 /***/ "./node_modules/@material-ui/core/esm/NoSsr/NoSsr.js":
 /*!***********************************************************!*\
   !*** ./node_modules/@material-ui/core/esm/NoSsr/NoSsr.js ***!
@@ -94170,6 +94186,117 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_
 
 /***/ }),
 
+/***/ "./resources/js/components/atoms/Dropdown.js":
+/*!***************************************************!*\
+  !*** ./resources/js/components/atoms/Dropdown.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return NativeSelects; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
+/* harmony import */ var _material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core/InputLabel */ "./node_modules/@material-ui/core/esm/InputLabel/index.js");
+/* harmony import */ var _material_ui_core_FormHelperText__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/FormHelperText */ "./node_modules/@material-ui/core/esm/FormHelperText/index.js");
+/* harmony import */ var _material_ui_core_FormControl__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/FormControl */ "./node_modules/@material-ui/core/esm/FormControl/index.js");
+/* harmony import */ var _material_ui_core_Select__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/Select */ "./node_modules/@material-ui/core/esm/Select/index.js");
+/* harmony import */ var _material_ui_core_NativeSelect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/NativeSelect */ "./node_modules/@material-ui/core/esm/NativeSelect/index.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["makeStyles"])(function (theme) {
+  return {
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap'
+    },
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2)
+    }
+  };
+});
+function NativeSelects() {
+  var classes = useStyles();
+
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState({
+    age: '',
+    name: 'hai'
+  }),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      state = _React$useState2[0],
+      setState = _React$useState2[1];
+
+  var inputLabel = react__WEBPACK_IMPORTED_MODULE_0___default.a.useRef(null);
+
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(0),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      labelWidth = _React$useState4[0],
+      setLabelWidth = _React$useState4[1];
+
+  react__WEBPACK_IMPORTED_MODULE_0___default.a.useEffect(function () {
+    setLabelWidth(inputLabel.current.offsetWidth);
+  }, []);
+
+  var handleChange = function handleChange(name) {
+    return function (event) {
+      setState(_objectSpread({}, state, _defineProperty({}, name, event.target.value)));
+    };
+  };
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: classes.root
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_FormControl__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    className: classes.formControl
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    ref: inputLabel,
+    htmlFor: "outlined-age-native-simple"
+  }, "Age"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_NativeSelect__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    defaultValue: 30,
+    inputProps: {
+      name: 'name',
+      id: 'uncontrolled-native'
+    },
+    style: {
+      height: 45
+    }
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: ""
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: 10
+  }, "Ten"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: 20
+  }, "Twenty"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: 30
+  }, "Thirty"))));
+}
+
+/***/ }),
+
 /***/ "./resources/js/components/atoms/Input.js":
 /*!************************************************!*\
   !*** ./resources/js/components/atoms/Input.js ***!
@@ -94311,10 +94438,7 @@ var theme = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["create
 });
 function Input(props) {
   var classes = useStyles();
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-    className: classes.root,
-    noValidate: true
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_FormControl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_FormControl__WEBPACK_IMPORTED_MODULE_6__["default"], {
     className: classes.margin
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
     shrink: true,
@@ -94322,7 +94446,7 @@ function Input(props) {
   }, props.label), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(BootstrapInput, {
     defaultValue: props.value,
     disabled: props.disabled
-  })));
+  }));
 }
 
 /***/ }),
@@ -94340,31 +94464,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _atoms_Input__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../atoms/Input */ "./resources/js/components/atoms/Input.js");
-/* harmony import */ var _material_ui_core_Card__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core/Card */ "./node_modules/@material-ui/core/esm/Card/index.js");
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
-/* harmony import */ var _material_ui_core_CardContent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/CardContent */ "./node_modules/@material-ui/core/esm/CardContent/index.js");
+/* harmony import */ var _atoms_Dropdown__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../atoms/Dropdown */ "./resources/js/components/atoms/Dropdown.js");
+/* harmony import */ var _material_ui_core_Card__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/Card */ "./node_modules/@material-ui/core/esm/Card/index.js");
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
+/* harmony import */ var _material_ui_core_CardContent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/CardContent */ "./node_modules/@material-ui/core/esm/CardContent/index.js");
+
 
  // component
 
 
 
 
-var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__["makeStyles"])(function (theme) {
+var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__["makeStyles"])(function (theme) {
   return {
     card: {
       minWidth: 275
+    },
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap'
     }
   };
 });
 function SimpleCard() {
   var classes = useStyles();
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Card__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Card__WEBPACK_IMPORTED_MODULE_3__["default"], {
     className: classes.card
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_CardContent__WEBPACK_IMPORTED_MODULE_4__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atoms_Input__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_CardContent__WEBPACK_IMPORTED_MODULE_5__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: classes.root
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atoms_Input__WEBPACK_IMPORTED_MODULE_1__["default"], {
     label: "No ID",
     value: "no id",
     disabled: true
-  })));
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atoms_Dropdown__WEBPACK_IMPORTED_MODULE_2__["default"], null))));
 }
 
 /***/ }),
