@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function NativeSelects(props) {
   const classes = useStyles();
-  const {data} = props;
+  const {data, label} = props;
   const [state, setState] = React.useState({
     age: '',
     name: 'hai',
@@ -45,7 +45,7 @@ export default function NativeSelects(props) {
 
   return (
     <div className={classes.root}>
-      <FormControl className={classes.formControl}>
+      {/* <FormControl className={classes.formControl}>
         <InputLabel ref={inputLabel} htmlFor="outlined-age-native-simple">
           {props.label}
         </InputLabel>
@@ -65,33 +65,34 @@ export default function NativeSelects(props) {
               )
             })
           }
-          {/* <option value={10}>Ten</option>
-          <option value={20}>Twenty</option>
-          <option value={30}>Thirty</option> */}
         </NativeSelect>
-        {/* <FormHelperText>Uncontrolled</FormHelperText> */}
-      </FormControl>
-      {/* <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel ref={inputLabel} htmlFor="outlined-age-native-simple">
-          Age
+        <FormHelperText>Uncontrolled</FormHelperText>
+      </FormControl> */}
+      <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel style={{fontSize: 13}} ref={inputLabel} htmlFor="outlined-age-native-simple">
+          {label}
         </InputLabel>
         <Select
           native
           value={state.age}
-          onChange={handleChange('age')}
+          // onChange={}
           labelWidth={labelWidth}
-          inputProps={{
-            name: 'age',
-            id: 'outlined-age-native-simple',
-          }}
+          // inputProps={{
+          //   name: 'age',
+          //   id: 'outlined-age-native-simple',
+          // }}
           style={{height:65}}
         >
           <option value="" />
-          <option value={10}>Ten</option>
-          <option value={20}>Twenty</option>
-          <option value={30}>Thirty</option>
+          {
+            data.map((item, index) => {
+              return(
+                <option>{item}</option>
+              )
+            })
+          }
         </Select>
-      </FormControl> */}
+      </FormControl>
     </div>
   );
 }

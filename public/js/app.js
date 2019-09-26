@@ -94242,7 +94242,8 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["ma
 });
 function NativeSelects(props) {
   var classes = useStyles();
-  var data = props.data;
+  var data = props.data,
+      label = props.label;
 
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState({
     age: '',
@@ -94273,18 +94274,25 @@ function NativeSelects(props) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: classes.root
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_FormControl__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    variant: "outlined",
     className: classes.formControl
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    style: {
+      fontSize: 13
+    },
     ref: inputLabel,
     htmlFor: "outlined-age-native-simple"
-  }, props.label), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_NativeSelect__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    defaultValue: 30,
-    inputProps: {
-      name: 'name',
-      id: 'uncontrolled-native'
-    },
+  }, label), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    "native": true,
+    value: state.age // onChange={}
+    ,
+    labelWidth: labelWidth // inputProps={{
+    //   name: 'age',
+    //   id: 'outlined-age-native-simple',
+    // }}
+    ,
     style: {
-      height: 45
+      height: 65
     }
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
     value: ""
