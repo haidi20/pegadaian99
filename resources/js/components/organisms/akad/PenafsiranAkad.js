@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
-import TimeAkad from '../../molecules/TimeAkad';
-import InsuranceItem from '../../molecules/InsuranceItem';
+import TimeAkad from '../../molecules/akad/TimeAkad';
+import InsuranceItem from '../../molecules/akad/InsuranceItem';
 
 class BasePenafsiranAkad extends Component{
     render(){

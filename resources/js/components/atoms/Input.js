@@ -54,13 +54,20 @@ export default function Input(props) {
   const classes = useStyles();
 
   return (
-    <FormControl className={classes.margin}>
-      <InputLabel shrink htmlFor="bootstrap-input">
+    <FormControl className={classes.margin} fullWidth={props.fullWidth}>
+      {/* <InputLabel shrink htmlFor="bootstrap-input">
         {props.label}
-      </InputLabel>
-      <BootstrapInput 
+      </InputLabel> */}
+      {/* <BootstrapInput 
         defaultValue={props.value} 
         disabled={props.disabled}
+        fullWidth
+      /> */}
+      <TextField
+        id="full-width-text-field"
+        label={props.label}
+        // helperText="Full width!"
+        margin="normal"
       />
     </FormControl>
   );

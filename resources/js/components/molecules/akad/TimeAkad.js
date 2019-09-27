@@ -1,8 +1,8 @@
 import React, {useState, Fragment} from 'react';
 import moment from 'moment';
 
-import Input from '../atoms/Input';
-import DropDown from '../atoms/Dropdown';
+import Input from '../../atoms/Input';
+import DropDown from '../../atoms/Dropdown';
 
 // component
 import Card from '@material-ui/core/Card';

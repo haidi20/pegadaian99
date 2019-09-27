@@ -22,4 +22,4 @@ export default class Main extends Component {
     }
 }
 
-ReactDOM.render(<Main />, document.getElementById('home'));
+ReactDOM.render(<Main />, document.getElementById('app'));

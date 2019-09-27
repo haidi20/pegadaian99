@@ -150,8 +150,8 @@ export default function MiniDrawer(props) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Route path="/cabang" exact component={Cabang} />
-        <Route path="/" component={Akad} />
+        <Route path="/" exact component={Akad} />
+        <Route path="/cabang" component={Cabang} />
       </main>
     </div>
   );
