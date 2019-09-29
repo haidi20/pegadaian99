@@ -73,7 +73,10 @@ export default function HorizontalLabelPositionBelowStepper() {
           </div>
         ) : (
           <div>
-            {getStepContent(activeStep)}
+            {
+              getStepContent(activeStep)
+            }
+            <br/>
             <div>
               <Button
                 disabled={activeStep === 0}

@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from "react-router-dom";
+
+// components
+import Navbar from './pages/_navbar';
 
 export default class Main extends Component {
     constructor() {
@@ -10,11 +15,9 @@ export default class Main extends Component {
 
     render() {
         return (
-            <div>
-                <h1>
-                    Utama
-                </h1>
-            </div>
+            <Router>
+                <Navbar/>       
+            </Router>
         );
     }
 }

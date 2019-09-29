@@ -8,7 +8,7 @@ class BasePenafsiranAkad extends Component{
             <Fragment>
                 <TimeAkad/>
                 <br/>
-                <InsuranceItem/>
+                // <InsuranceItem/>
             </Fragment>
 
         )
