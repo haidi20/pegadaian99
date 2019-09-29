@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+
+//component 
+import Header from './organisms/_layouts/Header';
 
 export default class Main extends Component {
     constructor() {
@@ -11,9 +15,8 @@ export default class Main extends Component {
     render() {
         return (
             <div>
-                <h1>
-                    Utama
-                </h1>
+                coba
+                <Header></Header>
             </div>
         );
     }
