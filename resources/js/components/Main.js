@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 
 //component 
 import Header from './organisms/_layouts/Header';
+import SideBar from './organisms/_layouts/SideBar';
+
+//page
+import Menu from './pages/menu';
 
 export default class Main extends Component {
     constructor() {
@@ -15,8 +19,16 @@ export default class Main extends Component {
     render() {
         return (
             <div>
-                coba
-                <Header></Header>
+                <Header />
+                <div id="wrapper">
+                    <div id="layout-static">
+                        <SideBar />
+
+                        <div className="static-content-wrapper">
+                            <Menu/>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
