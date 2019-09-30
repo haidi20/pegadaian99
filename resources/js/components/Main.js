@@ -8,8 +8,8 @@ import SideBar from './organisms/_layouts/SideBar';
 
 //page
 //menu
-import Menu from './pages/menu';
-import MenuForm from './pages/menu/Form';
+import Menu from './pages/media';
+import MenuForm from './pages/media/Form';
 //post
 import Post from './pages/post';
 
@@ -33,7 +33,7 @@ export default class Main extends Component {
                         <div className="static-content-wrapper">
                             {/* <Menu/> */}
                             <Route path="/" exact component={Menu} />
-                            <Route path="/menu/form" exact component={MenuForm} />
+                            <Route path="/media/form" exact component={MenuForm} />
                             <Route path="/post" exact component={Post} />
                         </div>
                     </div>

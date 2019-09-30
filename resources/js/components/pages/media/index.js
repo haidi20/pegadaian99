@@ -10,11 +10,11 @@ class Menu extends Component{
                     {/* @include('sitemanager._layout.heading') */}
 
                     <div className="page-heading">            
-                        <h1>Menu</h1>
+                        <h1>Media Sosial</h1>
                         <div className="options">
                             <div className="btn-toolbar">
                                 {/* <a href="#" className="btn btn-primary"> */}
-                                <Link to="/menu/form" className="btn btn-primary">
+                                <Link to="/media/form" className="btn btn-primary">
                                     <i className="fa fa-plus"></i> Add Menu
                                 </Link>
                                 {/* </a> */}
