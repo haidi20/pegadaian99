@@ -40,7 +40,6 @@ class SideBar extends Component{
             <div className="static-sidebar-wrapper sidebar-inverse">
                 <div className="static-sidebar">
                     <div className="sidebar">
-
                         <div className="widget stay-on-collapse" id="widget-welcomebox">
                             <div className="widget-body welcome-box tabular">
                                 <div className="tabular-row">

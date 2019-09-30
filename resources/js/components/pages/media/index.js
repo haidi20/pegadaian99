@@ -1,8 +1,28 @@
 import React, {Component} from 'react';
 import { Link } from "react-router-dom";
 
+const coba = (link, data) =>{
+    return({
+        pathname: link, 
+        data: data
+    })
+}
+
 class Menu extends Component{
+    constructor(){
+        super();
+
+        this.state = {
+            media: [
+                {id: 1, name: 'Instagram', link: 'www.instagram.com'},
+                {id: 2, name: 'Facebook', link: 'www.facebook.com'},
+                {id: 3, name: 'github', link: 'www.github.com'}
+            ]
+        }
+    }
+
     render(){
+        const {media} = this.state;
         return(
             <div className="static-content">
                 <div className="page-content">
@@ -14,7 +34,7 @@ class Menu extends Component{
                         <div className="options">
                             <div className="btn-toolbar">
                                 {/* <a href="#" className="btn btn-primary"> */}
-                                <Link to="/media/form" className="btn btn-primary">
+                                <Link to="/media/create" className="btn btn-primary">
                                     <i className="fa fa-plus"></i> Add Menu
                                 </Link>
                                 {/* </a> */}
@@ -37,20 +57,26 @@ class Menu extends Component{
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>keren</td>
-                                                    <td>www.keren.com</td>
-                                                    <td className="text-center">
-                                                        <a href="#" className="btn btn-success btn-xs btn-label">
-                                                            <i className="fa fa-pencil"></i> Edit
-                                                        </a>
-                                                        &nbsp;
-                                                        <a href="#" className="btn btn-danger btn-xs btn-label">
-                                                            <i className="fa fa-trash-o"></i> Delete
-                                                        </a>
-                                                    </td>
-                                                </tr>
+                                                {
+                                                    media.map((item, index) => {
+                                                        return(
+                                                            <tr key={index}>
+                                                                <td>{index + 1}</td>
+                                                                <td>{item.name}</td>
+                                                                <td>{item.link}</td>
+                                                                <td className="text-center">
+                                                                    <Link to={coba(`/media/edit/${item.id}`, item)} className="btn btn-success btn-xs btn-label">
+                                                                        <i className="fa fa-pencil"></i> Edit
+                                                                    </Link>
+                                                                    &nbsp;
+                                                                    <a href="#" className="btn btn-danger btn-xs btn-label">
+                                                                        <i className="fa fa-trash-o"></i> Delete
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                }
                                             </tbody>
                                         </table>
                                     </div>

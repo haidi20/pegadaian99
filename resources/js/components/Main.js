@@ -33,7 +33,8 @@ export default class Main extends Component {
                         <div className="static-content-wrapper">
                             {/* <Menu/> */}
                             <Route path="/" exact component={Menu} />
-                            <Route path="/media/form" exact component={MenuForm} />
+                            <Route path="/media/create" exact component={MenuForm} />
+                            <Route path="/media/edit/:id" exact component={MenuForm} />
                             <Route path="/post" exact component={Post} />
                         </div>
                     </div>

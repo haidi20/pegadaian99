@@ -1,2 +1,12 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);
+@import url(https://fonts.googleapis.com/css?family=Nunito);html,
+body,
+.container-fluid,
+.row {
+  height: 100%;
+}
+
+.sidebar {
+  height: 100%;
+  min-height: 100%;
+}
 

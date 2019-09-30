@@ -2,6 +2,25 @@ import React, {Component} from 'react';
 import { Link } from "react-router-dom";
 
 class MenuForm extends Component{
+    constructor(props){
+        super(props)
+
+        this.state = {
+            id: this.props.match.params.id,
+            data: this.props.location.data
+        }
+    }   
+
+    componentDidMount(){
+        const id = this.state.id;
+        if(id){
+            console.log(id);
+            console.log(this.props);
+        }else{
+            console.log('id kosong');
+        }
+    }
+
     render(){
         return(
             <div className="static-content">
@@ -31,13 +50,13 @@ class MenuForm extends Component{
                                             <div className="form-group row">
                                                 <label className="col-sm-2 col-form-label" htmlFor="nama">Nama</label>
                                                 <div className="col-sm-10">
-                                                    <input defaultValue="" type="text" className="form-control" name="nama" id="nama" required />
+                                                    <input defaultValue={this.state.data.name} type="text" className="form-control" name="nama" id="nama" required />
                                                 </div>
                                             </div>
                                             <div className="form-group row">
                                                 <label className="col-sm-2 col-form-label" htmlFor="link">Alamat Link</label>
                                                 <div className="col-sm-10">
-                                                    <input defaultValue="" type="text" className="form-control" name="link" id="link" required />
+                                                    <input defaultValue={this.state.data.link} type="text" className="form-control" name="link" id="link" required />
                                                 </div>
                                             </div>
                                             <div className="panel-footer">

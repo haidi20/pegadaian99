@@ -36396,7 +36396,11 @@ function (_Component) {
         exact: true,
         component: _pages_media__WEBPACK_IMPORTED_MODULE_5__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        path: "/media/form",
+        path: "/media/create",
+        exact: true,
+        component: _pages_media_Form__WEBPACK_IMPORTED_MODULE_6__["default"]
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        path: "/media/edit/:id",
         exact: true,
         component: _pages_media_Form__WEBPACK_IMPORTED_MODULE_6__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
@@ -36699,13 +36703,32 @@ var MenuForm =
 function (_Component) {
   _inherits(MenuForm, _Component);
 
-  function MenuForm() {
+  function MenuForm(props) {
+    var _this;
+
     _classCallCheck(this, MenuForm);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(MenuForm).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MenuForm).call(this, props));
+    _this.state = {
+      id: _this.props.match.params.id,
+      data: _this.props.location.data
+    };
+    return _this;
   }
 
   _createClass(MenuForm, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var id = this.state.id;
+
+      if (id) {
+        console.log(id);
+        console.log(this.props);
+      } else {
+        console.log('id kosong');
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -36745,7 +36768,7 @@ function (_Component) {
       }, "Nama"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-sm-10"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        defaultValue: "",
+        defaultValue: this.state.data.name,
         type: "text",
         className: "form-control",
         name: "nama",
@@ -36759,7 +36782,7 @@ function (_Component) {
       }, "Alamat Link"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-sm-10"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        defaultValue: "",
+        defaultValue: this.state.data.link,
         type: "text",
         className: "form-control",
         name: "link",
@@ -36825,20 +36848,46 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+var coba = function coba(link, data) {
+  return {
+    pathname: link,
+    data: data
+  };
+};
+
 var Menu =
 /*#__PURE__*/
 function (_Component) {
   _inherits(Menu, _Component);
 
   function Menu() {
+    var _this;
+
     _classCallCheck(this, Menu);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Menu).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Menu).call(this));
+    _this.state = {
+      media: [{
+        id: 1,
+        name: 'Instagram',
+        link: 'www.instagram.com'
+      }, {
+        id: 2,
+        name: 'Facebook',
+        link: 'www.facebook.com'
+      }, {
+        id: 3,
+        name: 'github',
+        link: 'www.github.com'
+      }]
+    };
+    return _this;
   }
 
   _createClass(Menu, [{
     key: "render",
     value: function render() {
+      var media = this.state.media;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "static-content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -36850,7 +36899,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "btn-toolbar"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/media/form",
+        to: "/media/create",
         className: "btn btn-primary"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fa fa-plus"
@@ -36874,19 +36923,23 @@ function (_Component) {
       }, "Nama"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "link"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
         className: "text-center",
         width: "140"
-      }, "Actions"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "keren"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "www.keren.com"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-        className: "text-center"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: "#",
-        className: "btn btn-success btn-xs btn-label"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fa fa-pencil"
-      }), " Edit"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: "#",
-        className: "btn btn-danger btn-xs btn-label"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fa fa-trash-o"
-      }), " Delete"))))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Actions"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, media.map(function (item, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          key: index
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, index + 1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.link), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          className: "text-center"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          to: coba("/media/edit/".concat(item.id), item),
+          className: "btn btn-success btn-xs btn-label"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fa fa-pencil"
+        }), " Edit"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          href: "#",
+          className: "btn btn-danger btn-xs btn-label"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fa fa-trash-o"
+        }), " Delete")));
+      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "text-right"
       }))))));
     }
