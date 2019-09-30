@@ -1,9 +1,41 @@
 import React, {Component} from 'react';
+import { Route, Link } from "react-router-dom";
 
 import Avatar from '../../../../../public/avenger/assets/demo/avatar/administrator.png';
 
+const ListItemLink = ({ to, activeOnlyWhenExact, children }) => {
+    return (
+      <Route
+        path={to}
+        exact={activeOnlyWhenExact}
+        children={({ match }) => (
+          <li className={match ? 'active' : ''}>
+            <Link to={to}>{children}</Link>
+          </li>
+        )}
+      />
+    );
+};
+
 class SideBar extends Component{
+    constructor(){
+        super();
+
+        this.state = {
+            menus: [
+                {name: 'Menu', icon: 'fa fa-home', link: '/', active: 'menu'},
+                {name: 'Post', icon: 'fa fa-pinterest', link: '/post', active: 'post'},
+            ],
+            active: 'post'
+        }
+    }
+
+    componentDidMount(){
+
+    }
+
     render(){
+        const {menus} = this.state;
         return(
             <div className="static-sidebar-wrapper sidebar-inverse">
                 <div className="static-sidebar">
@@ -27,12 +59,23 @@ class SideBar extends Component{
                             <nav role="navigation" className="widget-body">
                                 <ul className="acc-menu">
                                     <li className="nav-separator">Explore</li>
-                                    <li className="active">
-                                        <a href="#">
-                                            <i className="fa fa-home"></i>
-                                            <span>Dashboard</span>
-                                        </a>
+                                    {
+                                        menus.map((item, index) => {
+                                            return(
+                                                <ListItemLink activeOnlyWhenExact={true} to={item.link}>
+                                                    <i className={item.icon}></i>
+                                                    <span>{item.name}</span>
+                                                </ListItemLink>
+                                            )
+                                        })
+                                    }
+
+                                    {/* <li className={this.state.active === 'menu' ? 'active' : ''}>
+                                        <a href="#">@fa('home')<span>Dashboard</span></a>
                                     </li>
+                                    <li className={this.state.active === 'post' ? 'active' : ''}>
+                                        <a href="#">@fa('inbox')<span>Inbox</span></a>
+                                    </li> */}
                                 </ul>
                             </nav>
                         </div>

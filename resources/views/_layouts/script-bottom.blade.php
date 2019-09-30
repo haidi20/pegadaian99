@@ -44,20 +44,20 @@
         });
     });
     
-    $(function(){
-        if(submenu){
-            var parent = 'sitemanager/{{ Request::segment(2) }}';
-            target = $('a[href*="' + parent + '"]').parents('ul:not([data-auto-collapse="false"])');
+    // $(function(){
+    //     if(submenu){
+    //         var parent = 'sitemanager/{{ Request::segment(2) }}';
+    //         target = $('a[href*="' + parent + '"]').parents('ul:not([data-auto-collapse="false"])');
 
-            target.slideDown();
-            target.prev().addClass('active');
-        }   
+    //         // target.slideDown();
+    //         // target.prev().addClass('active');
+    //     }   
 
-        $('.icheck input').iCheck({
-            checkboxClass: 'icheckbox_minimal-blue',
-            radioClass: 'iradio_minimal-blue'
-        });
+    //     $('.icheck input').iCheck({
+    //         checkboxClass: 'icheckbox_minimal-blue',
+    //         radioClass: 'iradio_minimal-blue'
+    //     });
 
-    })
+    // })
     
 </script>
