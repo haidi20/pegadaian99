@@ -39093,7 +39093,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -39114,6 +39121,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var MenuForm =
 /*#__PURE__*/
 function (_Component) {
@@ -39126,7 +39134,7 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(MenuForm).call(this, props));
     _this.state = {
-      id: Math.random(),
+      id: _this.props.medias.length + 1,
       name: '',
       link: ''
     };
@@ -39136,14 +39144,14 @@ function (_Component) {
   _createClass(MenuForm, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      if (this.props.location.data) {
-        this.setState({
-          id: this.props.location.data.id,
-          name: this.props.location.data.name,
-          link: this.props.location.data.link
-        });
-      } // console.log(this.props);
+      var id = Number(this.props.match.params.id);
 
+      if (id) {
+        var media = this.props.medias.find(function (media) {
+          return id === media.id;
+        });
+        this.setState(_objectSpread({}, media));
+      }
     }
   }, {
     key: "render",
@@ -39228,7 +39236,13 @@ function (_Component) {
   return MenuForm;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (MenuForm);
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    medias: state.media
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps)(MenuForm));
 
 /***/ }),
 
@@ -39330,7 +39344,7 @@ function (_Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, index + 1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.link), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
           className: "text-center"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-          to: coba("/media/edit/".concat(item.id), item),
+          to: "/media/edit/".concat(item.id),
           className: "btn btn-success btn-xs btn-label"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "fa fa-pencil"
@@ -39415,22 +39429,6 @@ function (_Component) {
 
 /***/ }),
 
-/***/ "./resources/js/redux/reducer/globalActionType.js":
-/*!********************************************************!*\
-  !*** ./resources/js/redux/reducer/globalActionType.js ***!
-  \********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var actionType = {
-  ADD_MEDIA: 'ADD_MEDIA'
-};
-/* harmony default export */ __webpack_exports__["default"] = (actionType);
-
-/***/ }),
-
 /***/ "./resources/js/redux/reducer/globalReducer.js":
 /*!*****************************************************!*\
   !*** ./resources/js/redux/reducer/globalReducer.js ***!
@@ -39440,26 +39438,24 @@ var actionType = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _globalActionType__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./globalActionType */ "./resources/js/redux/reducer/globalActionType.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
- // global state for default null
-
+// global state for default null
 var globalState = {
   media: [{
-    id: Math.random(),
+    id: 1,
     name: 'Instagram',
     link: 'www.instagram.com'
   }, {
-    id: Math.random(),
+    id: 2,
     name: 'Facebook',
     link: 'www.facebook.com'
   }, {
-    id: Math.random(),
+    id: 3,
     name: 'github',
     link: 'www.github.com'
   }]
@@ -39469,12 +39465,16 @@ var rootReducer = function rootReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : globalState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
-  if (action.type === _globalActionType__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_MEDIA) {
+  if (action.type === 'ADD_MEDIA') {
     return _objectSpread({}, state, {
       id: state.media.id,
       name: state.media.name,
       link: state.media.link
     });
+  }
+
+  if (action.type == 'EDIT_MEDIA') {
+    console.log(action);
   }
 
   return state;

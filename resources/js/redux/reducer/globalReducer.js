@@ -1,23 +1,25 @@
-import ActionType from './globalActionType';
-
 // global state for default null
 const globalState = {
     media: [
-        {id: Math.random(), name: 'Instagram', link: 'www.instagram.com'},
-        {id: Math.random(), name: 'Facebook', link: 'www.facebook.com'},
-        {id: Math.random(), name: 'github', link: 'www.github.com'}
+        {id: 1, name: 'Instagram', link: 'www.instagram.com'},
+        {id: 2, name: 'Facebook', link: 'www.facebook.com'},
+        {id: 3, name: 'github', link: 'www.github.com'}
     ]
 }
 
 
 const rootReducer = (state = globalState, action) => {    
-    if(action.type === ActionType.ADD_MEDIA){
+    if(action.type === 'ADD_MEDIA'){
         return {
             ...state,
             id: state.media.id,
             name: state.media.name,
             link: state.media.link,
         }
+    }
+
+    if(action.type == 'EDIT_MEDIA'){
+        console.log(action);
     }
     
     return state;

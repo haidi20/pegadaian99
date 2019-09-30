@@ -1,27 +1,26 @@
 import React, {Component} from 'react';
 import { Link } from "react-router-dom";
+import {connect} from 'react-redux';
 
 class MenuForm extends Component{
     constructor(props){
         super(props)
 
         this.state = {
-            id: Math.random(),
+            id: this.props.medias.length + 1,
             name: '',
             link: '',
         }
     }   
 
     componentDidMount(){
-        if(this.props.location.data){
-            this.setState({
-                id:this.props.location.data.id,
-                name:this.props.location.data.name,
-                link:this.props.location.data.link
-            });
+        const id = Number(this.props.match.params.id);
+
+        if(id){
+            const media = this.props.medias.find(media => id === media.id);
+            
+            this.setState({...media});
         }
-        
-        // console.log(this.props);
     }
 
     render(){
@@ -76,47 +75,22 @@ class MenuForm extends Component{
                                                 </div>
                                             </div>
                                         </form>
-                                        {/* {!! Form::open(['class' => 'form-horizontal']) !!}
-                                            <div className="form-group {{ ($errors->first('name')) ? 'has-error' : '' }}">
-                                                {!! Form::label('name', 'Nama', ['class' => 'col-sm-2 control-label']) !!}
-                                                <div className="col-sm-10">
-                                                    <select className="form-control" name="name">
-                                                        <option value=""></option>
-                                                        @foreach($social_media as $item)
-                                                        <option value="{{ $item }}" @if(old('name') == $item) selected="selected" @endif>{{ $item }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div className="form-group {{ ($errors->first('link')) ? 'has-error' : '' }}">
-                                                {!! Form::label('link', 'Alamat Link', ['class' => 'col-sm-2 control-label']) !!}
-                                                <div className="col-sm-10">
-                                                    {!! Form::text('link', old('link'), ['class' => 'form-control', 'placeholder' => 'Masukan Alamat Link']) !!}
-                                                </div>
-                                            </div>
-                                            <div className="panel-footer">
-                                                <div className="row">
-                                                    <div className="col-sm-10 col-sm-offset-2">
-                                                        <a href="{{ url($moduleUrl) }}" className="btn-default btn">
-                                                            @fa('reply') Back
-                                                        </a>
-                                                        <button className="btn-primary btn" type="submit">@fa('save') Save</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {!! Form::close() !!} */}
                                     </div>
                                 </div>
 
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         )
     }
 }
 
-export default MenuForm;
+const mapStateToProps = state => {
+    return {
+      medias : state.media
+    }
+}
+
+export default connect(mapStateToProps)(MenuForm);

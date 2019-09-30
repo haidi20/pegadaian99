@@ -12,7 +12,7 @@ const coba = (link, data) =>{
 class Menu extends Component{
     render(){
         const {media} = this.props;
-        
+
         return(
             <div className="static-content">
                 <div className="page-content">
@@ -55,7 +55,7 @@ class Menu extends Component{
                                                                 <td>{item.name}</td>
                                                                 <td>{item.link}</td>
                                                                 <td className="text-center">
-                                                                    <Link to={coba(`/media/edit/${item.id}`, item)} className="btn btn-success btn-xs btn-label">
+                                                                    <Link to={`/media/edit/${item.id}`} className="btn btn-success btn-xs btn-label">
                                                                         <i className="fa fa-pencil"></i> Edit
                                                                     </Link>
                                                                     &nbsp;
