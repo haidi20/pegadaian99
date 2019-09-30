@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from "react-router-dom";
+import {connect} from 'react-redux'
 
 const coba = (link, data) =>{
     return({
@@ -9,20 +10,9 @@ const coba = (link, data) =>{
 }
 
 class Menu extends Component{
-    constructor(){
-        super();
-
-        this.state = {
-            media: [
-                {id: 1, name: 'Instagram', link: 'www.instagram.com'},
-                {id: 2, name: 'Facebook', link: 'www.facebook.com'},
-                {id: 3, name: 'github', link: 'www.github.com'}
-            ]
-        }
-    }
-
     render(){
-        const {media} = this.state;
+        const {media} = this.props;
+        
         return(
             <div className="static-content">
                 <div className="page-content">
@@ -94,4 +84,10 @@ class Menu extends Component{
     }
 }
 
-export default Menu;
+const mapStateToProps = state => {
+    return {
+      media : state.media
+    }
+}
+
+export default connect(mapStateToProps)(Menu);

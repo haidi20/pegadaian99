@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Route, Link } from "react-router-dom";
 
-import Avatar from '../../../../../public/avenger/assets/demo/avatar/administrator.png';
+import Avatar from '../../../../public/avenger/assets/demo/avatar/administrator.png';
 
 const ListItemLink = ({ to, activeOnlyWhenExact, children }) => {
     return (
@@ -23,7 +23,7 @@ class SideBar extends Component{
 
         this.state = {
             menus: [
-                {name: 'Menu', icon: 'fa fa-home', link: ['/', '/menu/form'], active: 'menu'},
+                {name: 'Menu', icon: 'fa fa-home', link: ['/', '/media*'], active: 'menu'},
                 {name: 'Post', icon: 'fa fa-pinterest', link: '/post', active: 'post'},
             ],
             active: 'post'

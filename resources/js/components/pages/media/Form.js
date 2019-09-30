@@ -6,19 +6,22 @@ class MenuForm extends Component{
         super(props)
 
         this.state = {
-            id: this.props.match.params.id,
-            data: this.props.location.data
+            id: Math.random(),
+            name: '',
+            link: '',
         }
     }   
 
     componentDidMount(){
-        const id = this.state.id;
-        if(id){
-            console.log(id);
-            console.log(this.props);
-        }else{
-            console.log('id kosong');
+        if(this.props.location.data){
+            this.setState({
+                id:this.props.location.data.id,
+                name:this.props.location.data.name,
+                link:this.props.location.data.link
+            });
         }
+        
+        // console.log(this.props);
     }
 
     render(){
@@ -50,13 +53,13 @@ class MenuForm extends Component{
                                             <div className="form-group row">
                                                 <label className="col-sm-2 col-form-label" htmlFor="nama">Nama</label>
                                                 <div className="col-sm-10">
-                                                    <input defaultValue={this.state.data.name} type="text" className="form-control" name="nama" id="nama" required />
+                                                    <input defaultValue={this.state.name} type="text" className="form-control" name="nama" id="nama" required />
                                                 </div>
                                             </div>
                                             <div className="form-group row">
                                                 <label className="col-sm-2 col-form-label" htmlFor="link">Alamat Link</label>
                                                 <div className="col-sm-10">
-                                                    <input defaultValue={this.state.data.link} type="text" className="form-control" name="link" id="link" required />
+                                                    <input defaultValue={this.state.link} type="text" className="form-control" name="link" id="link" required />
                                                 </div>
                                             </div>
                                             <div className="panel-footer">
