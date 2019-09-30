@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from "react-router-dom";
 
 class Menu extends Component{
     render(){
@@ -12,9 +13,11 @@ class Menu extends Component{
                         <h1>Menu</h1>
                         <div className="options">
                             <div className="btn-toolbar">
-                                <a href="#" className="btn btn-primary">
+                                {/* <a href="#" className="btn btn-primary"> */}
+                                <Link to="/menu/form" className="btn btn-primary">
                                     <i className="fa fa-plus"></i> Add Menu
-                                </a>
+                                </Link>
+                                {/* </a> */}
                             </div>
                         </div>
                     </div>

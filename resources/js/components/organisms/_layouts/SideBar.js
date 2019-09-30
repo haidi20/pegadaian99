@@ -10,7 +10,7 @@ const ListItemLink = ({ to, activeOnlyWhenExact, children }) => {
         exact={activeOnlyWhenExact}
         children={({ match }) => (
           <li className={match ? 'active' : ''}>
-            <Link to={to}>{children}</Link>
+            <Link to={Array.isArray(to) ? to[0] : to}>{children}</Link>
           </li>
         )}
       />
@@ -23,7 +23,7 @@ class SideBar extends Component{
 
         this.state = {
             menus: [
-                {name: 'Menu', icon: 'fa fa-home', link: '/', active: 'menu'},
+                {name: 'Menu', icon: 'fa fa-home', link: ['/', '/menu/form'], active: 'menu'},
                 {name: 'Post', icon: 'fa fa-pinterest', link: '/post', active: 'post'},
             ],
             active: 'post'
@@ -62,20 +62,13 @@ class SideBar extends Component{
                                     {
                                         menus.map((item, index) => {
                                             return(
-                                                <ListItemLink activeOnlyWhenExact={true} to={item.link}>
-                                                    <i className={item.icon}></i>
+                                                <ListItemLink activeOnlyWhenExact={true} to={item.link} key={index}>
+                                                    <i className={item.icon} key={index}></i>
                                                     <span>{item.name}</span>
                                                 </ListItemLink>
                                             )
                                         })
                                     }
-
-                                    {/* <li className={this.state.active === 'menu' ? 'active' : ''}>
-                                        <a href="#">@fa('home')<span>Dashboard</span></a>
-                                    </li>
-                                    <li className={this.state.active === 'post' ? 'active' : ''}>
-                                        <a href="#">@fa('inbox')<span>Inbox</span></a>
-                                    </li> */}
                                 </ul>
                             </nav>
                         </div>
