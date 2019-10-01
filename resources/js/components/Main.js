@@ -28,7 +28,7 @@ export default class Main extends Component {
             <div>
                 <Provider store={storeRedux}>
                     <Router>
-                        <Header />
+                        <Header/>
                         <div id="wrapper">
                             <div id="layout-static">
                                 <SideBar />
@@ -48,5 +48,15 @@ export default class Main extends Component {
         );
     }
 }
+
+// export default class Main extends Component {
+//     render() {
+//         return (
+//             <div>
+//                 <h3>coba</h3>
+//             </div>
+//         );
+//     }
+// }
 
 ReactDOM.render(<Main />, document.getElementById('app'));

@@ -23,7 +23,7 @@ class SideBar extends Component{
 
         this.state = {
             menus: [
-                {name: 'Menu', icon: 'fa fa-home', link: ['/', '/media*'], active: 'menu'},
+                {name: 'Media', icon: 'fa fa-codepen', link: ['/', '/media*'], active: 'media'},
                 {name: 'Post', icon: 'fa fa-pinterest', link: '/post', active: 'post'},
             ],
             active: 'post'

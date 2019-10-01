@@ -1,5 +1,4 @@
 const mix = require('laravel-mix');
-var LiveReloadPlugin = require('webpack-livereload-plugin');
 
 /*
  |--------------------------------------------------------------------------
@@ -14,12 +13,4 @@ var LiveReloadPlugin = require('webpack-livereload-plugin');
 
 mix.react('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
-   .browserSync({
-      proxy: 'e-pegadaian.test',
-      files: [`C:/laragon/www/e-pegadaian/*.*`]
-   });
-//    .webpackConfig({
-//       plugins: [
-//           new LiveReloadPlugin()
-//       ]
-//   });
+   .browserSync('e-pegadaian.test');
