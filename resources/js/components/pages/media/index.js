@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 
 class Media extends Component{
     componentDidMount(){
-        console.log(this.props);
+        // console.log(this.props);
     }
     render(){
         const {data} = this.props;

@@ -9,20 +9,27 @@ const globalState = {
 
 
 const mediaReducer = (state = globalState, action) => {    
-    if(action.type === 'ADD_DATA'){
-        return {
-            ...state,
-            id: state.data.id,
-            name: state.data.name,
-            link: state.data.link,
-        }
-    }
-
-    if(action.type == 'EDIT_DATA'){
-        console.log(action);
-    }
+    switch(action.type){
+        case "UPDATE_MEDIA" :
+            console.log('state = ', state);
+            console.log('action = ', action);
     
-    return state;
+            return {
+                ...state,
+                data: state.data.map(media => {
+                  if (media.id !== action.data.id) {
+                    return media
+                  } else {
+                    return { 
+                        ...media, 
+                        name: action.data.name 
+                    };
+                  }
+                })
+            };
+        default:
+            return state;
+    }
 }
 
 export default mediaReducer;
