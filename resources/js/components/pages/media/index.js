@@ -2,16 +2,12 @@ import React, {Component} from 'react';
 import { Link } from "react-router-dom";
 import {connect} from 'react-redux'
 
-const coba = (link, data) =>{
-    return({
-        pathname: link, 
-        data: data
-    })
-}
-
-class Menu extends Component{
+class Media extends Component{
+    componentDidMount(){
+        console.log(this.props);
+    }
     render(){
-        const {media} = this.props;
+        const {data} = this.props;
 
         return(
             <div className="static-content">
@@ -48,7 +44,7 @@ class Menu extends Component{
                                             </thead>
                                             <tbody>
                                                 {
-                                                    media.map((item, index) => {
+                                                    data.map((item, index) => {
                                                         return(
                                                             <tr key={index}>
                                                                 <td>{index + 1}</td>
@@ -86,8 +82,8 @@ class Menu extends Component{
 
 const mapStateToProps = state => {
     return {
-      media : state.media
+      data : state.medias.data
     }
 }
 
-export default connect(mapStateToProps)(Menu);
+export default connect(mapStateToProps)(Media);

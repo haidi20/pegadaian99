@@ -1,6 +1,6 @@
 // global state for default null
 const globalState = {
-    media: [
+    data: [
         {id: 1, name: 'Instagram', link: 'www.instagram.com'},
         {id: 2, name: 'Facebook', link: 'www.facebook.com'},
         {id: 3, name: 'github', link: 'www.github.com'}
@@ -8,21 +8,21 @@ const globalState = {
 }
 
 
-const rootReducer = (state = globalState, action) => {    
-    if(action.type === 'ADD_MEDIA'){
+const mediaReducer = (state = globalState, action) => {    
+    if(action.type === 'ADD_DATA'){
         return {
             ...state,
-            id: state.media.id,
-            name: state.media.name,
-            link: state.media.link,
+            id: state.data.id,
+            name: state.data.name,
+            link: state.data.link,
         }
     }
 
-    if(action.type == 'EDIT_MEDIA'){
+    if(action.type == 'EDIT_DATA'){
         console.log(action);
     }
     
     return state;
 }
 
-export default rootReducer;
+export default mediaReducer;

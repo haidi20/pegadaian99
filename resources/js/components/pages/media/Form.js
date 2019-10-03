@@ -8,7 +8,7 @@ class MenuForm extends Component{
 
         this.state = {
             data: {
-                id: this.props.medias.length + 1,
+                id: this.props.data.length + 1,
                 name: '',
                 link: '',
             },
@@ -16,15 +16,16 @@ class MenuForm extends Component{
         }
     }
 
-    save(data){
-        console.log(data);
+    async save(data){
+        console.log('data', data);
     }
 
     componentDidMount(){
         const id = Number(this.props.match.params.id);
+        console.log(this.props);
 
         if(id){
-            const media = this.props.medias.find(media => id === media.id);
+            const media = this.props.data.find(media => id === media.id);
             
             this.setState(
                 {
@@ -66,13 +67,13 @@ class MenuForm extends Component{
                                             <div className="form-group row">
                                                 <label className="col-sm-2 col-form-label" htmlFor="nama">Nama</label>
                                                 <div className="col-sm-10">
-                                                    <input defaultValue={this.state.data.name} onChange={this.state.data.name} type="text" className="form-control" name="nama" id="nama" required />
+                                                    <input defaultValue={this.state.data.name} type="text" className="form-control" name="nama" id="nama" required />
                                                 </div>
                                             </div>
                                             <div className="form-group row">
                                                 <label className="col-sm-2 col-form-label" htmlFor="link">Alamat Link</label>
                                                 <div className="col-sm-10">
-                                                    <input defaultValue={this.state.data.link} onChange={this.state.data.link} type="text" className="form-control" name="link" id="link" required />
+                                                    <input defaultValue={this.state.data.link} type="text" className="form-control" name="link" id="link" required />
                                                 </div>
                                             </div>
                                             <div className="panel-footer">
@@ -82,7 +83,7 @@ class MenuForm extends Component{
                                                         <i className="fa fa-reply"></i> Back
                                                         </Link>
                                                         &nbsp;
-                                                        <a className="btn-primary btn" onClick={this.save(this.state.data)}>
+                                                        <a className="btn-primary btn" onClick={ () => this.save(this.state.data)}>
                                                             <i className="fa fa-save"></i> Save
                                                         </a>
                                                     </div>
@@ -103,7 +104,7 @@ class MenuForm extends Component{
 
 const mapStateToProps = state => {
     return {
-      medias : state.media
+      data : state.medias.data
     }
 }
 
