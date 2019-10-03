@@ -12,7 +12,7 @@ class MenuForm extends Component{
                 name: '',
                 link: '',
             },
-            titleForm: ''
+            typeForm: ''
         }
 
         this.save           = this.save.bind(this);
@@ -22,10 +22,17 @@ class MenuForm extends Component{
     save(){
         const {data} = this.state;
 
-        const insert = this.props.dispatch({
-            type: 'UPDATE_MEDIA',
-            data,
-        });
+        if(this.state.typeForm === 'Edit'){
+            const insert = this.props.dispatch({
+                type: 'UPDATE_MEDIA',
+                data,
+            });
+        }else if(this.state.typeForm === 'Add'){
+            const insert = this.props.dispatch({
+                type: 'STORE_MEDIA',
+                data,
+            });
+        }
 
         console.log(this.props.data);
 

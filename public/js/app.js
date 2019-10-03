@@ -39159,7 +39159,7 @@ function (_Component) {
         name: '',
         link: ''
       },
-      titleForm: ''
+      typeForm: ''
     };
     _this.save = _this.save.bind(_assertThisInitialized(_this));
     _this.changeValue = _this.changeValue.bind(_assertThisInitialized(_this));
@@ -39170,10 +39170,19 @@ function (_Component) {
     key: "save",
     value: function save() {
       var data = this.state.data;
-      var insert = this.props.dispatch({
-        type: 'UPDATE_MEDIA',
-        data: data
-      });
+
+      if (this.state.typeForm === 'Edit') {
+        var insert = this.props.dispatch({
+          type: 'UPDATE_MEDIA',
+          data: data
+        });
+      } else if (this.state.typeForm === 'Add') {
+        var _insert = this.props.dispatch({
+          type: 'STORE_MEDIA',
+          data: data
+        });
+      }
+
       console.log(this.props.data); // if(insert) {
       // this.props.history.push('/');
       // console.log(this.props.data);
@@ -39512,6 +39521,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -39519,7 +39536,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 // global state for default null
-var globalState = {
+var initialState = {
   data: [{
     id: 1,
     name: 'Instagram',
@@ -39536,23 +39553,28 @@ var globalState = {
 };
 
 var mediaReducer = function mediaReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : globalState;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case "UPDATE_MEDIA":
-      console.log('state = ', state);
-      console.log('action = ', action);
+    case "STORE_MEDIA":
       return _objectSpread({}, state, {
-        data: state.data.map(function (media) {
-          if (media.id !== action.data.id) {
-            return media;
-          } else {
-            return _objectSpread({}, media, {
-              name: action.data.name
-            });
-          }
-        })
+        data: [].concat(_toConsumableArray(state.data), [action.data])
+      });
+
+    case "UPDATE_MEDIA":
+      var newData = state.data.map(function (media) {
+        if (media.id !== action.data.id) {
+          return media;
+        } else {
+          return _objectSpread({}, media, {
+            name: action.data.name,
+            link: action.data.link
+          });
+        }
+      });
+      return _objectSpread({}, state, {
+        data: newData
       });
 
     default:
