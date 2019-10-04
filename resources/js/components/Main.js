@@ -35,10 +35,10 @@ export default class Main extends Component {
 
                                 <div className="static-content-wrapper">
                                     {/* <Menu/> */}
-                                    <Route path="/" exact component={Media} />
+                                    <Route path="/media" exact component={Media} />
                                     <Route path="/media/create" exact component={MediaForm} />
                                     <Route path="/media/edit/:id" exact component={MediaForm} />
-                                    <Route path="/post" exact component={Post} />
+                                    <Route path="/" exact component={Post} />
                                 </div>
                             </div>
                         </div>

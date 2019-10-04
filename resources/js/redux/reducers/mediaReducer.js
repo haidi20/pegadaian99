@@ -28,6 +28,11 @@ const mediaReducer = (state = initialState, action) => {
         case "REMOVE_MEDIA" :
                 return state.filter(media => media.id !== action.id )
 
+                // return {
+                //     ...state,
+                //     detail: state.detail.filter(media => media.id !== action.id )
+                // }
+
         default:
             return state
     }
