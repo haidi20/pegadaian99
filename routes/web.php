@@ -15,4 +15,4 @@ Route::get('/', function () {
     return view('web');
 });
 
-Route::post('/store', 'PostController@store');
+Route::post('/post/store', 'PostController@store');

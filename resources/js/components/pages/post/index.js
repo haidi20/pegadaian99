@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import { Link } from "react-router-dom";
 import {connect} from 'react-redux';
+import axios from 'axios';
 
 class PostForm extends Component{
     constructor(props){
         super(props)
 
         this.state = {
-            image: ''
+            image: null
         }
 
         this.save           = this.save.bind(this);
@@ -15,11 +16,34 @@ class PostForm extends Component{
     }
 
     save(){
-        
+        // console.log(this.state.image);
+        const image = this.state.image;
+        let formData = new FormData();
+
+        formData.append('image', image);
+        formData.append('name', 'nata');
+
+        axios({
+            url: '/post/store',
+            method: 'POST',
+            data: formData
+        }).then((res) => {
+            console.log(res)
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
     changeValue (event) {        
-        
+        // console.log(event.target.files, 'file');
+        // console.log(event.target.files[0], 'file dengan array');
+
+        const file = event.target.files[0];
+
+        this.setState({
+            image: file
+        })
+
     }
 
     componentDidMount(){
@@ -53,7 +77,7 @@ class PostForm extends Component{
                                     <div className="panel-body">
                                         <form className="form-horizontal">
                                             <div className="form-group row">
-                                                <label className="col-sm-2 col-form-label" htmlFor="image">Image</label>
+                                                <label className="col-sm-2 col-form-label">Image</label>
                                                 <div className="col-sm-10">
                                                     <input type="file" defaultValue={this.state.image} onChange={this.changeValue} name="image" id="image" />
                                                 </div>
