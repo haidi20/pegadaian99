@@ -6,9 +6,11 @@ class MenuForm extends Component{
     constructor(props){
         super(props)
 
+        const sourceData = this.props.data;
+
         this.state = {
             data: {
-                id: 4,
+                id: sourceData.length ? sourceData.length + 1 : 1,
                 name: '',
                 link: '',
             },
@@ -34,8 +36,6 @@ class MenuForm extends Component{
             });
         }
 
-        console.log(this.props.data);
-
         // if(insert) {
             // this.props.history.push('/');
             // console.log(this.props.data);
@@ -50,8 +50,6 @@ class MenuForm extends Component{
         this.setState({
             data: newData
         })
-
-        console.log(this.state.data);
     }
 
     componentDidMount(){
@@ -137,7 +135,7 @@ class MenuForm extends Component{
 
 const mapStateToProps = state => {
     return {
-      data : state.medias.data
+      data : state.mediaReducer
     }
 }
 

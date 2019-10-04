@@ -39153,9 +39153,10 @@ function (_Component) {
     _classCallCheck(this, MenuForm);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(MenuForm).call(this, props));
+    var sourceData = _this.props.data;
     _this.state = {
       data: {
-        id: 4,
+        id: sourceData.length ? sourceData.length + 1 : 1,
         name: '',
         link: ''
       },
@@ -39181,12 +39182,11 @@ function (_Component) {
           type: 'STORE_MEDIA',
           data: data
         });
-      }
-
-      console.log(this.props.data); // if(insert) {
+      } // if(insert) {
       // this.props.history.push('/');
       // console.log(this.props.data);
       // }
+
     }
   }, {
     key: "changeValue",
@@ -39197,7 +39197,6 @@ function (_Component) {
       this.setState({
         data: newData
       });
-      console.log(this.state.data);
     }
   }, {
     key: "componentDidMount",
@@ -39305,11 +39304,59 @@ function (_Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    data: state.medias.data
+    data: state.mediaReducer
   };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps)(MenuForm));
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/media/Rows.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/pages/media/Rows.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+
+function Rows(props) {
+  if (!props.data.length) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+      colSpan: "4",
+      align: "center"
+    }, "null"));
+  } else {
+    return props.data.map(function (item) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+        key: item.id
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.link), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        className: "text-center"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/media/edit/".concat(item.id),
+        className: "btn btn-success btn-xs btn-label"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fa fa-pencil"
+      }), " Edit"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        onClick: function onClick(id) {
+          return props.removeMedia(item.id);
+        },
+        className: "btn btn-danger btn-xs btn-label"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fa fa-trash-o"
+      }), " Delete")));
+    });
+  }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Rows);
 
 /***/ }),
 
@@ -39326,6 +39373,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _Rows__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Rows */ "./resources/js/components/pages/media/Rows.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -39336,13 +39384,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -39353,20 +39402,35 @@ var Media =
 function (_Component) {
   _inherits(Media, _Component);
 
-  function Media() {
+  function Media(props) {
+    var _this;
+
     _classCallCheck(this, Media);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Media).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Media).call(this, props));
+    _this.removeMedia = _this.removeMedia.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(Media, [{
+    key: "removeMedia",
+    value: function removeMedia(id) {
+      // console.log(id);
+      var insert = this.props.dispatch({
+        type: 'REMOVE_MEDIA',
+        id: id
+      });
+    }
+  }, {
     key: "componentDidMount",
-    value: function componentDidMount() {// console.log(this.props);
+    value: function componentDidMount() {
+      console.log(this.props);
     }
   }, {
     key: "render",
     value: function render() {
-      var data = this.props.data;
+      var _this2 = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "static-content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -39402,22 +39466,11 @@ function (_Component) {
       }, "Nama"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "link"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
         className: "text-center",
         width: "140"
-      }, "Actions"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, data.map(function (item, index) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
-          key: index
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, index + 1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.link), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-          className: "text-center"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-          to: "/media/edit/".concat(item.id),
-          className: "btn btn-success btn-xs btn-label"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          className: "fa fa-pencil"
-        }), " Edit"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-          href: "#",
-          className: "btn btn-danger btn-xs btn-label"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          className: "fa fa-trash-o"
-        }), " Delete")));
+      }, "Actions"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Rows__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        data: this.props.data,
+        removeMedia: function removeMedia(id) {
+          return _this2.removeMedia(id);
+        }
       }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "text-right"
       }))))));
@@ -39429,7 +39482,7 @@ function (_Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    data: state.medias.data
+    data: state.mediaReducer
   };
 };
 
@@ -39507,7 +39560,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  medias: _mediaReducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+  mediaReducer: _mediaReducer__WEBPACK_IMPORTED_MODULE_1__["default"]
 }));
 
 /***/ }),
@@ -39521,14 +39574,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -39536,21 +39581,19 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 // global state for default null
-var initialState = {
-  data: [{
-    id: 1,
-    name: 'Instagram',
-    link: 'www.instagram.com'
-  }, {
-    id: 2,
-    name: 'Facebook',
-    link: 'www.facebook.com'
-  }, {
-    id: 3,
-    name: 'github',
-    link: 'www.github.com'
-  }]
-};
+var initialState = [{
+  id: 1,
+  name: 'Instagram',
+  link: 'www.instagram.com'
+}, {
+  id: 2,
+  name: 'Facebook',
+  link: 'www.facebook.com'
+}, {
+  id: 3,
+  name: 'github',
+  link: 'www.github.com'
+}];
 
 var mediaReducer = function mediaReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -39558,12 +39601,10 @@ var mediaReducer = function mediaReducer() {
 
   switch (action.type) {
     case "STORE_MEDIA":
-      return _objectSpread({}, state, {
-        data: [].concat(_toConsumableArray(state.data), [action.data])
-      });
+      return state.concat([action.data]);
 
     case "UPDATE_MEDIA":
-      var newData = state.data.map(function (media) {
+      var newData = state.map(function (media) {
         if (media.id !== action.data.id) {
           return media;
         } else {
@@ -39573,8 +39614,11 @@ var mediaReducer = function mediaReducer() {
           });
         }
       });
-      return _objectSpread({}, state, {
-        data: newData
+      return newData;
+
+    case "REMOVE_MEDIA":
+      return state.filter(function (media) {
+        return media.id !== action.id;
       });
 
     default:

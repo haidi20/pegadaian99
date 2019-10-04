@@ -2,13 +2,27 @@ import React, {Component} from 'react';
 import { Link } from "react-router-dom";
 import {connect} from 'react-redux'
 
+import Rows from './Rows';
+
 class Media extends Component{
+    constructor(props){
+        super(props);
+
+        this.removeMedia = this.removeMedia.bind(this);
+    }
+
+    removeMedia(id){
+        // console.log(id);
+        const insert = this.props.dispatch({
+            type: 'REMOVE_MEDIA',
+            id,
+        });
+    }
+
     componentDidMount(){
-        // console.log(this.props);
+        console.log(this.props);
     }
     render(){
-        const {data} = this.props;
-
         return(
             <div className="static-content">
                 <div className="page-content">
@@ -43,26 +57,10 @@ class Media extends Component{
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {
-                                                    data.map((item, index) => {
-                                                        return(
-                                                            <tr key={index}>
-                                                                <td>{index + 1}</td>
-                                                                <td>{item.name}</td>
-                                                                <td>{item.link}</td>
-                                                                <td className="text-center">
-                                                                    <Link to={`/media/edit/${item.id}`} className="btn btn-success btn-xs btn-label">
-                                                                        <i className="fa fa-pencil"></i> Edit
-                                                                    </Link>
-                                                                    &nbsp;
-                                                                    <a href="#" className="btn btn-danger btn-xs btn-label">
-                                                                        <i className="fa fa-trash-o"></i> Delete
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-                                                        )
-                                                    })
-                                                }
+                                                <Rows 
+                                                    data={this.props.data} 
+                                                    removeMedia={(id) => this.removeMedia(id)}
+                                                />
                                             </tbody>
                                         </table>
                                     </div>
@@ -82,7 +80,7 @@ class Media extends Component{
 
 const mapStateToProps = state => {
     return {
-      data : state.medias.data
+      data : state.mediaReducer
     }
 }
 
