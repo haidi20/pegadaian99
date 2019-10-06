@@ -3,17 +3,25 @@ import { Link } from "react-router-dom";
 import {connect} from 'react-redux';
 import axios from 'axios';
 
+import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
+import { Editor} from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
 class PostForm extends Component{
     constructor(props){
         super(props)
 
         this.state = {
             image: null,
-            showImage: null
+            showImage: null,
+            editorState: EditorState.createEmpty(),
         }
 
         this.save           = this.save.bind(this);
         this.changeValue    = this.changeValue.bind(this);
+        this.onEditorStateChange = this.onEditorStateChange.bind(this);
+
     }
 
     save(){
@@ -52,11 +60,22 @@ class PostForm extends Component{
 
     }
 
+    onEditorStateChange(editorState) {
+        // console.log(editorState)
+        this.setState({
+          editorState,
+        });
+
+        const editorHTML = draftToHtml(convertToRaw(editorState.getCurrentContent()))
+        console.log(editorHTML);
+    };
+
     componentDidMount(){
 
     }
 
     render(){
+        const { editorState } = this.state;
         return(
             <div className="static-content">
                 <div className="page-content">
@@ -86,6 +105,20 @@ class PostForm extends Component{
                                                 <div className="col-sm-10">
                                                     <input type="file" defaultValue={this.state.image} onChange={this.changeValue} name="image" id="image" />
                                                 </div>
+                                            </div>
+                                            <div className="form-group row">
+                                            <Editor
+                                                editorState={editorState}
+                                                onEditorStateChange={this.onEditorStateChange}    
+                                                toolbar={{
+                                                inline: { inDropdown: true },
+                                                list: { inDropdown: true },
+                                                textAlign: { inDropdown: true },
+                                                link: { inDropdown: true },
+                                                history: { inDropdown: true },
+                                                // image: { uploadCallback: uploadImageCallBack, alt: { present: true, mandatory: true } },
+                                                }}
+                                            />
                                             </div>
                                             <div className="panel-footer">
                                                 <div className="row">

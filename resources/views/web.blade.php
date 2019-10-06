@@ -22,6 +22,7 @@
     <div id="app"></div>
 
     @include('_layouts.script-bottom')
+    <script src="https://cdn.tiny.cloud/1/6tf0yfd67hcj5lfbaaypzrphtmsnll2fu91xh9ufe7gekrw2/tinymce/5/tinymce.min.js"></script>
 </body>
 
 {{-- <body class="infobar-offcanvas">
