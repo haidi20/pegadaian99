@@ -41500,7 +41500,8 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(PostForm).call(this, props));
     _this.state = {
-      image: null
+      image: null,
+      showImage: null
     };
     _this.save = _this.save.bind(_assertThisInitialized(_this));
     _this.changeValue = _this.changeValue.bind(_assertThisInitialized(_this));
@@ -41510,17 +41511,23 @@ function (_Component) {
   _createClass(PostForm, [{
     key: "save",
     value: function save() {
+      var _this2 = this;
+
       // console.log(this.state.image);
       var image = this.state.image;
       var formData = new FormData();
       formData.append('image', image);
       formData.append('name', 'nata');
       axios__WEBPACK_IMPORTED_MODULE_3___default()({
-        url: '/post/store',
+        url: '/api/post/store',
         method: 'POST',
         data: formData
       }).then(function (res) {
-        console.log(res);
+        // console.log(res)
+        _this2.setState({
+          showImage: res.data.data
+        }); // console.log(this.state.showImage);
+
       })["catch"](function (err) {
         console.log(err);
       });
@@ -41598,7 +41605,19 @@ function (_Component) {
         onClick: this.save
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fa fa-save"
-      }), " Save"))))))))))));
+      }), " Save")))))))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container-fluid"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-12"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "panel panel-default"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "panel-body"
+      }, this.state.showImage ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: this.state.showImage
+      }) : null)))))));
     }
   }]);
 
@@ -41719,8 +41738,8 @@ var mediaReducer = function mediaReducer() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\e-pegadaian\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\e-pegadaian\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\laragon\www\pegadaian99\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\laragon\www\pegadaian99\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

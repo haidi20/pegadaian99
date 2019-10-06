@@ -8,7 +8,8 @@ class PostForm extends Component{
         super(props)
 
         this.state = {
-            image: null
+            image: null,
+            showImage: null
         }
 
         this.save           = this.save.bind(this);
@@ -24,11 +25,16 @@ class PostForm extends Component{
         formData.append('name', 'nata');
 
         axios({
-            url: '/post/store',
+            url: '/api/post/store',
             method: 'POST',
             data: formData
         }).then((res) => {
-            console.log(res)
+            // console.log(res)
+            this.setState({
+                showImage: res.data.data
+            })
+
+            // console.log(this.state.showImage);
         }).catch(err => {
             console.log(err);
         })
@@ -69,7 +75,6 @@ class PostForm extends Component{
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-md-12">
-                                
                                 <div className="panel panel-default">
                                     <div className="panel-heading">
                                         <h2>Form Post</h2>
@@ -86,7 +91,7 @@ class PostForm extends Component{
                                                 <div className="row">
                                                     <div className="col-sm-10 col-sm-offset-2">
                                                         <Link to='/' className="btn-default btn">
-                                                        <i className="fa fa-reply"></i> Back
+                                                            <i className="fa fa-reply"></i> Back
                                                         </Link>
                                                         &nbsp;
                                                         <a className="btn-primary btn" onClick={this.save}>
@@ -99,6 +104,20 @@ class PostForm extends Component{
                                     </div>
                                 </div>
 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <div className="panel panel-default">
+                                    <div className="panel-body">
+                                       {
+                                           this.state.showImage ? <img src={this.state.showImage} /> : null
+                                       }
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
