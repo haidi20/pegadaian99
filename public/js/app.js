@@ -70739,26 +70739,26 @@ function (_Component) {
   _createClass(PostForm, [{
     key: "save",
     value: function save() {
-      var _this2 = this;
-
       // console.log(this.state.image);
       var image = this.state.image;
       var formData = new FormData();
       formData.append('image', image);
       formData.append('name', 'nata');
-      axios__WEBPACK_IMPORTED_MODULE_3___default()({
-        url: '/api/post/store',
-        method: 'POST',
-        data: formData
-      }).then(function (res) {
-        // console.log(res)
-        _this2.setState({
-          showImage: res.data.data
-        }); // console.log(this.state.showImage);
-
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      var post = this.state.editorState;
+      post = draftjs_to_html__WEBPACK_IMPORTED_MODULE_6___default()(Object(draft_js__WEBPACK_IMPORTED_MODULE_4__["convertToRaw"])(post.getCurrentContent()));
+      console.log(post); // axios({
+      //     url: '/api/post/store',
+      //     method: 'POST',
+      //     data: formData
+      // }).then((res) => {
+      //     // console.log(res)
+      //     this.setState({
+      //         showImage: res.data.data
+      //     })
+      //     // console.log(this.state.showImage);
+      // }).catch(err => {
+      //     console.log(err);
+      // })
     }
   }, {
     key: "changeValue",
@@ -70777,8 +70777,6 @@ function (_Component) {
       this.setState({
         editorState: editorState
       });
-      var editorHTML = draftjs_to_html__WEBPACK_IMPORTED_MODULE_6___default()(Object(draft_js__WEBPACK_IMPORTED_MODULE_4__["convertToRaw"])(editorState.getCurrentContent()));
-      console.log(editorHTML);
     }
   }, {
     key: "componentDidMount",
@@ -70829,28 +70827,13 @@ function (_Component) {
         name: "image",
         id: "image"
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "form-group row"
+        className: "form-group row",
+        style: style.post
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_draft_wysiwyg__WEBPACK_IMPORTED_MODULE_5__["Editor"], {
         editorState: editorState,
-        onEditorStateChange: this.onEditorStateChange,
-        toolbar: {
-          inline: {
-            inDropdown: true
-          },
-          list: {
-            inDropdown: true
-          },
-          textAlign: {
-            inDropdown: true
-          },
-          link: {
-            inDropdown: true
-          },
-          history: {
-            inDropdown: true
-          } // image: { uploadCallback: uploadImageCallBack, alt: { present: true, mandatory: true } },
-
-        }
+        wrapperClassName: "demo-wrapper",
+        editorClassName: "demo-editor",
+        onEditorStateChange: this.onEditorStateChange
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "panel-footer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -70885,6 +70868,14 @@ function (_Component) {
 
   return PostForm;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+var style = {
+  post: {
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: 'green'
+  }
+};
 
 var mapStateToProps = function mapStateToProps(state) {
   return {};

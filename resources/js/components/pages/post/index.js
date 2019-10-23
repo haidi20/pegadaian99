@@ -32,20 +32,25 @@ class PostForm extends Component{
         formData.append('image', image);
         formData.append('name', 'nata');
 
-        axios({
-            url: '/api/post/store',
-            method: 'POST',
-            data: formData
-        }).then((res) => {
-            // console.log(res)
-            this.setState({
-                showImage: res.data.data
-            })
+        var post = this.state.editorState;
+        post = draftToHtml(convertToRaw(post.getCurrentContent()))
 
-            // console.log(this.state.showImage);
-        }).catch(err => {
-            console.log(err);
-        })
+        console.log(post);
+
+        // axios({
+        //     url: '/api/post/store',
+        //     method: 'POST',
+        //     data: formData
+        // }).then((res) => {
+        //     // console.log(res)
+        //     this.setState({
+        //         showImage: res.data.data
+        //     })
+
+        //     // console.log(this.state.showImage);
+        // }).catch(err => {
+        //     console.log(err);
+        // })
     }
 
     changeValue (event) {        
@@ -62,12 +67,10 @@ class PostForm extends Component{
 
     onEditorStateChange(editorState) {
         // console.log(editorState)
+        
         this.setState({
           editorState,
         });
-
-        const editorHTML = draftToHtml(convertToRaw(editorState.getCurrentContent()))
-        console.log(editorHTML);
     };
 
     componentDidMount(){
@@ -98,7 +101,7 @@ class PostForm extends Component{
                                     <div className="panel-heading">
                                         <h2>Form Post</h2>
                                     </div>
-                                    <div className="panel-body">
+                                    <div className="panel-body" >
                                         <form className="form-horizontal">
                                             <div className="form-group row">
                                                 <label className="col-sm-2 col-form-label">Image</label>
@@ -106,19 +109,13 @@ class PostForm extends Component{
                                                     <input type="file" defaultValue={this.state.image} onChange={this.changeValue} name="image" id="image" />
                                                 </div>
                                             </div>
-                                            <div className="form-group row">
-                                            <Editor
-                                                editorState={editorState}
-                                                onEditorStateChange={this.onEditorStateChange}    
-                                                toolbar={{
-                                                inline: { inDropdown: true },
-                                                list: { inDropdown: true },
-                                                textAlign: { inDropdown: true },
-                                                link: { inDropdown: true },
-                                                history: { inDropdown: true },
-                                                // image: { uploadCallback: uploadImageCallBack, alt: { present: true, mandatory: true } },
-                                                }}
-                                            />
+                                            <div className="form-group row" style={style.post}>
+                                                <Editor
+                                                    editorState={editorState}
+                                                    wrapperClassName="demo-wrapper"
+                                                    editorClassName="demo-editor"
+                                                    onEditorStateChange={this.onEditorStateChange}
+                                                />
                                             </div>
                                             <div className="panel-footer">
                                                 <div className="row">
@@ -157,6 +154,14 @@ class PostForm extends Component{
                 </div>
             </div>
         )
+    }
+}
+
+const style = {
+    post: {
+        borderRadius: 4,
+        borderWidth: 0.5,
+        borderColor: 'green',
     }
 }
 

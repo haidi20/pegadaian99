@@ -27,7 +27,6 @@ class PostController extends Controller
                 'data' => $data
             ], 200);
         }else{
-
             return 'tidak ada file gambar';
         }
 
